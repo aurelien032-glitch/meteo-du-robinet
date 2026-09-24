@@ -1,1 +1,0 @@
-import{j as s,L as a}from"./index-VtSSHIMt.js";function c({items:r}){return s.jsxs("p",{className:"crumbs",children:[s.jsx(a,{to:"/",children:"France"}),r.map((n,e)=>s.jsxs("span",{children:[" › ",n.to&&e<r.length-1?s.jsx(a,{to:n.to,children:n.label}):s.jsx("span",{children:n.label})]},e))]})}export{c as C};
