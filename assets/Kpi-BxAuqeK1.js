@@ -1,1 +1,0 @@
-import{j as s}from"./index-DFE6JbpW.js";function r({value:e,label:i,sub:a}){return s.jsxs("div",{className:"card kpi",children:[s.jsx("div",{className:"value",children:e}),s.jsx("div",{className:"label",children:i}),a&&s.jsx("div",{className:"sub",children:a})]})}export{r as K};
