@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react'
 import type { Ton } from '../lib/situations'
 
 /**
- * Échelle par classes : pesticides et métaux avec les tons de leur bilan, sécheresse et nappes en gris (sans ton).
+ * Échelle par classes : pesticides et métaux avec les tons de leur bilan, sécheresse avec les tons de ses niveaux
+ * officiels (lib/vigieau.ts), nappes en gris (sans ton).
  * Les classes non conformes sont teintées ; la classe atteinte est pleine, dans son ton, ou à l'encre pour une
  * échelle grise. Échelle longue (plus de quatre classes) : extrémités dessous, classe atteinte lue au-dessus,
  * comme sur une réglette.

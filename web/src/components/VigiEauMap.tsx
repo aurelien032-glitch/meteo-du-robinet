@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FranceMap from './FranceMap'
 import { useDepartements } from '../lib/geo'
-import { neutre, noData } from '../lib/theme'
+import { couleursEtats, noData } from '../lib/theme'
+import { TONS_SECHERESSE } from '../lib/vigieau'
 
 /** Réponse de https://api.vigieau.gouv.fr/api/departements (extrait). */
 export interface VigiDept {
@@ -28,14 +29,13 @@ export const NIVEAUX: { key: string; label: string; ordre: number }[] = [
   { key: 'crise', label: 'Crise', ordre: 4 },
 ]
 /**
- * Couleur d'un niveau de sécheresse dans le thème courant : rampe neutre, du plus clair (pas de restriction) au
- * plus foncé (crise), la même que les autres cartes (règle « neutre partout », 24/09). Le jaune-rouge de VigiEau
- * faisait d'une restriction d'usage un signal d'alerte au milieu de cartes neutres, alors que la même information
- * est en paliers gris sur les fiches : une restriction sécheresse est un contexte, pas un jugement sur l'eau.
+ * Couleur d'un niveau de sécheresse dans le thème courant, la même sur la carte, sa légende, les listes et les
+ * graphiques : la palette de « Lire un bulletin » (lib/vigieau.ts, TONS_SECHERESSE) ; de deux degrés d'une même
+ * couleur, le plus grave ressort davantage (orange clair puis orange, rouge puis rouge fort).
  */
 export function couleurNiveau(key: string): string {
   const n = NIVEAUX.find((x) => x.key === key)
-  return n ? neutre(NIVEAUX.length)[n.ordre] : noData()
+  return n ? couleursEtats(TONS_SECHERESSE)[n.ordre] : noData()
 }
 
 // Mémorisé au niveau module : la carte et la page Sécheresse appellent chacune useVigiEau() sur le même

@@ -1,4 +1,4 @@
-import { ardoise, cleTheme, div, neutre, noData } from './theme'
+import { ardoise, cleTheme, couleursEtats, div, neutre, noData } from './theme'
 
 /**
  * Échelle de couleurs d'une carte : la fonction de coloriage et les paliers de la légende viennent
@@ -8,8 +8,9 @@ import { ardoise, cleTheme, div, neutre, noData } from './theme'
  * thème courant à chaque lecture, sans quoi une carte construite en thème clair resterait claire
  * après un passage en mode studio.
  *
- * Toutes les cartes sont neutres (règle « neutre partout » de l'auteur, 24/09) : rampe ardoise, ou rampe
- * divergente neutre pour les évolutions. Le vert, l'orange et le rouge ne jugent qu'un réseau, dans son bulletin.
+ * Couleurs des cartes (règle « juger et alerter en couleur » de l'auteur, 24/09) : les statistiques (parts,
+ * taux, dénombrements, indicateurs SISPEA) sur la rampe ardoise, les évolutions sur la divergente neutre ; ce qui
+ * juge ou alerte (situation d'une commune, avis de l'ARS, sécheresse) dans la palette de « Lire un bulletin ».
  */
 export interface Scale {
   /** Couleur d'une valeur ; null ou undefined → couleur « sans donnée ». */
@@ -191,8 +192,8 @@ export function niveauxScale(couleurs: () => string[]): Scale {
 }
 
 /**
- * Niveaux des avis de l'ARS (MapRow[14]) sur la rampe neutre, du plus clair (aucun avis) au plus foncé
- * (restriction) : sur une carte, un avis n'est pas un voyant ; la couleur du jugement reste à l'étiquette de
- * l'avis, dans le bulletin et le bandeau de la fiche.
+ * Niveaux des avis de l'ARS (MapRow[14]) dans la palette de « Lire un bulletin », comme leurs étiquettes
+ * (`toneAvis`) : aucun avis en gris, publics sensibles en orange, consigne d'ébullition en rouge, restriction de
+ * consommation en rouge fort (le plus grave des deux degrés du rouge).
  */
-export const avisScale = niveauxScale(() => neutre(4))
+export const avisScale = niveauxScale(() => couleursEtats([null, 'warn', 'bad', 'bad']))

@@ -7,7 +7,7 @@ import Crumbs from '../components/Crumbs'
 import FranceMap from '../components/FranceMap'
 import MapLegend from '../components/MapLegend'
 import Section from '../components/Section'
-import { resumeSansInformation } from '../lib/avis'
+import { resumeSansInformation, toneAvis } from '../lib/avis'
 import { NBSP } from '../lib/instruments'
 import { fmt } from '../lib/data'
 import { useDepartements } from '../lib/geo'
@@ -171,9 +171,9 @@ export default function Avis() {
       />
 
       <div className="grid cols-4">
-        <Kpi value={fmt.int(n('interdiction'))} label={`communes avec une restriction de consommation en ${yearLabel(meta, ys)}`} sub={`${fmt.int(a?.interdiction?.plv ?? 0)} prélèvements concernés`} />
-        <Kpi value={fmt.int(n('ebullition'))} label="communes avec une consigne d'ébullition" sub={`${fmt.int(a?.ebullition?.plv ?? 0)} prélèvements concernés`} />
-        <Kpi value={fmt.int(n('sensibles'))} label="communes où l'eau est déconseillée aux publics sensibles" sub="nourrissons, femmes enceintes, personnes fragiles" />
+        <Kpi value={fmt.int(n('interdiction'))} label={`communes avec une restriction de consommation en ${yearLabel(meta, ys)}`} ton={toneAvis('interdiction')} sub={`${fmt.int(a?.interdiction?.plv ?? 0)} prélèvements concernés`} />
+        <Kpi value={fmt.int(n('ebullition'))} label="communes avec une consigne d'ébullition" ton={toneAvis('ebullition')} sub={`${fmt.int(a?.ebullition?.plv ?? 0)} prélèvements concernés`} />
+        <Kpi value={fmt.int(n('sensibles'))} label="communes où l'eau est déconseillée aux publics sensibles" ton={toneAvis('sensibles')} sub="nourrissons, femmes enceintes, personnes fragiles" />
         <Kpi value={fmt.int(a?.local?.plv ?? 0)} label="avis limités à un bâtiment, un point d'usage ou au seul point de prélèvement" sub="plomb, chlorure de vinyle… non comptés ailleurs" />
       </div>
       {muets.size > 0 && (

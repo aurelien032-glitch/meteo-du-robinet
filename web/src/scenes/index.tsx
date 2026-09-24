@@ -138,7 +138,7 @@ function NitratesNappeRobinet() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space)', justifyContent: 'stretch' }}>
         <Kpi value={nit ? fmt.pct((100 * nit.sup_seuil) / Math.max(1, nit.n_points), 0) : '–'} label="des points de nappe suivis ont dépassé 50 mg/L de nitrates depuis 2020" sub={nit ? `${fmt.int(nit.n_points)} points de suivi` : ''} />
         <Kpi value={nit ? fmt.int(nit.aep_sup_seuil) : '–'} label="captages d'eau potable concernés" />
-        <Kpi value={t && last && t.national[last] ? fmt.int(t.national[last].res_dep ?? 0) : '–'} label={`réseaux avec un dépassement au robinet en ${last ?? '–'}`} />
+        <Kpi value={t && last && t.national[last] ? fmt.int(t.national[last].res_dep ?? 0) : '–'} label={`réseaux avec un dépassement au robinet en ${last ?? '–'}`} ton="warn" />
       </div>
       <div>
         <FranceMap data={deps} colorOf={colorOf} height={700} ariaLabel={`Part des réseaux avec un dépassement de nitrates, par département, ${last ?? ''}`} />

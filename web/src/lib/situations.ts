@@ -1,5 +1,5 @@
 import { niveauxScale, type Scale } from './scale'
-import { neutre } from './theme'
+import { couleursEtats } from './theme'
 
 /**
  * Situations des réseaux de distribution, famille par famille, selon la méthode de chaque bilan officiel
@@ -113,8 +113,8 @@ export type Ton = 'good' | 'warn' | 'bad'
  * Ton du sémaphore pour une classe de situation (étude UX du 23/09) : conforme — classes « avec réserve »
  * comprises, comme dans le verdict —, non conforme, ou restriction et consigne (dernière classe de chaque
  * famille ; les nitrates n'en ont pas). Seule source des couleurs de jugement : verdict, jauge, tableau de
- * situation. La rampe neutre (`couleursSituation`) reste aux cartes, qui n'affichent qu'une famille :
- * côte à côte, ses rangs trompent — la classe 1 est non conforme pour les pesticides, conforme pour les nitrates.
+ * situation, cartes communales (`couleursSituation`). Jamais le rang d'une classe : la classe 1 est non conforme
+ * pour les pesticides, conforme pour les nitrates.
  */
 export function toneSituation(f: FamilleSitu, classe: number): Ton {
   if (!classesNonConformes(f).includes(classe)) return 'good'
@@ -139,11 +139,12 @@ export function detailSituation(f: FamilleSitu): { titre: string; classes: numbe
 }
 
 /**
- * Couleurs ordonnées des classes sur les cartes : rampe neutre (règle « neutre partout », 24/09), l'ordre se lit
- * à la clarté. Le sémaphore reste à `toneSituation`, qui juge un réseau.
+ * Couleurs des classes sur les cartes communales (règle « juger et alerter en couleur », auteur, 24/09) : le ton de
+ * chaque classe (`toneSituation`), dans la palette de « Lire un bulletin » ; une commune y prend la classe du réseau
+ * le plus défavorable qui la dessert, celui que son bulletin montre d'office.
  */
 export function couleursSituation(f: FamilleSitu): string[] {
-  return neutre(nbClasses(f))
+  return couleursEtats(Array.from({ length: nbClasses(f) }, (_, k) => toneSituation(f, k)))
 }
 /** Échelle ordinale d'une famille, pour les cartes communales et les légendes. */
 export function situationScale(f: FamilleSitu): Scale {

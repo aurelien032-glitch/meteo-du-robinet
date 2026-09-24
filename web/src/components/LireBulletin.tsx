@@ -48,6 +48,20 @@ export default function LireBulletin() {
         </span>
         Les chiffres agrégés (France, département, service d’eau) restent en gris : ce sont des statistiques descriptives, pas des jugements.
       </p>
+      {/* Règle « juger et alerter en couleur » (auteur, 24/09) : une seule palette pour tout le site, expliquée ici. */}
+      <p className="grammaire-note">
+        <span className="nuancier" aria-hidden="true">
+          <span style={{ background: 'var(--good-line)' }} />
+          <span style={{ background: 'var(--warn-line)' }} />
+          <span style={{ background: 'var(--warn)' }} />
+          <span style={{ background: 'var(--bad)' }} />
+          <span style={{ background: 'var(--bad-fort)' }} />
+        </span>
+        Les cartes et les graphiques reprennent cette palette : une commune prend la couleur du réseau le plus défavorable qui la dessert,
+        un avis de l’ARS celle de sa consigne, et une restriction sécheresse celle de son niveau officiel — pas de restriction en vert,
+        vigilance et alerte en orange, alerte renforcée et crise en rouge. Quand une couleur a deux degrés, le plus grave ressort davantage.
+        Une restriction sécheresse limite des usages de l’eau (arrosage, lavage…), pas sa consommation.
+      </p>
       <div className="legende-familles">
         {FAMILLES_SITU.map((f) => {
           const e = instrument(f, null, SANS_VALEUR).echelle

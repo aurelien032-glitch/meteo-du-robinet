@@ -53,10 +53,10 @@ export function ardoise(): string[] {
 }
 const enRvb = (c: string) => (/^#[0-9a-f]{6}$/i.test(c) ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : null)
 /**
- * Rampe neutre de `n` paliers pour toutes les cartes (règle « neutre partout » de l'auteur, 24/09 : « certaines
- * alertes ou cartes sont en monochrome et d'autres en couleur, pourquoi ? ») : la rampe ardoise, interpolée entre
- * ses cinq jetons quand il faut plus de cinq paliers. Le vert, l'orange et le rouge restent au bulletin d'un réseau
- * et aux avis de l'ARS. Coûteuse (lecture des jetons) : les échelles la mémorisent par thème (lib/scale.ts).
+ * Rampe neutre de `n` paliers pour les cartes de statistiques (parts par département, taux, dénombrements,
+ * indicateurs SISPEA) : la rampe ardoise, interpolée entre ses cinq jetons quand il faut plus de cinq paliers. Ce
+ * qui juge ou alerte (situation d'une commune, avis, sécheresse) prend `couleursEtats`. Coûteuse (lecture des
+ * jetons) : les échelles la mémorisent par thème (lib/scale.ts).
  */
 export function neutre(n: number): string[] {
   const a = ardoise()
@@ -68,6 +68,24 @@ export function neutre(n: number): string[] {
     const [c0, c1] = [rvb[k], rvb[k + 1]]
     if (!c0 || !c1) return a[Math.round(t)]
     return '#' + c0.map((v, j) => Math.round(v + (c1[j] - v) * (t - k)).toString(16).padStart(2, '0')).join('')
+  })
+}
+/**
+ * Couleurs d'une suite d'états sur une carte ou un graphique (règle « juger et alerter en couleur » de l'auteur,
+ * 24/09) : la palette de « Lire un bulletin ». Chaque état garde sa couleur ; l'état « bon » prend le vert clair
+ * (--good-line), pour que les problèmes ressortent sur une carte presque entièrement conforme. Deux degrés successifs
+ * d'une même couleur : le plus grave ressort davantage, et la clarté suit toujours la gravité — l'orange le moins
+ * grave en teinte claire (vigilance avant alerte, 30 jours au plus avant plus de 30 jours), le rouge le plus grave
+ * en --bad-fort (crise après alerte renforcée, restriction après ébullition). Un rouge clair pour le moins grave,
+ * premier essai, passait pour moins grave que l'orange (revue du 24/09). `null` : état sans jugement (« aucun
+ * avis »), gris neutre --d0.
+ */
+export function couleursEtats(tons: readonly ('good' | 'warn' | 'bad' | null)[]): string[] {
+  return tons.map((t, i) => {
+    if (t === null) return cssVar('--d0')
+    if (t === 'good') return cssVar('--good-line')
+    if (t === 'warn') return cssVar(tons[i + 1] === 'warn' ? '--warn-line' : '--warn')
+    return cssVar(tons[i - 1] === 'bad' ? '--bad-fort' : '--bad')
   })
 }
 /**

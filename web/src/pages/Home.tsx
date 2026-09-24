@@ -4,6 +4,7 @@ import CarteDepartements, { type CarteSvg } from '../components/CarteDepartement
 import Chargement from '../components/Chargement'
 import LireBulletin from '../components/LireBulletin'
 import Search, { PictoType } from '../components/Search'
+import Voyant from '../components/Voyant'
 import { fmt } from '../lib/data'
 import { useJson } from '../lib/hooks'
 import { TEXTES_FAMILLES } from '../lib/instruments'
@@ -112,22 +113,34 @@ export default function Home() {
         </p>
         <dl className="chiffres">
           <div className="chiffre">
-            <dt>des prélèvements conformes en bactériologie</dt>
+            <dt className="avec-voyant">
+              <Voyant ton="good" taille={16} />
+              <span>des prélèvements conformes en bactériologie</span>
+            </dt>
             <dd className="chiffre-valeur">{fmt.pct(pctBact, 1)}</dd>
             <dd className="chiffre-detail">{fmt.int(plv.nc_bact)} non conformes</dd>
           </div>
           <div className="chiffre">
-            <dt>des prélèvements conformes en chimie</dt>
+            <dt className="avec-voyant">
+              <Voyant ton="good" taille={16} />
+              <span>des prélèvements conformes en chimie</span>
+            </dt>
             <dd className="chiffre-valeur">{fmt.pct(pctChim, 1)}</dd>
             <dd className="chiffre-detail">{fmt.int(plv.nc_chim)} non conformes</dd>
           </div>
           <div className="chiffre">
-            <dt>des réseaux non conformes, toutes familles</dt>
+            <dt className="avec-voyant">
+              <Voyant ton="warn" taille={16} />
+              <span>des réseaux non conformes, toutes familles</span>
+            </dt>
             <dd className="chiffre-valeur">{partToutes == null ? '–' : fmt.pct(100 * partToutes, 1)}</dd>
             <dd className="chiffre-detail">{toutes ? `${fmt.int(nonConformes(toutes, 'toutes'))} sur ${fmt.int(reseauxAnalyses(toutes))} réseaux analysés` : ''}</dd>
           </div>
           <div className="chiffre">
-            <dt>réseaux sous restriction ou consigne de l’ARS</dt>
+            <dt className="avec-voyant">
+              <Voyant ton="bad" taille={16} />
+              <span>réseaux sous restriction ou consigne de l’ARS</span>
+            </dt>
             <dd className="chiffre-valeur">{toutes ? fmt.int(toutes[2]) : '–'}</dd>
             <dd className="chiffre-detail">{toutes ? `sur ${fmt.int(reseauxAnalyses(toutes))} réseaux analysés` : ''}</dd>
           </div>

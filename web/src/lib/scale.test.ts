@@ -1,13 +1,15 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest'
 import { binaryScale, linearScale, stepScale } from './scale'
-import { neutre, noData } from './theme'
+import { couleursSituation } from './situations'
+import { couleursEtats, neutre, noData } from './theme'
+import { TONS_SECHERESSE } from './vigieau'
 
 // jsdom ne charge pas styles.css : les jetons des cartes sont posés sur la racine, comme chaque thème les donne.
 const RAMPE = ['#aeb7c4', '#8c97a8', '#6c788c', '#4e5a6f', '#313c52']
 const JETONS = {
-  clair: { '--m1': RAMPE[0], '--m2': RAMPE[1], '--m3': RAMPE[2], '--m4': RAMPE[3], '--m5': RAMPE[4], '--surface-2': '#f3f5f8', '--d0': '#d6d9dd', '--w1': '#d4bc9c', '--w2': '#a5845e', '--w3': '#6f5236' },
-  sombre: { '--m1': '#4a5568', '--m2': '#66728a', '--m3': '#8792a7', '--m4': '#a9b4c5', '--m5': '#d0d8e3', '--surface-2': '#141b24', '--d0': '#2b2f35', '--w1': '#604b36', '--w2': '#ac8a62', '--w3': '#e5c79f' },
+  clair: { '--m1': RAMPE[0], '--m2': RAMPE[1], '--m3': RAMPE[2], '--m4': RAMPE[3], '--m5': RAMPE[4], '--surface-2': '#f3f5f8', '--d0': '#d6d9dd', '--w1': '#d4bc9c', '--w2': '#a5845e', '--w3': '#6f5236', '--good-line': '#b3dbc3', '--warn-line': '#efcb8a', '--warn': '#d08400', '--bad-line': '#edb3ad', '--bad': '#a11a12', '--bad-fort': '#6b100c' },
+  sombre: { '--m1': '#4a5568', '--m2': '#66728a', '--m3': '#8792a7', '--m4': '#a9b4c5', '--m5': '#d0d8e3', '--surface-2': '#141b24', '--d0': '#2b2f35', '--w1': '#604b36', '--w2': '#ac8a62', '--w3': '#e5c79f', '--good-line': '#25613f', '--warn-line': '#7a5a1c', '--warn': '#e0a030', '--bad-line': '#813028', '--bad': '#f0584c', '--bad-fort': '#ff9d92' },
 }
 function theme(t: 'clair' | 'sombre') {
   const root = document.documentElement
@@ -35,7 +37,7 @@ describe('échelles de carte', () => {
     expect(s.color(null)).toBe(noData())
   })
 
-  it('peint toutes les cartes sur la rampe neutre, du premier au dernier jeton ardoise (règle « neutre partout », 24/09)', () => {
+  it('peint les statistiques sur la rampe neutre, du premier au dernier jeton ardoise (règle du 24/09)', () => {
     const s = stepScale([0, 1, 5, 10, 25, 50, 100])
     expect(s.steps.map((x) => x.color)).toEqual(neutre(7))
     expect(s.steps[0].color).toBe(RAMPE[0])
@@ -109,11 +111,10 @@ describe('niveauxScale', () => {
     expect(s.color(null)).toBe(noData())
     expect(s.color(9)).toBe(noData()) // niveau inconnu : « sans donnée », jamais une couleur de gravité au hasard
   })
-  it('avis de l’ARS sur la carte : quatre niveaux neutres, du plus clair (aucun avis) au plus foncé (restriction)', async () => {
+  it('avis de l’ARS sur la carte : la palette de « Lire un bulletin », comme leurs étiquettes', async () => {
     const { avisScale } = await import('./scale')
-    expect(avisScale.steps.map((x) => x.color)).toEqual(neutre(4))
-    expect(avisScale.color(0)).toBe(RAMPE[0])
-    expect(avisScale.color(3)).toBe(RAMPE[4])
+    // aucun avis gris, publics sensibles orange, ébullition rouge, restriction rouge fort (le plus grave des deux)
+    expect(avisScale.steps.map((x) => x.color)).toEqual(['#d6d9dd', '#d08400', '#a11a12', '#6b100c'])
   })
 })
 
@@ -160,5 +161,27 @@ describe('ardoiseScale (grammaire du 23/09)', () => {
     theme('sombre')
     expect(s.color(0.5)).toBe('#d0d8e3')
     expect(s.steps[4].color).toBe('#d0d8e3')
+  })
+})
+
+describe('couleurs des états (règle « juger et alerter en couleur », 24/09)', () => {
+  it('garde la couleur de chaque état, vert clair pour « bon », le plus grave de deux degrés ressort davantage', () => {
+    expect(couleursEtats(['good', 'warn', 'warn', 'bad'])).toEqual(['#b3dbc3', '#efcb8a', '#d08400', '#a11a12'])
+    expect(couleursEtats([null, 'warn', 'bad', 'bad'])).toEqual(['#d6d9dd', '#d08400', '#a11a12', '#6b100c'])
+  })
+  it('carte communale : le ton de chaque classe, jamais son rang', () => {
+    // pesticides : conforme, 30 jours au plus, plus de 30 jours, restriction
+    expect(couleursSituation('pesticides')).toEqual(['#b3dbc3', '#efcb8a', '#d08400', '#a11a12'])
+    // nitrates : trois classes conformes (réserves comprises), puis non conforme au-delà de 50 mg/L
+    expect(couleursSituation('azote')).toEqual(['#b3dbc3', '#b3dbc3', '#b3dbc3', '#d08400'])
+    expect(couleursSituation('toutes')).toEqual(['#b3dbc3', '#d08400', '#a11a12'])
+  })
+  it('sécheresse : pas de restriction, vigilance, alerte, alerte renforcée, crise', () => {
+    // la clarté suit la gravité : un rouge clair pour l'alerte renforcée passait pour moins grave que l'alerte orange
+    expect(couleursEtats(TONS_SECHERESSE)).toEqual(['#b3dbc3', '#efcb8a', '#d08400', '#a11a12', '#6b100c'])
+  })
+  it('suit le thème : en sombre, le plus grave est le plus clair', () => {
+    theme('sombre')
+    expect(couleursEtats(TONS_SECHERESSE)).toEqual(['#25613f', '#7a5a1c', '#e0a030', '#f0584c', '#ff9d92'])
   })
 })

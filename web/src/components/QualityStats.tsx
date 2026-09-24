@@ -7,6 +7,8 @@ const KEY_ORDER = ['1340', '6276', '8847', '1449', '6455', '1382', '1753', '1369
  * Résultats du contrôle sanitaire d'une année, dans le détail replié des fiches commune et réseau : les
  * dépassements de limite et les paramètres clés. Les comptes de l'année sont dans le bulletin (lib/bulletin.ts) ;
  * le jugement de la bactériologie d'un réseau suit la méthode des ARS (toneSituation), et non plus une tuile colorée.
+ * Tableaux neutres (auteur, 24/09) : un dépassement s'écrit en gras, jamais en rouge — sur une fiche commune, le
+ * tableau additionne les réseaux de la commune, et la couleur ne juge qu'un réseau, dans le bulletin.
  */
 export default function QualityStats({ s, params, year }: { s: CommuneYearStats; params: ParamsFile; year: string }) {
   const info = (p: string) => params.params[p]
@@ -34,7 +36,7 @@ export default function QualityStats({ s, params, year }: { s: CommuneYearStats;
                     <td className="muted">{fmt.seuil(info(d[0])?.lim)}</td>
                     <td className="num">{fmt.int(d[1])}</td>
                     <td className="num">
-                      <span className="badge bad">{d[2]}</span>
+                      <strong>{d[2]}</strong>
                     </td>
                     <td className="num">
                       {fmt.sig(d[5])} {info(d[0])?.u ?? ''}
@@ -73,7 +75,15 @@ export default function QualityStats({ s, params, year }: { s: CommuneYearStats;
                       {r[3] === 0 ? <span className="muted">non détecté</span> : `${fmt.sig(r[6])} ${i?.u ?? ''}`}
                       {r[7] && <span className="muted"> ({r[7].slice(8, 10)}/{r[7].slice(5, 7)})</span>}
                     </td>
-                    <td className="num">{r[1] > 0 ? <span className="badge bad">{fmt.sig(r[4])}</span> : fmt.sig(r[4])}</td>
+                    <td className="num">
+                      {r[1] > 0 ? (
+                        <>
+                          <strong>{fmt.sig(r[4])}</strong> <span className="muted">au-dessus de la limite</span>
+                        </>
+                      ) : (
+                        fmt.sig(r[4])
+                      )}
+                    </td>
                     <td className="muted">{i?.lim ? fmt.seuil(i.lim) : i?.ref ? `${fmt.seuil(i.ref)} (référence)` : '–'}</td>
                   </tr>
                 )

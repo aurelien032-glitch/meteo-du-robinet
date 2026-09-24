@@ -14,7 +14,7 @@ import { useJson } from '../lib/hooks'
 import { chartPalette, useCleTheme } from '../lib/theme'
 import { pctCarte } from '../lib/carte'
 import { ardoiseScale } from '../lib/scale'
-import { classesNonConformes, couleursSituation, detail, detailSituation, familleDuTheme, libellesSituation, nbClasses, nonConformes, partNonConformes, type Repartition, type SituationsFile } from '../lib/situations'
+import { classesNonConformes, couleursSituation, detail, detailSituation, familleDuTheme, libellesSituation, nbClasses, nonConformes, partNonConformes, type Repartition, type SituationsFile, toneSituation } from '../lib/situations'
 import MapLegend from '../components/MapLegend'
 import { deptCode, yearLabel, type MetaFile, type ParamsFile, type SeriesIndexEntry, type ThemeFile } from '../lib/types'
 import { useDensite } from '../lib/densite'
@@ -184,14 +184,15 @@ export default function Theme() {
             <Kpi
               value={fmt.pct((100 * nonConformes(rn, fam!)) / Math.max(1, rn[0] + rn[1] + rn[2] + rn[3]), 1)}
               label={`des réseaux non conformes en ${yearLabel(meta, last)}`}
+              ton="warn"
               sub={`${fmt.int(nonConformes(rn, fam!))} sur ${fmt.int(rn[0] + rn[1] + rn[2] + rn[3])} réseaux analysés`}
             />
-            <Kpi value={fmt.int(detail(rn, fam!))} label={`réseaux : ${detailSituation(fam!).titre.toLowerCase()}`} sub={`sur ${fmt.int(rn[0] + rn[1] + rn[2] + rn[3])} réseaux analysés`} />
+            <Kpi value={fmt.int(detail(rn, fam!))} label={`réseaux : ${detailSituation(fam!).titre.toLowerCase()}`} ton={toneSituation(fam!, Math.max(...detailSituation(fam!).classes))} sub={`sur ${fmt.int(rn[0] + rn[1] + rn[2] + rn[3])} réseaux analysés`} />
           </>
         ) : (
-          <Kpi value={n.res_dep == null ? '–' : fmt.int(n.res_dep)} label="réseaux de distribution concernés" sub={n.res_tot == null ? '' : `sur ${fmt.int(n.res_tot)} réseaux analysés`} />
+          <Kpi value={n.res_dep == null ? '–' : fmt.int(n.res_dep)} label="réseaux de distribution concernés" ton="warn" sub={n.res_tot == null ? '' : `sur ${fmt.int(n.res_tot)} réseaux analysés`} />
         )}
-        <Kpi value={fmt.pct((100 * n.nd) / Math.max(1, n.n), 2)} label="des analyses au-dessus de la limite" sub={`${fmt.int(n.nd)} sur ${fmt.int(n.n)} analyses`} />
+        <Kpi value={fmt.pct((100 * n.nd) / Math.max(1, n.n), 2)} label="des analyses au-dessus de la limite" ton="warn" sub={`${fmt.int(n.nd)} sur ${fmt.int(n.n)} analyses`} />
         <Kpi value={fmt.int(n.nq)} label="résultats quantifiés (détectés)" sub={`${fmt.pct((100 * n.nq) / Math.max(1, n.n), 1)} des analyses`} />
       </div>
 

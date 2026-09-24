@@ -186,16 +186,18 @@ export default function Departement() {
       )}
 
       <div className="grid cols-4">
-        <Kpi value={fmt.pct(pctBact, 1)} label="prélèvements conformes en bactériologie" sub={plv ? `${fmt.int(plv.nc_bact)} non conformes` : ''} />
-        <Kpi value={fmt.pct(pctChim, 1)} label="prélèvements conformes en chimie" sub={plv ? `${fmt.int(plv.nc_chim)} non conformes` : ''} />
+        <Kpi value={fmt.pct(pctBact, 1)} label="prélèvements conformes en bactériologie" ton="good" sub={plv ? `${fmt.int(plv.nc_bact)} non conformes` : ''} />
+        <Kpi value={fmt.pct(pctChim, 1)} label="prélèvements conformes en chimie" ton="good" sub={plv ? `${fmt.int(plv.nc_chim)} non conformes` : ''} />
         <Kpi
           value={pestSitu ? `${fmt.int(pestSitu.nc)} / ${fmt.int(pestSitu.tot)}` : '–'}
           label="réseaux avec des dépassements de pesticides"
+          ton="warn"
           sub={pestSitu ? `sur les ${fmt.int(pestSitu.tot)} réseaux où des pesticides ont été analysés` : ''}
         />
         <Kpi
           value={azoteSitu ? `${fmt.int(azoteSitu.nc)} / ${fmt.int(azoteSitu.tot)}` : '–'}
           label="réseaux au-dessus de 50 mg/L de nitrates"
+          ton="warn"
           sub={azoteSitu ? `sur les ${fmt.int(azoteSitu.tot)} réseaux où les nitrates ont été analysés` : ''}
         />
       </div>

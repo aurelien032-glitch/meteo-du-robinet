@@ -168,6 +168,7 @@ export default function Analyses() {
             <Kpi
               value={fmt.int([...agg.byParam.values()].reduce((s, a) => s + a.nd, 0))}
               label="résultats au-dessus d'une limite de qualité"
+              ton="warn"
               sub={`${[...agg.byParam.values()].filter((a) => a.nd > 0).length} paramètres concernés`}
             />
             <Kpi
@@ -231,7 +232,7 @@ export default function Analyses() {
                         <td className="muted">{a.lim ?? '–'}</td>
                         <td className="muted">{a.ref ?? '–'}</td>
                         <td className="num">
-                          {a.nd > 0 ? <span className="badge bad">{a.nd}</span> : a.nr > 0 ? <span className="badge warn">{a.nr} réf.</span> : <span className="muted">0</span>}
+                          {a.nd > 0 ? <strong>{a.nd}</strong> : a.nr > 0 ? `${a.nr} réf.` : <span className="muted">0</span>}
                         </td>
                       </tr>
                     ))}
@@ -261,7 +262,7 @@ export default function Analyses() {
                     <td>{p.reseaux?.map((r) => r.nom).join(', ')}</td>
                     <td className="muted">{p.nom_distributeur}</td>
                     <td>
-                      {p.conformite_limites_bact_prelevement === 'N' || p.conformite_limites_pc_prelevement === 'N' ? <span className="badge bad">non conforme</span> : <span className="badge good">conforme</span>}{' '}
+                      {p.conformite_limites_bact_prelevement === 'N' || p.conformite_limites_pc_prelevement === 'N' ? <strong>non conforme</strong> : 'conforme'}{' '}
                       <span className="muted">{p.conclusion_conformite_prelevement}</span>
                     </td>
                   </tr>

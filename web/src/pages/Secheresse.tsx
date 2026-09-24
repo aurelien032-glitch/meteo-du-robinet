@@ -6,6 +6,7 @@ import SecheresseHistorique from '../components/SecheresseHistorique'
 import VigiEauMap, { NIVEAUX, RESSOURCES, couleurNiveau, useVigiEau, type Ressource } from '../components/VigiEauMap'
 import { usePageTitle } from '../lib/title'
 import Kpi from '../components/Kpi'
+import { TONS_SECHERESSE } from '../lib/vigieau'
 
 /** Restrictions sécheresse en vigueur aujourd'hui, dans toute la France, en direct. */
 export default function Secheresse() {
@@ -60,10 +61,10 @@ export default function Secheresse() {
         <p className="card muted">VigiEau injoignable ({error}). Les compteurs ne peuvent pas être calculés ; réessayez dans quelques minutes.</p>
       ) : (
         <div className="grid cols-4">
-          <Kpi value={depts ? fmt.int(counts.crise ?? 0) : '–'} label="départements en crise" />
-          <Kpi value={depts ? fmt.int(counts.alerte_renforcee ?? 0) : '–'} label="en alerte renforcée" />
-          <Kpi value={depts ? fmt.int(counts.alerte ?? 0) : '–'} label="en alerte" />
-          <Kpi value={depts ? fmt.int(counts.vigilance ?? 0) : '–'} label="en vigilance" sub={depts ? `${fmt.int(counts.pas_de_restriction ?? 0)} sans restriction` : 'chargement…'} />
+          <Kpi value={depts ? fmt.int(counts.crise ?? 0) : '–'} label="départements en crise" ton={TONS_SECHERESSE[4]} />
+          <Kpi value={depts ? fmt.int(counts.alerte_renforcee ?? 0) : '–'} label="en alerte renforcée" ton={TONS_SECHERESSE[3]} />
+          <Kpi value={depts ? fmt.int(counts.alerte ?? 0) : '–'} label="en alerte" ton={TONS_SECHERESSE[2]} />
+          <Kpi value={depts ? fmt.int(counts.vigilance ?? 0) : '–'} label="en vigilance" ton={TONS_SECHERESSE[1]} sub={depts ? `${fmt.int(counts.pas_de_restriction ?? 0)} sans restriction` : 'chargement…'} />
         </div>
       )}
       <div className="grid cols-map">

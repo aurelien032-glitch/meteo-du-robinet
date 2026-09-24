@@ -58,7 +58,7 @@ export default function HorsGrilleCard({ s, params, year }: { s: CommuneYearStat
                       </span>
                       {au.length > 0 && (
                         <div>
-                          <span className="badge warn">au-delà de {fmt.int(au[au.length - 1].v)} µg/L</span> <span className="muted">{au[au.length - 1].lib}</span>
+                          <b>au-delà de {fmt.int(au[au.length - 1].v)} µg/L</b> <span className="muted">{au[au.length - 1].lib}</span>
                         </div>
                       )}
                     </>
@@ -101,7 +101,7 @@ export default function HorsGrilleCard({ s, params, year }: { s: CommuneYearStat
                       {fmt.int(nq)} / {fmt.int(n)}
                     </td>
                     <td className="num">
-                      {au.length ? <span className="badge warn">{val(vmax)}</span> : val(vmax)} {unite(c)}
+                      {au.length ? <strong>{val(vmax)}</strong> : val(vmax)} {unite(c)}
                     </td>
                   </tr>
                 )
@@ -109,7 +109,7 @@ export default function HorsGrilleCard({ s, params, year }: { s: CommuneYearStat
             </tbody>
           </table></div>
           {autres.some(([c, , , v]) => auDela(c, v).length) && (
-            <p className="muted">Surligné : au-delà de la « valeur de vigilance » de 0,9 µg/L citée par les ARS pour les métabolites sans limite.</p>
+            <p className="muted">En gras : au-delà de la « valeur de vigilance » de 0,9 µg/L citée par les ARS pour les métabolites sans limite.</p>
           )}
         </details>
       )}

@@ -12,6 +12,13 @@ export interface ZoneVigiEau {
 
 /** Niveaux de restriction, dans l'ordre : l'indice est celui des paliers de la bande ressource. */
 export const NIVEAUX_SECHERESSE = ['Aucune', 'Vigilance', 'Alerte', 'Alerte renforcée', 'Crise'] as const
+/**
+ * Ton de chaque niveau (règle « juger et alerter en couleur », auteur, 24/09) : une restriction sécheresse est une
+ * alerte officielle, dans la palette de « Lire un bulletin » — pas de restriction en vert, vigilance et alerte en
+ * orange, alerte renforcée et crise en rouge. Elle restreint des usages de l'eau, pas sa consommation : le libellé
+ * le dit toujours à côté de la couleur.
+ */
+export const TONS_SECHERESSE = ['good', 'warn', 'warn', 'bad', 'bad'] as const
 const RANG: Record<string, number> = { vigilance: 1, alerte: 2, alerte_renforcee: 3, crise: 4 }
 export const TYPES_ZONE: Record<string, string> = { SUP: 'eaux superficielles', SOU: 'eaux souterraines', AEP: 'eau potable' }
 

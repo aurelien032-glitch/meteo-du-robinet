@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { NIVEAUX_SECHERESSE, rangZone, secheresseCommune, TYPES_ZONE, useVigiEau } from '../lib/vigieau'
+import Tag from './Tag'
+import { NIVEAUX_SECHERESSE, rangZone, secheresseCommune, TONS_SECHERESSE, TYPES_ZONE, useVigiEau } from '../lib/vigieau'
 
 /**
  * Restrictions sécheresse en vigueur aujourd'hui, interrogées en direct chez VigiEau (lib/vigieau.ts : une seule
@@ -33,7 +34,7 @@ export default function VigiEauCard({ insee }: { insee: string }) {
       ) : (
         <>
           <p>
-            <b>{NIVEAUX_SECHERESSE[niveau]}</b> <span className="muted">: niveau le plus élevé sur la commune</span>
+            <Tag ton={TONS_SECHERESSE[niveau]}>{NIVEAUX_SECHERESSE[niveau]}</Tag> <span className="muted">niveau le plus élevé sur la commune</span>
           </p>
           <div className="table-scroll">
             <table className="data">

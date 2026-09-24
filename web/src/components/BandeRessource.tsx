@@ -4,7 +4,7 @@ import Paliers from './Paliers'
 import { useJson } from '../lib/hooks'
 import { DISTANCE_MAX_KM, nappeCommune, origineCommune, phraseNappe, phraseOrigine } from '../lib/ressourceCommune'
 import type { AmontDeptFile, NappesDept, NappesNational } from '../lib/types'
-import { NIVEAUX_SECHERESSE, secheresseCommune, TYPES_ZONE, useVigiEau } from '../lib/vigieau'
+import { NIVEAUX_SECHERESSE, secheresseCommune, TONS_SECHERESSE, TYPES_ZONE, useVigiEau } from '../lib/vigieau'
 
 const majuscule = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 const dateFr = (iso: string) => new Date(iso).toLocaleDateString('fr-FR')
@@ -50,7 +50,7 @@ export default function BandeRessource({ insee, dept }: { insee: string; dept: s
             <h3 id={`${id}-s`}>Restrictions sécheresse</h3>
             {sech ? (
               <>
-                <Paliers classes={NIVEAUX_SECHERESSE.map((t) => ({ t }))} actif={sech.niveau} nom="Restrictions sécheresse" />
+                <Paliers classes={NIVEAUX_SECHERESSE.map((t, i) => ({ t, ton: TONS_SECHERESSE[i] }))} actif={sech.niveau} nom="Restrictions sécheresse" />
                 <p className="cap">
                   {sech.pire
                     ? `Niveau le plus élevé sur la commune au ${aujourdhui} : ${NIVEAUX_SECHERESSE[sech.niveau].toLowerCase()}${
