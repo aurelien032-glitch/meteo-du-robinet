@@ -1,0 +1,31 @@
+# data (raw + intermediate are rebuilt by the pipeline)
+data/raw/
+data/cache/
+data/out/
+
+*.duckdb.wal
+# python
+.venv/
+__pycache__/
+*.pyc
+# node
+node_modules/
+web/dist/
+web/public/data/
+# misc
+.DS_Store
+Thumbs.db
+*.log
+# graphify (graphe de connaissance regenere)
+graphify-out/
+# captures et sorties d outils
+.playwright-mcp/
+/*.png
+*.tsbuildinfo
+web/public/sitemap.xml
+web/public/robots.txt
+data/refresh.log
+web/exports/
+
+# Réglages locaux des sessions d'édition
+.claude/

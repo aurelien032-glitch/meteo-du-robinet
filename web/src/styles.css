@@ -1,0 +1,1024 @@
+/* =============================================================================================
+   Météo du robinet · feuille de style unique.
+   Jetons (couleurs, échelle typographique, échelle d'espacement, rayons), puis structure, composants,
+   mode studio, mobile. Toute mesure de mise en page passe par les jetons --s* et --fs-*.
+   ============================================================================================= */
+/* ---------------------------------------------------------------------------------------------
+   Charte « Vigilance + instruments » (refonte du 2026-09-23, décision de l'auteur, maquette de référence
+   dans docs/maquette-2026-09-23/). Une seule famille : Atkinson Hyperlegible Next pour les mots, Mono pour
+   ce qui sort du laboratoire (valeurs mesurées, codes, dates). Dessinée par le Braille Institute pour la
+   lisibilité, en graisses variables (200 à 800). Fichiers réduits aux signes du site, servis avec lui
+   (web/public/fonts/atkinson, licence OFL, script web/scripts/polices/reduire.py) : aucun appel à un
+   service extérieur. Le signe micro (µ) et l'espace fine insécable des milliers, absents du dessin, y sont
+   rattachés à la lettre mu et à l'espace fine ; les flèches (→ ↗) restent à la police de secours.
+   --------------------------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('/fonts/atkinson/next.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible Mono';
+  src: url('/fonts/atkinson/mono.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --font: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font);
+  --font-chiffre: 'Atkinson Hyperlegible Mono', ui-monospace, 'Cascadia Mono', monospace;
+  /* Grammaire « neutre + sémaphore » (maquette du 23/09) : fonds blancs et gris froids, encre, un seul
+     accent bleu, réservé aux liens et aux commandes. Le vert, l'orange et le rouge ne jugent qu'un réseau
+     (lib/situations.ts, toneSituation) ; les chiffres agrégés restent à l'encre. Noms de jetons inchangés :
+     seules leurs valeurs changent, si bien que le reste de la feuille suit. */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f3f5f8;
+  --text: #0e1726;
+  --text-fort: #0e1726;
+  --text-2: #3f4a5a;
+  --muted: #5a6576;
+  --grid: #dde2e9;
+  --border: #dde2e9;
+  --border-fort: #c3cbd6;
+  --accent: #1f5fae;
+  --accent-fonce: #164a8a;
+  --accent-voile: #e6eef9;
+  /* Texte posé sur un aplat d'accent (.btn-primary) : blanc en clair, encre en sombre (l'accent s'y éclaircit). */
+  --text-on-accent: #fff;
+  /* Séries de graphiques : des encres ardoise, jamais une couleur de jugement. --c5 garde le violet de la
+     « consigne d'ébullition » sur la carte des avis (lib/scale.ts, avisScale). */
+  --c1: #4e5a6f;
+  --c2: #8c97a8;
+  --c3: #2f3b4f;
+  --c4: #6c788c;
+  --c5: #7a4f8a;
+  --c6: #5a6576;
+  /* Marques de données neutres (barres, points) et leur survol. */
+  --mark: #6a7587;
+  --mark-hi: #26303f;
+  /* Sémaphore validé par calcul (outil dataviz, 23/09) : paires distinctes sous daltonisme (ΔE ≥ 9) comme en
+     vision normale (ΔE ≥ 22), contraste ≥ 3:1 sur blanc. L'orange (3:1) ne sert jamais de couleur de texte :
+     formes et pastilles seulement ; le texte reste à l'encre, sur le fond teinté (--*-tint). */
+  --good: #1e8452;
+  --on-good: #ffffff;
+  --good-tint: #e7f4ec;
+  --good-line: #b3dbc3;
+  --warn: #d08400;
+  --on-warn: #1a1204;
+  --warn-tint: #fdf3e1;
+  --warn-line: #efcb8a;
+  --bad: #a11a12;
+  --on-bad: #ffffff;
+  --bad-tint: #fbeae8;
+  --bad-line: #edb3ad;
+  /* Rampe ardoise des parts agrégées sur les cartes (paliers 5/10/20/40 %) : clair → foncé, le premier
+     palier à 2:1 du fond pour qu'aucun département ne disparaisse ; en sombre, la rampe s'inverse. */
+  --m1: #aeb7c4;
+  --m2: #8c97a8;
+  --m3: #6c788c;
+  --m4: #4e5a6f;
+  --m5: #313c52;
+  /* Rampe divergente neutre des évolutions et des niveaux de nappes (règle « neutre partout », 24/09) : côté froid
+     --m5, --m3, --m1, centre gris --d0, côté chaud --w1…--w3 (ocre grisé, sec ou hausse). La clarté s'éloigne du
+     centre à chaque palier ; froid et chaud de même rang restent à 8 ΔE OKLab au moins, daltonisme compris. */
+  --d0: #d6d9dd;
+  --w1: #d4bc9c;
+  --w2: #a5845e;
+  --w3: #6f5236;
+  /* Deux rayons : --radius pour les contrôles et petits blocs, --radius-lg pour les cartes et surfaces. */
+  --radius: 8px;
+  --radius-sm: var(--radius);
+  --radius-lg: 12px;
+  --shadow: 0 1px 2px rgba(14, 23, 38, .06);
+  --shadow-pop: 0 14px 34px -14px rgba(14, 23, 38, .30);
+  /* Vignette de bord (« il reste du contenu à faire défiler »). */
+  --edge-shadow: rgba(14, 23, 38, .16);
+  /* Cinq tailles seulement (maquette du 23/09, « textes énormes et disparates ») : 13 · 16 · 17→20 · 20→26 ·
+     28→34 px. Les anciens jetons deviennent des alias : --fs-sm → corps, --fs-h3 → chapeau, --fs-hero → h1,
+     --fs-kpi → h2 (un chiffre clé ne rivalise pas avec le titre de la page). */
+  --fs-xs: 13px;
+  --fs-md: 16px;
+  --fs-sm: var(--fs-md);
+  --fs-lead: clamp(17px, 0.35vw + 15.7px, 20px);
+  --fs-h3: var(--fs-lead);
+  --fs-h2: clamp(20px, 0.75vw + 17px, 26px);
+  --fs-h1: clamp(28px, 1.2vw + 23.2px, 34px);
+  --fs-hero: var(--fs-h1);
+  --fs-kpi: var(--fs-h2);
+  /* Échelle d'espacement : 4, 8, 12, 16, 24, 32 px. */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --space: var(--s4);
+  --control: 38px; /* hauteur commune des boutons, listes et puces */
+}
+/* Thème sombre : reçu du système (tant que le visiteur n'a rien choisi), ou choisi (bouton de la barre,
+   lib/theme.ts), ou imposé par le mode studio (scènes vidéo). Le même jeu de valeurs dans les deux blocs :
+   lib/jetons.test.ts vérifie qu'ils restent identiques et complets. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0e131a;
+    --surface: #161e28;
+    --surface-2: #141b24;
+    --text: #e8edf3;
+    --text-fort: #f3f6f9;
+    --text-2: #b9c3cf;
+    --muted: #8f9baa;
+    --grid: #263241;
+    --border: #263241;
+    --border-fort: #364559;
+    --accent: #8fb8f0;
+    --accent-fonce: #b8d2f6;
+    --accent-voile: #15243a;
+    --text-on-accent: #0e131a;
+    --c1: #a9b4c5;
+    --c2: #6e7b8f;
+    --c3: #d0d8e3;
+    --c4: #8792a7;
+    --c5: #c79bd1;
+    --c6: #8f9baa;
+    --mark: #8f9baa;
+    --mark-hi: #dce3eb;
+    --good: #2c9c63;
+    --on-good: #06140c;
+    --good-tint: #0f2a1d;
+    --good-line: #25613f;
+    --warn: #e0a030;
+    --on-warn: #1f1405;
+    --warn-tint: #2e220c;
+    --warn-line: #7a5a1c;
+    --bad: #f0584c;
+    --on-bad: #240b09;
+    --bad-tint: #33130f;
+    --bad-line: #813028;
+    --m1: #4a5568;
+    --m2: #66728a;
+    --m3: #8792a7;
+    --m4: #a9b4c5;
+    --m5: #d0d8e3;
+    --d0: #2b2f35;
+    --w1: #604b36;
+    --w2: #ac8a62;
+    --w3: #e5c79f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+    --shadow-pop: 0 14px 34px -14px rgba(0, 0, 0, .8);
+    --edge-shadow: rgba(0, 0, 0, .55);
+  }
+}
+:root[data-theme='dark'],
+html.studio {
+  color-scheme: dark;
+  --bg: #0e131a;
+  --surface: #161e28;
+  --surface-2: #141b24;
+  --text: #e8edf3;
+  --text-fort: #f3f6f9;
+  --text-2: #b9c3cf;
+  --muted: #8f9baa;
+  --grid: #263241;
+  --border: #263241;
+  --border-fort: #364559;
+  --accent: #8fb8f0;
+  --accent-fonce: #b8d2f6;
+  --accent-voile: #15243a;
+  --text-on-accent: #0e131a;
+  --c1: #a9b4c5;
+  --c2: #6e7b8f;
+  --c3: #d0d8e3;
+  --c4: #8792a7;
+  --c5: #c79bd1;
+  --c6: #8f9baa;
+  --mark: #8f9baa;
+  --mark-hi: #dce3eb;
+  --good: #2c9c63;
+  --on-good: #06140c;
+  --good-tint: #0f2a1d;
+  --good-line: #25613f;
+  --warn: #e0a030;
+  --on-warn: #1f1405;
+  --warn-tint: #2e220c;
+  --warn-line: #7a5a1c;
+  --bad: #f0584c;
+  --on-bad: #240b09;
+  --bad-tint: #33130f;
+  --bad-line: #813028;
+  --m1: #4a5568;
+  --m2: #66728a;
+  --m3: #8792a7;
+  --m4: #a9b4c5;
+  --m5: #d0d8e3;
+  --d0: #2b2f35;
+  --w1: #604b36;
+  --w2: #ac8a62;
+  --w3: #e5c79f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+  --shadow-pop: 0 14px 34px -14px rgba(0, 0, 0, .8);
+  --edge-shadow: rgba(0, 0, 0, .55);
+}
+/* Mode studio : scène 1920×1080 capturée en vidéo, textes plus grands et aucune ombre. */
+html.studio {
+  --shadow: none;
+  --fs-xs: 1.05rem;
+  --fs-md: 1.35rem;
+  --fs-lead: 1.6rem;
+  --fs-h2: 2rem;
+  --fs-h1: 3.2rem;
+  --fs-kpi: 4.4rem;
+  --space: 1.4rem;
+}
+
+/* --- Base --- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: var(--fs-md); line-height: 1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+/* Liens pris dans un texte : soulignés (WCAG 1.4.1, étude UX du 23/09 — sur 16 pages, la couleur seule ne
+   les distinguait pas du texte voisin, et pas du tout dans le fil d'Ariane). La barre, les boutons, les
+   cartes-liens, les pastilles d'exemple et les classements gardent leur habillage sans soulignement. */
+:where(p, li, dd, .lead, .source, .crumbs, .legend, .text-xs, .footer) a:not(.btn, .card, .theme-card, .exemple) {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .16em;
+}
+h1, h2, h3 { margin: 0 0 .4em; line-height: 1.15; font-weight: 700; font-family: var(--font-display); color: var(--text-fort); text-wrap: balance; }
+h1 { font-size: var(--fs-h1); letter-spacing: -0.03em; line-height: 1.05; }
+h2 { font-size: var(--fs-h2); letter-spacing: -0.022em; }
+h3 { font-size: var(--fs-h3); letter-spacing: -0.015em; }
+p { margin: 0 0 .8em; }
+code { font-family: var(--font-chiffre); font-size: .92em; }
+:where(a, button, select, input, [tabindex]):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+/* --- Structure --- */
+.layout { min-height: 100%; display: flex; flex-direction: column; }
+.topbar { display: flex; align-items: center; gap: var(--s5); height: 52px; padding: 0 var(--s5); background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+/* Transition native entre les pages (App.tsx passe `viewTransition` aux liens de navigation) : la barre
+   ne fait pas partie du changement, elle reste immobile pendant qu'une page remplace l'autre dessous —
+   même principe que `.topbar { view-transition-name: topbar }` sur hydroforge.fr. */
+.topbar { view-transition-name: topbar; }
+::view-transition-old(topbar), ::view-transition-new(topbar) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+.topbar .brand { font-weight: 700; font-family: var(--font-display); font-size: var(--fs-lead); letter-spacing: -0.01em; color: var(--text); }
+.topbar nav { display: flex; gap: var(--s1); }
+.topbar nav a { color: var(--muted); font-size: var(--fs-sm); font-weight: 400; padding: 6px 10px; border-radius: var(--radius-sm); }
+.topbar nav a.active, .topbar nav a:hover { color: var(--text); background: var(--bg); text-decoration: none; }
+/* Plus de teinte par section (grammaire du 23/09) : le vert de « Cartes » et le violet de « Comprendre »
+   reprenaient des couleurs de jugement. L'onglet actif se lit à l'encre, sur le gris de second niveau. */
+.topbar nav a.active { color: var(--text-fort); background: var(--surface-2); font-weight: 700; }
+.topbar .spacer { flex: 1; }
+.theme-toggle { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; color: var(--muted); background: none; border: 1px solid var(--border); border-radius: 999px; cursor: pointer; transition: border-color .15s, color .15s; }
+.theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+/* Recherche dans l'en-tête et menu mobile (maquette du 23/09) : champ compact après la marque ; sous 1080 px, liens
+   et champ passent dans un panneau ouvert par « Menu », logé dans l'en-tête collant pour s'ouvrir en place même
+   page défilée. Ses règles suivent celles de `.topbar nav a`, qui l'atteignent aussi. Le champ prend jusqu'à
+   300 px et cède quand la barre est pleine : à largeur fixe, son indication était coupée entre 860 et 1080 px.
+   Seuil relevé de 960 à 1080 px avec la cinquième entrée, « À propos » (24/09) : à 961 px, le champ tombait à
+   130 px, sous les 220 px que demande son indication ; à 1081 px, il en garde 260. */
+.entete-recherche { flex: 0 1 300px; min-width: 0; }
+.topbar .brand, .topbar > nav { flex: none; white-space: nowrap; }
+.entete-recherche .search-box { max-width: none; }
+.entete-recherche input.search { height: 38px; font-size: var(--fs-sm); }
+.entete-recherche .search-results, .entete-recherche .search-etat { min-width: min(380px, calc(100vw - 32px)); }
+.menu-btn { display: none; align-items: center; gap: 6px; height: 36px; padding: 0 12px; color: var(--text-2); background: none; border: 1px solid var(--border); border-radius: 999px; font: inherit; font-size: var(--fs-sm); font-weight: 600; cursor: pointer; }
+.menu-btn:hover { color: var(--text); border-color: var(--accent); }
+.menu-panneau { flex: 1 0 100%; display: grid; gap: var(--s3); padding: var(--s2) 0 var(--s3); }
+.menu-panneau .search-box { max-width: none; }
+.menu-panneau nav { display: grid; gap: 0; }
+.menu-panneau nav a { display: flex; align-items: center; min-height: 48px; padding: 0 var(--s2); border-radius: 0; border-bottom: 1px solid var(--border); color: var(--text); font-size: var(--fs-md); font-weight: 600; }
+.menu-panneau nav a.active { background: none; box-shadow: inset 3px 0 0 var(--text); }
+@media (min-width: 1081px) { .menu-panneau { display: none; } }
+@media (max-width: 1080px) {
+  .topbar { height: auto; min-height: 52px; flex-wrap: wrap; }
+  .topbar > nav, .entete-recherche { display: none; }
+  .menu-btn { display: inline-flex; }
+}
+/* `.content` (le <main>) ne porte plus lui-même la largeur maximale : un enfant marqué `.bande` doit
+   pouvoir toucher le bord de l'écran. Seul le rythme vertical (le seul rôle qui concernait toute la
+   page) reste ici ; la contrainte horizontale descend d'un cran, sur `.page` — son unique enfant,
+   toujours — exactement comme `main > :not(.bande)` sur hydroforge.fr (`global.css`). */
+.content { flex: 1; width: 100%; padding-block: var(--s5); }
+.page { width: 100%; }
+.page > :not(.bande) { max-width: 1280px; margin-inline: auto; padding-inline: var(--s5); }
+.footer { padding: var(--s4) var(--s5) var(--s5); color: var(--muted); font-size: var(--fs-xs); border-top: 1px solid var(--border); margin-top: var(--s6); }
+
+/* Rythme vertical d'une page : les blocs de premier niveau sont espacés par la même mesure. */
+.page > * + * { margin-top: var(--s4); }
+.page > .crumbs + *, .page > h1 + *, .page > .toolbar + .lead, .page > .hero + * { margin-top: var(--s2); }
+.page > h1, .page > .lead, .page > .hero p { margin-bottom: 0; }
+
+/* Grilles fluides plutôt qu'un seuil unique qui bascule tout en une colonne (revue ergonomie,
+   2026-09-23 : « une seule colonne, monotone » — la fenêtre de la prévisualisation elle-même mesure
+   souvent 600-700 px, sous l'ancien seuil de 900 px, et TOUT s'empilait d'un coup, y compris les quatre
+   tuiles d'indicateurs qui tiennent très bien à 2 ou 3). `auto-fit` + `minmax` choisit le nombre de
+   colonnes qui rentre à la largeur réelle, sans palier brutal, sur toutes les pages qui posent `cols-2`
+   ou `cols-3` (accueil, fiches, thèmes, services, amont…). `cols-map` (carte + panneau) garde un vrai
+   seuil : une carte ne se répète pas comme une tuile, elle doit rester large ou passer sous le panneau,
+   pas se retrouver à trois largeurs intermédiaires. */
+.grid { display: grid; gap: var(--s3); }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+/* `cols-4` reste à un seuil fixe, pas `auto-fit` (audit du 23/09, calcul vérifié) : les 4 tuiles KPI sont
+   un compte FIXE, jamais un nombre variable de cartes — avec `minmax(170px,1fr)`, `auto-fit` traverse une
+   fenêtre de ~560-760px de large où exactement 3 colonnes tiennent mais pas 4, laissant la 4ᵉ tuile seule
+   sur une deuxième ligne à côté de deux cases vides. 2 colonnes tiennent à toute largeur (jamais d'orphelin
+   à 2 sur 2) ; 4 seulement une fois la place vraiment là. */
+.grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 768px) {
+  .grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.grid.cols-map { grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); }
+.grid > * { min-width: 0; }
+@media (max-width: 700px) {
+  .grid.cols-map { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Révélation au défilement — porté de composition.css (hydroforge.fr) : dégradation silencieuse là où
+   `animation-timeline: view()` n'existe pas (rien ne se déclenche, le contenu reste visible). Coupée en
+   mode studio : `.stage` est mis à l'échelle par `transform`, où la détection d'entrée dans la fenêtre
+   n'a pas de sens pour un outil de capture d'écran fixe. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.studio) .grid > *,
+    html:not(.studio) .section-corps,
+    html:not(.studio) .bande {
+      animation: entree linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes entree {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media print {
+  /* Un bloc jamais entré dans la fenêtre (jamais défilée sur le papier) sortirait invisible sans ça —
+     bug déjà rencontré avec ce même mécanisme sur hydroforge.fr (composition.css). */
+  html:not(.studio) .grid > *, html:not(.studio) .section-corps, html:not(.studio) .bande { animation: none !important; }
+}
+
+/* --- Contrôles : une hauteur, un rayon, un contour --- */
+.btn, .toolbar select, .chip, .map-territoires button, input.search {
+  font: inherit; line-height: 1.2; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  transition: border-color .15s, background-color .15s, box-shadow .15s;
+}
+.btn { display: inline-flex; align-items: center; gap: 6px; height: var(--control); padding: 0 var(--s3); font-size: var(--fs-sm); font-weight: 400; cursor: pointer; white-space: nowrap; }
+.btn:hover { border-color: var(--accent); background: var(--bg); text-decoration: none; }
+/* Bouton principal : l'accent en aplat (déclaré APRÈS .btn, qui pose le fond de surface). Texte en
+   --text-on-accent, pas #fff en dur : --accent s'inverse en sombre (bleu ardoise → bleu clair), un
+   blanc figé y devenait illisible (revue design du 2026-09-22 : contraste 8,3:1 → ~2,1:1). */
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--text-on-accent); font-weight: 700; }
+.btn-primary:hover { background: var(--accent-fonce); border-color: var(--accent-fonce); color: var(--text-on-accent); text-decoration: none; }
+
+.toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s2) var(--s4); }
+.toolbar > h1, .toolbar > div:has(> h1) { flex: 1 0 100%; margin: 0 0 var(--s1); } /* le titre occupe sa ligne, les contrôles la suivante */
+/* Un h2 de toolbar (ex. « Par département ») partage sa ligne avec les contrôles : il n'est pas mis en
+   pleine largeur comme h1, juste poussé à gauche. 8 pages dupliquaient ce seul style en ligne
+   (revue design du 2026-09-22) — centralisé ici. */
+.toolbar > h2 { margin-right: auto; }
+.toolbar > div:has(> h1) > h1 { margin-bottom: 0; }
+.toolbar label { display: inline-flex; align-items: center; gap: var(--s2); min-width: 0; max-width: 100%; overflow-wrap: normal; white-space: nowrap; color: var(--muted); font-size: var(--fs-sm); }
+.toolbar select {
+  height: var(--control); max-width: 100%; min-width: 0; padding: 0 30px 0 10px; font-size: var(--fs-sm); color: var(--text); cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%235a6576' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+.toolbar select:hover { border-color: var(--accent); }
+input.search { width: 100%; height: var(--control); padding: 0 var(--s3); font-size: var(--fs-md); }
+input.search::placeholder { color: var(--muted); }
+input.search:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0 0 var(--s3); }
+.chip { height: 32px; padding: 0 var(--s3); border-radius: 999px; font-size: var(--fs-sm); color: var(--muted); cursor: pointer; }
+.chip.on { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); font-weight: 400; }
+.chip:hover { border-color: var(--accent); }
+
+/* --- Porte de la page /ma-commune (gabarit à part, cf. MaCommune.tsx) --- */
+.porte-tete { max-width: 62ch; display: flex; flex-direction: column; gap: var(--s3); }
+.hero .lead { color: var(--muted); font-size: var(--fs-lead); max-width: 70ch; }
+
+/* --- Fiches : sections dépliables (refonte du 2026-09-22) --- */
+
+/* Accordéon sobre : la section n'a pas de cadre propre, un filet la sépare de la précédente et les
+   blocs qu'elle contient gardent le leur — sans quoi chaque tableau se retrouverait doublement encadré. */
+.section { border-top: 1px solid var(--border); }
+.section > summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s2) var(--s3); padding: var(--s3) 0; cursor: pointer; list-style: none; }
+.section > summary::-webkit-details-marker { display: none; }
+.section > summary h2 { margin: 0; font-size: var(--fs-md); font-weight: 700; }
+.section > summary:hover h2 { color: var(--accent); }
+.section > summary::after { content: '+'; margin-left: auto; font-family: var(--font-chiffre); font-size: var(--fs-md); color: var(--muted); }
+.section[open] > summary::after { content: '–'; }
+.section[open] > summary h2 { color: var(--accent); }
+.section-resume { color: var(--muted); font-size: var(--fs-sm); }
+.section-corps { display: grid; gap: var(--s4); padding: var(--s2) 0 var(--s5); }
+/* Comme `.grid > *` : sans cela, une case de grille s'élargit à la largeur de son contenu, et un tableau large
+   poussait sa carte hors de l'écran sur mobile, où `html { overflow-x: clip }` rognait ses dernières colonnes
+   sans défilement possible (fiche commune de Rennes : trois sections jusqu'à 670 px pour 360). Le tableau
+   défile désormais dans son .table-scroll. */
+.section-corps > * { min-width: 0; }
+.page > .section + .section { margin-top: 0; }
+/* « Tout déplier » au-dessus des sections (components/ToutDeplier.tsx, étude UX du 23/09). */
+.sections-outils { display: flex; justify-content: flex-end; }
+.sections-outils .btn-link { min-height: 44px; padding: 0 var(--s1); font-size: var(--fs-sm); }
+.page > .sections-outils + .section { margin-top: 0; }
+@media (max-width: 700px) { .section-resume { display: none; } }
+@media print { .section[open] > summary::after, .section > summary::after { content: ''; } }
+
+/* --- Cartes (blocs), indicateurs, tableaux, badges, légendes --- */
+/* Padding resserré (revue du 23/09 : « densité ») : --s4/--s5 (16/24px) convenait à une carte isolée,
+   mais répété sur une grille de 4 tuiles ou de cartes de graphique, ça gonflait la page sans ajouter
+   d'information. Le bulletin des fiches garde son propre padding plus généreux (règles dédiées) : la
+   respiration reste sur les moments de synthèse, pas sur la grille de données. */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); box-shadow: var(--shadow); }
+/* Lever au survol réservé aux cartes qui sont de vrais liens (a.card / Link rend un <a>) — jamais aux
+   div.card statiques, qui n'ont rien à activer (revue ergonomie, 2026-09-23 : « peu ludique », mais un
+   survol sur un bloc immobile serait le genre de faux signal que ui-ux-pro-max signale). */
+a.card, button.card { transition: border-color .15s, box-shadow .15s, transform .15s; }
+a.card:hover, button.card:hover { border-color: var(--accent); box-shadow: var(--shadow-pop); transform: translateY(-2px); text-decoration: none; }
+.card h2, .card h3 { margin-bottom: var(--s3); }
+/* En-tête d'un bloc : son titre et les contrôles qui ne pilotent que lui, sur la même ligne. */
+.card-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s2) var(--s3); margin-bottom: var(--s3); }
+.card-head h2, .card-head h3 { margin: 0; margin-right: auto; }
+.card-head label { display: inline-flex; align-items: center; gap: var(--s2); min-width: 0; max-width: 100%; color: var(--muted); font-size: var(--fs-sm); white-space: nowrap; }
+.card-head select {
+  font: inherit; height: var(--control); max-width: 100%; min-width: 0; padding: 0 30px 0 10px; font-size: var(--fs-sm); line-height: 1.2;
+  color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%235a6576' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+.card-head select:hover { border-color: var(--accent); }
+html.studio .card-head label, html.studio .card-head .btn { display: none; }
+.card > .source:last-child { margin-bottom: 0; }
+.kpi { display: flex; flex-direction: column; gap: var(--s1); }
+/* Chiffre clé : la police des mots, en graisse forte et chiffres proportionnels (un « 121 » en chiffres
+   tabulaires paraît lâche en grand). La Mono reste aux valeurs mesurées et aux colonnes de chiffres. */
+.kpi .value { font-family: var(--font); font-size: var(--fs-kpi); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; color: var(--text-fort); }
+.kpi .label { color: var(--text); font-size: var(--fs-sm); line-height: 1.3; }
+.kpi .sub { color: var(--muted); font-size: var(--fs-xs); line-height: 1.3; }
+.muted { color: var(--muted); }
+/* Texte secondaire en petite taille, sans le retrait de .source (ligne de source en bas de carte) :
+   3 pages répétaient le même style en ligne (revue design du 2026-09-22). */
+.text-xs { font-size: var(--fs-xs); }
+.source { color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; margin-top: var(--s3); }
+table.data { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+table.data th, table.data td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--grid); vertical-align: middle; }
+/* En-têtes sur une ligne, sans césure (revue du 2026-09-22 : « Dépasse-ments », « Rende-ment ») ; un
+   en-tête voulu sur deux lignes porte la classe `wrap` et se coupe aux espaces. Les cellules ne
+   coupent plus un mot au milieu (« Trihalométhane s ») : `.content` leur transmettait `anywhere`. */
+table.data th { color: var(--muted); font-size: var(--fs-xs); font-weight: 700; line-height: 1.25; border-bottom-color: var(--border); vertical-align: bottom; white-space: nowrap; hyphens: manual; overflow-wrap: normal; }
+table.data th.wrap { white-space: normal; }
+/* Unité sous le libellé d'un en-tête (« Prix médian » / « €/m³ ») : la colonne reste étroite. */
+table.data th .unite { display: block; font-weight: 400; white-space: nowrap; }
+/* En-tête triable : bouton de la taille du texte, sans habillage. */
+table.data th .tri { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; white-space: nowrap; }
+table.data th .tri:hover { color: var(--text); text-decoration: underline; }
+table.data td { overflow-wrap: normal; hyphens: manual; }
+table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.data td.num { font-family: var(--font-chiffre); font-size: .94em; }
+table.data td.num { white-space: nowrap; }
+table.data tbody tr:last-child td { border-bottom: 0; }
+table.data tbody tr:hover td { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.badge { display: inline-block; white-space: nowrap; padding: 2px 8px; border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; line-height: 1.3; }
+/* Badges de ton : fond teinté, texte à l'encre, filet de la couleur (l'orange ne tient pas 4,5:1 en
+   texte ; la couleur porte la forme, pas les lettres). */
+.badge.good { background: var(--good-tint); color: var(--text); box-shadow: inset 0 0 0 1px var(--good-line); }
+.badge.warn { background: var(--warn-tint); color: var(--text); box-shadow: inset 0 0 0 1px var(--warn-line); }
+.badge.bad { background: var(--bad-tint); color: var(--text); box-shadow: inset 0 0 0 1px var(--bad-line); }
+/* Jeu de variables d'un ton, pour les composants qui dessinent une forme dans la couleur du sémaphore. */
+.tone-good { --tone: var(--good); --on-tone: var(--on-good); --tone-tint: var(--good-tint); --tone-line: var(--good-line); }
+.tone-warn { --tone: var(--warn); --on-tone: var(--on-warn); --tone-tint: var(--warn-tint); --tone-line: var(--warn-line); }
+.tone-bad { --tone: var(--bad); --on-tone: var(--on-bad); --tone-tint: var(--bad-tint); --tone-line: var(--bad-line); }
+.badge.neutre { background: color-mix(in srgb, var(--muted) 16%, transparent); color: var(--text); }
+
+/* Avis sanitaires de l'ARS (fiche commune) */
+.legend { display: flex; align-items: baseline; gap: var(--s1) var(--s3); font-size: var(--fs-xs); color: var(--muted); margin-top: var(--s2); flex-wrap: wrap; }
+/* Pastille de couleur en ligne, à côté d'un libellé écrit (jamais la couleur seule) ; la légende l'élargit. */
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; }
+.legend .swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+.legend-desc { font-weight: 700; }
+.legend-scale { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1) var(--s3); }
+.legend-item { display: inline-flex; align-items: center; white-space: nowrap; }
+.legend-note { font-style: italic; opacity: .85; border-bottom: 1px dotted currentColor; cursor: help; }
+/* Ligne du classement liée à la carte : la sélection se voit des deux côtés. */
+table.data tbody tr.on td { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.btn-link { font: inherit; font-size: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.btn-link:hover { color: var(--text); }
+
+/* --- Cartes géographiques --- */
+.map { width: 100%; height: 560px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--bg); }
+.map-tip { font: var(--fs-xs)/1.4 var(--font); color: var(--text); max-width: 260px; }
+/* Lien de l'info-bulle au toucher : il remplace le clic, qui sur écran tactile ouvre d'abord l'info-bulle. */
+.map-tip-action { display: block; margin-top: 6px; font-size: var(--fs-xs); font-weight: 700; }
+/* Voile posé sur la carte pendant un chargement, ou pour dire pourquoi elle est vide. */
+.map-voile { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: var(--s4); pointer-events: none; }
+.map-voile span { max-width: 36ch; padding: var(--s2) var(--s3); border-radius: var(--radius-sm); background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--muted); font-size: var(--fs-sm); text-align: center; box-shadow: var(--shadow); }
+.maplibregl-popup .maplibregl-popup-content { padding: 6px 10px; border-radius: var(--radius-sm); background: var(--surface); color: var(--text); box-shadow: var(--shadow-pop); }
+.maplibregl-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--surface); }
+.maplibregl-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: var(--surface); }
+.maplibregl-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--surface); }
+.maplibregl-popup.maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--surface); }
+.maplibregl-popup.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip, .maplibregl-popup.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip { border-top-color: var(--surface); }
+.maplibregl-popup.maplibregl-popup-anchor-top-left .maplibregl-popup-tip, .maplibregl-popup.maplibregl-popup-anchor-top-right .maplibregl-popup-tip { border-bottom-color: var(--surface); }
+.maplibregl-ctrl-group { background: var(--surface); box-shadow: var(--shadow-pop) !important; }
+.maplibregl-ctrl-group button + button { border-top-color: var(--border) !important; }
+.map-territoires { position: absolute; left: 10px; top: 10px; display: flex; flex-wrap: wrap; gap: var(--s1); max-width: 70%; z-index: 2; }
+.map-territoires button { height: 26px; padding: 0 10px; border-radius: 999px; font-size: .75rem; cursor: pointer; opacity: .92; }
+/* Bouton « Noms » enfoncé : les libellés sont affichés. */
+.map-territoires button.on { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.map-territoires button:hover { border-color: var(--accent); }
+:root { --inset-w: 96px; --inset-h: 76px; }
+html.studio { --inset-w: 128px; --inset-h: 100px; }
+.map-insets { position: absolute; left: 10px; bottom: 10px; display: flex; gap: 6px; z-index: 2; }
+.map-inset-box { width: var(--inset-w); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.map-inset-box .map-wrap { width: 100%; height: var(--inset-h); }
+.map-inset-box .map { height: 100% !important; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); }
+.map-inset-box span { font-size: var(--fs-xs); color: var(--muted); line-height: 1.1; }
+.map-inset .maplibregl-ctrl { display: none; }
+
+/* --- Recherche, thèmes, graphiques, prose --- */
+/* Surtitre : capitales espacées, filet court avant le texte — porté de global.css (hydroforge.fr).
+   Sert à distinguer la section de navigation d'une page (Ma commune · Cartes · Comprendre · Méthode)
+   quand un simple <h1> ne le dit plus, plutôt que d'ajouter une phrase inventée par page. */
+.eyebrow { display: flex; align-items: center; gap: var(--s2); font-size: var(--fs-xs); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.eyebrow::before { content: ''; width: 22px; height: 2px; background: currentColor; flex: none; }
+.page > .eyebrow + * { margin-top: var(--s1); }
+
+.hero { padding: var(--s3) 0 0; max-width: 760px; }
+.hero h1 { font-size: var(--fs-hero); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: var(--s2); }
+/* `color: var(--muted)` manquait ici (audit du 23/09) : `.hero .lead` l'avait déjà (ligne 450), mais pas
+   ce jeton générique, utilisé par la plupart des pages « Comprendre » (Nappes, Thème, Amont, Ressource…).
+   Un chapeau de plusieurs lignes en encre pleine — la même que le corps de texte — pesait presque autant
+   que le h1 au-dessus (« les tailles !!! ») : la couleur fait maintenant l'essentiel du travail de
+   hiérarchie que la taille seule ne suffisait pas à porter. */
+.lead { font-size: var(--fs-lead); color: var(--muted); max-width: 800px; text-wrap: pretty; }
+.search-box { position: relative; max-width: 560px; }
+/* Résultats groupés par type (components/Search.tsx) : titre de groupe en capitales, pictogramme, nom et précision. */
+.search-results { position: absolute; z-index: 30; left: 0; right: 0; max-height: min(70vh, 540px); overflow-y: auto; margin: var(--s1) 0 0; padding: var(--s1); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-pop); }
+.search-groupe + .search-groupe { margin-top: var(--s1); padding-top: var(--s1); border-top: 1px solid var(--border); }
+.search-groupe-titre { padding: 8px 12px 4px; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.search-option { display: flex; align-items: center; gap: var(--s3); min-height: 48px; padding: 6px 12px; border-radius: var(--radius); cursor: pointer; }
+.search-option.active { background: var(--surface-2); }
+.search-picto { flex: none; fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.search-txt { display: flex; flex-direction: column; min-width: 0; }
+.search-nom { font-weight: 700; overflow-wrap: anywhere; }
+.search-meta { font-size: var(--fs-xs); color: var(--muted); }
+.search-etat { position: absolute; z-index: 30; left: 0; right: 0; margin: var(--s1) 0 0; padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-pop); color: var(--muted); font-size: var(--fs-sm); }
+.theme-card { display: block; color: var(--text); transition: border-color .15s, box-shadow .15s; }
+.theme-card:hover { text-decoration: none; border-color: var(--accent); box-shadow: var(--shadow-pop); }
+
+/* Encadré d'avertissement (limites d'une vue) : même carte, filet d'attention à gauche. */
+.card.note { border-left: 3px solid var(--border-fort); }
+/* Bandeau des avis de l'ARS de l'année en cours (components/AvisEnCours.tsx, étude UX du 23/09) : rouge
+   pour une restriction ou une consigne d'ébullition, orange pour les publics sensibles, comme AvisCard. */
+
+/* Groupes de substances hors grille : cartes cliquables qui choisissent la carte et le tableau. */
+.hg-groupe { font: inherit; text-align: left; color: var(--text); cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.hg-groupe:hover { border-color: var(--accent); }
+.hg-groupe.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.hg-groupe h3 { margin: 0 0 var(--s2); }
+.hg-groupe p { margin: 0; }
+.table-scroll {
+  /* Tout tableau vit dans ce conteneur : il défile en largeur quand l'écran est étroit, et deux ombres
+     de bord (technique des arrière-plans « local » / « scroll ») signalent qu'il reste des colonnes. */
+  overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) left center / 40px 100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) right center / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--edge-shadow), transparent) left center / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--edge-shadow), transparent) right center / 12px 100% no-repeat scroll;
+}
+/* Long tableau : hauteur bornée, en-tête figé pendant le défilement. */
+.table-scroll.haut { max-height: 70vh; overflow-y: auto; }
+.table-scroll.haut thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); }
+.table-scroll.haut .fige { position: sticky; left: 0; z-index: 1; background: var(--surface); }
+.table-scroll.haut thead th.fige { z-index: 2; }
+/* Ligne d'intitulé de groupe dans un tableau (niveau de restriction…), figée en haut pendant le défilement. */
+table.data tr.groupe th { position: sticky; top: 0; z-index: 1; background: var(--surface); color: var(--text); font-size: var(--fs-sm); padding-top: 10px; }
+.chart-export { position: absolute; top: var(--s1); right: var(--s1); height: 24px; padding: 0 var(--s2); font-size: .72rem; opacity: 0; transition: opacity .15s; }
+.chart-wrap:hover .chart-export { opacity: .9; }
+.prose ul { padding-left: 1.2rem; } .prose li { margin-bottom: .5rem; }
+.crumbs { color: var(--muted); font-size: var(--fs-sm); margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.content { overflow-wrap: anywhere; }
+.wrap-any { overflow-wrap: anywhere; }
+/* Colonne de situation d'un classement : « 30 jours au plus » s'enroulait sur trois lignes. */
+.data td.nowrap { white-space: nowrap; }
+
+/* --- Bulletin : voyants, étiquettes, instruments, barre d'année (maquette « vigilance + instruments », 23/09) --- */
+/* Tons sans jugement : famille non analysée (anneau pointillé), avis limité à un bâtiment, échelle grise. */
+.tone-na { --tone: var(--muted); --on-tone: var(--surface); --tone-tint: var(--surface-2); --tone-line: var(--border-fort); }
+.tone-neutre { --tone: var(--text-2); --on-tone: var(--surface); --tone-tint: var(--surface-2); --tone-line: var(--border-fort); }
+.voyant { flex: none; display: block; }
+.voyant .v-forme { fill: var(--tone); }
+.voyant .v-signe { fill: var(--on-tone); }
+.voyant .v-trait { fill: none; stroke: var(--on-tone); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.voyant .v-anneau { fill: none; stroke: var(--tone); stroke-width: 2; stroke-dasharray: 3.2 2.6; }
+.tag { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 2px 10px; border-radius: 999px; background: var(--tone-tint); box-shadow: inset 0 0 0 1px var(--tone-line); color: var(--text); font-size: var(--fs-xs); font-weight: 700; line-height: 1.3; white-space: nowrap; }
+
+/* Réglette : la limite à l'encre, la plage hors limite teintée, la valeur lue au-dessus de son repère. */
+.jauge { position: relative; padding-block: 30px 24px; min-width: 0; }
+.jauge--nue { padding-top: 8px; }
+.j-piste { position: relative; height: 8px; }
+.j-fond { position: absolute; inset: 0; border-radius: 4px; overflow: hidden; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--border); }
+.j-zone { position: absolute; top: 0; bottom: 0; background: var(--warn-tint); box-shadow: inset 0 0 0 1px var(--warn-line); }
+.j-repere { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px solid var(--muted); }
+.j-repere--limite { top: -7px; bottom: -7px; border-left: 2px solid var(--text); }
+.j-echelle { position: relative; height: 0; }
+.j-grad { position: absolute; top: 10px; transform: translateX(-50%); font-family: var(--font-chiffre); font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; line-height: 1; }
+.j-grad.debut { transform: none; }
+.j-grad.fin { transform: translateX(-100%); }
+.j-grad.limite { color: var(--text); font-weight: 600; }
+.j-marque { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--tone); box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--tone-line); animation: j-pop .45s cubic-bezier(.2, .9, .3, 1.3) both; }
+.j-lecture { position: absolute; bottom: calc(100% + 9px); left: 50%; transform: translateX(-50%); font-family: var(--font-chiffre); font-weight: 600; font-size: var(--fs-md); color: var(--text); white-space: nowrap; line-height: 1; }
+.j-lecture.debut { left: -2px; transform: none; }
+.j-lecture.fin { left: auto; right: -2px; transform: none; }
+@keyframes j-pop { from { transform: scale(.4); opacity: .3; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .j-marque { animation: none; } }
+
+/* Paliers : une case par classe, les classes non conformes teintées, la classe atteinte pleine. */
+.paliers { padding-block: 12px 4px; min-width: 0; }
+.p-rang { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 2px; align-items: center; }
+.p-palier { height: 8px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--border); }
+.p-palier:first-child { border-radius: 4px 0 0 4px; }
+.p-palier:last-child { border-radius: 0 4px 4px 0; }
+.p-palier--warn { background: var(--warn-tint); box-shadow: inset 0 0 0 1px var(--warn-line); }
+.p-palier--bad { background: var(--bad-tint); box-shadow: inset 0 0 0 1px var(--bad-line); }
+.p-palier.actif { height: 14px; border-radius: 4px; background: var(--tone); box-shadow: 0 0 0 2px var(--surface); }
+.p-libelles { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 2px; margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); line-height: 1.25; }
+.p-libelles span { padding-right: 6px; }
+.p-libelles .actif { color: var(--text); font-weight: 700; }
+.p-bouts { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); }
+.p-lecture-rang { position: relative; height: 24px; }
+.p-lecture { position: absolute; bottom: 8px; transform: translateX(-50%); font-weight: 700; color: var(--text); white-space: nowrap; line-height: 1; }
+.p-lecture.debut { transform: none; }
+.p-lecture.fin { transform: translateX(-100%); }
+
+/* Barre d'année des fiches : ce qu'elle gouverne à gauche, les années à droite (boutons à bascule). */
+.barre-annee { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3) var(--s5); padding-block: 14px; border-block: 1px solid var(--border); }
+.ba-titre { margin: 0; font-weight: 700; }
+.ba-note { margin: 0; font-size: var(--fs-xs); color: var(--muted); }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-2); }
+.seg button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: var(--text-2); font: inherit; font-variant-numeric: tabular-nums; cursor: pointer; }
+.seg button:hover { color: var(--text); }
+.seg button[aria-pressed='true'] { background: var(--surface); color: var(--text); font-weight: 700; box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(14 23 38 / .08); }
+.seg small { font-size: var(--fs-xs); color: var(--muted); font-weight: 400; }
+.seg button.sans-donnees { color: var(--muted); }
+
+/* « Lire un bulletin » (components/LireBulletin.tsx) : les quatre voyants, puis l'échelle de chaque famille. */
+ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--s3); margin: var(--s4) 0; padding: 0; list-style: none; }
+.grammaire li { display: grid; grid-template-columns: auto 1fr; align-content: start; gap: 4px var(--s3); margin: 0; padding: var(--s4); border-radius: var(--radius-lg); background: var(--tone-tint); box-shadow: inset 0 0 0 1px var(--tone-line); }
+.grammaire li .voyant { grid-row: span 2; margin-top: 2px; }
+.grammaire li span { color: var(--text-2); }
+.grammaire-note { display: flex; align-items: flex-start; gap: var(--s3); margin: 0 0 var(--s5); font-size: var(--fs-xs); color: var(--text-2); }
+.grammaire-note .nuancier { display: inline-flex; flex: none; gap: 2px; margin-top: 3px; }
+.grammaire-note .nuancier span { width: 14px; height: 12px; }
+.legende-familles { border-top: 1px solid var(--border); }
+.legende-famille { display: grid; grid-template-columns: minmax(160px, 220px) minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s3) var(--s6); align-items: center; padding-block: 18px; border-bottom: 1px solid var(--border); }
+.legende-famille h3 { margin: 0; font-size: var(--fs-md); }
+.legende-famille .methode { margin: 2px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+.legende-famille .lecture { margin: 0; color: var(--text-2); }
+@media (max-width: 700px) { .legende-famille { grid-template-columns: minmax(0, 1fr); gap: var(--s2); } }
+
+/* --- Accueil (maquette du 23/09) : la recherche d'abord, puis « La France en {année} », puis « Lire un bulletin » --- */
+.accueil-tete { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s5) var(--s6); align-items: start; padding-block: var(--s5) var(--s3); }
+.accueil-intro h1 { margin: 0 0 var(--s3); }
+.accueil-recherche { display: grid; gap: var(--s2); }
+.accueil-recherche-titre { margin: 0; font-weight: 700; }
+.accueil-recherche .search-box { max-width: none; }
+.recherche-services { display: grid; gap: var(--s2); max-width: 640px; }
+.recherche-services h2 { margin: 0; font-size: var(--fs-lead); }
+.accueil-recherche input.search { height: 52px; font-size: var(--fs-lead); }
+.accueil-aide { margin: 0; font-size: var(--fs-xs); color: var(--muted); }
+.accueil-exemples { display: grid; gap: var(--s2); margin-top: var(--s2); }
+.accueil-exemples > span { font-size: var(--fs-xs); color: var(--muted); }
+.accueil-exemples ul { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0; padding: 0; list-style: none; }
+.exemple { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text); font-weight: 600; text-decoration: none; }
+.exemple:hover { background: var(--surface-2); border-color: var(--border-fort); color: var(--text); text-decoration: none; }
+.exemple-genre { font-size: var(--fs-xs); font-weight: 400; color: var(--muted); }
+.accueil-france { display: grid; gap: var(--s4); }
+.accueil-contexte { margin: 0; color: var(--text-2); }
+/* Quatre chiffres nationaux, sans couleur : des statistiques, pas des jugements. */
+.chiffres { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-block: 1px solid var(--border); }
+.chiffre { display: flex; flex-direction: column; gap: 4px; padding: var(--s4) var(--s4) var(--s4) 0; }
+.chiffre + .chiffre { padding-left: var(--s4); border-left: 1px solid var(--border); }
+.chiffre dt { order: 2; color: var(--text); }
+.chiffre dd { margin: 0; }
+.chiffre-valeur { order: 1; font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; color: var(--text-fort); }
+.chiffre-detail { order: 3; font-size: var(--fs-xs); color: var(--muted); }
+.accueil-sous-titre { margin: var(--s3) 0 0; }
+
+/* --- Fiches : en-tête, bandeau des avis en cours, bulletin (maquette « vigilance + instruments », 23/09) --- */
+.page-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s4) var(--s6); }
+.page-head h1 { margin: 0; }
+.page-head .meta { margin: 6px 0 0; color: var(--text-2); max-width: 90ch; }
+.kind { margin: 0 0 6px; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.h1-udi { font-size: var(--fs-h2); overflow-wrap: anywhere; }
+.cap { font-size: var(--fs-xs); color: var(--muted); line-height: 1.45; }
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 700; text-decoration: none; }
+.link-arrow:hover { text-decoration: underline; }
+/* L'avis de l'année en cours : hors de la portée de la barre d'année, teinté du ton de l'avis le plus grave. */
+.bandeau-avis { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px var(--s4); align-items: start; padding: 18px 20px; border: 1px solid var(--tone-line); border-radius: var(--radius-lg); background: var(--tone-tint); }
+.bandeau-avis > .voyant { grid-row: 1 / span 2; margin-top: 1px; }
+.bandeau-avis-titre, .bandeau-avis-detail { grid-column: 2; }
+.bandeau-avis-titre { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0; font-weight: 700; }
+.bandeau-avis-detail { margin: 0; color: var(--text-2); max-width: 78ch; }
+.bandeau-avis .link-arrow { grid-column: 3; grid-row: 1 / span 2; align-self: center; white-space: nowrap; }
+.etat-vide { padding: var(--s5); border: 1px dashed var(--border-fort); border-radius: var(--radius-lg); }
+.etat-vide p { margin: 0; }
+.etat-vide p + p { margin-top: var(--s2); color: var(--text-2); }
+.fiche-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s6); align-items: start; }
+.bulletin { padding: 28px 32px 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+.b-q { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; font-size: var(--fs-md); font-weight: 700; letter-spacing: 0; }
+.b-y { font-family: var(--font-chiffre); font-size: var(--fs-xs); font-weight: 500; color: var(--muted); }
+.b-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s4) 18px; align-items: start; margin-top: var(--s4); }
+.b-verdict { margin: 6px 0 0; font-size: var(--fs-h2); font-weight: 700; line-height: 1.2; letter-spacing: -.012em; text-wrap: balance; color: var(--text-fort); }
+.b-head p + p { margin: 8px 0 0; color: var(--text-2); max-width: 60ch; }
+/* Onglets des réseaux : chacun jugé séparément, le plus défavorable d'abord. */
+.rpick-wrap { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
+.rpick-wrap .cap { margin: 0 0 10px; }
+.rpick { display: flex; flex-wrap: wrap; gap: 6px; }
+.rpick button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px 0 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-2); font: inherit; font-size: var(--fs-xs); font-weight: 600; text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+.rpick button:hover { border-color: var(--border-fort); color: var(--text); }
+.rpick button[aria-selected='true'] { border-color: var(--text); color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.rpick-now { margin: 14px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+.rpick-now b { color: var(--text); font-family: var(--font-chiffre); font-weight: 600; overflow-wrap: anywhere; }
+/* Une famille par ligne : voyant, nom et classe, instrument, ce qui est en cause. */
+.fams { margin-top: 24px; border-top: 1px solid var(--border); }
+.fam { display: grid; grid-template-columns: minmax(170px, 210px) minmax(0, 1fr); gap: 8px var(--s6); align-items: center; padding-block: 14px; border-bottom: 1px solid var(--border); }
+.fam-id { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 10px; align-items: start; }
+.fam-id .voyant { margin-top: 3px; }
+.fam-name { font-weight: 700; }
+.fam-status { color: var(--text-2); font-size: var(--fs-xs); }
+.fam-cause { grid-column: 2; margin: -4px 0 0; font-size: var(--fs-xs); color: var(--text-2); }
+.fam-cause b { color: var(--text); }
+.b-avis { padding-block: 16px 12px; border-bottom: 1px solid var(--border); }
+.b-sub { margin: 0 0 6px; font-weight: 700; }
+.b-avis > .muted { margin: 0; }
+.b-sans-info { margin: 0; max-width: 68ch; }
+.b-avis-liste { margin: 0; padding: 0; list-style: none; }
+.b-avis-liste li { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 0; padding-block: 8px; border-bottom: 1px solid var(--border); }
+.b-avis-liste li:first-child { padding-top: 2px; }
+.b-avis-liste li:last-child { border-bottom: 0; }
+.b-avis-liste summary { font-size: var(--fs-xs); color: var(--accent); cursor: pointer; }
+.b-avis-liste blockquote { margin: 6px 0 0; padding: 6px 12px; border-left: 3px solid var(--border); color: var(--text-2); font-size: var(--fs-xs); line-height: 1.5; }
+.b-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px var(--s5); padding-top: 10px; }
+.counts { margin: 0; color: var(--text-2); }
+.counts b { font-family: var(--font-chiffre); font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+@media (max-width: 1080px) {
+  .fiche-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .bulletin { padding: 20px 16px 12px; border-radius: 14px; }
+  .b-head { gap: 12px; }
+  .b-head > .voyant { width: 32px; height: 32px; }
+  .fam { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .fam-cause { grid-column: 1; margin-top: 2px; }
+  .bandeau-avis { grid-template-columns: auto minmax(0, 1fr); padding: 16px; }
+  .bandeau-avis .link-arrow { grid-column: 2; grid-row: auto; justify-self: start; }
+}
+
+/* « Qui la distribue ? », à côté du bulletin : le service daté SISPEA, puis les réseaux de l'année. */
+.qui { display: flex; flex-direction: column; padding-top: 6px; }
+.qui > .b-q { padding-bottom: 10px; }
+.qui > section { padding-block: var(--s4); border-bottom: 1px solid var(--border); }
+.qui > section:first-of-type { border-top: 1px solid var(--border); }
+.qui-k { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0 0 6px; font-size: var(--fs-xs); font-weight: 700; color: var(--muted); }
+.qui-lien { font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.qui-lien:hover { text-decoration: underline; }
+.qui-nom { margin: 0; font-weight: 700; }
+.qui-ligne { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 8px 0 0; }
+.qui-prix { margin: 10px 0 0; }
+.qui-grand { font-size: var(--fs-h2); font-weight: 700; letter-spacing: -.015em; color: var(--text-fort); }
+.qui-reseaux { margin: 0; padding: 0; list-style: none; }
+.qui-reseaux li { display: flex; align-items: center; gap: 10px; min-height: 40px; margin: 0; padding-block: 6px; border-bottom: 1px solid var(--border); }
+.qui-reseaux li:last-child { border-bottom: 0; }
+.qui-reseaux a { font-weight: 700; text-decoration: none; }
+.qui-reseaux a:hover { text-decoration: underline; }
+.qui-reseaux + .cap { margin: 6px 0 0; }
+.qui-communes { margin: 0 0 8px; padding: 0; list-style: none; columns: 2 120px; column-gap: 20px; }
+.qui-communes li { margin: 0; padding-block: 3px; break-inside: avoid; }
+.qui-service { margin: 0 0 4px; }
+.qui > section > .cap { margin: 4px 0 0; }
+@media (min-width: 1081px) {
+  .fiche-grid > .qui { position: sticky; top: 72px; }
+}
+/* « Tout le détail » : le titre à gauche, « Tout déplier » à droite. */
+.sections-outils.avec-titre { justify-content: space-between; align-items: baseline; gap: var(--s3); }
+.sections-outils h2 { margin: 0; font-size: var(--fs-lead); }
+/* « La ressource, aujourd'hui » : bande pleine largeur, trois cases datées, sans couleur de jugement. */
+.page > .bande-ressource { margin-top: 56px; }
+.bande-ressource { padding-block: 40px 44px; border-block: 1px solid var(--border); background: var(--surface-2); }
+.bande-interieur { max-width: 1280px; margin-inline: auto; padding-inline: var(--s5); }
+.bande-ressource .bloc-tete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px var(--s5); margin-bottom: 8px; }
+.bande-ressource .bloc-tete h2 { margin: 0; font-size: var(--fs-lead); }
+.bande-ressource .bloc-tete .cap { margin: 0; }
+.ressource-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ressource-cases > section { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 20px 28px 8px 0; }
+.ressource-cases > section + section { padding-left: 28px; border-left: 1px solid var(--border); }
+.ressource-cases h3 { margin: 0; font-size: var(--fs-md); }
+.ressource-cases p { margin: 0; }
+@media (max-width: 860px) {
+  .ressource-cases { grid-template-columns: minmax(0, 1fr); }
+  .ressource-cases > section, .ressource-cases > section + section { padding: 18px 0; border-left: 0; }
+  .ressource-cases > section + section { border-top: 1px solid var(--border); }
+}
+@media (max-width: 700px) {
+  .bande-interieur { padding-inline: var(--s3); }
+}
+
+/* Mois par mois de l'année choisie (components/SerieMensuelle.tsx) : barres neutres, limite à l'encre ; la série d'un
+   réseau jugé colore ses mois au-dessus de la limite, un agrégat de plusieurs réseaux reste neutre. */
+.page > .bloc-serie { margin-top: var(--s6); }
+.bloc-tete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px var(--s5); margin-bottom: 12px; }
+.bloc-tete h2 { margin: 0; font-size: var(--fs-lead); }
+.bloc-tete .cap { margin: 0; }
+.serie-graphe { width: 100%; }
+.serie-graphe svg { display: block; width: 100%; height: auto; overflow: visible; }
+.serie text { font-family: var(--font-chiffre); font-size: 12px; fill: var(--muted); }
+.serie--compacte text { font-size: 11px; }
+.serie-grille { stroke: var(--border); stroke-width: 1; shape-rendering: crispEdges; }
+.serie-base { stroke: var(--border-fort); stroke-width: 1; shape-rendering: crispEdges; }
+.serie-limite { stroke: var(--text); stroke-width: 1.5; }
+.serie text.serie-limite-lab { fill: var(--text); font-weight: 600; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.serie-zone { fill: var(--warn-tint); }
+.serie-barre { fill: var(--mark); }
+.serie-barre.au-dessus { fill: var(--warn); }
+.serie-mois:hover .serie-barre:not(.au-dessus) { fill: var(--mark-hi); }
+.serie--neutre .serie-zone { fill: var(--surface-2); }
+.serie--neutre .serie-barre.au-dessus, .serie--neutre .serie-mois:hover .serie-barre { fill: var(--mark-hi); }
+.serie-cible { fill: transparent; }
+.serie-resume { margin: 8px 0 0; color: var(--text-2); }
+.multiples { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: var(--s5) var(--s6); }
+.multiples h3 { margin: 0 0 4px; font-size: var(--fs-md); }
+.multiples .cap { margin: 4px 0 0; }
+
+/* Fiche service (maquette du 23/09) : le service daté SISPEA, puis ses réseaux de l'année, puis ses communes. */
+.svc-sispea { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--s5) 56px; align-items: start; }
+.svc-id { display: flex; flex-direction: column; gap: 4px; }
+.svc-id .b-q { margin-bottom: 6px; }
+.svc-id .cap { margin: 8px 0 0; }
+.page > .bloc-service { margin-top: var(--s6); }
+.agg { margin: 0 0 4px; font-size: var(--fs-lead); color: var(--text); }
+.agg-detail { margin: 0 0 12px; }
+.reseaux-dist { margin: 0 0 8px; }
+.reseaux-lignes { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.reseaux-lignes li { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.1fr); gap: 4px 14px; align-items: start; margin: 0; padding-block: 12px; border-bottom: 1px solid var(--border); }
+.reseaux-lignes li > .voyant { margin-top: 3px; }
+.reseaux-lignes p { margin: 0; }
+.rl-nom a { font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.rl-nom a:hover { text-decoration: underline; }
+.rl-meta { font-size: var(--fs-xs); color: var(--muted); }
+.rl-situation { font-size: var(--fs-xs); color: var(--text-2); }
+.rl-situation b { color: var(--text); }
+.reseaux-note { margin: 10px 0 0; }
+.communes-liste { margin: 0; padding: 0; list-style: none; columns: 4 170px; column-gap: 28px; }
+.communes-liste li { margin: 0; padding-block: 3px; break-inside: avoid; }
+.pli summary { display: flex; align-items: center; min-height: 44px; font-weight: 700; cursor: pointer; }
+.pli[open] summary { margin-bottom: 8px; }
+@media (max-width: 1080px) {
+  .svc-sispea { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 860px) {
+  .reseaux-lignes li { grid-template-columns: auto minmax(0, 1fr); }
+  .reseaux-lignes .rl-situation { grid-column: 2; }
+}
+
+/* Carte des départements (components/CarteDepartements.tsx) : rampe ardoise, hachures sans donnée, noms à halo. */
+.carte-france { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s5) var(--s6); align-items: start; }
+.carte-dessin { min-width: 0; }
+.carte-svg { display: block; width: 100%; height: auto; max-height: 680px; }
+.carte-svg path { stroke: var(--bg); stroke-width: .9; stroke-linejoin: round; cursor: pointer; }
+.carte-svg path.actif, .carte-vignette path.actif { stroke: var(--text); stroke-width: 1.8; }
+.carte-svg path.choisi, .carte-vignette path.choisi { stroke: var(--text); stroke-width: 2.4; }
+.carte-m1 { fill: var(--m1); } .carte-m2 { fill: var(--m2); } .carte-m3 { fill: var(--m3); } .carte-m4 { fill: var(--m4); } .carte-m5 { fill: var(--m5); }
+.carte-hachures-fond { fill: var(--bg); }
+.carte-hachures-trait { stroke: var(--border-fort); stroke-width: 2; }
+.carte-nom { fill: var(--text); stroke: var(--surface); paint-order: stroke; stroke-linejoin: round; text-anchor: middle; font-weight: 600; pointer-events: none; }
+.carte-vignettes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s2); }
+.carte-vignette { display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; padding: 8px 4px 6px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text-2); font: inherit; font-size: var(--fs-xs); line-height: 1.2; text-align: center; }
+button.carte-vignette { cursor: pointer; }
+button.carte-vignette:hover, .carte-vignette.choisi { border-color: var(--text); }
+.carte-vignette svg { width: 100%; height: 40px; overflow: visible; }
+.carte-vignette path { stroke: var(--bg); stroke-width: 1; vector-effect: non-scaling-stroke; cursor: pointer; }
+.carte-cote { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; position: sticky; top: 72px; }
+.carte-reglages { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
+.carte-legende-titre { margin: 0; font-size: var(--fs-xs); font-weight: 700; color: var(--text-2); }
+.carte-noms { min-height: 32px; padding: 0 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-2); font: inherit; font-size: var(--fs-xs); font-weight: 600; cursor: pointer; }
+.carte-noms[aria-pressed="true"] { background: var(--surface-2); border-color: var(--border-fort); color: var(--text); }
+.carte-legende { display: grid; grid-template-columns: repeat(5, minmax(0, 64px)); column-gap: 2px; row-gap: 6px; }
+.carte-case { height: 12px; }
+.carte-case:first-child { border-radius: 3px 0 0 3px; }
+.carte-case:nth-child(5) { border-radius: 0 3px 3px 0; }
+.carte-fond-m1 { background: var(--m1); } .carte-fond-m2 { background: var(--m2); } .carte-fond-m3 { background: var(--m3); } .carte-fond-m4 { background: var(--m4); } .carte-fond-m5 { background: var(--m5); }
+.carte-borne { font-family: var(--font-chiffre); font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+.carte-note { margin: 0; font-size: var(--fs-xs); color: var(--muted); }
+.carte-lecture { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; min-height: 84px; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--surface-2); }
+.carte-lecture-nom { flex-basis: 100%; font-weight: 700; }
+.carte-lecture-part { font-family: var(--font-chiffre); font-size: var(--fs-lead); font-weight: 600; }
+.carte-lecture-detail { color: var(--text-2); }
+.carte-lecture-aide, .carte-lecture-lien { flex-basis: 100%; font-size: var(--fs-xs); }
+.carte-lecture-aide { color: var(--muted); }
+.carte-tableau summary { display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; cursor: pointer; }
+.carte-tableau .table-scroll { max-height: 340px; overflow-y: auto; }
+
+/* Familles et paramètres : barres neutres (--mark), le chiffre à côté. */
+.accueil-duo { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s6); margin-top: var(--s4); }
+.accueil-duo h3 { margin: 0 0 4px; }
+.accueil-duo .muted { margin: 0; }
+.barres { display: grid; gap: 14px; margin: var(--s4) 0 0; padding: 0; list-style: none; }
+.barres li { display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr) auto; align-items: center; gap: 14px; margin: 0; }
+.barre-piste { position: relative; height: 18px; border-left: 1px solid var(--border-fort); }
+.barre-trait { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--mark); }
+.barres li:hover .barre-trait { background: var(--mark-hi); }
+.barre-valeur { font-family: var(--font-chiffre); white-space: nowrap; }
+.barre-valeur small { font-size: var(--fs-xs); color: var(--muted); }
+@media (max-width: 860px) {
+  .accueil-tete, .carte-france, .accueil-duo { grid-template-columns: minmax(0, 1fr); }
+  .chiffres { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chiffre:nth-child(3) { padding-left: 0; border-left: 0; }
+  .chiffre:nth-child(n + 3) { border-top: 1px solid var(--border); }
+  .carte-cote { position: static; }
+  .carte-vignettes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .barres li { grid-template-columns: minmax(0, 1fr) auto; }
+  .barre-piste { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* Couleurs forcées (contraste élevé de Windows) : le navigateur efface fonds et ombres, et avec eux les pistes, la
+   zone hors limite, le repère de la valeur, la case atteinte, les barres, l'option active de la recherche et l'état
+   des boutons à bascule (revue du 23/09). Ils passent en couleurs système ; `forced-color-adjust: none` seulement là
+   où la couleur est la donnée. La carte SVG garde sa rampe, et sa légende avec elle. Les cartes MapLibre et les
+   graphiques, dessinés dans un canevas que le navigateur ne recolore pas, gardent aussi leurs couleurs : les pastilles
+   qui les décodent (`.swatch` des légendes et des tableaux) les gardent donc, cernées pour rester visibles quand elles
+   sont pâles (revue du 24/09 : légendes vides sur toutes les cartes). */
+@media (forced-colors: active) {
+  .j-fond, .p-palier, .tag, .grammaire li { border: 1px solid CanvasText; }
+  .j-zone, .p-palier--warn, .p-palier--bad { forced-color-adjust: none; background: repeating-linear-gradient(135deg, CanvasText 0 1px, Canvas 1px 5px); box-shadow: none; }
+  .j-marque { forced-color-adjust: none; background: CanvasText; box-shadow: 0 0 0 3px Canvas; }
+  .j-marque .j-lecture { forced-color-adjust: auto; }
+  .p-palier.actif { forced-color-adjust: none; background: CanvasText; box-shadow: 0 0 0 2px Canvas; }
+  .barre-trait, .barres li:hover .barre-trait { forced-color-adjust: none; background: CanvasText; }
+  .carte-case, .nuancier span { forced-color-adjust: none; }
+  .swatch { forced-color-adjust: none; border: 1px solid CanvasText; }
+  .seg button[aria-pressed='true'], .carte-noms[aria-pressed='true'] { forced-color-adjust: none; background: Highlight; border-color: Highlight; box-shadow: none; color: HighlightText; }
+  .seg button[aria-pressed='true'] small { color: HighlightText; }
+  .search-option.active { outline: 2px solid Highlight; outline-offset: -2px; }
+  .rpick button[aria-selected='true'] { outline: 3px solid Highlight; outline-offset: 1px; }
+  input.search:focus { outline: 2px solid Highlight; outline-offset: 1px; }
+  .menu-panneau nav a.active { border-left: 4px solid CanvasText; }
+}
+
+/* --- Mode studio : scène 1920×1080 --- */
+html.studio .topbar, html.studio .footer, html.studio .toolbar, html.studio .search-box, html.studio .crumbs { display: none; }
+html.studio body { overflow: hidden; background: #000; }
+html.studio .content { max-width: none; padding: 0; }
+/* La contrainte de largeur a changé de niveau (`.page > :not(.bande)`, plus haut) : sans cette ligne,
+   une page ordinaire ouverte avec `?studio=1` (le mode n'est pas réservé à /scene) se retrouvait
+   recentrée à 1280 px dans la scène 1920×1080 au lieu de la remplir. */
+html.studio .page > :not(.bande) { max-width: none; padding-inline: 0; margin-inline: 0; }
+html.studio .stage-wrap { position: fixed; inset: 0; background: #000; }
+html.studio .stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; padding: 56px 72px; background: var(--bg); transform-origin: center; overflow: hidden; }
+html.studio .map { height: 820px; }
+html.studio .grid { gap: var(--space); }
+html.studio .card { padding: 1.3rem 1.5rem; }
+html.studio .chart-export { opacity: .5; }
+.studio-hint { position: fixed; right: 12px; bottom: 10px; font-size: 12px; color: #888; z-index: 20; }
+.studio-hint code { color: #aaa; }
+/* Scène : en-tête, corps qui remplit la hauteur, pied de source. Une seule échelle de tailles, alignée à gauche. */
+.scene { display: flex; flex-direction: column; height: 100%; gap: var(--space); }
+.scene .scene-head h1 { font-size: var(--fs-h1); margin: 0; }
+.scene .scene-head p { color: var(--muted); font-size: var(--fs-lead); margin: .3rem 0 0; max-width: 1400px; }
+.scene .scene-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.scene .scene-body > * { flex: 1; min-height: 0; }
+.scene .scene-body .grid { height: 100%; grid-auto-rows: 1fr; align-content: stretch; }
+.scene .kpi { justify-content: center; }
+.scene .kpi .value { font-size: calc(var(--fs-kpi) * 1.25); }
+.scene .kpi .label { font-size: var(--fs-md); }
+.scene .scene-foot { color: var(--muted); font-size: var(--fs-xs); }
+
+/* --- Mobile : en-tête resserré (la navigation est dans le menu), grilles compressibles, tableaux défilants --- */
+@media (max-width: 700px) {
+  html { overflow-x: clip; } /* clip, pas hidden : hidden ferait du body le conteneur de défilement et casserait le retour en haut de page */
+  .topbar { height: auto; flex-wrap: wrap; gap: var(--s1) var(--s2); padding: var(--s2) var(--s3); }
+  .topbar .spacer { display: none; }
+  .topbar .brand { margin-right: auto; }
+  .content { padding-block: var(--s3); }
+  .page > :not(.bande) { padding-inline: var(--s3); }
+  .page > * + * { margin-top: var(--s3); }
+  .card { padding: var(--s3); }
+  .toolbar { gap: var(--s2) var(--s3); }
+  /* Sur mobile, le tableau défile dans son conteneur .table-scroll ; seuls les en-têtes et les nombres
+     restent sur une ligne, les textes (noms, conclusions) se replient au lieu de s'étirer sans fin. */
+  table.data td:first-child { min-width: 12ch; }
+  :root { --inset-w: 58px; --inset-h: 46px; }
+  .map-insets { position: static; margin-top: 6px; gap: 3px; } /* sur mobile, les encarts prennent leur propre ligne sous la carte */
+  .map-inset-box span { font-size: .6rem; }
+}
