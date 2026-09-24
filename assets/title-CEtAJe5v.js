@@ -1,0 +1,1 @@
+import{r as n}from"./index-CZSB0t7I.js";const r="Météo du robinet · l'eau potable en France, de la ressource au robinet";function a(e,t){n.useEffect(()=>{document.title=e?`${e} · Météo du robinet`:r;const o=document.querySelector('meta[name="description"]');return o&&t&&o.setAttribute("content",t),()=>{document.title=r}},[e,t])}export{a as u};

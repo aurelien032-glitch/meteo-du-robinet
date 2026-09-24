@@ -1,0 +1,1 @@
+import{u as o,r as n}from"./index-CZSB0t7I.js";function p(){const e=o("geo/departements.json").data,s=n.useMemo(()=>{const t=new Map;return e?.features.forEach(r=>t.set(String(r.properties?.code),String(r.properties?.nom))),t},[e]);return{deps:e,names:s}}export{p as u};
