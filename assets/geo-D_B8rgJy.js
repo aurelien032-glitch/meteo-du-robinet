@@ -1,1 +1,0 @@
-import{u as n,r as a}from"./index-CkTNlLIm.js";function c(){const e=n("geo/departements.json").data,t=n("recherche/departements.json").data,o=a.useMemo(()=>{const r=new Map(Object.entries(t??{}));return e?.features.forEach(s=>r.set(String(s.properties?.code),String(s.properties?.nom))),r},[e,t]);return{deps:e,names:o}}export{c as u};
