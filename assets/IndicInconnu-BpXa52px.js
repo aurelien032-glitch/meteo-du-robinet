@@ -1,0 +1,1 @@
+import{j as n}from"./index-CIqUkrRC.js";function s({affiche:e}){return n.jsxs("p",{className:"indic-inconnu",role:"status",children:["L’indicateur demandé par le lien n’existe pas sur cette page : affichage de « ",e," »."]})}export{s as I};
