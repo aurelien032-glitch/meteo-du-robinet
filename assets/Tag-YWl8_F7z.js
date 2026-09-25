@@ -1,1 +1,0 @@
-import{j as a}from"./index-DfRqn47h.js";import{V as t}from"./Voyant-BcGKIU7b.js";function o({ton:s,children:r}){return a.jsxs("span",{className:`tag tone-${s??"neutre"}`,children:[s&&a.jsx(t,{ton:s,taille:14}),r]})}export{o as T};
