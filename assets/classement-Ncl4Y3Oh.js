@@ -1,0 +1,1 @@
+import{a as r}from"./types-DJhW4gI7.js";const c=10;function n(s,e){return s>=c||e!=null&&s>0&&s>=e}function u(s){const e=new Map;for(const o of Object.keys(s?.reseaux??{})){const t=r(o.slice(0,3));e.set(t,(e.get(t)??0)+1)}return e}export{c as E,n as c,u as r};

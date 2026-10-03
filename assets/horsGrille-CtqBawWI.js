@@ -1,0 +1,1 @@
+import{f as o}from"./index-jXzecn-6.js";const s=["perchlorate","tfa","metabolites","pfas","haloacetiques","autres"];function f(r){return s.find(t=>t===r)??null}function p(r,t,e=!1){if(!t)return"–";const a=100*r/t;return a>0&&a<1?e?"< 1 %":"moins de 1 %":o.pct(a,0)}export{s as G,f as g,p};

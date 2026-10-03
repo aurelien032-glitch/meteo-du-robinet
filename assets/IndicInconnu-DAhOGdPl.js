@@ -1,0 +1,1 @@
+import{j as n}from"./index-jXzecn-6.js";function a({affiche:e}){return n.jsxs("p",{className:"indic-inconnu",role:"status",children:["L’indicateur demandé par le lien n’existe pas sur cette page. L’indicateur « ",e," » est affiché à la place."]})}export{a as I};
