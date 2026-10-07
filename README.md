@@ -1,7 +1,7 @@
 # Météo du robinet
 
 Les données publiques de l'eau potable en France, de la ressource au robinet :
-**[robinet.hydroforge.fr](https://robinet.hydroforge.fr)**
+**[meteodurobinet.fr](https://meteodurobinet.fr)**
 
 [![Tests](https://github.com/aurelien032-glitch/meteo-du-robinet/actions/workflows/tests.yml/badge.svg)](https://github.com/aurelien032-glitch/meteo-du-robinet/actions/workflows/tests.yml)
 
@@ -71,7 +71,7 @@ mobile, sombre et couleurs forcées, et audite l'accessibilité (axe-core, WCAG 
 ## Sources
 
 Données publiques, réutilisées pour l'essentiel sous la Licence Ouverte 2.0 d'Etalab ; chaque source et son
-producteur sont cités sur la page [Méthode](https://robinet.hydroforge.fr/methode) du site.
+producteur sont cités sur la page [Méthode](https://meteodurobinet.fr/methode/) du site.
 
 | Source | Producteur | Contenu |
 |---|---|---|
@@ -86,7 +86,7 @@ producteur sont cités sur la page [Méthode](https://robinet.hydroforge.fr/meth
 
 ## Auteur et licence
 
-Réalisé par Aurélien Nogent, ingénieur en réseaux d'eau potable : [hydroforge.fr](https://hydroforge.fr)
+Réalisé par Aurélien Nogent, consultant en eau potable : [hydroforge.fr](https://hydroforge.fr)
 (formulaire de contact).
 
 Code sous licence MIT (fichier `LICENSE`). Les données restent sous la licence de leurs producteurs ; les polices
