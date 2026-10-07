@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: >-
+  Pour citer ce projet : « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr),
+  d’après le contrôle sanitaire des eaux du ministère chargé de la Santé », avec le lien de la page citée.
+type: software
+title: Météo du robinet
+abstract: >-
+  Les données publiques de l'eau potable en France, de la ressource au robinet : qualité de l'eau par
+  réseau de distribution, avis sanitaires, services d'eau et prix, prélèvements, nappes et sécheresse.
+authors:
+  - given-names: Aurélien
+    family-names: Nogent
+    website: "https://hydroforge.fr"
+repository-code: "https://github.com/aurelien032-glitch/meteo-du-robinet"
+url: "https://meteodurobinet.fr"
+keywords:
+  - eau potable
+  - qualité de l'eau
+  - données ouvertes
+  - France
+version: 1.0.0
+date-released: "2026-10-07"
