@@ -89,7 +89,9 @@ producteur sont cités sur la page [Méthode](https://meteodurobinet.fr/methode/
 Réalisé par Aurélien Nogent, consultant en eau potable : [hydroforge.fr](https://hydroforge.fr)
 (formulaire de contact).
 
-- **Code** : licence MIT (fichier `LICENSE`). Les textes éditoriaux qu'il contient relèvent de la licence des
+- **Code** : © 2026 Aurélien Nogent, tous droits réservés (fichier `LICENSE`). Le code est consultable ; toute
+  réutilisation par une organisation, notamment commerciale, est soumise à l'accord de l'auteur
+  ([demande](https://hydroforge.fr/contact/)). Les textes éditoriaux qu'il contient relèvent de la licence des
   contenus ci-dessous.
 - **Contenus publiés sur meteodurobinet.fr** (textes, notes calculées, cartes, tableaux) : licence
   [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.fr). Toute réutilisation cite « Météo du

@@ -1,7 +1,7 @@
 {
   "name": "robinet-web",
   "private": true,
-  "license": "MIT",
+  "license": "UNLICENSED",
   "version": "0.1.0",
   "type": "module",
   "scripts": {

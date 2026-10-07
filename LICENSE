@@ -1,21 +1,23 @@
-MIT License
-
 Copyright (c) 2026 Aurélien Nogent
+Tous droits réservés.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Le code source de ce dépôt est rendu public pour consultation. Aucune licence n'est accordée :
+toute reproduction, modification, distribution ou utilisation, en tout ou partie, par une
+entreprise, une collectivité, un organisme public ou toute autre organisation, et notamment à
+des fins commerciales, est soumise à l'accord écrit préalable de l'auteur.
+Demandes : https://hydroforge.fr/contact/
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Seul est autorisé, sans accord, l'usage strictement personnel et non professionnel du code :
+le lire et l'exécuter sur son propre poste, sans le redistribuer. Restent également les droits
+que les conditions d'utilisation de GitHub accordent aux utilisateurs de la plateforme.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Les contenus, données et polices de tiers éventuellement présents relèvent de leur propre
+licence, précisée dans le README.
+
+---
+
+All rights reserved. The source code is published for reference only. No licence is granted:
+any reproduction, modification, distribution or use by a company, a public body or any other
+organisation, in particular for commercial purposes, requires the author's prior written
+consent. Strictly personal, non-professional use (reading the code and running it on one's own
+computer, without redistribution) is permitted.
