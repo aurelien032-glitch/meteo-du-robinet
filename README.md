@@ -84,10 +84,16 @@ producteur sont cités sur la page [Méthode](https://meteodurobinet.fr/methode/
 | VigiEau | Ministère de la Transition écologique | restrictions sécheresse en vigueur, interrogées en direct |
 | Contours administratifs | Etalab, IGN | départements et communes |
 
-## Auteur et licence
+## Auteur et licences
 
 Réalisé par Aurélien Nogent, consultant en eau potable : [hydroforge.fr](https://hydroforge.fr)
 (formulaire de contact).
 
-Code sous licence MIT (fichier `LICENSE`). Les données restent sous la licence de leurs producteurs ; les polices
-Atkinson Hyperlegible, sous SIL Open Font License (`web/public/fonts/atkinson/OFL.txt`).
+- **Code** : licence MIT (fichier `LICENSE`). Les textes éditoriaux qu'il contient relèvent de la licence des
+  contenus ci-dessous.
+- **Contenus publiés sur meteodurobinet.fr** (textes, notes calculées, cartes, tableaux) : licence
+  [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.fr). Toute réutilisation cite « Météo du
+  robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du
+  ministère chargé de la Santé », avec le lien de la page, et reste non commerciale.
+- **Données sources** : sous la licence de leurs producteurs, pour l'essentiel la Licence Ouverte 2.0 d'Etalab.
+- **Polices** Atkinson Hyperlegible : SIL Open Font License (`web/public/fonts/atkinson/OFL.txt`).
