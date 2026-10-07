@@ -4,7 +4,7 @@
 # doit être public. La tâche planifiée ci-dessous n'en fait volontairement pas.
 #
 # Planification (une fois par mois, le 5 à 3 h) :
-#   schtasks /Create /TN "Robinet dataviz" /SC MONTHLY /D 5 /ST 03:00 /TR "powershell -NoProfile -ExecutionPolicy Bypass -File \"<dossier du dépôt>\scripts\refresh.ps1\""
+#   schtasks /Create /TN "Robinet dataviz" /SC MONTHLY /D 5 /ST 03:00 /TR "powershell -NoProfile -ExecutionPolicy Bypass -File \"D:\Projet logiciel\Projet antigravity\Chaine robinet dataviz\scripts\refresh.ps1\""
 param(
   [switch]$Deploy
 )
@@ -12,7 +12,11 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $log = Join-Path $root "data\refresh.log"
 $annee = (Get-Date).Year
+# Contrôle sanitaire : les quatre derniers millésimes. SISPEA : toutes les extractions depuis 2020 (la série 2008-2019
+# vient de l'API Hub'Eau), car `robinet sispea` réécrit ses fichiers avec les seules années reçues : quatre années
+# effaceraient les plus anciennes de /services et de son historique.
 $annees = @(($annee - 3)..$annee | ForEach-Object { "-y", "$_" })
+$anneesSispea = @(2020..$annee | ForEach-Object { "-y", "$_" })
 
 # uv/npm sont des exécutables externes : un code de sortie non nul ne lève pas d'exception PowerShell même
 # avec $ErrorActionPreference = 'Stop' (qui ne couvre que les erreurs de cmdlets). Sans ce contrôle explicite,
@@ -30,9 +34,9 @@ Start-Transcript -Path $log -Append | Out-Null
 try {
   Set-Location (Join-Path $root "pipeline")
   Invoke-Step "téléchargement" { uv run robinet download @annees }
-  Invoke-Step "construction du millésime en cours" { uv run robinet build -y $annee --force }
-  Invoke-Step "construction des millésimes précédents" { uv run robinet build @annees }
-  Invoke-Step "SISPEA" { uv run robinet sispea @annees }
+  Invoke-Step "contours" { uv run robinet geo }
+  Invoke-Step "construction des millésimes" { uv run robinet build @annees }
+  Invoke-Step "SISPEA" { uv run robinet sispea @anneesSispea }
   Invoke-Step "index de recherche" { uv run robinet recherche }
   Invoke-Step "API BNPE" { uv run robinet api --what bnpe }
   Invoke-Step "API BNV-D" { uv run robinet api --what bnvd }

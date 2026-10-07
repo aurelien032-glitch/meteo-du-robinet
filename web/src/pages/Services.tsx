@@ -1,60 +1,43 @@
+import TableauDeptsValeur from '../components/TableauDeptsValeur'
 import { useCallback, useMemo, useState } from 'react'
 import Chargement from '../components/Chargement'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import BarreAnnee from '../components/BarreAnnee'
-import type { FeatureCollection } from 'geojson'
 import Chart, { axisDefaults, lineDefaults } from '../components/Chart'
 import Crumbs from '../components/Crumbs'
 import FranceMap from '../components/FranceMap'
 import { fmt } from '../lib/data'
+import { useDepartements } from '../lib/geo'
 import { useJson } from '../lib/hooks'
 import { chartPalette, useCleTheme } from '../lib/theme'
 import { stepScale } from '../lib/scale'
 import MapLegend from '../components/MapLegend'
 import Search from '../components/Search'
 import Section from '../components/Section'
-import type { MetaFile, SispeaDeptYear, SispeaNationalFile } from '../lib/types'
+import type { MetaFile, SispeaNationalFile } from '../lib/types'
 import { useDensite } from '../lib/densite'
+import { usePageTitle } from '../lib/title'
 import { useYear } from '../lib/year'
-import { serieMedianes } from '../lib/sispea'
+import IndicInconnu from '../components/IndicInconnu'
+import { lienCommunesCarte, lienDepartement } from '../lib/parcours'
+import { INDICS_DEPT } from '../lib/indicateursDept'
+import { anneesSispea, INDICS_SISPEA as INDICS, serieMedianes, type IndicSispea } from '../lib/sispea'
 import Kpi from '../components/Kpi'
 
-type IndicKey = 'prix' | 'rend' | 'renouv' | 'delegation'
-/**
- * `higherIsWorse` oriente la couleur et le sens du classement ; `null` pour un indicateur descriptif (le mode
- * de gestion n'est ni bon ni mauvais en soi) : classement du plus haut au plus bas, sans vocabulaire de jugement.
- */
-/**
- * `paliers` : bornes rondes fixes, les mêmes pour tous les millésimes (décision de l'auteur, 2026-09-22),
- * calées sur la distribution départementale 2019-2024 (prix 1,9–3,1 €/m³ entre les 5e et 95e centiles,
- * rendement 69–90 %, renouvellement 0–0,9 %/an, délégation 8–93 %). `dec` : décimales affichées.
- */
-const INDICS: {
-  key: IndicKey
-  label: string
-  unit: string
-  get: (d: SispeaDeptYear) => number | null
-  higherIsWorse: boolean | null
-  haut: string
-  bas: string
-  paliers: number[]
-  ouvertBas?: boolean
-  dec: number
-}[] = [
-  { key: 'prix', label: 'Prix moyen du m³ (pondéré par la population)', unit: '€/m³', get: (d) => d.prix.pond, higherIsWorse: true, haut: 'les plus chers', bas: 'les moins chers', paliers: [0, 2, 2.25, 2.5, 2.75, 3, 3.25], ouvertBas: true, dec: 2 },
-  { key: 'rend', label: 'Rendement du réseau (pondéré)', unit: '%', get: (d) => d.rend.pond, higherIsWorse: false, haut: 'les rendements les plus faibles', bas: 'les rendements les plus élevés', paliers: [0, 70, 75, 80, 85, 90], ouvertBas: true, dec: 1 },
-  { key: 'renouv', label: 'Renouvellement annuel des canalisations (médiane)', unit: '%/an', get: (d) => d.renouv.p50, higherIsWorse: false, haut: 'les renouvellements les plus lents', bas: 'les renouvellements les plus rapides', paliers: [0, 0.2, 0.4, 0.6, 0.8, 1], dec: 2 },
-  { key: 'delegation', label: 'Part de la population en délégation privée', unit: '%', get: (d) => (d.part_pop_delegation == null ? null : 100 * d.part_pop_delegation), higherIsWorse: null, haut: 'les parts les plus élevées', bas: 'les parts les plus faibles', paliers: [0, 20, 40, 60, 80], dec: 0 },
-]
-
 export default function Services() {
+  // Titre et description de la page statique (scripts/routes-statiques.mjs) : arrivée par un lien interne, la page
+  // gardait le titre générique (vérification du 24/09).
+  usePageTitle(
+    "Les services d'eau : prix, fuites, renouvellement",
+    "Prix de l'eau, rendement des réseaux, renouvellement des canalisations et mode de gestion des services d'eau, département par département.",
+  )
   const cle = useCleTheme()
   const nat = useJson<SispeaNationalFile>('sispea/national.json').data
-  const deps = useJson<FeatureCollection>('geo/departements.json').data
+  const { deps, names: deptName } = useDepartements()
   const meta = useJson<MetaFile>('meta.json').data
   const [shared] = useYear(meta)
   const [densite] = useDensite()
-  const complete = useMemo(() => (nat ? Object.keys(nat.annees).filter((y) => nat.annees[y].prix.n >= 3000).sort() : []), [nat])
+  const complete = useMemo(() => anneesSispea(nat), [nat])
   // Millésime propre à cette page (clé « sispea », distincte du millésime partagé « annee ») : les années
   // SISPEA complètes (2020-2022 aujourd'hui) ne font pas toutes partie de meta.annees, le millésime partagé
   // les rejetterait et écraserait au passage le choix valide de tout le reste du site en sessionStorage.
@@ -74,14 +57,14 @@ export default function Services() {
   const ny = nat && y ? nat.annees[y] : undefined
   // Indicateur de la carte dans l'URL (?indic=), comme sur la carte principale ; « prix » par défaut.
   const ind = INDICS.find((i) => i.key === sp.get('indic')) ?? INDICS[0]
-  const setIndic = (k: IndicKey) => {
+  const indicInconnu = !!sp.get('indic') && !INDICS.some((i) => i.key === sp.get('indic'))
+  const setIndic = (k: IndicSispea) => {
     const next = new URLSearchParams(sp)
     if (k === INDICS[0].key) next.delete('indic')
     else next.set('indic', k)
     setSp(next, { replace: true })
   }
   const [survol, setSurvol] = useState<string | null>(null)
-  const nav = useNavigate()
 
   const deptVal = useMemo(() => {
     const m = new Map<string, number>()
@@ -95,11 +78,6 @@ export default function Services() {
   // Mode de gestion : rampe neutre d'une seule teinte, il n'est ni bon ni mauvais en soi.
   const echelle = useMemo(() => stepScale(ind.paliers, { invert: ind.higherIsWorse === false, ouvertBas: ind.ouvertBas }), [ind, cle])
   const colorOf = useCallback((p: Record<string, unknown>) => echelle.color(deptVal.get(String(p.code)) ?? null), [deptVal, echelle])
-  const deptName = useMemo(() => {
-    const m = new Map<string, string>()
-    deps?.features.forEach((f) => m.set(String(f.properties?.code), String(f.properties?.nom)))
-    return m
-  }, [deps])
   const labelOf = useCallback(
     (p: Record<string, unknown>) => {
       const v = deptVal.get(String(p.code))
@@ -132,17 +110,24 @@ export default function Services() {
     }
   }, [nat, cle])
 
-  if (!nat || !ny || !y) return <Chargement />
-  const fuite = ny.rend.pond != null ? 100 - ny.rend.pond : null
+  if (!nat || !ny || !y) return <Chargement reserve />
+  // Un seul chiffre des fuites sur tout le site (choix de l'auteur, 24/09) : celui des volumes déclarés, comme /ressource
+  // et la carte, et non plus 100 moins le rendement. Le rendement, calculé autrement (exports compris), n'est plus
+  // placé dessous : 100 moins lui ne retombait pas sur ce chiffre (relecture du 25/09).
+  const fuite = ny.pertes_vol ?? null
   const g = nat.gestion[y] ?? {}
   const popTot = (g.regie?.pop ?? 0) + (g.delegation?.pop ?? 0)
-  const ranking = [...deptVal.entries()].sort((a, b) => (ind.higherIsWorse === false ? a[1] - b[1] : b[1] - a[1]))
 
   return (
     <div className="page">
-      <p className="eyebrow">Comprendre</p>
-      <Crumbs items={[{ label: 'Comprendre', to: '/themes' }, { label: "Services d'eau" }]} />
+      <p className="eyebrow">La ressource</p>
+      <Crumbs items={[{ label: 'La ressource', to: '/ressource-en-eau' }, { label: "Services d'eau" }]} />
       <h1>Les services d'eau : prix, fuites, renouvellement</h1>
+      {/* SISPEA, sigle de toute la page, défini à sa première apparition (choix de l'auteur, 24/09). */}
+      <p className="lead">
+        Cette page présente les indicateurs que chaque service d’eau déclare à SISPEA, l’observatoire national des services d’eau et
+        d’assainissement (Office français de la biodiversité) : prix, rendement du réseau, renouvellement des canalisations et mode de gestion.
+      </p>
       {/* La recherche ne dépend d'aucune année : au-dessus de la barre (règle d'ordre de l'auteur, 23/09). La
           recherche unique remplace l'ancienne recherche de collectivités (plan, étape 17). */}
       <div className="recherche-services">
@@ -151,32 +136,40 @@ export default function Services() {
       </div>
       <BarreAnnee
         titre="Année des données SISPEA"
-        note="Elle vaut pour les chiffres, la carte et le classement ci-dessous ; seules les années assez déclarées sont proposées."
+        note="Elle vaut pour les chiffres, la carte et le classement ci-dessous. Seules sont proposées les années pour lesquelles au moins 3 000 services ont déclaré leur prix."
         annees={complete.map((a) => ({ annee: Number(a), enCours: false, sansDonnees: false }))}
         annee={Number(y)}
         onChange={(a) => setYear(String(a))}
+        param="sispea"
       />
       <p className="muted">
-        {fmt.int(ny.n)} services d'eau potable déclarants en {y}, desservant {fmt.int(ny.pop ?? 0)} habitants.
+        {/* Le total dépasse la population française sans que rien ne l'explique (vérification du 24/09). */}
+        En {y}, {fmt.int(ny.n)} services d'eau potable ont transmis une déclaration ; ils desservent au total {fmt.int(ny.pop ?? 0)} habitants.
+        Ce total dépasse la population française, car un même habitant peut relever de plusieurs services (production, transport, distribution).
       </p>
 
       <div className="grid cols-4">
         <Kpi value={`${fmt.dec(ny.prix.pond, 2)} €`} label="le m³ d'eau potable, prix moyen pondéré" sub={`médiane ${fmt.dec(ny.prix.p50, 2)} € · de ${fmt.dec(ny.prix.p10, 2)} à ${fmt.dec(ny.prix.p90, 2)} € (10 % – 90 %)`} />
-        <Kpi value={fmt.pct(fuite, 1)} label="de l'eau mise en distribution est perdue en fuites" sub={`rendement pondéré ${fmt.pct(ny.rend.pond, 1)}`} />
+        <Kpi value={fmt.pct(fuite, 1)} label="de l'eau mise en distribution est perdue en fuites" sub="volumes déclarés : eau mise en distribution moins eau consommée" />
         <Kpi value={`${fmt.int(ny.renouv.p50 ? 100 / ny.renouv.p50 : null)} ans`} label="pour renouveler tout le réseau au rythme médian" sub={`${fmt.dec(ny.renouv.p50, 2)} % renouvelés par an`} />
-        <Kpi value={fmt.pct(popTot ? (100 * (g.delegation?.pop ?? 0)) / popTot : null, 0)} label="des habitants sont servis par une délégation privée" sub={`${fmt.int(g.delegation?.n ?? 0)} services délégués, ${fmt.int(g.regie?.n ?? 0)} régies`} />
+        <Kpi value={fmt.pct(popTot ? (100 * (g.delegation?.pop ?? 0)) / popTot : null, 0)} label="des habitants relèvent d'un service en gestion déléguée" sub={`${fmt.int(g.delegation?.n ?? 0)} services délégués, ${fmt.int(g.regie?.n ?? 0)} régies`} />
       </div>
 
       {/* Détail replié (audit du 2026-09-22) : les quatre KPI et la recherche répondent déjà à l'essentiel. */}
-      <Section key={`historique-${densite}`} id="historique" titre="Prix, rendement et mode de gestion" resume="Évolution depuis 2008, et comparaison régie / délégation" ouvert={densite === 'detaille'}>
+      <Section key={`historique-${densite}`} id="historique" titre="Prix, rendement et mode de gestion" resume="Évolution depuis 2008, et comparaison régie / gestion déléguée" ouvert={densite === 'detaille'}>
       <div className="grid cols-2">
         <div className="card">
           <h2>Prix et rendement médians</h2>
           {serieOption && <Chart option={serieOption} height={346} exportName="prix-rendement-medians" />}
-          <div className="source">Médianes des services déclarants, tracées seulement sur un millésime d'au moins 3 000 déclarants : les trous sont des années trop peu déclarées ou absentes des sources. 2008-2019 : API Hub'Eau ; 2020 et suivants : extractions annuelles de l'observatoire.</div>
+          <div className="source">Médianes des services déclarants, tracées uniquement pour les années qui comptent au moins 3 000 déclarants. Les interruptions des courbes correspondent aux années insuffisamment déclarées ou absentes des sources. Données issues de l'API Hub'Eau de 2008 à 2019 et des extractions annuelles de l'observatoire à partir de 2020.</div>
         </div>
         <div className="card">
-          <h2>Régie publique ou délégation privée ({y})</h2>
+          {/* « Délégation privée » était faux pour une société publique locale (relecture du 24/09) : les deux modes définis. */}
+          <h2>Régie ou gestion déléguée ({y})</h2>
+          <p className="muted">
+            En régie, la collectivité gère elle-même son service d’eau ; en gestion déléguée, elle le confie par contrat à une entreprise ou à une société
+            publique locale.
+          </p>
           <div className="table-scroll"><table className="data">
             <thead>
               <tr>
@@ -205,7 +198,7 @@ export default function Services() {
                   <tr key={k}>
                     <td>
                       {/* Badge neutre : vert / orange suggérait un jugement que la page s'interdit. */}
-                      <span className="badge neutre">{k === 'regie' ? 'Régie' : 'Délégation'}</span>
+                      <span className="badge neutre">{k === 'regie' ? 'Régie' : 'Gestion déléguée'}</span>
                     </td>
                     <td className="num">{fmt.int(v.n)}</td>
                     <td className="num">{fmt.int(v.pop ?? 0)}</td>
@@ -219,7 +212,7 @@ export default function Services() {
             </tbody>
           </table></div>
           <p className="muted">
-            Les délégations concernent surtout les grandes agglomérations, les régies les petites communes : la comparaison brute mélange taille et mode de gestion.
+            La gestion déléguée concerne surtout les grandes agglomérations, et la régie surtout les petites communes. La comparaison brute des deux modes reflète donc aussi la taille des services.
           </p>
         </div>
       </div>
@@ -229,7 +222,7 @@ export default function Services() {
         <h2>Par département</h2>
         <label>
           Indicateur{' '}
-          <select value={ind.key} onChange={(e) => setIndic(e.target.value as IndicKey)}>
+          <select value={ind.key} onChange={(e) => setIndic(e.target.value as IndicSispea)}>
             {INDICS.map((i) => (
               <option key={i.key} value={i.key}>
                 {i.label}
@@ -237,6 +230,7 @@ export default function Services() {
             ))}
           </select>
         </label>
+        {indicInconnu && <IndicInconnu affiche={ind.label} />}
       </div>
       <div className="grid cols-map">
         <div>
@@ -244,8 +238,7 @@ export default function Services() {
             data={deps}
             colorOf={colorOf}
             labelOf={labelOf}
-            onClick={(p) => nav(`/departement/${p.code}`)}
-            actionLabel="Ouvrir la fiche du département →"
+            encart={(dd) => ({ fiche: lienDepartement(dd, { section: 'services' }), communes: INDICS_DEPT.find((i) => i.key === ind.key)?.commune ? lienCommunesCarte(dd, ind.key, { sispea: y }) : undefined })}
             onHover={(p) => setSurvol(p ? String(p.code) : null)}
             selected={survol}
             height={560}
@@ -254,34 +247,20 @@ export default function Services() {
           <MapLegend desc={`${ind.label} (${ind.unit}), ${y}`} scale={echelle} format={(v) => fmt.dec(v, ind.dec === 0 ? 0 : ind.key === 'prix' || ind.key === 'renouv' ? ind.dec : 0)} />
         </div>
         <div className="card">
-          <h3>Classement · {ind.unit}</h3>
-          <div className="table-scroll"><table className="data">
-            <caption className="sr-only">Départements classés selon « {ind.label} » en {y} ; version textuelle de la carte</caption>
-            <tbody>
-              {(
-                [
-                  [ind.haut, ranking.slice(0, 8)],
-                  [ind.bas, ranking.slice(-6).reverse()],
-                ] as const
-              ).map(([titre, rows]) => [
-                <tr key={titre}>
-                  <th colSpan={2} className="muted">
-                    {titre}
-                  </th>
-                </tr>,
-                ...rows.map(([d, v]) => (
-                  <tr key={titre + d} className={survol === d ? 'on' : undefined} onMouseEnter={() => setSurvol(d)} onMouseLeave={() => setSurvol(null)}>
-                    <td>
-                      <Link to={`/departement/${d}`}>{deptName.get(d) ?? d}</Link> <span className="muted">({d})</span>
-                    </td>
-                    <td className="num">
-                      <b>{fmt.dec(v, ind.dec)}</b>
-                    </td>
-                  </tr>
-                )),
-              ])}
-            </tbody>
-          </table></div>
+          <h3>Les départements</h3>
+          <p className="muted">Par ordre alphabétique ; un tri est proposé.</p>
+          <TableauDeptsValeur
+            valeurs={deptVal}
+            noms={deptName}
+            titre={ind.unit}
+            format={(v) => fmt.dec(v, ind.dec)}
+            quoi={ind.label.toLowerCase()}
+            lien={(d) => lienDepartement(d, { section: 'services' })}
+            legende={`Départements par ordre alphabétique : ${ind.label} (${ind.unit}) en ${y} ; version textuelle de la carte`}
+            csv={{ sujet: `services-${ind.key}`, annee: y, entete: `${ind.label} (${ind.unit})` }}
+            selection={survol}
+            onSurvol={setSurvol}
+          />
         </div>
       </div>
       <div className="source">Source : observatoire des services publics d'eau et d'assainissement (SISPEA, Office français de la biodiversité). Indicateurs déclarés par les collectivités ; prix D102.0 pour 120 m³, rendement P104.3, renouvellement P107.2.</div>

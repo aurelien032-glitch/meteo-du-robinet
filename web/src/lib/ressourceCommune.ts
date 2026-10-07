@@ -27,7 +27,8 @@ export function origineCommune(f: AmontDeptFile, insee: string): OrigineCommune 
 }
 
 export function phraseOrigine(o: OrigineCommune): string {
-  if (!o.ouvrages) return 'Aucun ouvrage de prélèvement pour l’eau potable sur la commune : l’eau vient d’ailleurs, par le réseau.'
+  if (!o.ouvrages)
+    return 'Aucun ouvrage de prélèvement pour l’eau potable n’est recensé sur la commune. L’eau distribuée y est acheminée par le réseau depuis des ouvrages situés sur d’autres communes.'
   const n = `${fmt.nb(o.ouvrages, 'ouvrage')} de prélèvement pour l’eau potable sur la commune`
   if (!o.annee) return `${n}.`
   const par = o.declares >= o.ouvrages ? '' : o.declares === 1 ? ' par le seul ouvrage déclaré cette année-là' : ` par les ${o.declares} ouvrages déclarés cette année-là`

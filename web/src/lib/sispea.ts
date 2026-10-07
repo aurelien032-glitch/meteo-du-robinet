@@ -1,4 +1,4 @@
-import type { SispeaDeptFile, SispeaNationalFile } from './types'
+import type { SispeaDeptFile, SispeaDeptYear, SispeaNationalFile } from './types'
 
 /**
  * Texte SISPEA réellement renseigné, sinon null. Faute de valeur, la SISPEA remplit certains champs d'un
@@ -21,6 +21,14 @@ export function modeGestion(mode: string | null | undefined): 'régie' | 'délé
   if (m.startsWith('regie')) return 'régie'
   if (m.startsWith('delegation')) return 'délégation'
   return null
+}
+
+/**
+ * Libellé affiché d'un mode de gestion : « gestion déléguée » plutôt que « délégation privée » (relecture du 24/09 :
+ * une société publique locale, comme à Rennes, est déléguée sans être privée).
+ */
+export function libelleMode(mode: 'régie' | 'délégation' | null): string | null {
+  return mode === 'régie' ? 'Régie' : mode === 'délégation' ? 'Gestion déléguée' : null
 }
 
 /** Service d'eau d'une commune, tel que sa dernière déclaration à la SISPEA le décrit. */
@@ -86,3 +94,40 @@ export function serieMedianes(nat: SispeaNationalFile) {
   const years = avec.length ? tous.filter((a) => a >= avec[0] && a <= avec[avec.length - 1]) : []
   return { years, prix: years.map((a) => med(a, 'prix', 'D102.0')), rend: years.map((a) => med(a, 'rend', 'P104.3')) }
 }
+
+/** Années SISPEA assez déclarées (au moins SEUIL_DECLARANTS services pour le prix), de la plus ancienne à la plus récente. */
+export function anneesSispea(nat: SispeaNationalFile | null | undefined): string[] {
+  return nat ? Object.keys(nat.annees).filter((y) => nat.annees[y].prix.n >= SEUIL_DECLARANTS).sort() : []
+}
+
+/**
+ * Indicateurs SISPEA par département, pour /services et /carte (une seule définition : les paliers de couleur ne
+ * peuvent pas diverger d'une page à l'autre).
+ */
+export type IndicSispea = 'prix' | 'rend' | 'renouv' | 'delegation'
+/**
+ * `higherIsWorse` oriente la couleur et le sens du classement ; `null` pour un indicateur descriptif (le mode
+ * de gestion n'est ni bon ni mauvais en soi) : classement du plus haut au plus bas, sans vocabulaire de jugement.
+ */
+/**
+ * `paliers` : bornes rondes fixes, les mêmes pour tous les millésimes (décision de l'auteur, 2026-09-22),
+ * calées sur la distribution départementale 2019-2024 (prix 1,9–3,1 €/m³ entre les 5e et 95e centiles,
+ * rendement 69–90 %, renouvellement 0–0,9 %/an, délégation 8–93 %). `dec` : décimales affichées.
+ */
+export const INDICS_SISPEA: {
+  key: IndicSispea
+  label: string
+  unit: string
+  get: (d: SispeaDeptYear) => number | null
+  higherIsWorse: boolean | null
+  haut: string
+  bas: string
+  paliers: number[]
+  ouvertBas?: boolean
+  dec: number
+}[] = [
+  { key: 'prix', label: 'Prix moyen du m³ (pondéré par la population)', unit: '€/m³', get: (d) => d.prix.pond, higherIsWorse: true, haut: 'les plus chers', bas: 'les moins chers', paliers: [0, 2, 2.25, 2.5, 2.75, 3, 3.25], ouvertBas: true, dec: 2 },
+  { key: 'rend', label: 'Rendement du réseau (pondéré)', unit: '%', get: (d) => d.rend.pond, higherIsWorse: false, haut: 'les rendements les plus faibles', bas: 'les rendements les plus élevés', paliers: [0, 70, 75, 80, 85, 90], ouvertBas: true, dec: 1 },
+  { key: 'renouv', label: 'Renouvellement annuel des canalisations (médiane)', unit: '%/an', get: (d) => d.renouv.p50, higherIsWorse: false, haut: 'les renouvellements les plus lents', bas: 'les renouvellements les plus rapides', paliers: [0, 0.2, 0.4, 0.6, 0.8, 1], dec: 2 },
+  { key: 'delegation', label: 'Part de la population en gestion déléguée', unit: '%', get: (d) => (d.part_pop_delegation == null ? null : 100 * d.part_pop_delegation), higherIsWorse: null, haut: 'les parts les plus élevées', bas: 'les parts les plus faibles', paliers: [0, 20, 40, 60, 80], dec: 0 },
+]

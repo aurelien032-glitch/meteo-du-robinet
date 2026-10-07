@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import {
-  autresAnnees,
   avisDuReseau,
   avisEnCours,
   delegation,
@@ -9,10 +8,15 @@ import {
   periode,
   phraseCarteSansInformation,
   phraseSansInformation,
+  phraseSuite,
   resumeSansInformation,
   sansInformation,
+  suiteAvis,
   toneAvis,
+  toneAvisCode,
+  toneAvisSuivi,
   type LigneAvis,
+  publicsAvis,
 } from './avis'
 import { fmt } from './data'
 import { libelleAvisCarte, type AvisDeptFile, type LectureAvis } from './types'
@@ -27,6 +31,9 @@ const TEXTES: AvisDeptFile['textes'] = {
   '1863': { t: "Eau d'alimentation non conforme.", c: 'sensibles', l: false, k: [] },
   '9001': { t: 'Plomb au robinet d’un bâtiment : eau à ne pas boire dans ce bâtiment.', c: 'interdiction', l: true, k: ['plomb'] },
   '9002': { t: '', c: 'ebullition', l: false, k: [] },
+  // avis/55.json : le même arrêté PFAS sous deux formulations (textes abrégés)
+  '4792': { t: 'Somme des 20 PFAS supérieure à la limite. Consommation interdite par arrêté préfectoral.', c: 'interdiction', l: false, k: ['PFAS'] },
+  '4793': { t: 'Somme des PFAS supérieure à la limite. Consommation interdite par arrêté préfectoral.', c: 'interdiction', l: false, k: ['PFAS'] },
 }
 /** Cherbourg-en-Cotentin (50129), réseau ASSELINERIE : quatre prélèvements avec avis en 2025. */
 const CHERBOURG: LigneAvis[] = [
@@ -62,24 +69,97 @@ describe('groupesAvis', () => {
   })
 })
 
-describe('autresAnnees', () => {
-  it('années où figurent d’autres avis, de la plus récente à la plus ancienne', () => {
-    expect(autresAnnees(FONSORBES, '2025')).toEqual(['2026'])
-    expect(autresAnnees(FONSORBES, '2024')).toEqual(['2026', '2025'])
-    expect(autresAnnees(CHERBOURG, '2025')).toEqual([])
-  })
-})
+/** Meuse (55425), réseau 055000810 : arrêté PFAS repris à chaque prélèvement, sous deux formulations. */
+const MEUSE: LigneAvis[] = [
+  ['2026-06-08', 4792, '055000810'],
+  ['2026-04-13', 4793, '055000810'],
+  ['2026-03-09', 4793, '055000810'],
+  ['2026-02-02', 4793, '055000810'],
+]
 
 describe('avisEnCours', () => {
-  it('Fonsorbes 2026 : publics sensibles, dernier prélèvement le 07/07/2026', () => {
-    expect(avisEnCours(FONSORBES, TEXTES, '2026')).toEqual({ pire: 'sensibles', autres: [], dernier: '2026-07-07' })
+  it('Fonsorbes 2026 : publics sensibles le 07/07/2026, en orange tant que la suite est inconnue', () => {
+    expect(avisEnCours(FONSORBES, TEXTES, '2026')).toEqual({
+      categories: [{ cat: 'sensibles', debut: '2026-07-07', fin: '2026-07-07', suite: null }],
+      ton: 'warn',
+    })
   })
-  it('le plus grave en tête, les autres catégories ensuite', () => {
-    expect(avisEnCours(CHERBOURG, TEXTES, '2025')).toEqual({ pire: 'interdiction', autres: ['sensibles'], dernier: '2025-09-16' })
+  it('le plus grave en tête, chaque catégorie datée de SES prélèvements', () => {
+    const a = avisEnCours(CHERBOURG, TEXTES, '2025')!
+    expect(a.categories.map(({ cat, debut, fin }) => [cat, debut, fin])).toEqual([
+      ['interdiction', '2025-09-16', '2025-09-16'],
+      ['sensibles', '2025-08-05', '2025-09-02'],
+    ])
+    expect(a.ton).toBe('bad')
+  })
+  it('suite de chaque catégorie ; ton du plus grave encore repris, neutre si aucun ne l’est', () => {
+    expect(avisEnCours(FONSORBES, TEXTES, '2026', { '031004043': '2026-07-07' })).toMatchObject({
+      categories: [{ suite: { reprise: true, date: '2026-07-07', reseaux: 1 } }],
+      ton: 'warn',
+    })
+    expect(avisEnCours(FONSORBES, TEXTES, '2026', { '031004043': '2026-07-28' })).toMatchObject({
+      categories: [{ suite: { reprise: false, date: '2026-07-28', reseaux: 1 } }],
+      ton: null,
+    })
+    // Restriction de février absente des prélèvements suivants, publics sensibles repris le 20/07 : orange, pas rouge.
+    const lignes: LigneAvis[] = [['2026-07-20', 1863, '031004043'], ['2026-02-11', 464, '031004043']]
+    const a = avisEnCours(lignes, TEXTES, '2026', { '031004043': '2026-07-20' })!
+    expect(a.categories.map((c) => [c.cat, c.suite?.reprise])).toEqual([
+      ['interdiction', false],
+      ['sensibles', true],
+    ])
+    expect(a.ton).toBe('warn')
   })
   it('rien sans avis de l’année, ni pour un avis limité à un bâtiment', () => {
     expect(avisEnCours(FONSORBES, TEXTES, '2024')).toBeNull()
     expect(avisEnCours([['2026-03-01', 9001, '031004043']], TEXTES, '2026')).toBeNull()
+  })
+})
+
+describe('suite d’un avis de l’année en cours', () => {
+  it('par catégorie, pas par formulation : l’arrêté de la Meuse est repris le 08/06 sous un autre texte', () => {
+    const g = groupesAvis(MEUSE, TEXTES, '2026', { '055000810': '2026-06-08' })
+    expect(g.map((x) => [x.id, x.fin, x.suite])).toEqual([
+      [4792, '2026-06-08', { reprise: true, date: '2026-06-08', reseaux: 1 }],
+      [4793, '2026-04-13', { reprise: true, date: '2026-06-08', reseaux: 1 }],
+    ])
+  })
+  it('plusieurs réseaux : repris si l’un d’eux le reprend, sinon absent jusqu’au plus récent de leurs prélèvements', () => {
+    const lignes: LigneAvis[] = [['2026-05-01', 464, '031000002'], ['2026-03-01', 464, '031000001']]
+    expect(suiteAvis(lignes, TEXTES, { '031000001': '2026-07-01', '031000002': '2026-05-01' }, 'interdiction', '2026')).toEqual({
+      reprise: true,
+      date: '2026-05-01',
+      reseaux: 2,
+    })
+    expect(suiteAvis(lignes, TEXTES, { '031000001': '2026-07-01', '031000002': '2026-06-15' }, 'interdiction', '2026')).toEqual({
+      reprise: false,
+      date: '2026-07-01',
+      reseaux: 2,
+    })
+  })
+  it('inconnue sans derniers prélèvements (fichier antérieur au 25/09) ; aucune pour un avis limité à un bâtiment', () => {
+    expect(suiteAvis(MEUSE, TEXTES, undefined, 'interdiction', '2026')).toBeNull()
+    expect(suiteAvis(MEUSE, TEXTES, {}, 'interdiction', '2026')).toBeNull()
+    const g = groupesAvis([['2026-06-01', 9001, '031004043']], TEXTES, '2026', { '031004043': '2026-07-01' })
+    expect(g[0].suite).toBeUndefined()
+  })
+  it('phrases et ton : des faits datés, sans répéter la date de la période ; neutre quand l’avis est absent ensuite', () => {
+    // Wiège-Faty (02832), un seul avis, le 12/06/2026, dernier prélèvement connu du réseau
+    expect(phraseSuite({ reprise: true, date: '2026-06-12', reseaux: 1 }, '2026-06-12', '2026-06-12')).toBe('au dernier prélèvement connu du réseau')
+    expect(phraseSuite({ reprise: true, date: '2026-06-08', reseaux: 1 }, '2026-02-02', '2026-06-08')).toBe(
+      'avis repris jusqu’au dernier prélèvement connu du réseau',
+    )
+    // Meuse, formulation de février à avril : l'arrêté est repris le 08/06 sous un autre texte
+    expect(phraseSuite({ reprise: true, date: '2026-06-08', reseaux: 1 }, '2026-02-02', '2026-04-13')).toBe(
+      'avis repris au dernier prélèvement connu du réseau, le 08/06/2026',
+    )
+    expect(phraseSuite({ reprise: false, date: '2026-07-23', reseaux: 2 }, '2026-03-01', '2026-05-01')).toBe(
+      'avis absent des prélèvements suivants des réseaux concernés, jusqu’au 23/07/2026',
+    )
+    expect(toneAvisSuivi('interdiction', false, { reprise: true, date: '2026-06-08', reseaux: 1 })).toBe('bad')
+    expect(toneAvisSuivi('interdiction', false, { reprise: false, date: '2026-07-23', reseaux: 1 })).toBeNull()
+    expect(toneAvisSuivi('sensibles', false, null)).toBe('warn')
+    expect(toneAvisSuivi('interdiction', true, null)).toBeNull()
   })
 })
 
@@ -102,6 +182,12 @@ describe('ton et période', () => {
     expect(toneAvis('ebullition')).toBe('bad')
     expect(toneAvis('interdiction')).toBe('bad')
     expect(toneAvis('interdiction', true)).toBeNull()
+  })
+  it('code d’avis de la carte des communes : le ton de sa catégorie, aucun pour « aucun avis »', () => {
+    expect(toneAvisCode(1)).toBe('warn')
+    expect(toneAvisCode(2)).toBe('bad')
+    expect(toneAvisCode(3)).toBe('bad')
+    expect(toneAvisCode(0)).toBeNull()
   })
   it('période écrite en dates françaises', () => {
     expect(periode('2025-09-16', '2025-09-16')).toBe('le 16/09/2025')
@@ -149,12 +235,12 @@ describe('délégations sans information', () => {
 
   it('phrases : celle du bulletin (maquette du 24/09) et la forme courte', () => {
     expect(phraseSansInformation('2025', 8234, 'de l’Isère')).toBe(
-      'En 2025, aucune des 8\u202f234 conclusions de l’ARS sur les réseaux de l’Isère n’évoque de consigne, ni pour en prescrire une, ni pour l’écarter\u00a0: l’absence d’avis ne dit donc rien ici. La mairie et l’ARS font foi.',
+      'En 2025, aucune des 8\u202f234 conclusions de l’ARS sur les réseaux de l’Isère n’évoque de consigne, ni pour en prescrire une, ni pour l’écarter. L’absence d’avis ne permet donc pas de conclure à l’absence de consigne. La mairie et l’ARS font foi.',
     )
     expect(resumeSansInformation('2025', 8234)).toBe('aucune des 8\u202f234 conclusions de l’ARS n’évoque de consigne en 2025')
     expect(resumeSansInformation('2026', 1)).toBe('la seule conclusion de l’ARS n’évoque pas de consigne en 2026')
     expect(phraseCarteSansInformation('2025', 8234)).toBe(
-      'Pas d’information\u00a0: aucune des 8\u202f234 conclusions de l’ARS n’évoque de consigne en 2025, ni pour en prescrire une, ni pour l’écarter. La mairie et l’ARS font foi.',
+      'Pas d’information sur les consignes. En 2025, aucune des 8\u202f234 conclusions de l’ARS n’évoque de consigne, ni pour en prescrire une, ni pour l’écarter. La mairie et l’ARS font foi.',
     )
   })
 
@@ -163,5 +249,14 @@ describe('délégations sans information', () => {
     expect(libelleAvisCarte(0)).toBe('aucun avis')
     expect(libelleAvisCarte(undefined)).toBe('aucun avis')
     expect(libelleAvisCarte(2)).toBe("consigne d'ébullition")
+  })
+})
+
+describe('publics nommés par l’ARS', () => {
+  it('lus sans les espaces des textes coupés, dans un ordre fixe', () => {
+    expect(publicsAvis(['déconseillée aux femmes enceint es et aux nourris sons de moins de 6 mois'])).toEqual(['nourrissons de moins de 6 mois', 'femmes enceintes'])
+    expect(publicsAvis(['populations sensibles (femmes enceintes, nourrissons) pour des usages alimentaires'])).toEqual(['nourrissons', 'femmes enceintes'])
+    expect(publicsAvis(['déconseillée aux enfants de moins de 12 ans'])).toEqual(['enfants de moins de 12 ans'])
+    expect(publicsAvis(['Eau non conforme aux limites.'])).toEqual([])
   })
 })

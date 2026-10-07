@@ -1,4 +1,6 @@
 import { fmt } from '../lib/data'
+import { libelleParametre } from '../lib/parametres'
+import { horsJugement } from '../lib/situations'
 import type { CommuneYearStats, ParamRec, ParamsFile } from '../lib/types'
 
 const KEY_ORDER = ['1340', '6276', '8847', '1449', '6455', '1382', '1753', '1369', '7073', '2036', '1394', '1345', '1302', '1398', '2098']
@@ -32,7 +34,11 @@ export default function QualityStats({ s, params, year }: { s: CommuneYearStats;
               <tbody>
                 {s.dep.map((d) => (
                   <tr key={d[0]}>
-                    <td>{info(d[0])?.l ?? d[0]}</td>
+                    <td>
+                      {libelleParametre(d[0], info(d[0])?.l)}
+                      {/* Hors du jugement du réseau, comme dans les synthèses de l'ARS (03/10). */}
+                      {horsJugement(d[0]) && <small className="muted bloc"> {horsJugement(d[0])}</small>}
+                    </td>
                     <td className="muted">{fmt.seuil(info(d[0])?.lim)}</td>
                     <td className="num">{fmt.int(d[1])}</td>
                     <td className="num">
@@ -46,7 +52,7 @@ export default function QualityStats({ s, params, year }: { s: CommuneYearStats;
               </tbody>
             </table></div>
           )}
-          <div className="source">Limite de qualité = seuil sanitaire réglementaire. Les dépassements de simple « référence de qualité » ne sont pas comptés ici.</div>
+          <div className="source">Une limite de qualité est un seuil sanitaire réglementaire. Les dépassements d’une référence de qualité ne sont pas comptés dans ce tableau.</div>
         </div>
         <div className="card" id="parametres">
           <h2>Paramètres clés</h2>
@@ -90,7 +96,10 @@ export default function QualityStats({ s, params, year }: { s: CommuneYearStats;
               })}
             </tbody>
           </table></div>
-          <div className="source">« Non détecté » : toutes les analyses sous la limite de quantification. Dernière valeur = analyse la plus récente du millésime.</div>
+          <div className="source">
+            La mention « non détecté » signifie que toutes les analyses de l’année sont inférieures à la limite de quantification. La dernière valeur est
+            celle de l’analyse la plus récente de l’année.
+          </div>
         </div>
       </div>
   )

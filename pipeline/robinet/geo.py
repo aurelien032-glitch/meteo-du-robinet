@@ -11,7 +11,8 @@ import json
 from pathlib import Path
 
 from . import config as C
-from .build import _dept_of_insee
+from .util import dept_of_insee as _dept_of_insee
+from .util import dump
 
 
 def _round_coords(coords, nd: int = 4):
@@ -27,13 +28,12 @@ def _feature(f: dict, keep: tuple[str, ...]) -> dict:
 
 
 def _dump(path: Path, obj) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    dump(path, obj, silencieux=True)
 
 
 def _dept_of(p: dict) -> str:
     # Le département brut d'Etalab place Saint-Martin/Saint-Barthélemy en 978/977, des codes que le reste
-    # du pipeline n'utilise pas (build._dept_of_insee les replie sur 971, faute de fiche ou de seuils SISPEA
+    # du pipeline n'utilise pas (util.dept_of_insee les replie sur 971, faute de fiche ou de seuils SISPEA
     # propres) ; sans le même repli ici, leurs deux communes n'avaient ni contour de carte ni fichier
     # communes/977.json ou 978.json, alors que leurs statistiques sanitaires existaient bien sous 971.
     return _dept_of_insee(p["code"])

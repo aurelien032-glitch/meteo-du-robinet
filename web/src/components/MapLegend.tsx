@@ -10,6 +10,11 @@ type Props = {
   binaire?: string[]
   /** Libellé du premier palier quand il désigne une absence (« aucun avis ») plutôt qu'un intervalle (« 0–1 »). */
   premier?: string
+  /**
+   * Cases de la légende, quand plusieurs paliers de l'échelle ont la même couleur : une case par couleur réellement
+   * peinte (situations : les réserves, de la couleur de « conforme », lib/situations.legendeSituation). Remplace les paliers.
+   */
+  cases?: { couleur: string; libelle: string }[]
   noDataLabel?: string
 }
 
@@ -17,12 +22,18 @@ type Props = {
  * Légende complète d'une carte : un palier affiché par couleur réellement employée, pour qu'une teinte
  * intermédiaire soit lisible. Une échelle relative le dit, sinon deux cartes se comparent à tort.
  */
-export default function MapLegend({ desc, scale, format, binaire, premier, noDataLabel = 'sans donnée' }: Props) {
+export default function MapLegend({ desc, scale, format, binaire, premier, cases, noDataLabel = 'sans donnée' }: Props) {
   return (
     <div className="legend">
       <span className="legend-desc">{desc} :</span>
       <span className="legend-scale">
-        {scale.steps.map((s, i) => (
+        {cases?.map((c) => (
+          <span key={c.libelle} className="legend-item">
+            <span className="swatch" style={{ background: c.couleur }} aria-hidden="true" />
+            {c.libelle}
+          </span>
+        ))}
+        {!cases && scale.steps.map((s, i) => (
           <span key={i} className="legend-item">
             <span className="swatch" style={{ background: s.color }} aria-hidden="true" />
             {binaire
@@ -40,12 +51,12 @@ export default function MapLegend({ desc, scale, format, binaire, premier, noDat
           </span>
         ))}
         <span className="legend-item">
-          {/* La couleur « sans donnée » vient de l'échelle elle-même, comme sur la carte (rampe ardoise : la surface). */}
-          <span className="swatch" style={{ background: scale.color(null) }} aria-hidden="true" /> {noDataLabel}
+          {/* « Sans donnée » et « pas d'information » : les hachures de la carte (FranceMap, motifHachures). */}
+          <span className="swatch swatch-nd" aria-hidden="true" /> {noDataLabel}
         </span>
       </span>
       {scale.relative && (
-        <span className="legend-note" title="Les couleurs sont réparties entre les valeurs affichées : changer de millésime ou de paramètre change l'échelle.">
+        <span className="legend-note" title="Les couleurs sont réparties entre les valeurs affichées. L'échelle change donc avec le millésime ou le paramètre choisi.">
           échelle relative aux valeurs affichées
         </span>
       )}

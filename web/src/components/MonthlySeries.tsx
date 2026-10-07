@@ -3,6 +3,7 @@ import Chargement from './Chargement'
 import Chart, { axisDefaults, lineDefaults } from './Chart'
 import { fmt } from '../lib/data'
 import { useJson } from '../lib/hooks'
+import { libelleParametre } from '../lib/parametres'
 import { chartPalette, useCleTheme } from '../lib/theme'
 import type { SeriesFile } from '../lib/types'
 
@@ -12,6 +13,9 @@ import type { SeriesFile } from '../lib/types'
  * Un axe vertical par panneau, jamais deux sur le même dessin : les deux parts n'ont pas le même ordre de
  * grandeur et, superposées, sembleraient comparables. Conçu pour les animations « mois par mois » des vidéos.
  */
+/** « 2023-01 » → « janvier 2023 » : une période se lit en toutes lettres dans une phrase (critique UX du 2026-10-05). */
+const moisEnClair = (m: string) => new Date(Number(m.slice(0, 4)), Number(m.slice(5, 7)) - 1, 1).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+
 export default function MonthlySeries({ code, dept, height = 316 }: { code: string; dept?: string; height?: number }) {
   const cle = useCleTheme()
   const s = useJson<SeriesFile>(`series/${code}.json`).data
@@ -27,7 +31,7 @@ export default function MonthlySeries({ code, dept, height = 316 }: { code: stri
     const pctQuant = n.map((v, i) => (v ? _n((100 * (src.nq[i] ?? 0)) / v) : null))
     const labels = s.mois.slice(0, fin).map((m) => (m.endsWith('-01') ? m.slice(0, 4) : m.slice(5)))
     const panneaux: { nom: string; series: object[]; max?: number }[] = [
-      { nom: '% au-dessus de la limite', series: [{ type: 'bar', name: 'au-dessus de la limite (%)', data: pctDep, itemStyle: { color: p.mark, borderRadius: [2, 2, 0, 0] }, barMaxWidth: 12 }] },
+      { nom: '% au-dessus de la limite', series: [{ type: 'bar', name: 'au-dessus de la limite (%)', data: pctDep, itemStyle: { color: p.alerte, borderRadius: [2, 2, 0, 0] }, barMaxWidth: 12 }] },
       { nom: '% quantifiées', series: [{ type: 'line', name: 'quantifiées (%)', data: pctQuant, ...lineDefaults(p.series[0]), symbolSize: 4 }], max: 100 },
     ]
     if (!dept)
@@ -40,7 +44,8 @@ export default function MonthlySeries({ code, dept, height = 316 }: { code: stri
       })
     // Géométrie en pixels : légende en haut, un intervalle pour le nom de l'axe de chaque panneau, les
     // libellés de mois sous le dernier panneau seulement.
-    const top = 52
+    // Légende sur deux lignes en largeur étroite : elle recouvrait le nom de l'axe (audit mobile du 2026-10-06).
+    const top = window.innerWidth < 600 ? 84 : 52
     const bottom = 26
     const gap = 30
     const h = (height - top - bottom - gap * (panneaux.length - 1)) / panneaux.length
@@ -49,13 +54,14 @@ export default function MonthlySeries({ code, dept, height = 316 }: { code: stri
       grid: panneaux.map((_, i) => ({ left: 56, right: 16, top: top + i * (h + gap), height: h })),
       axisPointer: { link: [{ xAxisIndex: 'all' as const }] },
       tooltip: { trigger: 'axis' as const, valueFormatter: (v: unknown) => (v == null ? '–' : fmt.dec(Number(v), 2)) },
-      legend: { top: 0, type: 'scroll' as const, textStyle: { color: p.muted, fontSize: p.fontSize } },
+      legend: { top: 0, type: 'plain' as const, textStyle: { color: p.muted, fontSize: p.fontSize } },
       xAxis: panneaux.map((_, i): object => ({
         type: 'category',
         data: labels,
         gridIndex: i,
         ...axisDefaults(),
-        axisLabel: { show: i === derniere, color: p.muted, fontSize: p.fontSize, interval: 2 },
+        // Années et juillets seulement, sans chevauchement : un libellé tous les trois mois se chevauchait sur téléphone (« 1020240407 », 05/10).
+        axisLabel: { show: i === derniere, color: p.muted, fontSize: p.fontSize, interval: (_: number, v: string) => v.length === 4 || v === '07', hideOverlap: true },
       })),
       yAxis: panneaux.map((x, i): object => ({
         type: 'value',
@@ -71,13 +77,13 @@ export default function MonthlySeries({ code, dept, height = 316 }: { code: stri
     }
   }, [s, dept, height, cle])
   if (!s) return <Chargement texte="Chargement de la série…" />
-  if (!option) return <p className="muted">Pas de série pour ce département.</p>
+  if (!option) return <p className="muted">Aucune série n’est disponible pour ce département.</p>
   return (
     <>
       <Chart option={option} height={height} exportName={`serie-${code}`} />
       <div className="source">
-        {s.l}, {s.mois[0]} → {s.mois[fenetre(s, dept) - 1]}. Part mensuelle des analyses au-dessus de la limite de qualité{s.lim ? ` (${s.lim})` : ''} et part des
-        analyses quantifiées. Les moyennes ne sont pas affichées : les résultats sous le seuil de quantification valent 0.
+        {libelleParametre(code, s.l)}, de {moisEnClair(s.mois[0])} à {moisEnClair(s.mois[fenetre(s, dept) - 1])}. Part mensuelle des analyses au-dessus de la limite de qualité{s.lim ? ` (${fmt.seuil(s.lim)})` : ''} et part des
+        analyses quantifiées. Les moyennes ne sont pas présentées, car les résultats inférieurs au seuil de quantification sont enregistrés à zéro.
       </div>
     </>
   )

@@ -1,33 +1,62 @@
 import { fmt } from './data'
 import { NBSP, sansFranchir } from './instruments'
-import { PALIERS_ARDOISE, palierArdoise } from './scale'
-import { nonConformes, partNonConformes, reseauxAnalyses, type FamilleSitu, type Repartition } from './situations'
+import { PALIERS_PARTS, palierPart } from './scale'
+import { enRestriction, FAMILLES_SITU, NOMS_FAMILLES, nonConformes, partNonConformes, reseauxAnalyses, type FamilleSitu, type Repartition } from './situations'
 
 /**
- * Carte des départements de l'accueil (maquette du 23/09) : part des réseaux non conformes sur la rampe ardoise
- * (PALIERS_ARDOISE, lib/scale.ts), avec sa légende, sa lecture et son tableau. Le dessin vient du pipeline
- * (geo/departements-svg.json) ; ici, ce qui se calcule.
+ * Carte des départements de l'accueil (maquette du 23/09) : part des réseaux non conformes sur la rampe de la qualité
+ * de l'eau, aux couleurs des notes (paliers PALIERS_PARTS, lib/scale.ts ; 07/10), avec sa légende, sa lecture et son
+ * tableau. Le dessin vient du pipeline (geo/departements-svg.json) ; ici, ce qui se calcule.
  */
 
-/** Classe de la rampe (1 à 5, jetons --m1…--m5) ; 0 sans réseau analysé, dessiné hachuré. */
-export function classeArdoise(part: number | null | undefined): number {
-  return part == null ? 0 : palierArdoise(part) + 1
+/** Palier de la carte (1 à 4, couleurs des notes) ; 0 sans réseau analysé, dessiné hachuré. */
+export function classePart(part: number | null | undefined): number {
+  return part == null ? 0 : palierPart(part) + 1
 }
 
-const BORNES_PCT = PALIERS_ARDOISE.map((b) => Math.round(b * 100))
+const BORNES_PCT = PALIERS_PARTS.map((b) => Math.round(b * 100))
 
-/** Étiquettes de la légende, en % : « < 5 », « 5–10 », « 10–20 », « 20–40 », « ≥ 40 ». */
-export const ETIQUETTES_ARDOISE = BORNES_PCT.map((b, i) =>
+/** Étiquettes de la légende, en % : « < 10 », « 10–25 », « 25–50 », « ≥ 50 ». */
+export const ETIQUETTES_PARTS = BORNES_PCT.map((b, i) =>
   i === 0 ? `< ${BORNES_PCT[1]}` : i === BORNES_PCT.length - 1 ? `≥ ${b}` : `${b}–${BORNES_PCT[i + 1]}`,
 )
 
 /**
- * Part écrite comme sur la carte : une décimale sous 10 %, aucune au-delà, sans jamais franchir une borne de la
- * légende à l'arrondi (9,97 % ne s'écrit pas « 10,0 % », qui la rangerait dans « 10–20 »).
+ * Part écrite comme sur la carte : une décimale, comme /france (règle des décimales du 2026-10-05), sans jamais franchir
+ * une borne de la légende à l'arrondi (9,97 % ne s'écrit pas « 10,0 % », qui la rangerait dans « 10–20 »).
  */
 export function pctCarte(part: number): string {
   const v = part * 100
-  return `${sansFranchir(v, BORNES_PCT.slice(1), (d) => fmt.dec(v, d), v < 10 ? 1 : 0, true)}${NBSP}%`
+  return `${sansFranchir(v, BORNES_PCT.slice(1), (d) => fmt.dec(v, d), 1, true)}${NBSP}%`
+}
+
+/**
+ * Restrictions de consommation (demande de l'auteur, 24/09) : part des réseaux sous restriction de consommation ou
+ * consigne d'ébullition de l'ARS dans l'année, classe « restriction ou consigne » de toutes familles
+ * (pipeline/robinet/situations.py). Plus de la moitié des départements n'en comptent aucun et le neuvième décile est
+ * vers 8 % (2023-2025) : paliers propres, « aucun réseau » puis 2, 5 et 10 %, sans quoi presque tout tombait dans la
+ * teinte la plus claire des parts non conformes (5, 10, 20, 40 %).
+ */
+export const BORNES_RESTRICTIONS = [0, 1e-6, 0.02, 0.05, 0.1]
+export const ETIQUETTES_RESTRICTIONS = ['aucun réseau', `< 2${NBSP}%`, `2${NBSP}%–5${NBSP}%`, `5${NBSP}%–10${NBSP}%`, `≥ 10${NBSP}%`]
+
+/** Part des réseaux sous restriction ou consigne ; null sans réseau analysé. */
+export function partRestrictions(r: Repartition | undefined): number | null {
+  if (!r) return null
+  const t = reseauxAnalyses(r)
+  return t ? r[2] / t : null
+}
+
+/** Part écrite sans franchir une borne de la légende des restrictions (1,996 % ne s'écrit pas « 2,0 % »). */
+export function pctRestrictions(part: number): string {
+  const v = part * 100
+  return `${sansFranchir(v, [2, 5, 10], (d) => fmt.dec(v, d), 1, true)}${NBSP}%`
+}
+
+/** Familles en restriction ou consigne dans le code de situation d'une commune : « pesticides, bactériologie ». */
+export function causesRestriction(code: string | null | undefined): string[] {
+  if (!code) return []
+  return FAMILLES_SITU.filter((f, i) => code[i] != null && code[i] !== '-' && enRestriction(f, Number(code[i]))).map((f) => NOMS_FAMILLES[f])
 }
 
 export interface LigneDepartement {
@@ -54,12 +83,6 @@ export function lignesDepartements(
       return { code, nom, part: partNonConformes(r, famille), nonConformes: r ? nonConformes(r, famille) : 0, analyses: r ? reseauxAnalyses(r) : 0 }
     })
     .sort((a, b) => (b.part ?? -1) - (a.part ?? -1) || a.nom.localeCompare(b.nom, 'fr'))
-}
-
-/** Lecture d'un département ou de la France : « Marne : 60 % des réseaux non conformes, 187 sur 314 analysés ». */
-export function lectureDepartement(l: Pick<LigneDepartement, 'nom' | 'part' | 'nonConformes' | 'analyses'>): string {
-  if (l.part == null) return `${l.nom} : aucun réseau analysé`
-  return `${l.nom} : ${pctCarte(l.part)} des réseaux non conformes, ${fmt.int(l.nonConformes)} sur ${fmt.int(l.analyses)} analysé${l.analyses > 1 ? 's' : ''}`
 }
 
 /**

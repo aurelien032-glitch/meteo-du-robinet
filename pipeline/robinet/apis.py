@@ -30,6 +30,30 @@ def cached_json(key: str, producer: Callable[[], object], *, force: bool = False
     return data
 
 
+# Rafraîchissement mensuel des sources amont (BNPE, BNV-D, ADES, Naïades ; choix de l'auteur du 04/10) : quand le plus
+# ancien cache d'une source a plus de TTL_JOURS, tous ses départements sont repris au même passage. Un premier essai par
+# lots de 30 départements mêlait deux millésimes (BNPE 2024 publiée pour 61 départements, 2023 pour les autres) : les
+# volumes des départements sans la nouvelle année disparaissaient de la ressource. Un échec garde le cache précédent.
+TTL_JOURS = 30
+
+
+def a_rafraichir(prefix: str) -> set[str]:
+    """Tous les départements de la source `prefix` si son plus ancien cache a dépassé TTL_JOURS, sinon aucun."""
+    limite = time.time() - TTL_JOURS * 86400
+    dates = [p.stat().st_mtime for d in C.DEPARTEMENTS if (p := C.CACHE / prefix / f"{d}.json").exists()]
+    return set(C.DEPARTEMENTS) if dates and min(dates) < limite else set()
+
+
+def cache_rafraichi(key: str, producer: Callable[[], object], *, rafraichir: bool, force: bool = False):
+    """cached_json, repris si `rafraichir` ; un échec de la reprise garde le cache."""
+    if rafraichir and not force:
+        try:
+            return cached_json(key, producer, force=True)
+        except Exception as e:  # coupure, HTTP, plafond : la donnée en cache reste valable
+            print(f"  ! {key} : rafraîchissement impossible ({type(e).__name__}), cache gardé")
+    return cached_json(key, producer, force=force)
+
+
 def hubeau_rows(path: str, params: dict, *, page_size: int = 5000) -> list[dict]:
     """Toutes les lignes d'un endpoint Hub'Eau, en suivant les liens `next`.
 
@@ -41,13 +65,8 @@ def hubeau_rows(path: str, params: dict, *, page_size: int = 5000) -> list[dict]
     q: dict | None = dict(params, size=page_size)
     first = True
     while url:
-        r = None
-        for attempt in range(4):
-            r = s.get(url, params=q, timeout=180)
-            if r.status_code in (200, 206):
-                break
-            time.sleep(2 * (attempt + 1))
-        assert r is not None
+        # Reprises dans la session (download.REPRISES) ; connexion en 10 s, page de 5 000 lignes en 120 s au plus.
+        r = s.get(url, params=q, timeout=(10, 120))
         if r.status_code not in (200, 206):
             raise RuntimeError(f"Hub'Eau {path} HTTP {r.status_code}: {r.text[:200]}")
         j = r.json()
@@ -69,6 +88,7 @@ def hubeau_by_departement(path: str, params: dict, *, split_years: range | None 
     """
     rows: list[dict] = []
     yp = year_params or (lambda y: {"annee": y})
+    repris = a_rafraichir(cache_prefix)
     for dep in C.DEPARTEMENTS:
         def produce(dep: str = dep) -> list[dict]:
             try:
@@ -80,47 +100,12 @@ def hubeau_by_departement(path: str, params: dict, *, split_years: range | None 
                 for y in split_years:
                     out += hubeau_rows(path, dict(params, **{dept_param: dep}, **yp(y)))
                 return out
-        part = cached_json(f"{cache_prefix}/{dep}", produce, force=force)
-        print(f"  {cache_prefix} {dep}: {len(part)} lignes")
+        part = cache_rafraichi(f"{cache_prefix}/{dep}", produce, rafraichir=dep in repris, force=force)
+        print(f"  {cache_prefix} {dep}: {len(part)} lignes{' (rafraîchi)' if dep in repris else ''}")
         rows += part
     return rows
 
 
-# --- SISPEA historique (l'API Hub'Eau s'arrête en 2019, les années suivantes viennent des archives 7z) ---
-# Seuls ces codes existent côté API pour l'eau potable (P105.3, P109.0, P153.2, P154.0, P103.2B renvoient HTTP 400).
-SISPEA_INDICATEURS = ["D101.0", "D102.0", "D151.0", "P101.1", "P102.1", "P104.3", "P106.3", "P107.2", "P108.3",
-                      "P151.1", "P152.1", "P155.1"]
-
-
-def sispea_history(indicateurs: list[str] = SISPEA_INDICATEURS, years: range = range(2008, 2020),
-                   *, force: bool = False) -> list[dict]:
-    rows: list[dict] = []
-    for ind in indicateurs:
-        n = 0
-        for y in years:
-            def produce(ind: str = ind, y: int = y) -> list[dict]:
-                return hubeau_rows("v0/indicateurs_services/indicateurs", {"code_indicateur": ind, "annee": y})
-            # Le [] n'est mis en cache que s'il vient réellement de l'API : sinon une panne transitoire dont le
-            # corps de réponse contient par hasard « 400 » serait prise pour un indicateur inconnu et resterait
-            # « vide » pour toujours (cached_json n'écrit qu'après le succès de produce, donc l'échec ci-dessous
-            # n'est jamais mis en cache et sera retenté au prochain run).
-            try:
-                part = cached_json(f"sispea_api/{ind}_{y}", produce, force=force)
-            except RuntimeError as e:
-                if "HTTP 400" in str(e):
-                    print(f"  ! {ind} {y} : HTTP 400 (indicateur ou année invalide), ignoré")
-                    part = []
-                else:
-                    raise
-            for r in part:
-                r["code_indicateur"] = ind
-            rows += part
-            n += len(part)
-        print(f"  SISPEA API {ind}: {n} lignes")
-    return rows
-
-
-# --- BNPE : volumes prélevés pour l'eau potable, par ouvrage et par an ---
 def bnpe_aep(*, force: bool = False) -> list[dict]:
     return hubeau_by_departement("v1/prelevements/chroniques", {"code_usage": "AEP"},
                                  split_years=range(2008, 2027), cache_prefix="bnpe_aep", force=force)
@@ -148,6 +133,7 @@ def bnvd_ventes_departement(years: range = range(2018, 2026), *, force: bool = F
                            {"code_territoire": dep, "type_territoire": "Departement", "annee_min": a, "annee_max": b,
                             "fields": fields}, page_size=20000)
 
+    repris = a_rafraichir("bnvd")
     for dep in C.DEPARTEMENTS:
         def produce(dep: str = dep) -> list[dict]:
             try:
@@ -169,7 +155,7 @@ def bnvd_ventes_departement(years: range = range(2018, 2026), *, force: bool = F
             if manquantes:
                 print(f"  ! BNV-D {dep}: {manquantes} lignes sans quantite (comptées 0)")
             return [dict(v, code_departement=dep) for v in agg.values()]
-        part = cached_json(f"bnvd/{dep}", produce, force=force)
+        part = cache_rafraichi(f"bnvd/{dep}", produce, rafraichir=dep in repris, force=force)
         rows += part
         print(f"  BNV-D {dep}: {len(part)} lignes")
     return rows
@@ -196,29 +182,6 @@ def naiades_param_departement(code_param: str, date_min: str = "2020-01-01", *, 
         "v2/qualite_rivieres/analyse_pc", {"code_parametre": code_param, "date_debut_prelevement": date_min, "fields": fields},
         split_years=range(int(date_min[:4]), 2027), cache_prefix=f"naiades/{code_param}", force=force,
         year_params=lambda y: {"date_debut_prelevement": f"{y}-01-01", "date_fin_prelevement": f"{y}-12-31"})
-
-
-# --- VigiEau : niveau de restriction sécheresse en vigueur, par département ---
-def vigieau_departements(*, force: bool = True) -> list[dict]:
-    """Instantané national (toujours rafraîchi : la donnée change chaque jour)."""
-    r = session().get(f"{C.VIGIEAU}/departements", timeout=60)
-    r.raise_for_status()
-    data = r.json()
-    p = C.CACHE / "vigieau" / "departements.json"
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
-    return data
-
-
-# --- Sandre : fiche d'un paramètre ---
-def sandre_parametre(code: str, *, force: bool = False) -> dict | None:
-    def produce():
-        r = session().get(f"{C.SANDRE}/par/{code}.json", timeout=60)
-        if r.status_code != 200:
-            return None
-        par = r.json()["REFERENTIELS"]["Referentiel"].get("Parametre")
-        return par[0] if isinstance(par, list) else par
-    return cached_json(f"sandre/par_{code}", produce, force=force)
 
 
 # --- Piézométrie (Hub'Eau niveaux_nappes) : niveau des nappes, en moyennes mensuelles ---
@@ -250,20 +213,36 @@ def _piezo_mesures(code: str, debut: str | None) -> list[dict]:
         return rows
 
 
+def _fin_en_cache(code: str) -> str | None:
+    """Date de la dernière mesure d'un piézomètre dans le cache, None s'il n'y est pas."""
+    p = C.CACHE / "piezo" / "mensuel" / (code.replace("/", "_") + ".json")
+    try:
+        return json.loads(p.read_text(encoding="utf-8")).get("fin")
+    except (OSError, ValueError):
+        return None
+
+
 # Trente ans d'historique suffisent à situer un mois par rapport aux mêmes mois passés (le BRGM en demande 15) ;
 # remonter aux années 1970 multipliait le volume téléchargé pour les piézomètres anciens ou à mesures horaires.
 PIEZO_DEBUT = "1996-01-01"
 
 
-def piezo_mensuel(code: str, *, force: bool = False) -> dict:
+def piezo_mensuel(code: str, *, force: bool = False, fin_publiee: str | None = None) -> dict:
     """{"mois": {"AAAA-MM": [somme des niveaux, nombre de mesures]}, "fin": dernière date} pour un piézomètre.
 
     Seules les moyennes mensuelles sont gardées (le brut ferait ~18 millions de lignes pour 2 300 piézomètres).
     Mise à jour incrémentale : on retélécharge depuis le premier jour du dernier mois en cache, recalculé en entier.
+    `fin_publiee` : date de la dernière mesure selon la liste des stations (piezo_stations) ; quand elle n'est pas
+    postérieure à celle du cache, rien n'est retéléchargé.
     """
     p = C.CACHE / "piezo" / "mensuel" / (code.replace("/", "_") + ".json")
     prev = json.loads(p.read_text(encoding="utf-8")) if p.exists() and not force else None
     if prev and prev.get("maj") == time.strftime("%Y-%m-%d"):
+        return prev
+    # Aucune mesure publiée depuis la dernière mise à jour (mesuré le 29/09/2026 : 2 piézomètres sur 2 397 en un jour ;
+    # la date de la liste des stations égalait celle du cache pour tous les autres). Chaque piézomètre retéléchargé
+    # coûte une requête, et Hub'Eau n'en accepte qu'environ 17 par minute : l'étape durait deux heures chaque semaine.
+    if prev and prev.get("fin") and fin_publiee and fin_publiee[:10] <= prev["fin"][:10]:
         return prev
     debut = PIEZO_DEBUT
     mois = {}
@@ -293,17 +272,29 @@ def piezo_tous(*, annees_min: int = 15, workers: int = 1, force: bool = False) -
     """Moyennes mensuelles de tous les piézomètres actifs ayant au moins `annees_min` ans d'historique.
 
     Séquentiel par défaut : en parallèle, Hub'Eau renvoie des refus de débit et les reprises ralentissent tout
-    (mesuré : 10 piézomètres/min à 6 connexions, ~17/min à une seule). Le premier chargement prend ~2 h, les
-    suivants ne retéléchargent que le dernier mois de chaque piézomètre (cache par piézomètre, reprise possible).
+    (mesuré : 10 piézomètres/min à 6 connexions, ~17/min à une seule). Le premier chargement prend ~2 h ; les
+    suivants ne retéléchargent que le dernier mois des piézomètres qui ont publié une mesure depuis (cache par
+    piézomètre, reprise possible).
     """
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
+    # Liste des stations relue à chaque exécution (une requête) : elle donne la date de la dernière mesure publiée
+    # de chaque piézomètre, et les stations apparues en cours d'année (elle n'était lue qu'une fois par an).
     limite = f"{int(time.strftime('%Y')) - annees_min}-12-31"
-    stations = [s for s in piezo_stations(force=force) if (s.get("date_debut_mesure") or "9999") <= limite]
+    # Une coupure de Hub'Eau sur cette seule requête bloquait toute la publication (exécution du 03/10/2026) : la
+    # liste en cache prend alors le relais, et les piézomètres sans date plus récente attendent la semaine suivante.
+    try:
+        liste = piezo_stations(force=True)
+    except Exception as e:  # noqa: BLE001 — toute erreur réseau ou d'API
+        print(f"  ! liste des stations non relue ({e}) : liste en cache")
+        liste = piezo_stations()
+    stations = [s for s in liste if (s.get("date_debut_mesure") or "9999") <= limite]
     out: dict[str, dict] = {}
     erreurs = 0
+    avant = {s["code_bss"]: _fin_en_cache(s["code_bss"]) for s in stations}
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = {ex.submit(piezo_mensuel, s["code_bss"], force=force): s["code_bss"] for s in stations}
+        futs = {ex.submit(piezo_mensuel, s["code_bss"], force=force, fin_publiee=s.get("date_fin_mesure")): s["code_bss"]
+                for s in stations}
         for i, f in enumerate(as_completed(futs), 1):
             try:
                 out[futs[f]] = f.result()
@@ -312,7 +303,8 @@ def piezo_tous(*, annees_min: int = 15, workers: int = 1, force: bool = False) -
                 print(f"  ! {futs[f]} : {e}")
             if i % 200 == 0:
                 print(f"  {i}/{len(stations)} piézomètres", flush=True)
-    print(f"  piézométrie : {len(out)} piézomètres, {erreurs} en échec")
+    nouveaux = sum(1 for c, d in out.items() if d.get("fin") != avant.get(c))
+    print(f"  piézométrie : {len(out)} piézomètres, dont {nouveaux} avec une mesure nouvelle, {erreurs} en échec")
     if erreurs > len(stations) * 0.05:
         raise RuntimeError(f"piézométrie : {erreurs} piézomètres en échec sur {len(stations)}")
     return out

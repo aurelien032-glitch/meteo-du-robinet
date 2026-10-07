@@ -95,23 +95,34 @@ SEUILS_CITES = [
 ]
 # Autres formulations qui ne sont pas une consigne en vigueur, retirées de la même façon. À la différence des
 # négations, elles ne disent rien de la cause citée (une restriction levée a bien eu lieu, pour sa cause).
-AUTRES_RETRAITS = [
+LEVEES = [
     # levée d'une consigne antérieure : l'eau est de nouveau consommable (« L'interdiction de consommer l'eau est
     # (donc) levée », « une demande de levée d'interdiction a été émise », « a permis de lever l'interdiction »,
     # « l'arrêté d'interdiction… a été abrogé »). « ne peut être levée », « pourra être levée », « ne permet pas de
     # lever », « avant une éventuelle levée », « la levée ne pourra intervenir qu'après… » disent au contraire que la
-    # consigne est maintenue.
-    r"(?<!eventuelle)(?<!avantla)(?<!avantune)(?<!envuedela)(?<!pourla)(?<!permettraientla)(?<!permettraitla)(?<!permettrala)"
+    # consigne est maintenue, comme « pour statuer sur la levée de l'interdiction ».
+    r"(?<!eventuelle)(?<!surla)(?<!avantla)(?<!avantune)(?<!envuedela)(?<!pourla)(?<!permettraientla)(?<!permettraitla)(?<!permettrala)"
     r"(?<!permettrontla)(?<!permettrela)levee(de|des|du|d)?(la|les|l)?(mesures?)?(de|d)?" + _NOM
     + r"(?![a-z0-9]{0,60}?(nepourr|nepeut|nesera|interviendra|quapres|pourr(a|ont|ait)etre(realisee|prononcee|decidee)))",
-    _NOM + r"[a-z0-9]{0,90}?(?<!ne)(?<!ser)(?<!pourr)(?<!devr)(?<!aur)((est|sont|a|ont|peut|peuvent)" + _ADVERBES + r"(ete|etre)?"
+    # le nom, puis « est levée » à la fin d'une incise longue (« La restriction d'usage de l'eau, mise en place le
+    # 10/01/2026 par mesure de précaution, suite à une rupture temporaire d'approvisionnement en eau, est levée ») ; sans
+    # franchir une consigne maintenue (« l'interdiction pour les nourrissons est maintenue, celle… est levée »)
+    _NOM + r"(?:(?!maintenu|resteen|toujoursen|demeure)[a-z0-9]){0,200}?(?<!ne)(?<!ser)(?<!pourr)(?<!devr)(?<!aur)"
+    r"((est|sont|a|ont|peut|peuvent)" + _ADVERBES + r"(ete|etre)?"
     r"|(?<!pas)(?<!plus)(?<!jamais)(?<!point)(?<!encore)ete)" + _ADVERBES + r"(levee|abrogee?)s?",
     r"(permet|permettent|permis|permettant)(de|d)?leve(r|e)?[a-z0-9]{0,30}?(les|la|l)?(mesures?|demandes?)?(de|d)?" + _NOM,
     r"fin(de|des|du|d)?(la|les|l)?" + _NOM,
+]
+AUTRES_RETRAITS = LEVEES + [
     # consigne conditionnelle (« si ces mesures ne permettent pas…, la population devra être informée »)
     r"sicesmesuresnepermettentpas\w{0,250}",
     # consigne qui ne vise pas l'eau : « ne pas consommer de produits supplémentés en fluor (dentifrices) »
     r"nepasconsommer(de|des|du)(produits?|complements?|dentifrices?)",
+    # précaution qui ne vaut que si l'eau est trouble au robinet (« Il est recommandé à la population de ne pas consommer
+    # une eau présentant un trouble », ARS de l'Yonne, sous une turbidité au-dessus de la RÉFÉRENCE de qualité) : comme
+    # « lorsqu'il subsiste de telles canalisations, laisser couler l'eau », pas un avis sur l'eau du réseau (choix de
+    # l'auteur, 2026-10-05)
+    r"nepas(consommer|boire|utiliser)(une?|cette|l|d)?eau(presentant(un)?|quipresente(un)?)?troubles?",
 ]
 
 # Phrases qui ne portent aucune consigne en vigueur : un seuil énoncé comme une règle, ou une mesure seulement
@@ -142,6 +153,9 @@ _DEPASSEMENT = re.compile(r"(depassement|depasse|depassant|superieure?s?|excede)
 _SI = re.compile(r"(\w+ )?\bsi (elle|elles|il|ils|la|le|les|l|ce|ces|cette|celle|celles|celui|ceux|un|une|de|des|du|nouveau)\b")
 _SI_NON_CONDITIONNEL = {"sauf", "meme", "determiner", "savoir", "verifier", "preciser", "evaluer", "connaitre", "dire", "voir",
                         "rechercher", "etablir", "identifier", "demander", "confirmer", "controler", "examiner", "analyser"}
+# Mots coupés par une espace parasite, recollés avant de chercher « si » : « Ain si, une demande d'interdiction… » n'est
+# pas une condition, « S i l'analyse met à nouveau une valeur non conforme, une restriction… » en est une.
+_SI_COUPE = re.compile(r"\b(ain|aus|quas) si\b|\bs i\b")
 
 # Consignes pour toute la population, sans ambiguïté.
 GENERAL_FORT = [
@@ -202,6 +216,14 @@ CAUSES = {
     "chlorites / chlorates": r"chlorite|(?<!per)chlorate",  # pas « perchlorate »
     "trihalométhanes": r"trihalomethane",
 }
+# Plomb des canalisations, nommé par un avertissement général sur l'eau et les tuyaux (« L'eau favorise la dissolution
+# des canalisations (plomb, cuivre,...) », « L'absence de canalisation en plomb dans les parties privatives doit être
+# vérifiée », « caractère agressif… augmentation de certaines substances (plomb, cuivre) ») : ni une mesure, ni la cause
+# d'une consigne. Sans ce masque, une interdiction pour la bactériologie de 070000667 en 2024 portait le plomb, rangé
+# parmi les métaux (CAUSES_FAMILLE). Un mot de mesure entre le tuyau et le plomb (« teneur », « paramètre ») le garde.
+_CANALISATIONS = re.compile(
+    r"(canalisation|conduite|branchement|tuyauterie|soudure|dissolution|corrosion|certainessubstances)"
+    r"(?:(?!teneur|concentration|parametre|presence|valeur|resultat|limite|depass|analys|mesur|ugl)[a-z0-9]){0,40}?plomb(?!er)")
 # Une cause que le texte écarte n'est pas une cause de la consigne (« la concentration des pesticides concernés reste
 # inférieure aux valeurs sanitaires », « la présence seule de coliformes ne présente pas de risque sanitaire »).
 # Le ministère ne classe une eau en restriction pour les pesticides (NC2) qu'au-delà de la valeur sanitaire (Vmax).
@@ -248,6 +270,13 @@ _POINT = re.compile(r"(a|au|sur|en)(ce|cet|seul)?point(de|d)(prelevement|echanti
 # teneurs en plomb « ne sont représentatives que du point d'utilisation » (constat sur une mesure, pas une portée).
 _RESEAU = re.compile(r"arrete(prefectoral|municipal)|(la|toutela|lensembledela)population|toutelacommune|lensembledesabonnes"
                      r"|surcereseau|(lensemble|tout)dureseau")
+# Rappel d'une consigne passée dans une conclusion qui la lève (« Ce prélèvement fait suite à une interdiction de
+# consommation pour risque microbiologique et confirme le retour à la normale. L'interdiction de consommer l'eau est
+# levée. », Beaumont-sur-Vingeanne, 27/02/2026) : ni une consigne, ni le début d'une nouvelle période. Une phrase qui
+# dit une consigne maintenue (« la restriction est maintenue ») reste lue.
+_LEVEES = [re.compile(p) for p in LEVEES]
+_RAPPEL = re.compile(r"faitsuitea|recontrole|(prelevement|controle|analyse)s?(realise|effectue)?e?s?suitea")
+_MAINTENUE = re.compile(r"maintenu|resteen(vigueur|cours)|toujoursen(vigueur|cours)|demeure")
 
 
 class Lecture(NamedTuple):
@@ -288,10 +317,17 @@ def conditionnelle(phrase: str, precedente: str = "") -> bool:
         return True
     if _REPRISE.search(e) and not _DEPASSEMENT.search(ecraser(precedente)):
         return True
-    return any((m.group(1) or "").strip() not in _SI_NON_CONDITIONNEL for m in _SI.finditer(_en_mots(phrase)))
+    mots = _SI_COUPE.sub(lambda m: m.group(0).replace(" ", ""), _en_mots(phrase))
+    return any((m.group(1) or "").strip() not in _SI_NON_CONDITIONNEL for m in _SI.finditer(mots))
+
+
+def _sans_canalisations(e: str) -> str:
+    """Texte écrasé où le plomb des canalisations est masqué (même longueur, positions gardées)."""
+    return _CANALISATIONS.sub(lambda m: m.group(0)[:-5] + "_____", e)
 
 
 def _causes_de(e: str) -> list[tuple[int, str]]:
+    e = _sans_canalisations(e)
     return sorted((m.start(), k) for k, p in _CAUSES.items() for m in p.finditer(e))
 
 
@@ -335,7 +371,7 @@ def lire(texte: str | None) -> Lecture:
     mention d'un public sensible dans une recommandation.
     """
     tout = ecraser(texte)
-    toutes_causes = [k for k, p in _CAUSES.items() if p.search(tout)]
+    toutes_causes = [k for k, p in _CAUSES.items() if p.search(_sans_canalisations(tout))]
     local_texte = bool(_LOCAL.search(tout))
     if not tout or not (_CONSIGNE.search(tout) or _SENSIBLE.search(tout) or _INTERDIT.search(tout)):
         return Lecture(None, local_texte, toutes_causes)
@@ -346,8 +382,9 @@ def lire(texte: str | None) -> Lecture:
     confirmees: set[str] = set()     # causes nommées dans une phrase de consigne, sans y être écartées
     precedente: list[tuple[int, str]] = []
     phrase_precedente = ""
-    for p in phrases(texte):
-        e = ecraser(_ELEVEE.sub("haute", p))
+    ecrasees = [ecraser(_ELEVEE.sub("haute", p)) for p in phrases(texte)]
+    leve = any(l.search(e) for e in ecrasees for l in _LEVEES)
+    for p, e in zip(phrases(texte), ecrasees):
         mentions = _causes_de(e)
         # expressions qui écartent une cause, négations comprises (« … n'entrainant pas de mesure de restriction »)
         ici: set[str] = set()
@@ -358,7 +395,7 @@ def lire(texte: str | None) -> Lecture:
             precedente = mentions
         cond = conditionnelle(p, phrase_precedente)
         phrase_precedente = p
-        if cond:
+        if cond or (leve and _RAPPEL.search(e) and not _MAINTENUE.search(e) and not any(l.search(e) for l in _LEVEES)):
             continue
         t = e
         for n in _RETRAITS:
@@ -439,161 +476,3 @@ def sans_information(conclusions: int, evoquant: int) -> bool:
     d'avis n'y dit rien. Zéro strict, année par année : une phrase toujours vraie à la lettre, jamais en conflit avec un
     avis affiché (tout avis classé compte parmi les conclusions qui évoquent une consigne). Sans conclusion, pas de jugement."""
     return conclusions > 0 and evoquant == 0
-
-
-# ----------------------------------------------------------------------------------------------
-# Pipeline : tables DuckDB puis fichiers du site (web/public/data/avis/)
-# ----------------------------------------------------------------------------------------------
-CODE = {"sensibles": 1, "ebullition": 2, "interdiction": 3}
-
-
-def charger(con, years: list[int]) -> None:
-    """Classe les conclusions des prélèvements et crée quatre tables :
-
-    avis_textes(id, texte, cat, local, causes)                 une ligne par formulation porteuse d'un avis
-    avis_plv(referenceprel, annee, dateprel, cdreseau, id)     un prélèvement porteur d'un avis, par réseau
-    avis_lecture(cddept, annee, conclusions, evoquant)         prélèvements conclus par chaque délégation de l'ARS, et
-                                                               ceux dont la conclusion évoque une consigne (evoque)
-    avis_muets(cddept, annee)                                  délégations sans information cette année-là
-                                                               (sans_information) ; cddept au format SISE (« 038 »),
-                                                               égal au préfixe du code de chacun de ses réseaux
-    Les conclusions sont lues dans les Parquet DIS déjà convertis (rapide, sans relancer l'étape 1).
-    """
-    import pandas as pd
-
-    from . import dis
-
-    sources = []
-    for y in years:
-        p = dis.parquet_paths(y)["plv"]
-        if not p.exists():
-            raise RuntimeError(f"{p} absent : relancer `robinet build -y {y} --force`")
-        sources.append((y, p.as_posix()))
-    union = " UNION ALL ".join(
-        f"SELECT {y} AS annee, referenceprel, dateprel, cddept, cdreseau, conclusionprel FROM read_parquet('{p}')" for y, p in sources)
-    con.execute(f"CREATE OR REPLACE TEMP VIEW plv_conclusions AS {union}")
-    # Triées : un même corpus donne les mêmes numéros de texte d'une construction à l'autre (comparaisons possibles).
-    textes = [r[0] for r in con.execute(
-        "SELECT DISTINCT conclusionprel FROM plv_conclusions WHERE conclusionprel IS NOT NULL ORDER BY 1").fetchall()]
-    lignes = []
-    evoquant = []
-    for t in textes:
-        a = lire(t)
-        if a.cat:
-            lignes.append({"id": len(lignes), "texte": t, "cat": a.cat, "local": a.local, "causes": ",".join(a.causes)})
-        # Un avis classé évoque toujours une consigne, même si un faux signal écarté par evoque() l'a porté.
-        if a.cat or evoque(t):
-            evoquant.append(t)
-    df = pd.DataFrame(lignes, columns=["id", "texte", "cat", "local", "causes"])
-    con.register("avis_textes_df", df)
-    con.execute("CREATE OR REPLACE TABLE avis_textes AS SELECT * FROM avis_textes_df")
-    con.unregister("avis_textes_df")
-    con.execute("""
-        CREATE OR REPLACE TABLE avis_plv AS
-        SELECT DISTINCT p.referenceprel, p.annee, p.dateprel, p.cdreseau, t.id
-        FROM plv_conclusions p JOIN avis_textes t ON p.conclusionprel = t.texte
-        WHERE p.cdreseau IS NOT NULL AND p.cdreseau <> ''""")
-    n = con.execute("SELECT count(DISTINCT referenceprel) FROM avis_plv").fetchone()[0]
-    print(f"  avis ARS : {len(lignes):,} formulations porteuses d'un avis, {n:,} prélèvements")
-    con.register("avis_evoquant_df", pd.DataFrame({"texte": evoquant}, columns=["texte"]))
-    con.execute("""
-        CREATE OR REPLACE TABLE avis_lecture AS
-        SELECT p.cddept, p.annee, count(DISTINCT p.referenceprel) AS conclusions,
-               count(DISTINCT p.referenceprel) FILTER (WHERE e.texte IS NOT NULL) AS evoquant
-        FROM plv_conclusions p LEFT JOIN avis_evoquant_df e ON p.conclusionprel = e.texte
-        WHERE p.cddept IS NOT NULL AND trim(coalesce(p.conclusionprel, '')) <> ''
-        GROUP BY 1, 2""")
-    con.unregister("avis_evoquant_df")
-    muets = [(cd, int(a)) for cd, a, nc, ne in con.execute("SELECT * FROM avis_lecture ORDER BY 1, 2").fetchall()
-             if sans_information(int(nc), int(ne))]
-    con.execute("CREATE OR REPLACE TABLE avis_muets (cddept VARCHAR, annee INTEGER)")
-    if muets:
-        con.executemany("INSERT INTO avis_muets VALUES (?, ?)", muets)
-    print(f"  délégations de l'ARS sans information de consigne : {len(muets)} (département × année)")
-
-
-def publier(con, years: list[int]) -> None:
-    """avis/national.json (compteurs, causes, départements, lecture des délégations) et avis/<dd>.json (avis par
-    commune, avec le texte, et lecture des délégations dont les réseaux desservent ses communes).
-
-    lecture : {délégation: {année: [prélèvements conclus, dont la conclusion évoque une consigne]}}
-    sans_information : {année: [délégations sans information (sans_information)]}
-    Une délégation porte le code du département qu'elle suit, au format du site (« 38 », « 2B », « 974 »).
-    """
-    from collections import defaultdict
-
-    from . import config as C
-    from .build import _dept_of_insee, _dump
-    from .situations import _dept
-
-    # Prélèvement × commune : un avis sur un réseau vaut pour toutes les communes qu'il dessert cette année-là.
-    con.execute("""
-        CREATE OR REPLACE TEMP VIEW avis_com AS
-        SELECT DISTINCT cu.inseecommune, a.referenceprel, a.annee, a.dateprel, a.cdreseau, a.id, t.cat, t.local, t.causes
-        FROM avis_plv a JOIN avis_textes t USING (id) JOIN com_reseau cu USING (cdreseau, annee)""")
-    nat: dict = {"libelles": LIBELLES, "annees": {}, "causes": {}, "depts": {}}
-    for annee, cat, loc, nplv, nres, ncom in con.execute("""
-            SELECT annee, cat, local, count(DISTINCT referenceprel), count(DISTINCT cdreseau), count(DISTINCT inseecommune)
-            FROM avis_com GROUP BY 1, 2, 3""").fetchall():
-        a = nat["annees"].setdefault(str(annee), {})
-        cle = "local" if loc else cat
-        cur = a.setdefault(cle, {"plv": 0, "reseaux": 0, "communes": 0})
-        # « local » regroupe plusieurs catégories : sommer est une approximation acceptable (ce sont des bâtiments
-        # ou points d'usage distincts) ; les catégories réseau, elles, ne sont jamais sommées entre elles.
-        cur["plv"] += int(nplv)
-        cur["reseaux"] += int(nres)
-        cur["communes"] += int(ncom)
-    # Communes touchées par au moins un avis réseau (hors avis locaux), toutes catégories : pour la part par département.
-    for annee, n in con.execute("""
-            SELECT annee, count(DISTINCT inseecommune) FROM avis_com WHERE NOT local GROUP BY 1""").fetchall():
-        nat["annees"].setdefault(str(annee), {})["communes_toutes"] = int(n)
-    for annee, cat, cs, n in con.execute("""
-            SELECT a.annee, t.cat, t.causes, count(DISTINCT a.referenceprel)
-            FROM avis_plv a JOIN avis_textes t USING (id) WHERE NOT t.local GROUP BY 1, 2, 3""").fetchall():
-        d = nat["causes"].setdefault(str(annee), {}).setdefault(cat, {})
-        for c in (cs.split(",") if cs else ["non précisée"]):
-            d[c] = d.get(c, 0) + int(n)
-    par_dept: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(set)))
-    fiches: dict = defaultdict(lambda: {"textes": {}, "communes": defaultdict(list)})
-    for insee, ref, annee, date, res, tid, cat, loc, cs in con.execute(
-            "SELECT inseecommune, referenceprel, annee, dateprel, cdreseau, id, cat, local, causes FROM avis_com").fetchall():
-        dd = _dept_of_insee(insee)
-        if not loc:
-            par_dept[dd][str(annee)][cat].add(insee)
-        f = fiches[dd]
-        f["textes"][str(tid)] = None
-        f["communes"][insee].append([date, int(tid), res])
-    textes = {int(i): (t, c, bool(l), cs) for i, t, c, l, cs in con.execute(
-        "SELECT id, texte, cat, local, causes FROM avis_textes").fetchall()}
-    for dd, by_year in par_dept.items():
-        nat["depts"][dd] = {a: {cat: len(s) for cat, s in cats.items()} | {"toutes": len(set().union(*cats.values()))}
-                            for a, cats in by_year.items()}
-    lecture: dict = defaultdict(dict)
-    for cd, annee, nc, ne in con.execute("SELECT * FROM avis_lecture ORDER BY 1, 2").fetchall():
-        lecture[_dept(cd, "")][str(annee)] = [int(nc), int(ne)]
-    muets: dict = {str(y): [] for y in years}
-    for cd, annee in con.execute("SELECT cddept, annee FROM avis_muets ORDER BY 1, 2").fetchall():
-        muets.setdefault(str(annee), []).append(_dept(cd, ""))
-    nat["lecture"] = dict(lecture)
-    nat["sans_information"] = muets
-    _dump(C.WEB_DATA / "avis" / "national.json", nat)
-    # Délégations dont les réseaux desservent les communes de chaque fichier : la fiche juge chaque réseau selon la
-    # délégation qui le suit (préfixe de son code), pas selon le département de la commune (14 communes par an).
-    delegations: dict = defaultdict(set)
-    for insee, cd in con.execute("SELECT DISTINCT inseecommune, substr(cdreseau, 1, 3) FROM com_reseau").fetchall():
-        delegations[_dept_of_insee(insee)].add(_dept(cd, ""))
-    # Un fichier par département, même vide : la fiche commune le charge toujours, et un 404 attendu serait
-    # affiché comme une panne par les autres encarts en cours de chargement (components/Chargement.tsx).
-    for dd in C.DEPARTEMENTS:
-        fiches.setdefault(dd, {"textes": {}, "communes": {}})
-    for dd, f in fiches.items():
-        out = {"textes": {}, "communes": {}}
-        for tid in f["textes"]:
-            t, c, l, cs = textes[int(tid)]
-            out["textes"][tid] = {"t": t, "c": c, "l": l, "k": cs.split(",") if cs else []}
-        for insee, lst in f["communes"].items():
-            out["communes"][insee] = sorted({tuple(x) for x in map(tuple, lst)}, reverse=True)
-        ici = sorted(delegations[dd] | {dd})
-        out["lecture"] = {d: lecture[d] for d in ici if d in lecture}
-        out["sans_information"] = {a: [d for d in ds if d in ici] for a, ds in muets.items()}
-        _dump(C.WEB_DATA / "avis" / f"{dd}.json", out)

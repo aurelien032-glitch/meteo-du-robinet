@@ -4,14 +4,26 @@ import Jauge from './Jauge'
 import Paliers from './Paliers'
 import Tag from './Tag'
 import Voyant from './Voyant'
-import { periode, phraseSansInformation, toneAvis, type GroupeAvis } from '../lib/avis'
-import { etatTon, ordreReseaux, phraseVerdict, texteVerdict, tonBulletin, type Comptes, type ReseauBulletin } from '../lib/bulletin'
-import { accord, fmt } from '../lib/data'
-import { causeInstrument, instrumentsReseau, TEXTES_FAMILLES, type Instrument } from '../lib/instruments'
-import { synthese } from '../lib/situations'
+import { periode, phraseSansInformation, phraseSuite, toneAvisSuivi, type GroupeAvis } from '../lib/avis'
+import {
+  CONSTAT_DEPASSEMENT,
+  etatTon,
+  MISE_EN_GARDE_ARS,
+  ordreReseaux,
+  phraseClasseArs,
+  phraseVerdict,
+  RAPPEL_DEPASSEMENT,
+  renvoiAvis,
+  texteVerdict,
+  tonBulletin,
+  type Comptes,
+  type ReseauBulletin,
+} from '../lib/bulletin'
+import { accord, fmt, majuscule } from '../lib/data'
+import { causeInstrument, instrumentsReseau, NBSP, TEXTES_FAMILLES, type Instrument } from '../lib/instruments'
+import { estPartiel, situationReseau, synthese } from '../lib/situations'
 import { AVIS_LIBELLE, type CommuneYearStats, type ParamInfo } from '../lib/types'
 
-const majuscule = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 const sansTon = <T,>(t: T | 'na') => (t === 'na' ? null : t)
 
 /** Ligne d'une famille : voyant, nom et classe, instrument, et ce qui est en cause. */
@@ -63,6 +75,7 @@ export default function Bulletin({
   stats,
   params,
   avis,
+  arret,
   sansInfo,
   comptes,
   desservi = 'la commune',
@@ -75,8 +88,13 @@ export default function Bulletin({
   /** statistiques de l'année d'un réseau, pour ses instruments */
   stats: (code: string) => CommuneYearStats | undefined
   params: Record<string, ParamInfo>
-  /** avis de l'ARS de l'année, regroupés par formulation (lib/avis.ts) */
+  /** avis de l'ARS de l'année, regroupés par formulation (lib/avis.ts) ; l'année en cours, avec leur suite */
   avis: GroupeAvis[]
+  /**
+   * année en cours seulement : date d'arrêt des données. Les avis y portent leur suite, neutres quand ils sont absents
+   * des prélèvements suivants (choix de l'auteur, 25/09 : un avis ne peut pas être dit « en vigueur »)
+   */
+  arret?: string
   /**
    * délégations de l'ARS dont aucune conclusion de l'année n'évoque de consigne (lib/avis.ts, sansInformation) : leurs
    * conclusions et « de l’Isère » ; sans avis, le bloc dit alors « pas d'information », jamais « aucun avis »
@@ -100,9 +118,10 @@ export default function Bulletin({
   const rang = affiche ? ordre.indexOf(affiche) : -1
   const multi = ordre.length > 1
   const titre = phraseVerdict(s, annee)
-  const texte = texteVerdict(reseaux, desservi)
+  const texte = texteVerdict(reseaux, desservi, annee)
   const noms = new Map(reseaux.map((r) => [r.code, r.nom.trim()]))
-  const instruments = affiche ? instrumentsReseau(stats(affiche.code), affiche.situation, params) : []
+  const instruments = affiche ? instrumentsReseau(stats(affiche.code), affiche.situation, params, annee) : []
+  const classe = phraseClasseArs(affiche?.ars)
 
   // Onglets (motif ARIA « tabs ») : flèches, début et fin ; le réseau choisi reçoit le focus.
   const clavier = (e: KeyboardEvent, i: number) => {
@@ -124,14 +143,25 @@ export default function Bulletin({
         <div>
           <p className="b-verdict">{titre ?? `Aucune famille analysée en ${annee}`}</p>
           {texte && <p>{texte}</p>}
+          {/* Sous l'ancien titre « Puis-je boire l'eau ? », « Non conforme » se lisait « non » (choix de l'auteur, 24/09) : un dépassement
+              ne suffit pas à déconseiller l'eau, seul un avis de l'ARS le fait. Relecture du 25/09 : quand l'ARS a émis un
+              avis dans l'année (publics sensibles dans 1 773 communes en 2025), la phrase y renvoie au lieu de le contredire. */}
+          {tonBulletin(s) === 'warn' && (
+            <p className="cap">
+              {CONSTAT_DEPASSEMENT}{' '}
+              {avis.length
+                ? renvoiAvis(annee)
+                : `${RAPPEL_DEPASSEMENT} La rubrique « Avis de l’ARS en ${annee} », ci-dessous, présente les informations disponibles pour l’année.`}
+            </p>
+          )}
         </div>
       </div>
 
       {multi && (
         <div className="rpick-wrap">
           <p className="cap">
-            Chaque réseau est jugé séparément ; le bulletin retient le plus défavorable des {ordre.length}. Choisissez un réseau pour lire ses
-            instruments.
+            Chaque réseau est jugé séparément. Le verdict du bulletin est celui du réseau le plus défavorable parmi les {ordre.length}.
+            Sélectionnez un réseau pour afficher ses mesures.
           </p>
           <div className="rpick" role="tablist" aria-label="Réseau affiché">
             {ordre.map((r, i) => {
@@ -154,7 +184,7 @@ export default function Bulletin({
                 >
                   <Voyant ton={sansTon(ton)} taille={14} />
                   <span>{r.nom.trim()}</span>
-                  <span className="sr-only"> — {etatTon(ton)}</span>
+                  <span className="sr-only"> — {situationReseau(r.situation, annee).statut}</span>
                 </button>
               )
             })}
@@ -163,7 +193,7 @@ export default function Bulletin({
       )}
       {multi && affiche && (
         <p className="rpick-now">
-          Instruments du réseau <b>{affiche.nom.trim()}</b>
+          Mesures du réseau <b>{affiche.nom.trim()}</b>
         </p>
       )}
       <div
@@ -178,33 +208,71 @@ export default function Bulletin({
         ))}
       </div>
 
+      {/* Classe A–D de l'indicateur global de l'ARS, pour le réseau affiché (choix de l'auteur, 03/10). */}
+      {classe && (
+        <div className="b-ars">
+          <p className="b-sub">
+            Classe selon la méthode de l’ARS
+            {estPartiel(annee) && <span className="cap"> · prélèvements depuis le 1er janvier</span>}
+          </p>
+          <p className="b-ars-ligne">
+            <span className={`b-ars-lettre tuile-${classe.lettre}`} aria-hidden="true">
+              {classe.lettre}
+            </span>
+            <span>
+              <span className="sr-only">Note {classe.lettre} : </span>
+              {classe.texte}
+            </span>
+          </p>
+          <p className="cap">
+            {MISE_EN_GARDE_ARS} <Link to="/methode#classe-ars">Méthode de la classe</Link>.
+          </p>
+        </div>
+      )}
+
       <div className="b-avis" id="avis">
-        <p className="b-sub">Avis de l’ARS en {annee}</p>
+        <p className="b-sub">
+          Avis de l’ARS en {annee}
+          {arret && (
+            <span className="cap">
+              {' '}
+              · données arrêtées au{NBSP}
+              {fmt.date(arret)}
+            </span>
+          )}
+        </p>
         {avis.length ? (
-          <ul className="b-avis-liste">
-            {avis.map((a) => (
-              <li key={a.id}>
-                <Tag ton={toneAvis(a.cat, a.local)}>{majuscule(AVIS_LIBELLE[a.cat])}</Tag>
-                <span className="cap">
-                  {majuscule(periode(a.debut, a.fin))} · {fmt.nb(a.n, 'prélèvement')}
-                  {a.causes.length > 0 && ` · ${a.causes.join(', ')}`}
-                  {a.local && ' · limité à un bâtiment, un point d’usage ou au seul point de prélèvement'}
-                  {multi && a.reseaux.length > 0 && ` · ${accord(a.reseaux.length, 'réseau', 'réseaux')} ${a.reseaux.map((c) => noms.get(c) ?? c).join(', ')}`}
-                </span>
-                <details>
-                  <summary>Conclusion de l’ARS</summary>
-                  <blockquote>{a.texte}</blockquote>
-                </details>
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="b-avis-liste">
+              {avis.map((a) => (
+                <li key={a.id}>
+                  <Tag ton={toneAvisSuivi(a.cat, a.local, a.suite)}>{majuscule(AVIS_LIBELLE[a.cat])}</Tag>
+                  <span className="cap">
+                    {majuscule(periode(a.debut, a.fin))} · {fmt.nb(a.n, 'prélèvement')}
+                    {a.causes.length > 0 && ` · ${a.causes.join(', ')}`}
+                    {a.suite && ` · ${phraseSuite(a.suite, a.debut, a.fin)}`}
+                    {a.local && ' · limité à un bâtiment, un point d’usage ou au seul point de prélèvement'}
+                    {multi && a.reseaux.length > 0 && ` · ${accord(a.reseaux.length, 'réseau', 'réseaux')} ${a.reseaux.map((c) => noms.get(c) ?? c).join(', ')}`}
+                  </span>
+                  <details>
+                    <summary>Conclusion de l’ARS</summary>
+                    <blockquote>{a.texte}</blockquote>
+                  </details>
+                </li>
+              ))}
+            </ul>
+            {arret && <p className="cap b-avis-note">Les données publiées n’indiquent pas si une consigne a été levée. La mairie et l’ARS font foi.</p>}
+          </>
         ) : sansInfo ? (
           // Pas de ton : c'est une limite des données, pas un jugement sur l'eau (grammaire des couleurs du 23/09).
           <p className="b-sans-info">
             <b>Pas d’information sur les consignes.</b> {phraseSansInformation(annee, sansInfo.conclusions, sansInfo.lieux)}
           </p>
         ) : (
-          <p className="muted">Aucun avis : ni restriction, ni consigne d’ébullition, ni recommandation pour les publics sensibles.</p>
+          <p className="muted">
+            Aucun avis de l’ARS ne figure dans les conclusions des prélèvements de {annee} : ni restriction, ni consigne d’ébullition, ni recommandation
+            pour les publics sensibles.
+          </p>
         )}
       </div>
 
@@ -223,7 +291,7 @@ export default function Bulletin({
             {multi && <span className="cap"> (les {ordre.length} réseaux)</span>}
           </p>
         )}
-        <Link className="link-arrow" to="/methode">
+        <Link className="link-arrow" to="/methode#lire-bulletin">
           Comment ce bulletin est établi <span aria-hidden="true">→</span>
         </Link>
       </div>

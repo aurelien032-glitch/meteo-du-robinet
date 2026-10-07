@@ -16,10 +16,17 @@ import { chartPalette, cssVar, isDark } from '../lib/theme'
 // fiches est désormais dessinée en SVG (components/SerieMensuelle.tsx).
 echarts.use([BarChart, LineChart, ScatterChart, GridComponent, LegendComponent, TooltipComponent, CanvasRenderer])
 
-type Props = { option: EChartsOption; height?: number | string; onReady?: (chart: echarts.ECharts) => void; exportName?: string }
+type Props = {
+  option: EChartsOption
+  height?: number | string
+  onReady?: (chart: echarts.ECharts) => void
+  exportName?: string
+  /** Nom accessible du graphique ; à défaut, `descriptionGraphique` le tire des séries et des valeurs. */
+  description?: string
+}
 
 /** Enveloppe ECharts : applique la palette CSS, se redimensionne, suit le thème, exporte en PNG. */
-export default function Chart({ option, height = 320, onReady, exportName = 'graphique' }: Props) {
+export default function Chart({ option, height = 320, onReady, exportName = 'graphique', description }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const chartRef = useRef<echarts.ECharts | null>(null)
 
@@ -32,6 +39,8 @@ export default function Chart({ option, height = 320, onReady, exportName = 'gra
       color: p.series,
       textStyle: { fontFamily: p.fontFamily, color: p.text, fontSize: p.fontSize },
       backgroundColor: 'transparent',
+      // « Réduire les animations » du système : le graphique paraît d'emblée (audit UI UX Pro Max du 2026-10-06).
+      animation: !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
       animationDuration: 600,
       ...withFrenchAxes(withTooltipStyle(option)),
     })
@@ -58,7 +67,10 @@ export default function Chart({ option, height = 320, onReady, exportName = 'gra
 
   return (
     <div className="chart-wrap" style={{ position: 'relative' }}>
-      <div ref={ref} style={{ width: '100%', height }} />
+      {/* Un canvas est muet pour un lecteur d'écran : le graphique porte un nom qui dit sa forme, ses séries et, quand
+          elles sont courtes, leurs valeurs (audit UI UX Pro Max du 2026-10-06). */}
+      <div ref={ref} style={{ width: '100%', height }} role="img" aria-label={description ?? descriptionGraphique(option)} />
+      {/* Export pour les vidéos : affiché au seul mode studio (styles.css). */}
       <button
         type="button"
         className="btn chart-export"
@@ -69,6 +81,47 @@ export default function Chart({ option, height = 320, onReady, exportName = 'gra
       </button>
     </div>
   )
+}
+
+type Objet = Record<string, unknown>
+const liste = (v: unknown): Objet[] => (v == null ? [] : (Array.isArray(v) ? v : [v]) as Objet[])
+
+/**
+ * Nom accessible d'un graphique : sa forme (barres, courbes), ses séries et l'étendue de son axe ; pour une série d'au plus
+ * douze points, ses valeurs, écrites avec le format de l'info-bulle (unité comprise). Une page qui veut dire mieux passe
+ * `description`.
+ */
+export function descriptionGraphique(option: EChartsOption): string {
+  const o = option as Objet
+  const series = liste(o.series)
+  if (!series.length) return 'Graphique'
+  const types = new Set(series.map((x) => x.type))
+  const forme = types.size === 1 && types.has('bar') ? 'en barres' : types.size === 1 && types.has('line') ? 'en courbes' : ''
+  const axe = [...liste(o.xAxis), ...liste(o.yAxis)].find((a) => a.type === 'category' && Array.isArray(a.data))
+  const cats = ((axe?.data as unknown[] | undefined) ?? []).map((c) => String(c && typeof c === 'object' ? (c as Objet).value : c))
+  const tooltip = (o.tooltip ?? {}) as Objet
+  const format =
+    typeof tooltip.valueFormatter === 'function' ? (v: number) => String((tooltip.valueFormatter as (x: unknown) => unknown)(v)) : (v: number) => nfFr.format(v)
+  const valeur = (d: unknown): number | null => {
+    const v = d && typeof d === 'object' && !Array.isArray(d) ? (d as Objet).value : d
+    const n = Array.isArray(v) ? v[v.length - 1] : v
+    return typeof n === 'number' && Number.isFinite(n) ? n : null
+  }
+  const parties = series.map((x, i) => {
+    const nom = typeof x.name === 'string' && x.name ? x.name : series.length > 1 ? `série ${i + 1}` : ''
+    const data = Array.isArray(x.data) ? x.data : []
+    if (cats.length && data.length === cats.length && data.length <= 12) {
+      const vals = data.flatMap((d, k) => {
+        const v = valeur(d)
+        return v == null ? [] : [`${cats[k]} ${format(v)}`]
+      })
+      return `${nom ? `${nom} : ` : ''}${vals.join(', ')}`
+    }
+    return nom
+  })
+  const etendue = cats.length > 1 ? `, de ${cats[0]} à ${cats[cats.length - 1]}` : ''
+  const texte = `Graphique${forme ? ` ${forme}` : ''}${etendue}. ${parties.filter(Boolean).join(' ; ')}`.trim()
+  return texte.length > 700 ? `${texte.slice(0, 697)}…` : texte
 }
 
 /** Info-bulle aux couleurs du thème (surface, bordure, texte), même police et même corps que le reste. */

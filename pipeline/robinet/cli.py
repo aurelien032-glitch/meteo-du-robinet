@@ -27,9 +27,10 @@ def _root() -> None:
 
 @app.command()
 def download(years: YearsOpt = None, what: str = "all", force: bool = False) -> None:
-    """Télécharge les sources brutes (dis | sispea | geo | secheresse | zre | all)."""
+    """Télécharge les sources brutes (dis | sispea | geo | secheresse | zre | codes-postaux | all)."""
     from . import download as D
-    years = years or C.DEFAULT_YEARS
+    # Les années civiles : le téléchargement doit essayer l'année nouvelle, que la construction attendra (DEFAULT_YEARS).
+    years = years or C.ANNEES_CIVILES
     if what in ("dis", "all"):
         print("Contrôle sanitaire (DIS) :")
         D.download_dis(years, force=force)
@@ -47,6 +48,9 @@ def download(years: YearsOpt = None, what: str = "all", force: bool = False) -> 
     if what in ("zre", "all"):
         print("Zones de répartition des eaux :")
         D.download_zre(force=force)
+    if what in ("codes-postaux", "all"):
+        print("Codes postaux (La Poste) :")
+        D.download_codes_postaux(force=force)
 
 
 @app.command("inspect-dis")
@@ -73,12 +77,8 @@ def inspect_dis(year: int = 2025, lines: int = 3) -> None:
 
 @app.command()
 def api(what: str = "all", force: bool = False) -> None:
-    """Interroge les APIs (sispea | bnpe | bnvd | ades | naiades | piezo | vigieau | all) et met les réponses en cache dans data/cache/."""
+    """Interroge les APIs (bnpe | bnvd | ades | naiades | piezo | all) et met les réponses en cache dans data/cache/."""
     from . import apis as A
-    if what in ("sispea", "all"):
-        print("SISPEA historique 2008-2019 via Hub'Eau :")
-        rows = A.sispea_history(force=force)
-        print(f"  total : {len(rows)} lignes")
     if what in ("bnpe", "all"):
         print("BNPE prélèvements eau potable :")
         rows = A.bnpe_aep(force=force)
@@ -100,16 +100,23 @@ def api(what: str = "all", force: bool = False) -> None:
     if what in ("piezo", "all"):
         print("Piézométrie (niveau des nappes), moyennes mensuelles :")
         A.piezo_tous(force=force)
-    if what in ("vigieau", "all"):
-        print("VigiEau :")
-        print(f"  {len(A.vigieau_departements())} départements")
 
 
 @app.command()
-def sispea(years: YearsOpt = None) -> None:
-    """Charge les extractions SISPEA et la composition communale, puis produit les fichiers du site."""
+def sispea(years: YearsOpt = None, partiel: bool = False) -> None:
+    """Charge les extractions SISPEA et la composition communale, puis produit les fichiers du site. Sans -y, toutes
+    les années de 2020 à l'année en cours : les fichiers ne gardent que les années reçues, et une liste partielle est
+    refusée sans --partiel."""
     from . import build_sispea, sispea as S
-    years = years or C.DEFAULT_YEARS
+    years = years or C.SISPEA_YEARS
+    perdues = sorted(set(C.SISPEA_YEARS) - set(years))
+    if perdues and not partiel:
+        # Refus plutôt que fusion avec le Parquet existant : une fusion mêlerait des années extraites par des versions
+        # différentes de load_year, sans que rien ne le signale.
+        print(f"Liste partielle refusée : les fichiers du site ne garderaient que {', '.join(map(str, sorted(set(years))))}"
+              f" et perdraient {', '.join(map(str, perdues))}. Relancer sans -y (toutes les années, de {C.SISPEA_YEARS[0]}"
+              " à l'année en cours), ou avec --partiel pour un essai.", file=sys.stderr)
+        raise typer.Exit(1)
     print("Extractions annuelles :")
     S.to_parquet(years)
     print("Composition communale :")
@@ -120,7 +127,8 @@ def sispea(years: YearsOpt = None) -> None:
 
 @app.command()
 def recherche() -> None:
-    """Index de la recherche unique (communes, services d'eau, réseaux) → recherche/*.json. Après `build` et `sispea`."""
+    """Index de la recherche unique (communes et leurs codes postaux, services d'eau, réseaux) → recherche/*.json. Après
+    `build` et `sispea` ; télécharge la base des codes postaux de La Poste quand elle a changé."""
     from . import recherche as R
     R.run()
 
@@ -136,11 +144,12 @@ def check(strict: bool = False) -> None:
 def avis(years: YearsOpt = None) -> None:
     """Avis sanitaires de l'ARS (conclusions des prélèvements) → avis/*.json, puis tout ce qui dépend de leur
     classement : situations des réseaux (situations/*.json) et colonnes avis et situations de la carte (map/*.json)."""
-    from . import avis as V
+    from . import avis_site as V
     from . import build as B
     from . import situations as S
-    years = [y for y in (years or C.DEFAULT_YEARS) if (B.AGG / str(y) / ".complete").exists()]
-    con = B.connect()
+    from .agregats import agregat_a_jour, connect
+    years = [y for y in (years or C.DEFAULT_YEARS) if agregat_a_jour(y)]
+    con = connect()
     B._views(con, years)
     V.charger(con, years)
     codes = S.build(con, years)

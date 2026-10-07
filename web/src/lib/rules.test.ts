@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { accord, fmt } from './data'
 import { parseSeuil } from './hubeau'
-import { situationReseau, synthese, toneSituation } from './situations'
-import { defaultYear, deptCode, deptOfInsee, siseOfDept, yearLabel, type MetaFile } from './types'
+import { classesNonConformes, codeFamille, situationReseau, synthese, toneSituation } from './situations'
+import { defaultYear, deptCode, deptOfInsee, dernierComplet, siseOfDept, yearLabel, type MetaFile } from './types'
 
 describe('parseSeuil', () => {
   it('lit une limite haute avec virgule', () => expect(parseSeuil('<=0,1 µg/L')).toEqual({ max: 0.1 }))
@@ -35,9 +35,13 @@ describe('codes territoriaux', () => {
 
 describe('millésime par défaut', () => {
   const meta: MetaFile = { annees: [2023, 2024, 2025, 2026], partiel: [2026], construit_le: '', themes: [] }
-  it('prend le dernier millésime complet', () => expect(defaultYear(meta)).toBe(2025))
-  it('retombe sur le dernier millésime si tout est partiel', () =>
-    expect(defaultYear({ ...meta, partiel: [2023, 2024, 2025, 2026] })).toBe(2026))
+  // Choix de l'auteur du 29/09 : le site s'ouvre sur l'année en cours, même partielle.
+  it('prend l’année la plus récente, l’année en cours comprise', () => expect(defaultYear(meta)).toBe(2026))
+  it('quel que soit l’ordre de meta.annees', () => expect(defaultYear({ ...meta, annees: [2026, 2023, 2025, 2024] })).toBe(2026))
+  it('le dernier millésime complet reste disponible pour les comptes annuels', () => {
+    expect(dernierComplet(meta)).toBe(2025)
+    expect(dernierComplet({ ...meta, partiel: [2023, 2024, 2025, 2026] })).toBe(2026)
+  })
   it('étiquette les millésimes en cours', () => {
     expect(yearLabel(meta, 2026)).toBe('2026 (en cours)')
     expect(yearLabel(meta, 2025)).toBe('2025')
@@ -78,41 +82,53 @@ describe('accords en nombre', () => {
 })
 
 // Codes de situation : un chiffre par famille, dans l'ordre pesticides, nitrates, PFAS, bactériologie,
-// métaux et minéraux ; « - » quand la famille n'a pas été analysée.
+// métaux et minéraux, autres limites de qualité ; « - » quand la famille n'a pas été analysée.
 describe('synthèse d’un ou de plusieurs réseaux (mêmes règles que le verdict)', () => {
   it('retient la classe la plus défavorable de chaque famille', () => {
-    const s = synthese(['02000', '00010', undefined])
+    const s = synthese(['020000', '000100', undefined])
     expect(s.global).toBe(0)
-    expect(s.pire).toEqual({ pesticides: 0, azote: 2, pfas: 0, microbio: 1, metaux_mineraux: 0 })
+    expect(s.pire).toEqual({ pesticides: 0, azote: 2, pfas: 0, microbio: 1, metaux_mineraux: 0, autres: 0 })
     // Nitrates de 40 à 50 mg/L et bactériologie à 95 % ou plus : conformes, mais des réserves.
     expect(s.reserves).toEqual(['azote', 'microbio'])
     expect(s.ennuis).toEqual([])
   })
   it('sépare les familles non conformes des réserves', () => {
-    const s = synthese(['21020'])
+    const s = synthese(['210200'])
     expect(s.global).toBe(1)
     expect(s.ennuis).toEqual(['pesticides', 'microbio'])
     expect(s.reserves).toEqual(['azote'])
   })
   it('aucune famille analysée : pas de situation', () => {
-    expect(synthese(['-----']).global).toBeNull()
+    expect(synthese(['------']).global).toBeNull()
     expect(synthese([]).global).toBeNull()
+  })
+  it('PFAS : un dépassement est une non-conformité, limite applicable depuis le 1er janvier 2023 (choix du 04/10)', () => {
+    expect(classesNonConformes('pfas')).toEqual([1, 2])
+    expect(codeFamille('001000', 'toutes')).toBe(1)
+    expect(codeFamille('002000', 'toutes')).toBe(2)
+    expect(codeFamille('001000', 'pfas')).toBe(1)
+    const s = synthese(['001000', '020000'])
+    expect([s.global, s.ennuis, s.reserves]).toEqual([1, ['pfas'], ['azote']])
   })
 })
 
 describe('situation d’un réseau en une ligne', () => {
   it('conforme, sans réserve ni famille manquante : rien à ajouter', () =>
-    expect(situationReseau('00000')).toEqual({ classe: 0, ton: 'good', statut: 'conforme', detail: '' }))
+    expect(situationReseau('000000')).toEqual({ classe: 0, ton: 'good', statut: 'conforme', detail: '' }))
   it('conforme avec une réserve : la réserve est nommée', () =>
-    expect(situationReseau('02000').detail).toBe('avec une réserve : nitrates, maximum de 40 à 50 mg/L'))
+    expect(situationReseau('020000').detail).toBe('avec une réserve : nitrates, maximum de 40 à 50 mg/L'))
   it('familles non analysées : le nombre de familles analysées est dit', () =>
-    expect(situationReseau('-0-0-')).toEqual({ classe: 0, ton: 'good', statut: 'conforme', detail: '2 familles analysées sur 5' }))
+    expect(situationReseau('-0-0--')).toEqual({ classe: 0, ton: 'good', statut: 'conforme', detail: '2 familles analysées sur 6' }))
   it('non conforme : les familles en cause, sans les réserves', () => {
-    const s = situationReseau('21020')
+    const s = situationReseau('210200')
     expect([s.ton, s.statut]).toEqual(['warn', 'non conforme'])
-    expect(s.detail).toBe('pesticides, dépassements plus de 30 jours ; bactériologie, moins de 95 % de prélèvements conformes')
+    expect(s.detail).toBe('pesticides, dépassements plus de 30 jours ; bactériologie, plus de 5 % de prélèvements non conformes')
   })
   it('consigne d’ébullition : restriction ou consigne, en rouge', () =>
-    expect(situationReseau('00030')).toEqual({ classe: 2, ton: 'bad', statut: 'restriction ou consigne', detail: "bactériologie, consigne d'ébullition ou restriction" }))
+    expect(situationReseau('000300')).toEqual({ classe: 2, ton: 'bad', statut: 'restriction ou consigne', detail: "bactériologie, consigne d'ébullition ou restriction" }))
   it('réseau sans analyse dans l’année', () => expect(situationReseau(undefined)).toEqual({ classe: null, ton: null, statut: 'non analysé', detail: '' }))
+  it('PFAS : non conforme quelle que soit l’année des données', () => {
+    for (const annee of [2023, 2025, 2026])
+      expect(situationReseau('001000', annee)).toEqual({ classe: 1, ton: 'warn', statut: 'non conforme', detail: 'PFAS, au moins un dépassement constaté' })
+  })
 })

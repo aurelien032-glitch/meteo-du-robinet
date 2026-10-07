@@ -23,9 +23,10 @@ graphify-out/
 /*.png
 *.tsbuildinfo
 web/public/sitemap.xml
+web/public/sitemap-pages.xml
 web/public/robots.txt
 data/refresh.log
 web/exports/
 
-# Réglages locaux des sessions d'édition
-.claude/
+# fiches commune pré-générées : script compilé (npm run prerendu)
+web/.prerendu/

@@ -18,7 +18,9 @@ import xml.etree.ElementTree as ET
 import duckdb
 
 from . import config as C
-from .build import _dump, _n
+from .util import arrondi as _n
+from .util import dump as _dump
+from .build_sispea import VOLUMES_PLAUSIBLES_SQL
 
 GML = "{http://www.opengis.net/gml/3.2}"
 SA = "{http://xml.sandre.eaufrance.fr/}"
@@ -30,6 +32,11 @@ SA = "{http://xml.sandre.eaufrance.fr/}"
 ZRE_PROFONDES = re.compile(
     r"(syst[èe]me aquif[èe]re (de l'|du )?)?(albien( et du n[ée]ocomien)?|c[ée]nomanien)|partie captive de la nappe.*", re.I)
 
+
+
+def _somme(expr: str, filtre: str) -> str:
+    """Somme exacte (DECIMAL) filtrée, en nombre décimal : indépendante de l'ordre des additions parallèles de DuckDB."""
+    return f"CAST(sum(CAST({expr} AS DECIMAL(38,10))) FILTER (WHERE {filtre}) AS DOUBLE)"
 
 def _anneaux(poly) -> list[list[tuple[float, float]]]:
     out = []
@@ -132,7 +139,14 @@ def run() -> None:
     milieu = {o["code_ouvrage"]: o.get("code_type_milieu") for o in bnpe_ouvrages()}
     zones = charger_zre()
     rows = bnpe_aep()
-    an_bnpe = max(r["annee"] for r in rows)
+    # Dernier millésime renseigné par au moins 90 départements, comme la page amont (build_amont) : une année publiée
+    # pour une partie des départements seulement (rafraîchissement interrompu) ferait disparaître les autres.
+    depts_par_an: dict[int, set] = {}
+    for r in rows:
+        if r.get("code_departement") and r.get("volume"):
+            depts_par_an.setdefault(r["annee"], set()).add(r["code_departement"])
+    completes = [a for a, ds in depts_par_an.items() if len(ds) >= 90]
+    an_bnpe = max(completes) if completes else max(depts_par_an)
     # Cinq ans, pas dix : le nombre d'ouvrages déclarants à la BNPE a crû de 29 % en dix ans (France), ce qui rend une
     # comparaison décennale trompeuse ; sur cinq ans il est stable (+3 %) et 88 départements restent comparables.
     an_ref10 = an_bnpe - 5
@@ -182,19 +196,20 @@ def run() -> None:
     con = duckdb.connect()
     con.execute(f"CREATE VIEW s AS SELECT * FROM read_parquet('{(C.OUT / 'sispea' / 'services.parquet').as_posix()}') WHERE annee = {an_sis}")
     # Seuls les services qui distribuent (volumes consommés déclarés) : les services de production déclarent aussi une
-    # population, et la somme des « habitants desservis » dépasserait la population française.
-    sql = """
+    # population, et la somme des « habitants desservis » dépasserait la population française. Les fuites écartent les
+    # déclarations invraisemblables, comme /services et la carte des communes (build_sispea, choix du 25/09).
+    sql = f"""
         SELECT dept,
-               sum("D101.0") FILTER (WHERE "VP.063" IS NOT NULL) AS pop_dom,
-               sum("VP.063") FILTER (WHERE "VP.063" IS NOT NULL AND "D101.0" IS NOT NULL) AS dom,
-               sum("D101.0") FILTER (WHERE "VP.063" IS NOT NULL AND "D101.0" IS NOT NULL) AS pop_dom_ok,
-               sum(coalesce("VP.059", 0) + coalesce("VP.060", 0) - coalesce("VP.061", 0))
-                   FILTER (WHERE "VP.063" IS NOT NULL AND "VP.201" IS NOT NULL) AS distrib,
-               sum("VP.063" + "VP.201" + coalesce("VP.220", 0) + coalesce("VP.221", 0))
-                   FILTER (WHERE "VP.063" IS NOT NULL AND "VP.201" IS NOT NULL) AS conso,
-               sum("P108.3" * "D101.0") FILTER (WHERE "P108.3" IS NOT NULL AND "D101.0" IS NOT NULL)
-                   / sum("D101.0") FILTER (WHERE "P108.3" IS NOT NULL AND "D101.0" IS NOT NULL) AS protection,
-               avg("P108.3") AS protection_moy
+               {_somme('"D101.0"', '"VP.063" IS NOT NULL')} AS pop_dom,
+               {_somme('"VP.063"', '"VP.063" IS NOT NULL AND "D101.0" IS NOT NULL')} AS dom,
+               {_somme('"D101.0"', '"VP.063" IS NOT NULL AND "D101.0" IS NOT NULL')} AS pop_dom_ok,
+               {_somme('coalesce("VP.059", 0) + coalesce("VP.060", 0) - coalesce("VP.061", 0)',
+                       f'"VP.063" IS NOT NULL AND "VP.201" IS NOT NULL AND {VOLUMES_PLAUSIBLES_SQL}')} AS distrib,
+               {_somme('"VP.063" + "VP.201" + coalesce("VP.220", 0) + coalesce("VP.221", 0)',
+                       f'"VP.063" IS NOT NULL AND "VP.201" IS NOT NULL AND {VOLUMES_PLAUSIBLES_SQL}')} AS conso,
+               {_somme('"P108.3" * "D101.0"', '"P108.3" IS NOT NULL AND "D101.0" IS NOT NULL')}
+                   / {_somme('"D101.0"', '"P108.3" IS NOT NULL AND "D101.0" IS NOT NULL')} AS protection,
+               avg(CAST("P108.3" AS DECIMAL(38,10))) AS protection_moy
         FROM s WHERE dept IS NOT NULL GROUP BY ROLLUP (dept)"""
     for dd, pop_dom, dom, pop_ok, distrib, conso, prot, prot_moy in con.execute(sql).fetchall():
         d = {

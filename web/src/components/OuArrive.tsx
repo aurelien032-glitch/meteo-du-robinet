@@ -8,7 +8,8 @@ import type { SispeaDeptFile } from '../lib/types'
 /**
  * « Où arrive cette eau ? », à côté du bulletin d'un réseau (maquette du 23/09) : les communes qu'il dessert l'année
  * choisie (lib/reseau.ts), les services d'eau de ces communes — avec une note quand il y en a plusieurs — et qui
- * exploite le réseau.
+ * exploite le réseau, sous les noms que lui donne le contrôle sanitaire (distributeur, unité de gestion : Méthode,
+ * #exploitant).
  */
 export default function OuArrive({
   dept,
@@ -17,6 +18,7 @@ export default function OuArrive({
   noms,
   dist,
   uge,
+  titre = true,
 }: {
   dept: string
   annee: string
@@ -25,6 +27,8 @@ export default function OuArrive({
   noms: ReadonlyMap<string, string>
   dist: string | null
   uge: string | null
+  /** le titre « Où arrive cette eau ? » ; sans lui quand la page en porte déjà un (fiche réseau) */
+  titre?: boolean
 }) {
   const id = useId()
   const sispea = useJson<SispeaDeptFile>(`sispea/dept/${dept}.json`).data
@@ -33,10 +37,12 @@ export default function OuArrive({
   const triees = [...communes].sort((a, b) => (noms.get(a) ?? a).localeCompare(noms.get(b) ?? b, 'fr'))
   const gestion = uge && uge !== dist ? uge : null
   return (
-    <aside className="qui" aria-labelledby={`${id}-t`}>
-      <h2 className="b-q" id={`${id}-t`}>
-        Où arrive cette eau ?
-      </h2>
+    <aside className="qui" aria-labelledby={titre ? `${id}-t` : undefined} aria-label={titre ? undefined : 'Communes desservies, service d’eau et distributeur'}>
+      {titre && (
+        <h2 className="b-q" id={`${id}-t`}>
+          Où arrive cette eau ?
+        </h2>
+      )}
       <section>
         <p className="qui-k">
           {n ? `${n} ${accord(n, 'commune desservie', 'communes desservies')}` : 'Aucune commune desservie'} <span className="b-y">en {annee}</span>
@@ -76,9 +82,14 @@ export default function OuArrive({
       )}
       {(dist || gestion) && (
         <section>
-          <p className="qui-k">Exploitation</p>
-          {dist && <p className="cap">Distribution : {dist}</p>}
+          <p className="qui-k">
+            Exploitation <span className="b-y">(contrôle sanitaire)</span>
+          </p>
+          {dist && <p className="cap">Distributeur : {dist}</p>}
           {gestion && <p className="cap">Unité de gestion : {gestion}</p>}
+          <p className="cap">
+            <Link to="/methode#exploitant">Distributeur, unité de gestion : qui fait quoi</Link>
+          </p>
         </section>
       )}
     </aside>

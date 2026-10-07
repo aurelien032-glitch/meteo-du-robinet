@@ -42,7 +42,9 @@ describe('la ressource autour de la commune', () => {
       '3 ouvrages de prélèvement pour l’eau potable sur la commune, 10 m³ prélevés en 2024 par le seul ouvrage déclaré cette année-là.',
     )
     expect(net(phraseOrigine({ ouvrages: 3, annee: '2024', volume: 10, declares: 2 }))).toContain('par les 2 ouvrages déclarés cette année-là.')
-    expect(phraseOrigine(origineCommune(AMONT, '35000'))).toBe('Aucun ouvrage de prélèvement pour l’eau potable sur la commune : l’eau vient d’ailleurs, par le réseau.')
+    expect(phraseOrigine(origineCommune(AMONT, '35000'))).toBe(
+      'Aucun ouvrage de prélèvement pour l’eau potable n’est recensé sur la commune. L’eau distribuée y est acheminée par le réseau depuis des ouvrages situés sur d’autres communes.',
+    )
   })
 
   it('nappe : le piézomètre le plus proche à moins de 40 km, classé sur les mêmes mois passés', () => {

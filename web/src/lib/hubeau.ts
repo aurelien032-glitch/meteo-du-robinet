@@ -31,24 +31,65 @@ export interface Analyse {
   reseaux: { code: string; nom: string }[] | null
 }
 
-async function getJson(url: string, tries = 4): Promise<{ count: number; data: Analyse[] }> {
-  let lastErr: unknown = null
+/**
+ * Délai d'une requête : Hub'Eau surchargé répondait 503 au bout de 34 s, et quatre reprises sans délai faisaient attendre
+ * l'erreur près de trois minutes (2026-10-06).
+ */
+const DELAI_REQUETE = 20_000
+
+/** Erreur de Hub'Eau : `http` (code renvoyé), `delai` (pas de réponse à temps) ou `reseau` (connexion impossible). */
+export class ErreurHubeau extends Error {
+  constructor(
+    readonly sorte: 'http' | 'delai' | 'reseau',
+    readonly statut?: number,
+  ) {
+    super(sorte === 'http' ? `HTTP ${statut}` : sorte)
+  }
+}
+
+async function getJson(url: string, tries = 3): Promise<{ count: number; data: Analyse[] }> {
+  let lastErr: ErreurHubeau = new ErreurHubeau('reseau')
   for (let i = 0; i < tries; i++) {
+    const arret = new AbortController()
+    const minuterie = setTimeout(() => arret.abort(), DELAI_REQUETE)
     try {
-      const r = await fetch(url)
+      const r = await fetch(url, { signal: arret.signal })
+      // Le délai vaut pour la réponse du serveur, pas pour le téléchargement d'un gros résultat (20 000 lignes).
+      clearTimeout(minuterie)
       if (r.status === 200 || r.status === 206) return (await r.json()) as { count: number; data: Analyse[] }
       if (r.status === 404) return { count: 0, data: [] }
-      lastErr = new Error(`HTTP ${r.status}`)
+      lastErr = new ErreurHubeau('http', r.status)
     } catch (e) {
-      lastErr = e
+      lastErr = new ErreurHubeau(e instanceof DOMException && e.name === 'AbortError' ? 'delai' : 'reseau')
+    } finally {
+      clearTimeout(minuterie)
     }
     await new Promise((res) => setTimeout(res, 800 * (i + 1)))
   }
-  throw lastErr instanceof Error ? lastErr : new Error(String(lastErr))
+  throw lastErr
 }
 
-function url(commune: string, from: string, to: string, size: number): string {
-  return `${BASE}?code_commune=${commune}&date_min_prelevement=${from}&date_max_prelevement=${to}&size=${size}&fields=${FIELDS}`
+/** L'erreur dite au visiteur, sans code technique en tête. */
+export function messageErreurHubeau(e: unknown): string {
+  const x = e instanceof ErreurHubeau ? e : null
+  if (x?.sorte === 'http' && (x.statut ?? 0) >= 500)
+    return `Le service Hub’Eau, qui fournit le détail des analyses, est momentanément indisponible (erreur ${x.statut}).`
+  if (x?.sorte === 'http') return `Le service Hub’Eau a refusé la demande (erreur ${x.statut}).`
+  if (x?.sorte === 'delai') return 'Le service Hub’Eau, qui fournit le détail des analyses, n’a pas répondu dans le délai de 20 secondes.'
+  return 'Le service Hub’Eau, qui fournit le détail des analyses, est injoignable depuis ce navigateur.'
+}
+
+/**
+ * Filtre de la requête : les réseaux qui desservent la commune cette année-là quand ils sont connus (2026-10-05 : par
+ * commune, Hub'Eau ne rend que les prélèvements rattachés à cette commune ; à Chevigny-Saint-Sauveur en 2024, aucun des
+ * prélèvements de pesticides de son réseau, rattachés à Dijon ou à Neuilly-Crimolois), sinon la commune.
+ */
+function filtre(commune: string, reseaux: readonly string[]): string {
+  return reseaux.length ? `code_reseau=${reseaux.join(',')}` : `code_commune=${commune}`
+}
+
+function url(f: string, from: string, to: string, size: number): string {
+  return `${BASE}?${f}&date_min_prelevement=${from}&date_max_prelevement=${to}&size=${size}&fields=${FIELDS}`
 }
 
 function lastDay(year: number, month: number): string {
@@ -57,18 +98,27 @@ function lastDay(year: number, month: number): string {
 
 const memo = new Map<string, Analyse[]>()
 
-/** Toutes les analyses d'une commune sur une année, en respectant le plafond de 20 000 lignes. Mémorisé par session. */
-export async function fetchAnalysesCommune(commune: string, year: number, onProgress?: (done: number, total: number) => void): Promise<Analyse[]> {
-  const key = `${commune}-${year}`
+/**
+ * Toutes les analyses de l'eau d'une commune sur une année : celles des réseaux qui la desservent (`reseaux`), sinon
+ * celles rattachées à la commune, en respectant le plafond de 20 000 lignes. Mémorisé par session.
+ */
+export async function fetchAnalysesCommune(
+  commune: string,
+  year: number,
+  onProgress?: (done: number, total: number) => void,
+  reseaux: readonly string[] = [],
+): Promise<Analyse[]> {
+  const f = filtre(commune, reseaux)
+  const key = `${f}-${year}`
   const cached = memo.get(key)
   if (cached) return cached
-  const rows = await fetchUncached(commune, year, onProgress)
+  const rows = await fetchUncached(f, year, onProgress)
   memo.set(key, rows)
   return rows
 }
 
-async function fetchUncached(commune: string, year: number, onProgress?: (done: number, total: number) => void): Promise<Analyse[]> {
-  const head = await getJson(url(commune, `${year}-01-01`, `${year}-12-31`, 1))
+async function fetchUncached(f: string, year: number, onProgress?: (done: number, total: number) => void): Promise<Analyse[]> {
+  const head = await getJson(url(f, `${year}-01-01`, `${year}-12-31`, 1))
   const total = head.count
   if (total === 0) return []
   onProgress?.(0, total)
@@ -80,7 +130,7 @@ async function fetchUncached(commune: string, year: number, onProgress?: (done: 
   let done = 0
   const parts = await Promise.all(
     windows.map(async ([from, to]) => {
-      const part = await getJson(url(commune, from, to, CAP))
+      const part = await getJson(url(f, from, to, CAP))
       done += part.data.length
       onProgress?.(done, total)
       return part.data

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { compteSituations, deptsDuService, phraseAgregat, reseauxDuService, totauxReseaux } from './service'
+import { compteSituations, deptsDuService, phraseAgregat, reseauxDuService, routageService, tonAgregat, totauxReseaux } from './service'
 import { renseigne } from './sispea'
-import type { CommuneYearStats, DeptFile, ReseauInfo } from './types'
+import type { CommuneYearStats, DeptFile, ReseauInfo, SispeaServicesIndex } from './types'
 
 const stats = (n: number, ncBact = 0): CommuneYearStats => ({ plv: [n, ncBact, n, 0, n, 0, 0], fam: {}, cle: {}, dep: [] })
 const reseau = (nom: string, parAnnee: Record<string, CommuneYearStats> = {}): ReseauInfo => ({ nom, dist: null, uge: null, communes: [], stats: parAnnee })
@@ -82,6 +82,26 @@ describe('fiche service : prélèvements comptés par réseau', () => {
   })
 })
 
+describe('fiche service : où lire la fiche, jamais de chargement sans fin', () => {
+  // Entrées réelles de sispea/services-index.json : avant le 27/09, 351134 (CA Privas Centre Ardèche) n'avait que des
+  // null, et la page attendait un fichier qu'elle ne demandait jamais.
+  const index: SispeaServicesIndex = {
+    '77654': ['Collectivité Eau du Bassin Rennais (CEBR)', '35', 121480, 'Délégation', 'eau potable : 01-Rennes-St Jacques'],
+    '351134': [null, null, null, null, null],
+    '78272': [null, null, null, null, 'eau potable'],
+  }
+  it('lit le fichier du département que donne l’index', () =>
+    expect(routageService(index, '77654')).toEqual({ etat: 'fichier', chemin: 'sispea/services/35.json' }))
+  it('sans département, le dit au lieu d’attendre', () => {
+    expect(routageService(index, '351134')).toEqual({ etat: 'sans-departement', nom: null })
+    expect(routageService(index, '78272')).toEqual({ etat: 'sans-departement', nom: 'eau potable' })
+  })
+  it('attend l’index, puis reconnaît un service inconnu, méthodes d’Object comprises', () => {
+    expect(routageService(null, '77654')).toEqual({ etat: 'attente' })
+    for (const id of ['99999', 'constructor', '__proto__', 'toString']) expect(routageService(index, id)).toEqual({ etat: 'inconnu' })
+  })
+})
+
 describe('fiche service : champs SISPEA non renseignés', () => {
   it('écarte le point que la SISPEA met faute d’exploitant, et toute valeur sans lettre ni chiffre', () => {
     for (const v of ['.', ' . ', '', '   ', '-', '...', '–', null, undefined]) expect(renseigne(v)).toBeNull()
@@ -94,9 +114,11 @@ describe('fiche service : champs SISPEA non renseignés', () => {
   })
 })
 
-describe('fiche service : agrégat des réseaux, sans couleur', () => {
+describe('fiche service : agrégat des réseaux, en une phrase', () => {
   it('compte les réseaux analysés, non conformes et sous restriction ou consigne', () =>
     expect(compteSituations(['00000', '20000', '00030', undefined, '-----'])).toEqual({ n: 3, nc: 2, restr: 1 }))
+  it('PFAS : un dépassement est une non-conformité (limite applicable depuis 2023)', () =>
+    expect(compteSituations(['00100', '00000'])).toEqual({ n: 2, nc: 1, restr: 0 }))
   it('écrit l’agrégat en une phrase accordée', () => {
     expect(phraseAgregat({ n: 7, nc: 2, restr: 2 })).toBe('2 réseaux non conformes sur 7, dont 2 sous restriction ou consigne')
     expect(phraseAgregat({ n: 23, nc: 1, restr: 0 })).toBe('1 réseau non conforme sur 23')
@@ -104,5 +126,14 @@ describe('fiche service : agrégat des réseaux, sans couleur', () => {
     expect(phraseAgregat({ n: 1, nc: 0, restr: 0 })).toBe('Le réseau analysé est conforme aux limites réglementaires')
     expect(phraseAgregat({ n: 1, nc: 1, restr: 1 })).toBe('Le réseau analysé est sous restriction ou consigne')
     expect(phraseAgregat({ n: 0, nc: 0, restr: 0 })).toBe('Aucun réseau analysé')
+  })
+})
+
+describe('tonAgregat : le voyant d’un agrégat est celui du réseau le plus défavorable (04/10)', () => {
+  it('restriction, sinon non conforme, sinon conforme ; rien sans réseau analysé', () => {
+    expect(tonAgregat({ n: 12, nc: 3, restr: 1 })).toBe('bad')
+    expect(tonAgregat({ n: 12, nc: 3, restr: 0 })).toBe('warn')
+    expect(tonAgregat({ n: 12, nc: 0, restr: 0 })).toBe('good')
+    expect(tonAgregat({ n: 0, nc: 0, restr: 0 })).toBeNull()
   })
 })

@@ -1,9 +1,26 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import maplibregl from 'maplibre-gl'
-import type { Feature, FeatureCollection, Geometry, Position } from 'geojson'
-import { cssVar } from '../lib/theme'
+import * as maplibregl from 'maplibre-gl'
+import urlTravailleur from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
+import { useNavigate } from 'react-router-dom'
+import type { FeatureCollection } from 'geojson'
+import EncartCarte, { type LiensEncart } from './EncartCarte'
+import { bbox, chargerPolice, entiteSous, LOCALE, motifHachures, plusGrandesParties, POLICE, type Bounds } from '../lib/carteGeo'
+import { useReglageCarte } from '../lib/hooks'
+import { liensAvecCommunes } from '../lib/parcours'
+import { cssVar, noData } from '../lib/theme'
 
-export type Bounds = [[number, number], [number, number]]
+export type { Bounds }
+
+// MapLibre 6 ne publie plus qu'un module ES (2026-10-07, montée de version pour la faille de DOM.sanitize) : sous Vite,
+// il ne retrouve pas seul le fichier de son worker, que `?worker&url` empaquette et dont l'adresse lui est donnée ici.
+maplibregl.setWorkerUrl(urlTravailleur)
+
+/**
+ * Évènement « carte prête » propre au site, tiré à la fin du chargement de la carte. MapLibre 6 type ses évènements et
+ * ne connaît pas celui-ci : il passe par la conversion que la documentation de MapLibre prévoit pour un évènement personnalisé.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PRETE = 'robinet:ready' as any
 
 export type Props = {
   /** Contours à colorier ; `null` pendant le chargement (la carte affiche alors un voile et ignore les clics). */
@@ -37,6 +54,13 @@ export type Props = {
   message?: string | null
   /** Libellé du lien de l'info-bulle au toucher, quand un clic ouvre une fiche. */
   actionLabel?: string
+  /**
+   * Liens d'un département de la carte (lib/parcours.ts). Un clic, à la souris comme au toucher, ouvre directement sa
+   * fiche (`fiche`, choix de l'auteur du 2026-10-05 ; l'encart du 25/09 n'est plus montré que sans fiche).
+   */
+  encart?: (code: string) => LiensEncart
+  /** Encart de territoire d'une carte à encart : son clic sélectionne dans la carte parente, sans info-bulle à bouton. */
+  clicDirect?: boolean
 }
 
 export const METROPOLE: Bounds = [
@@ -51,39 +75,12 @@ export const TERRITOIRES: { code: string; label: string; bounds: Bounds }[] = [
   { code: '974', label: 'Réunion', bounds: [[55.15, -21.45], [55.9, -20.8]] },
   { code: '976', label: 'Mayotte', bounds: [[44.95, -13.05], [45.35, -12.6]] },
 ]
-
 /**
- * Police des libellés. Le style ne déclare pas de fichiers de glyphes : MapLibre dessine alors le texte
- * lui-même avec une police de la page (TinySDF). Il déduit la graisse du NOM de la police, d'où cet
- * alias d'Atkinson Hyperlegible Next (servie avec le site) déclaré en semi-gras : le fichier est variable,
- * le navigateur en tire la graisse 600.
+ * Paris et la petite couronne, illisibles à l'échelle de la France : leur encart les agrandit, avant ceux de
+ * l'outre-mer, comme sur la carte de l'accueil (CarteDepartements ; demande de l'auteur, 24/09). Codes de
+ * département, qui sont aussi les débuts des codes INSEE de leurs communes.
  */
-const POLICE = 'Robinet Carte SemiBold'
-/** Atkinson Hyperlegible Next, la police de texte de la plateforme (charte « Vigilance + instruments »). */
-const POLICE_FICHIER = '/fonts/atkinson/next.woff2'
-let policePrete: Promise<void> | null = null
-function chargerPolice(): Promise<void> {
-  policePrete ??= (async () => {
-    try {
-      const f = new FontFace(POLICE, `url(${POLICE_FICHIER}) format('woff2')`, { weight: '200 800' })
-      document.fonts.add(await f.load())
-    } catch {
-      /* police indisponible : MapLibre retombe sur la police sans empattement du système */
-    }
-  })()
-  return policePrete
-}
-
-/** Textes des commandes de MapLibre, en français. */
-const LOCALE = {
-  'Map.Title': 'Carte',
-  'NavigationControl.ZoomIn': 'Zoomer',
-  'NavigationControl.ZoomOut': 'Dézoomer',
-  'AttributionControl.ToggleAttribution': 'Afficher ou masquer les sources',
-  'CooperativeGesturesHandler.WindowsHelpText': 'Ctrl + molette pour zoomer la carte',
-  'CooperativeGesturesHandler.MacHelpText': '⌘ + molette pour zoomer la carte',
-  'CooperativeGesturesHandler.MobileHelpText': 'Deux doigts pour déplacer la carte',
-}
+const PETITE_COURONNE = ['75', '92', '93', '94']
 
 /** Écran sans survol (doigt) : l'info-bulle s'ouvre au toucher et le clic ne navigue pas d'emblée. */
 function tactile(ev: Event | undefined): boolean {
@@ -109,7 +106,25 @@ export default function FranceMap({
   etiquettes,
   message,
   actionLabel,
+  encart,
+  clicDirect = false,
 }: Props) {
+  // Entité choisie par un clic, quand la carte a un encart ; elle prime sur `selected` (survol du tableau voisin).
+  const [choix, setChoix] = useState<string | null>(null)
+  // Clic sur un département : sa fiche s'ouvre directement (choix de l'auteur, 2026-10-05, qui remplace l'encart du
+  // 25/09) ; l'encart ne sert plus qu'aux cartes dont l'entité n'a pas de fiche.
+  const naviguer = useNavigate()
+  const choisir = useCallback(
+    (p: Record<string, unknown>) => {
+      const code = String(p[idKey] ?? '')
+      const fiche = code && encart ? encart(code).fiche : undefined
+      if (fiche) naviguer(fiche, { viewTransition: true })
+      else setChoix(code)
+    },
+    [idKey, encart, naviguer],
+  )
+  const surClic = encart ? choisir : onClick
+  const selection = encart && choix ? choix : selected
   const wrapRef = useRef<HTMLDivElement>(null)
   const ref = useRef<HTMLDivElement>(null)
   const mapRef = useRef<maplibregl.Map | null>(null)
@@ -123,14 +138,15 @@ export default function FranceMap({
   const readyRef = useRef(false)
   const pendingRef = useRef<() => void>(() => {})
   const recolorRef = useRef<() => void>(() => {})
-  const selectedRef = useRef<string | null | undefined>(selected)
-  selectedRef.current = selected
+  const selectedRef = useRef<string | null | undefined>(selection)
+  selectedRef.current = selection
   const dataRef = useRef<FeatureCollection | null>(data)
   dataRef.current = data
   const dejaRef = useRef<{ data: FeatureCollection | null; bounds?: Bounds }>({ data: null })
   const popupRef = useRef<maplibregl.Popup | null>(null)
-  const handlers = useRef({ colorOf, labelOf, onClick, onHover, actionLabel })
-  handlers.current = { colorOf, labelOf, onClick, onHover, actionLabel }
+  const direct = !!encart || clicDirect
+  const handlers = useRef({ colorOf, labelOf, onClick: surClic, onHover, actionLabel, direct })
+  handlers.current = { colorOf, labelOf, onClick: surClic, onHover, actionLabel, direct }
   const [spansGlobe, setSpansGlobe] = useState(false)
   const [echec, setEchec] = useState(false)
   // Perte du contexte WebGL qui ne se rétablit pas (onglet resté longtemps en arrière-plan, GPU qui ne
@@ -138,15 +154,16 @@ export default function FranceMap({
   // figée et muette indéfiniment (revue du 2026-09-22).
   const [pertePersistante, setPertePersistante] = useState(false)
   const perteTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // Carte peinte au moins une fois avec ses données : jusque-là, le voile « Chargement de la carte… » reste (critique UX
+  // du 2026-10-05 : la carte des services restait blanche plusieurs secondes, sans indication).
+  const [peinte, setPeinte] = useState(false)
   // Affichage des noms : choix de l'utilisateur (demande de l'auteur, 2026-09-22), mémorisé d'une carte
   // et d'une visite à l'autre. Sur une carte dense, les masquer laisse voir les couleurs.
-  const [noms, setNoms] = useState<boolean>(() => {
-    try {
-      return localStorage.getItem('carte-noms') !== '0'
-    } catch {
-      return true
-    }
-  })
+  const [noms, basculerNoms] = useReglageCarte('carte-noms')
+
+  // Encarts de Paris et de l'outre-mer : affichés par défaut, masquables par le bouton « Encarts » (choix de l'auteur,
+  // 27/09), mémorisés comme les noms et partagés avec la carte de l'accueil (CarteDepartements).
+  const [encartsVus, basculerEncarts] = useReglageCarte('carte-encarts')
 
   const mode: 'departements' | 'communes' | false = inset ? false : (etiquettes ?? ((data?.features.length ?? 0) > 150 ? 'communes' : 'departements'))
 
@@ -232,12 +249,23 @@ export default function FranceMap({
       return true
     }
 
+    // Seul l'état React change ici : aucun appel à l'instance (règle du fichier, §carte()).
+    map.on('idle', () => {
+      if (dataRef.current) setPeinte(true)
+    })
+
     map.on('load', () => {
       map.addSource('zones', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
       // Source des libellés : la plus grande partie de chaque entité, sans quoi un département à îles
       // (Finistère, Morbihan, Vendée, Var…) portait son numéro deux ou trois fois.
       map.addSource('etiquettes', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
-      map.addLayer({ id: 'zones-fill', type: 'fill', source: 'zones', paint: { 'fill-color': ['get', '__color'], 'fill-opacity': 0.9 } })
+      // Opacité pleine : sans fond de carte dessous, 0,9 éclaircissait chaque couleur par rapport à sa légende (audit du 27/09).
+      map.addLayer({ id: 'zones-fill', type: 'fill', source: 'zones', paint: { 'fill-color': ['get', '__color'], 'fill-opacity': 1 } })
+      const motif = motifHachures()
+      if (motif) {
+        map.addImage('hachures', motif, { pixelRatio: 2 })
+        map.addLayer({ id: 'zones-hachures', type: 'fill', source: 'zones', paint: { 'fill-pattern': 'hachures' }, filter: ['==', ['get', '__nd'], true] })
+      }
       map.addLayer({
         id: 'zones-line',
         type: 'line',
@@ -262,16 +290,18 @@ export default function FranceMap({
         popup.remove()
       })
       map.on('click', (e) => {
-        const f = dataRef.current ? map.queryRenderedFeatures(e.point, { layers: ['zones-fill'] })[0] : undefined
+        const f = dataRef.current ? entiteSous(map, e.point) : undefined
         if (!f) {
           popup.remove()
           return
         }
         const props = f.properties ?? {}
-        if (tactile(e.originalEvent) && montrer(e.lngLat, props, true)) {
+        // Carte à encart : le toucher sélectionne comme le clic, l'encart donnant la valeur et les liens.
+        if (!handlers.current.direct && tactile(e.originalEvent) && montrer(e.lngLat, props, true)) {
           handlers.current.onHover?.(props)
           return
         }
+        if (handlers.current.direct) popup.remove()
         handlers.current.onClick?.(props)
       })
       readyRef.current = true
@@ -279,7 +309,7 @@ export default function FranceMap({
       const filtre: maplibregl.FilterSpecification = ['==', ['get', idKey], selectedRef.current ?? '']
       map.setFilter('zones-selected', filtre)
       map.setFilter('zones-selected-halo', filtre)
-      map.fire('robinet:ready')
+      map.fire(PRETE)
     })
     mapRef.current = map
     if (!inset) (window as unknown as { __robinetMap?: maplibregl.Map }).__robinetMap = map // débogage et outillage studio
@@ -301,6 +331,8 @@ export default function FranceMap({
       if (!readyRef.current) return
       try {
       map.setPaintProperty('bg', 'background-color', cssVar(inset ? '--surface' : '--bg'))
+      const motif = motifHachures()
+      if (motif && map.hasImage('hachures')) map.updateImage('hachures', motif)
       map.setPaintProperty('zones-line', 'line-color', cssVar('--surface'))
       map.setPaintProperty('zones-selected-halo', 'line-color', cssVar('--surface'))
       map.setPaintProperty('zones-selected', 'line-color', cssVar('--text'))
@@ -352,14 +384,14 @@ export default function FranceMap({
             source: 'etiquettes',
             minzoom: mode === 'communes' ? 7 : 0,
             layout: { 'text-field': field, 'text-font': [POLICE], 'text-size': size, 'text-max-width': mode === 'departements' ? 6 : 7, 'text-padding': 2, 'text-line-height': 1.1, 'symbol-placement': 'point', 'symbol-sort-key': ['-', 0, ['get', '__aire']] },
-            paint: { 'text-color': cssVar('--text'), 'text-halo-color': cssVar('--surface'), 'text-halo-width': 1.5, 'text-halo-blur': 0.4 },
+            paint: { 'text-color': cssVar('--text'), 'text-halo-color': cssVar('--surface'), 'text-halo-width': 2, 'text-halo-blur': 0.2 },
           })
           map.setLayoutProperty('zones-label', 'visibility', noms ? 'visible' : 'none')
         })
       })
     }
     if (readyRef.current) poser()
-    else carte()?.once('robinet:ready', poser)
+    else carte()?.once(PRETE, poser)
     return () => {
       annule = true
     }
@@ -422,9 +454,14 @@ export default function FranceMap({
         if (!carte() || !readyRef.current) return
         // L'info-bulle décrit l'entité survolée ; en changeant de couleurs elle parlerait de l'ancien état.
         popupRef.current?.remove()
+        // Couleur « sans donnée » des échelles (lib/scale.ts) : l'entité reçoit en plus le motif hachuré (__nd).
+        const sans = noData()
         src()?.setData({
           type: 'FeatureCollection',
-          features: data.features.map((f) => ({ ...f, properties: { ...f.properties, __color: handlers.current.colorOf(f.properties ?? {}) } })),
+          features: data.features.map((f) => {
+            const couleur = handlers.current.colorOf(f.properties ?? {})
+            return { ...f, properties: { ...f.properties, __color: couleur, __nd: couleur === sans } }
+          }),
         })
       })
     recolorRef.current = recolor
@@ -443,58 +480,102 @@ export default function FranceMap({
     if (readyRef.current) apply()
     else {
       // Avant le chargement de la carte, on ne garde que la dernière demande.
-      mapRef.current.off('robinet:ready', pendingRef.current)
+      mapRef.current.off(PRETE, pendingRef.current)
       pendingRef.current = apply
-      mapRef.current.once('robinet:ready', apply)
+      mapRef.current.once(PRETE, apply)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, colorOf, bounds, inset, generation])
 
   // Les encarts apparaissent après le premier cadrage (on apprend alors que les données couvrent
   // l'outre-mer) : on recadre une fois qu'ils occupent leur place.
+  // Même chose quand on les masque ou les réaffiche : la métropole reprend ou cède la place qu'ils occupent.
   useEffect(() => {
     if (spansGlobe && dataRef.current && readyRef.current) recadrer(dataRef.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [spansGlobe])
+  }, [spansGlobe, encartsVus])
 
   useEffect(() => {
     const map = mapRef.current
     if (!map || !readyRef.current) return
     sansCasse('sélection', () => {
-      const filtre: maplibregl.FilterSpecification = ['==', ['get', idKey], selected ?? '']
+      const filtre: maplibregl.FilterSpecification = ['==', ['get', idKey], selection ?? '']
       map.setFilter('zones-selected', filtre)
       map.setFilter('zones-selected-halo', filtre)
     })
-  }, [selected, idKey, sansCasse, generation])
+  }, [selection, idKey, sansCasse, generation])
 
-  const showInsets = !inset && spansGlobe && (drom ?? (data?.features.length ?? 0) < 5000)
-  // Chaque encart ne reçoit que les entités de son territoire (au lieu du fichier national entier, six fois).
-  const parTerritoire = useMemo(() => {
-    const m = new Map<string, FeatureCollection>()
-    if (!data || !showInsets) return m
-    for (const t of TERRITOIRES) {
-      m.set(t.code, { type: 'FeatureCollection', features: data.features.filter((f) => String(f.properties?.[idKey] ?? '').startsWith(t.code)) })
-    }
-    return m
+  // Encart : Échap le ferme ; une carte qui perd son encart (autre vue de la même page) oublie le choix.
+  useEffect(() => {
+    if (!choix) return
+    const fermer = (e: KeyboardEvent) => e.key === 'Escape' && setChoix(null)
+    document.addEventListener('keydown', fermer)
+    return () => document.removeEventListener('keydown', fermer)
+  }, [choix])
+  useEffect(() => {
+    if (!encart) setChoix(null)
+  }, [encart])
+
+  const encartsPossibles = !inset && spansGlobe && (drom ?? (data?.features.length ?? 0) < 5000)
+  const showInsets = encartsPossibles && encartsVus
+  // Chaque encart ne reçoit que les entités de son territoire (au lieu du fichier national entier, sept fois).
+  // Celui de la petite couronne est cadré sur l'emprise de ses départements.
+  const encarts = useMemo(() => {
+    const liste: { code: string; label: string; bounds: Bounds; fc: FeatureCollection }[] = []
+    if (!data || !showInsets) return liste
+    const entites = (prefixes: string[]): FeatureCollection => ({
+      type: 'FeatureCollection',
+      features: data.features.filter((f) => prefixes.some((p) => String(f.properties?.[idKey] ?? '').startsWith(p))),
+    })
+    const idf = entites(PETITE_COURONNE)
+    const cadre = bbox(idf.features)
+    if (cadre) liste.push({ code: 'idf', label: 'Paris et petite couronne', bounds: cadre, fc: idf })
+    for (const t of TERRITOIRES) liste.push({ ...t, fc: entites([t.code]) })
+    return liste
   }, [data, showInsets, idKey])
 
   const voile = echec
-    ? 'Carte indisponible dans ce navigateur (WebGL désactivé) : les valeurs figurent dans le tableau voisin.'
+    ? 'La carte ne peut pas s’afficher dans ce navigateur, où WebGL est désactivé. Les valeurs figurent dans le tableau voisin.'
     : pertePersistante
-      ? 'La carte a perdu son affichage et ne s’est pas rétablie : les valeurs restent justes dans le tableau voisin ; rechargez la page pour la retrouver.'
+      ? 'L’affichage de la carte a été interrompu et ne s’est pas rétabli. Les valeurs du tableau voisin restent exactes. Rechargez la page pour afficher de nouveau la carte.'
       : !inset && message
       ? message
-      : !inset && !data
+      : !inset && (!data || !peinte)
         ? 'Chargement de la carte…'
         : null
 
+  // Encart de l'entité choisie : sa valeur telle que l'info-bulle l'écrit, pour les données affichées (année, indicateur).
+  const proprietesChoix = encart && choix && data ? (data.features.find((f) => String(f.properties?.[idKey] ?? '') === choix)?.properties ?? null) : null
+  // Un encart descend toujours d'un niveau : sans vue communale, vers les communes sur la qualité de l'eau (lib/parcours).
+  const liensChoix = proprietesChoix && encart ? liensAvecCommunes(encart(choix!), choix!) : null
+  const communesChoix = liensChoix?.communes
+  const encartCarte = liensChoix && (
+    <EncartCarte
+      texte={labelOf?.(proprietesChoix!) ?? ''}
+      // « Voir ses communes » sur la même carte : l'encart se ferme, la carte passe aux communes.
+      liens={
+        typeof communesChoix === 'function'
+          ? {
+              ...liensChoix,
+              communes: () => {
+                setChoix(null)
+                communesChoix()
+              },
+            }
+          : liensChoix
+      }
+      onFermer={() => setChoix(null)}
+    />
+  )
+
   return (
+    <>
     <div
       ref={wrapRef}
       className={`map-wrap${inset ? ' map-inset' : ''}`}
       style={{ position: 'relative' }}
       role={inset ? undefined : 'region'}
-      aria-label={inset ? undefined : (ariaLabel ?? 'Carte choroplèthe ; valeur de chaque zone au survol ou au toucher.')}
+      aria-label={inset ? undefined : (ariaLabel ?? 'Carte choroplèthe ; la valeur de chaque zone s’affiche au survol ou au toucher.')}
     >
       <div ref={ref} className="map" style={{ height }} aria-hidden={inset || undefined} />
       {voile && (
@@ -516,38 +597,41 @@ export default function FranceMap({
               className={noms ? 'on' : undefined}
               aria-pressed={noms}
               title={noms ? 'Masquer les noms sur la carte' : 'Afficher les noms sur la carte'}
-              onClick={() => {
-                setNoms((v) => {
-                  try {
-                    localStorage.setItem('carte-noms', v ? '0' : '1')
-                  } catch {
-                    /* stockage indisponible : le choix vaut pour cette visite */
-                  }
-                  return !v
-                })
-              }}
+              onClick={basculerNoms}
             >
               Noms
+            </button>
+          )}
+          {encartsPossibles && (
+            <button
+              type="button"
+              className={encartsVus ? 'on' : undefined}
+              aria-pressed={encartsVus}
+              title={encartsVus ? 'Masquer les encarts de Paris et de l’outre-mer' : 'Afficher les encarts de Paris et de l’outre-mer'}
+              onClick={basculerEncarts}
+            >
+              Encarts
             </button>
           )}
         </div>
       )}
       {showInsets && (
-        <div className="map-insets" aria-label="Outre-mer">
-          {TERRITOIRES.map((t) => (
+        <div className="map-insets" aria-label="Encarts : Paris et petite couronne, outre-mer">
+          {encarts.map((t) => (
             <div key={t.code} className="map-inset-box">
               <FranceMap
-                data={parTerritoire.get(t.code) ?? null}
+                data={t.fc}
                 colorOf={colorOf}
                 labelOf={labelOf}
-                onClick={onClick}
+                onClick={surClic}
                 onHover={onHover}
                 actionLabel={actionLabel}
+                clicDirect={direct}
                 height="100%"
                 bounds={t.bounds}
                 inset
                 idKey={idKey}
-                selected={selected}
+                selected={selection}
                 ariaLabel={`Encart ${t.label}`}
               />
               <span>{t.label}</span>
@@ -556,46 +640,7 @@ export default function FranceMap({
         </div>
       )}
     </div>
+    {encartCarte}
+    </>
   )
-}
-
-/** Aire (en degrés², pour comparer) d'un anneau. */
-function aire(anneau: Position[]): number {
-  let a = 0
-  for (let i = 0, j = anneau.length - 1; i < anneau.length; j = i++) a += (anneau[j][0] + anneau[i][0]) * (anneau[j][1] - anneau[i][1])
-  return Math.abs(a / 2)
-}
-
-/** Chaque entité réduite à sa plus grande partie, pour n'y poser qu'un libellé. */
-function plusGrandesParties(fc: FeatureCollection): FeatureCollection {
-  return {
-    type: 'FeatureCollection',
-    features: fc.features.flatMap((f) => {
-      const g = f.geometry
-      if (!g) return []
-      // __aire : priorité de placement (les plus grandes entités d'abord quand les libellés se gênent).
-      if (g.type === 'Polygon') return [{ type: 'Feature' as const, properties: { ...f.properties, __aire: aire(g.coordinates[0]) }, geometry: g }]
-      if (g.type !== 'MultiPolygon' || !g.coordinates.length) return []
-      const grande = g.coordinates.reduce((m, p) => (aire(p[0]) > aire(m[0]) ? p : m))
-      return [{ type: 'Feature' as const, properties: { ...f.properties, __aire: aire(grande[0]) }, geometry: { type: 'Polygon' as const, coordinates: grande } }]
-    }),
-  }
-}
-
-function bbox(features: Feature<Geometry | null>[]): Bounds | null {
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity
-  const visit = (c: Position | Position[] | Position[][] | Position[][][]) => {
-    if (typeof c[0] === 'number') {
-      const [x, y] = c as Position
-      if (x < minX) minX = x
-      if (x > maxX) maxX = x
-      if (y < minY) minY = y
-      if (y > maxY) maxY = y
-    } else (c as Position[]).forEach((cc) => visit(cc as Position))
-  }
-  for (const f of features) {
-    const g = f.geometry
-    if (g && 'coordinates' in g) visit(g.coordinates as Position[])
-  }
-  return Number.isFinite(minX) ? [[minX, minY], [maxX, maxY]] : null
 }

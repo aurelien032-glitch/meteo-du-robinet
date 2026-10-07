@@ -33,7 +33,8 @@ export default function HorsGrilleCard({ s, params, year }: { s: CommuneYearStat
     <div className="card" id="horsgrille">
       <h2>Sans limite de qualité · {year}</h2>
       <p className="muted">
-        Substances analysées sur les réseaux de la commune mais sans limite ni référence de qualité : elles ne comptent jamais comme dépassements.
+        Ces substances sont analysées sur les réseaux de la commune mais n’ont ni limite ni référence de qualité. Leurs résultats ne sont donc
+        jamais comptés comme des dépassements.
       </p>
       <div className="table-scroll"><table className="data">
         <tbody>
@@ -109,12 +110,13 @@ export default function HorsGrilleCard({ s, params, year }: { s: CommuneYearStat
             </tbody>
           </table></div>
           {autres.some(([c, , , v]) => auDela(c, v).length) && (
-            <p className="muted">En gras : au-delà de la « valeur de vigilance » de 0,9 µg/L citée par les ARS pour les métabolites sans limite.</p>
+            <p className="muted">Les valeurs en gras dépassent la valeur indicative de 0,9 µg/L que l'arrêté du 11 janvier 2007 fixe pour les métabolites de pesticides non pertinents.</p>
           )}
         </details>
       )}
       <div className="source">
-        Contrôle sanitaire SISE-Eaux. Les repères cités ne sont pas des limites de qualité. <Link to="/hors-grille">Ce que la grille n'encadre pas, en France</Link>.
+        Contrôle sanitaire SISE-Eaux. Les repères cités ne sont pas des limites de qualité. Les résultats nationaux figurent sur la page{' '}
+        <Link to="/hors-grille">Substances sans limite de qualité</Link>.
       </div>
     </div>
   )

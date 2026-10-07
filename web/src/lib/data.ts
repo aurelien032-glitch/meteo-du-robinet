@@ -56,6 +56,11 @@ export function accord(n: number, singulier: string, pluriel = `${singulier}s`):
   return Math.abs(n) >= 2 ? pluriel : singulier
 }
 
+/** Initiale en capitale : « restriction de consommation » → « Restriction de consommation ». */
+export function majuscule(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
 /** Formats français : 12345 → « 12 345 », 0.1234 → « 0,12 ». */
 export const fmt = {
   /** Effectif suivi de son nom accordé : « 1 analyse », « 1 234 analyses », « 3 réseaux ». */
@@ -74,6 +79,18 @@ export const fmt = {
   /** Seuil réglementaire lisible : « <=50 mg/L » → « ≤ 50 mg/L ». */
   seuil: (s: string | null | undefined) =>
     s == null ? '–' : s.replace(/<=\s*/g, '≤ ').replace(/>=\s*/g, '≥ ').replace(/(\d)\.(\d)/g, '$1,$2'),
+  /**
+   * Valeur d'un indicateur selon son unité, règle unique des décimales (critique UX du 2026-10-05, qui relevait « 82,70 % »,
+   * « 105,00 /120 ») : euros, deux décimales ; indice (« /120 », « /100 »), entier ; pourcentage, une décimale, deux sous
+   * 1 % (un renouvellement de 0,62 % par an) ; autre unité, une décimale.
+   */
+  indic: (n: number | null | undefined, unite: string) => {
+    if (n == null) return '–'
+    if (unite.includes('€')) return fmt.dec(n, 2)
+    if (unite.startsWith('/')) return fmt.int(n)
+    if (unite.startsWith('%')) return fmt.dec(n, Math.abs(n) < 1 && n !== 0 ? 2 : 1)
+    return fmt.dec(n, 1)
+  },
   /** Date ISO en date française : « 2025-09-16 » → « 16/09/2025 ». */
   date: (iso: string) => `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`,
 }

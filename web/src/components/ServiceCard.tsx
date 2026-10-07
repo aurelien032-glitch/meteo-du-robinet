@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import { fmt } from '../lib/data'
 import { useJson } from '../lib/hooks'
-import { renseigne } from '../lib/sispea'
+import { libelleMode, modeGestion, renseigne } from '../lib/sispea'
 import type { SispeaDeptFile, SispeaNationalFile, SispeaYear } from '../lib/types'
 
 // Indicateurs SISPEA, face à la médiane France : un repère neutre, sans « mieux » ni « moins bien » (les
 // indicateurs d'un service ne sont pas des jugements de conformité ; grammaire des couleurs du 23/09).
-const ROWS: { code: string; label: string; unit: string; nat: keyof Omit<SispeaYear, 'n' | 'pop'> }[] = [
+const ROWS: { code: string; label: string; unit: string; nat: keyof Omit<SispeaYear, 'n' | 'pop' | 'pertes_vol'> }[] = [
   { code: 'D102.0', label: 'Prix TTC du m³ (base 120 m³/an)', unit: '€', nat: 'prix' },
   { code: 'P104.3', label: 'Rendement du réseau', unit: '%', nat: 'rend' },
   { code: 'P106.3', label: 'Pertes en réseau', unit: 'm³/km/jour', nat: 'ilp' },
@@ -27,7 +27,7 @@ export default function ServiceCard({ insee, dept, year }: { insee: string; dept
     return (
       <div className="card">
         <h2>Service d'eau</h2>
-        <p className="muted">Commune absente de l'observatoire des services (SISPEA).</p>
+        <p className="muted">La commune ne figure pas dans l'observatoire des services d'eau et d'assainissement (SISPEA).</p>
       </div>
     )
   const years = Object.keys(byYear).sort()
@@ -42,8 +42,9 @@ export default function ServiceCard({ insee, dept, year }: { insee: string; dept
   const natYear = natYears.includes(y) ? y : natYears[natYears.length - 1]
   const natY = natYear ? nat.annees[natYear] : undefined
   const prix = s.ind['D102.0']
+  // Libellé normalisé, comme « Qui la distribue ? » au-dessus : la SISPEA écrit « Delegation », « Régie », « Inconnu »…
+  const mode = libelleMode(modeGestion(s.mode))
   // La SISPEA met « . » faute de valeur (lib/sispea.ts).
-  const mode = renseigne(s.mode)
   const exploitant = renseigne(s.op)
 
   return (
@@ -92,10 +93,10 @@ export default function ServiceCard({ insee, dept, year }: { insee: string; dept
                   <td>{r.label}</td>
                   <td className="num">
                     <b>
-                      {fmt.dec(v, 2)} {r.unit}
+                      {fmt.indic(v, r.unit)} {r.unit}
                     </b>
                   </td>
-                  <td className="num muted">{med == null ? '–' : `${fmt.dec(med, 2)} ${r.unit}`}</td>
+                  <td className="num muted">{med == null ? '–' : `${fmt.indic(med, r.unit)} ${r.unit}`}</td>
                 </tr>
               )
             })}

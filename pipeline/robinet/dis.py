@@ -6,6 +6,7 @@ colonne par colonne, puis écrits en Parquet compressé. Le texte extrait est su
 """
 from __future__ import annotations
 
+import json
 import shutil
 import zipfile
 from pathlib import Path
@@ -43,12 +44,34 @@ def parquet_paths(year: int) -> dict[str, Path]:
     return {t: d / f"{t}.parquet" for t in TABLES.values()}
 
 
+def version_source(year: int) -> str | None:
+    """Version de l'archive du millésime : celle que le téléchargement a inscrite au manifeste (empreinte publiée par
+    data.gouv), sinon taille et date du fichier ; None sans archive."""
+    zip_path = C.RAW / "dis" / f"dis-{year}.zip"
+    if not zip_path.exists():
+        return None
+    try:
+        v = json.loads((C.RAW / "manifest.json").read_text(encoding="utf-8")).get(f"dis/dis-{year}.zip", {}).get("version")
+    except (OSError, ValueError):
+        v = None
+    st = zip_path.stat()
+    return v or f"{st.st_size}-{int(st.st_mtime)}"
+
+
 def to_parquet(year: int, *, force: bool = False) -> dict[str, Path]:
     zip_path = C.RAW / "dis" / f"dis-{year}.zip"
     if not zip_path.exists():
         raise FileNotFoundError(f"{zip_path} : lancer `robinet download --what dis -y {year}`")
     out_dir = C.OUT / "dis" / str(year)
     out_dir.mkdir(parents=True, exist_ok=True)
+    # Les Parquet portent la version de l'archive dont ils viennent : data.gouv republie chaque mois l'archive de
+    # l'année en cours (et parfois les précédentes) sous le même nom ; sans ce repère, la nouvelle archive était
+    # téléchargée puis ignorée, les Parquet de la précédente étant « présents ».
+    source = out_dir / ".source"
+    version = version_source(year)
+    if not force and (not source.exists() or source.read_text(encoding="utf-8").strip() != version):
+        print(f"  dis {year} : nouvelle archive ({version}), conversion")
+        force = True
     tmp_dir = C.CACHE / "tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     outputs: dict[str, Path] = {}
@@ -88,4 +111,5 @@ def to_parquet(year: int, *, force: bool = False) -> dict[str, Path]:
                       f"encodage {enc}, {len(cols)} colonnes")
             finally:
                 tmp.unlink(missing_ok=True)
+    source.write_text(version or "", encoding="utf-8")
     return outputs

@@ -7,6 +7,7 @@ import VigiEauMap, { NIVEAUX, RESSOURCES, couleurNiveau, useVigiEau, type Ressou
 import { usePageTitle } from '../lib/title'
 import Kpi from '../components/Kpi'
 import { TONS_SECHERESSE } from '../lib/vigieau'
+import { lienDepartement } from '../lib/parcours'
 
 /** Restrictions sécheresse en vigueur aujourd'hui, dans toute la France, en direct. */
 export default function Secheresse() {
@@ -31,6 +32,7 @@ export default function Secheresse() {
     }
     return c
   }, [depts, field])
+  const tonCompte = (niveau: string, rang: number) => (counts[niveau] ? TONS_SECHERESSE[rang] : undefined)
   const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
   const ranking = (depts ?? [])
     .map((d) => ({ d, n: NIVEAUX.find((n) => n.key === ((d[field] as string | null) ?? 'pas_de_restriction')) }))
@@ -39,12 +41,12 @@ export default function Secheresse() {
 
   return (
     <div className="page">
-      <p className="eyebrow">Comprendre</p>
-      <Crumbs items={[{ label: 'Comprendre', to: '/themes' }, { label: 'Sécheresse' }]} />
+      <p className="eyebrow">La ressource</p>
+      <Crumbs items={[{ label: 'La ressource', to: '/ressource-en-eau' }, { label: 'Sécheresse' }]} />
       <div className="toolbar">
         <div>
           <h1>Sécheresse : les restrictions du jour</h1>
-          <p className="lead">Situation au {today}, interrogée en direct chez VigiEau. Le niveau change au fil des arrêtés préfectoraux.</p>
+          <p className="lead">Situation au {today}, obtenue en direct auprès du service VigiEau. Les niveaux de restriction évoluent au fil des arrêtés préfectoraux.</p>
         </div>
         <label>
           Ressource{' '}
@@ -58,13 +60,20 @@ export default function Secheresse() {
         </label>
       </div>
       {error ? (
-        <p className="card muted">VigiEau injoignable ({error}). Les compteurs ne peuvent pas être calculés ; réessayez dans quelques minutes.</p>
+        <p className="card muted">Le service VigiEau ne répond pas ({error}). Les décomptes ne peuvent pas être établis ; veuillez réessayer dans quelques minutes.</p>
       ) : (
         <div className="grid cols-4">
-          <Kpi value={depts ? fmt.int(counts.crise ?? 0) : '–'} label="départements en crise" ton={TONS_SECHERESSE[4]} />
-          <Kpi value={depts ? fmt.int(counts.alerte_renforcee ?? 0) : '–'} label="en alerte renforcée" ton={TONS_SECHERESSE[3]} />
-          <Kpi value={depts ? fmt.int(counts.alerte ?? 0) : '–'} label="en alerte" ton={TONS_SECHERESSE[2]} />
-          <Kpi value={depts ? fmt.int(counts.vigilance ?? 0) : '–'} label="en vigilance" ton={TONS_SECHERESSE[1]} sub={depts ? `${fmt.int(counts.pas_de_restriction ?? 0)} sans restriction` : 'chargement…'} />
+          {/* Une seule zone en crise suffit : la page ne le disait que pour l'historique (vérification du 24/09). */}
+          {/* Voyant du niveau compté (décision de l'auteur du 24/09), jamais devant un compte nul ni avant la réponse de VigiEau. */}
+          <Kpi
+            value={depts ? fmt.int(counts.crise ?? 0) : '–'}
+            label="départements en crise"
+            ton={tonCompte('crise', 4)}
+            sub="sur au moins une zone ; chaque département est compté à son niveau le plus grave"
+          />
+          <Kpi value={depts ? fmt.int(counts.alerte_renforcee ?? 0) : '–'} label="en alerte renforcée" ton={tonCompte('alerte_renforcee', 3)} />
+          <Kpi value={depts ? fmt.int(counts.alerte ?? 0) : '–'} label="en alerte" ton={tonCompte('alerte', 2)} />
+          <Kpi value={depts ? fmt.int(counts.vigilance ?? 0) : '–'} label="en vigilance" ton={tonCompte('vigilance', 1)} sub={depts ? `${fmt.int(counts.pas_de_restriction ?? 0)} sans restriction` : 'chargement…'} />
         </div>
       )}
       <div className="grid cols-map">
@@ -94,7 +103,7 @@ export default function Secheresse() {
                       ...lignes.map(({ d }) => (
                         <tr key={d.code} className={survol === d.code ? 'on' : undefined} onMouseEnter={() => setSurvol(d.code)} onMouseLeave={() => setSurvol(null)}>
                           <td>
-                            <Link to={`/departement/${d.code}`}>{d.nom}</Link> <span className="muted">({d.code})</span>
+                            <Link to={lienDepartement(d.code, { section: 'ressource' })}>{d.nom}</Link> <span className="muted">({d.code})</span>
                           </td>
                           <td className="num">
                             {/* Le niveau n'apparaît en clair que dans l'en-tête du groupe, plusieurs lignes au-dessus :

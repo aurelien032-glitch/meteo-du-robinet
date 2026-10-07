@@ -1,5 +1,20 @@
 import { describe, expect, it } from 'vitest'
-import { chercher, entreesCommunes, entreesReseaux, entreesServices, indexer, lienFiche, normaliser, precision, relireCodes, type Entree } from './recherche'
+import {
+  chercher,
+  choixRequis,
+  codePostal,
+  entreesCommunes,
+  entreesReseaux,
+  entreesServices,
+  indexer,
+  libelleResultat,
+  lienFiche,
+  motifCode,
+  normaliser,
+  precision,
+  relireCodes,
+  type Entree,
+} from './recherche'
 
 // Noms et codes réels (communes.json, sispea/services-index.json, dept/35.json et 50.json). Poids des communes
 // fictifs, seul leur ordre compte ; habitants desservis des services et communes desservies des réseaux réels.
@@ -100,6 +115,44 @@ describe('chercher', () => {
   })
 })
 
+describe('codes postaux (audit du 05/10 : « 02100 » menait à Bony, dont c’est le code INSEE)', () => {
+  // Saint-Quentin et deux communes voisines ont le code postal 02100 ; Bony a le code INSEE 02100 et le code postal 02420.
+  const AISNE = { '02': 'Aisne', '35': 'Ille-et-Vilaine' }
+  const cp = (id: string, nom: string, poids: number, codes: string[]) => ({ ...commune(id, nom, poids), cp: codes, dept: id.slice(0, 2), detail: codes.join(', ') })
+  const IDX = indexer([
+    cp('02100', 'Bony', 20, ['02420']),
+    cp('02288', 'Gauchy', 40, ['02430', '02100']),
+    cp('02691', 'Saint-Quentin', 70, ['02100']),
+    cp('02355', 'Harly', 30, ['02100']),
+    cp('35238', 'Rennes', 71, ['35000', '35200', '35700']),
+  ])
+  it('cinq chiffres : les communes de ce code postal d’abord, par poids, puis la commune dont c’est le code INSEE', () => {
+    expect(chercher('02100', IDX)[0].entrees.map((e) => e.nom)).toEqual(['Saint-Quentin', 'Gauchy', 'Harly', 'Bony'])
+    expect(chercher('02 100', IDX)[0].entrees.map((e) => e.nom)).toEqual(['Saint-Quentin', 'Gauchy', 'Harly', 'Bony'])
+    expect(chercher('35700', IDX)[0].entrees.map((e) => e.nom)).toEqual(['Rennes'])
+    expect(codePostal('2A004')).toBeNull()
+    expect(codePostal('0210')).toBeNull()
+  })
+  it('libellés : « Saint-Quentin · 02100 », code postal ; « Bony », code INSEE', () => {
+    const [sq, , , bony] = chercher('02100', IDX)[0].entrees
+    expect(libelleResultat(sq, '02100', AISNE)).toEqual({ nom: 'Saint-Quentin · 02100', meta: 'Aisne · code postal' })
+    expect(libelleResultat(bony, '02100', AISNE)).toEqual({ nom: 'Bony', meta: 'Aisne · code INSEE 02100' })
+    expect(motifCode(sq, 'saint-quentin')).toBeNull()
+    expect(libelleResultat(sq, 'saint-quentin', AISNE)).toEqual({ nom: 'Saint-Quentin', meta: 'Aisne · 02100' })
+  })
+  it('un code postal de plus de six communes les donne toutes, et la commune du code INSEE ensuite', () => {
+    const grand = indexer([...Array.from({ length: 9 }, (_, i) => cp(`510${i}0`, `Village ${i}`, i, ['51300'])), cp('51300', 'Code INSEE', 1, ['51000'])])
+    const liste = chercher('51300', grand)[0].entrees
+    expect(liste).toHaveLength(10)
+    expect(liste.at(-1)?.nom).toBe('Code INSEE')
+  })
+  it('plusieurs fiches pour un code : un choix est requis ; une seule fiche, ou un nom : non', () => {
+    expect(choixRequis('02100', chercher('02100', IDX))).toBe(true)
+    expect(choixRequis('35000', chercher('35000', IDX))).toBe(false)
+    expect(choixRequis('rennes', chercher('rennes', IDX))).toBe(false)
+  })
+})
+
 describe('entrées des fichiers de l’index', () => {
   const D = { '35': 'Ille-et-Vilaine', '50': 'Manche' }
   it('codes en écarts relus : même exemple que le test du pipeline (tests/test_recherche.py)', () => {
@@ -108,16 +161,31 @@ describe('entrées des fichiers de l’index', () => {
     expect(relireCodes(ECARTS)).toEqual(CODES)
     expect(relireCodes([])).toEqual([])
   })
-  it('communes en colonnes ; précision : nom du département, sinon son code, puis le code INSEE', () => {
+  it('communes en colonnes ; précision : nom du département, sinon son code, puis le code INSEE (index sans codes postaux)', () => {
     const c = entreesCommunes({ c: ['2A004', '35238', 1], n: ['Ajaccio', 'Rennes', 'Retiers'], p: [64, 71, 49] })
     expect(c.map((e) => [e.type, e.id, e.nom, e.poids, e.dept])).toEqual([
       ['commune', '2A004', 'Ajaccio', 64, '2A'],
       ['commune', '35238', 'Rennes', 71, '35'],
       ['commune', '35239', 'Retiers', 49, '35'],
     ])
-    expect(precision(c[1], D)).toBe('Ille-et-Vilaine · 35238')
-    expect(precision(c[0], D)).toBe('2A · 2A004')
-    expect(precision(c[1], null)).toBe('35 · 35238')
+    expect(precision(c[1], D)).toBe('Ille-et-Vilaine · code INSEE 35238')
+    expect(precision(c[0], D)).toBe('2A · code INSEE 2A004')
+    expect(precision(c[1], null)).toBe('35 · code INSEE 35238')
+  })
+  it('codes postaux en colonne « z » : un, plusieurs ou aucun ; en précision à la place du code INSEE', () => {
+    const c = entreesCommunes({
+      c: ['35238', 1, '75056', '99999'],
+      n: ['Rennes', 'Retiers', 'Paris', 'Sans code'],
+      p: [71, 49, 80, 0],
+      z: [['35000', '35200', '35700'], '35240', Array.from({ length: 21 }, (_, i) => `750${String(i + 1).padStart(2, '0')}`), null],
+    })
+    expect(c.map((e) => e.cp)).toEqual([['35000', '35200', '35700'], ['35240'], expect.any(Array), []])
+    expect(c.map((e) => precision(e, D))).toEqual([
+      'Ille-et-Vilaine · 35000, 35200, 35700',
+      'Ille-et-Vilaine · 35240',
+      '75 · 75001 et 20 autres codes postaux',
+      '99 · code INSEE 99999',
+    ])
   })
   it('services : collectivité en nom, entité et mode en précision', () => {
     const [anonyme, cotentin] = entreesServices({

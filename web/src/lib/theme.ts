@@ -14,13 +14,14 @@ export function chartPalette() {
     muted: cssVar('--muted'),
     grid: cssVar('--grid'),
     bg: cssVar('--surface'),
-    series: [cssVar('--c1'), cssVar('--c2'), cssVar('--c3'), cssVar('--c4'), cssVar('--c5'), cssVar('--c6')],
-    good: cssVar('--good'),
-    warn: cssVar('--warn'),
-    bad: cssVar('--bad'),
-    /** Marques neutres des agrégats (grammaire du 23/09) : le sémaphore ne juge qu'un réseau. */
+    // Encres ardoise seulement : le violet --c5, reliquat de l'ancienne « consigne d'ébullition », est retiré (audit du 27/09).
+    series: [cssVar('--c1'), cssVar('--c2'), cssVar('--c3'), cssVar('--c4'), cssVar('--c6')],
+    /** Marques neutres du contexte (ressource, amont, services d'eau). */
     mark: cssVar('--mark'),
     markHi: cssVar('--mark-hi'),
+    /** Marques des agrégats de la qualité de l'eau (04/10) : la rampe bleu → jaune → rouge. */
+    alerte: cssVar('--q-mark'),
+    alerteHi: cssVar('--q-mark-hi'),
     fontFamily: cssVar('--font'),
   }
 }
@@ -59,8 +60,38 @@ const enRvb = (c: string) => (/^#[0-9a-f]{6}$/i.test(c) ? [1, 3, 5].map((i) => p
  * jetons) : les échelles la mémorisent par thème (lib/scale.ts).
  */
 export function neutre(n: number): string[] {
-  const a = ardoise()
-  if (n <= 1) return [a[2]]
+  return interpoler(ardoise(), n)
+}
+/**
+ * Rampe de la qualité de l'eau (choix de l'auteur du 04/10, « la palette couleur partout ») : parts de réseaux non
+ * conformes, taux de prélèvements, avis et dénombrements, du bleu au jaune puis au rouge (ColorBrewer RdYlBu, 05/10), jetons --q1…--q5 ;. Le contexte (nappes, SISPEA, ressource) garde ses rampes neutres.
+ */
+export function qualite(): string[] {
+  return ['--q1', '--q2', '--q3', '--q4', '--q5'].map(cssVar)
+}
+/**
+ * Couleurs des notes A, B, C et D (jetons du sémaphore, paliers --q2 à --q5 de la rampe) : celles des cartes de parts
+ * (auteur, 2026-10-07, « on ne comprend pas bien la transition entre graphique notation et carte ») — une carte placée
+ * sous une barre de notes ou de situations parle avec les mêmes couleurs, du bleu clair au rouge.
+ */
+export function couleursNotes(): string[] {
+  return ['--good-line', '--warn-line', '--warn', '--bad'].map(cssVar)
+}
+/** Rampe de la qualité de l'eau en `n` paliers, interpolée entre ses cinq jetons. */
+export function alerte(n: number): string[] {
+  return interpoler(qualite(), n)
+}
+/**
+ * Rampe ocre des parts de nappes basses (audit du 27/09) : du gris --d0 (aucun piézomètre bas) à l'ocre --w3, le
+ * côté « bas » de la divergente des classes de nappes (lib/nappes.couleursClasses). L'ardoise, qui y désigne le côté
+ * « haut », disait l'inverse sur la carte voisine du graphique.
+ */
+export function ocre(n: number): string[] {
+  return interpoler(['--d0', '--w1', '--w2', '--w3'].map(cssVar), n)
+}
+/** `n` teintes réparties sur une suite de jetons, interpolées entre jetons voisins. */
+function interpoler(a: string[], n: number): string[] {
+  if (n <= 1) return [a[Math.floor(a.length / 2)]]
   const rvb = a.map(enRvb)
   return Array.from({ length: n }, (_, i) => {
     const t = (i / (n - 1)) * (a.length - 1)
@@ -72,20 +103,22 @@ export function neutre(n: number): string[] {
 }
 /**
  * Couleurs d'une suite d'états sur une carte ou un graphique (règle « juger et alerter en couleur » de l'auteur,
- * 24/09) : la palette de « Lire un bulletin ». Chaque état garde sa couleur ; l'état « bon » prend le vert clair
- * (--good-line), pour que les problèmes ressortent sur une carte presque entièrement conforme. Deux degrés successifs
- * d'une même couleur : le plus grave ressort davantage, et la clarté suit toujours la gravité — l'orange le moins
- * grave en teinte claire (vigilance avant alerte, 30 jours au plus avant plus de 30 jours), le rouge le plus grave
- * en --bad-fort (crise après alerte renforcée, restriction après ébullition). Un rouge clair pour le moins grave,
- * premier essai, passait pour moins grave que l'orange (revue du 24/09). `null` : état sans jugement (« aucun
- * avis »), gris neutre --d0.
+ * 24/09) : la palette de « Lire un bulletin », celle de la carte depuis le 07/10 (paliers --q2 à --q5 de la rampe
+ * RdYlBu). Chaque état garde sa couleur ; l'état « bon » prend le bleu clair (--good-line). Deux degrés successifs :
+ * le moins grave de deux « warn » en jaune (--warn-line : vigilance avant alerte, 30 jours au plus avant plus de 30
+ * jours), le plus grave de deux « bad » en --bad-fort, rouge très sombre qui prolonge la rampe (crise après alerte
+ * renforcée, restriction après ébullition). `null` : état sans jugement (« aucun avis »), gris neutre --d0.
  */
 export function couleursEtats(tons: readonly ('good' | 'warn' | 'bad' | null)[]): string[] {
+  return jetonsEtats(tons).map(cssVar)
+}
+/** Jetons de couleur d'une suite d'états (règle de `couleursEtats`), pour un style CSS qui suit le thème de lui-même. */
+export function jetonsEtats(tons: readonly ('good' | 'warn' | 'bad' | null)[]): string[] {
   return tons.map((t, i) => {
-    if (t === null) return cssVar('--d0')
-    if (t === 'good') return cssVar('--good-line')
-    if (t === 'warn') return cssVar(tons[i + 1] === 'warn' ? '--warn-line' : '--warn')
-    return cssVar(tons[i - 1] === 'bad' ? '--bad-fort' : '--bad')
+    if (t === null) return '--d0'
+    if (t === 'good') return '--good-line'
+    if (t === 'warn') return tons[i + 1] === 'warn' ? '--warn-line' : '--warn'
+    return tons[i - 1] === 'bad' ? '--bad-fort' : '--bad'
   })
 }
 /**

@@ -1,13 +1,14 @@
-import { fmt } from './data'
+import { fmt, majuscule } from './data'
 import { parseSeuil } from './hubeau'
 import {
   classeBacterio,
   classeNitrates,
   codeFamille,
   FAMILLES_SITU,
+  libelleClasse,
   libellesCourts,
-  libellesSituation,
   LIMITE_PFAS_DEFAUT,
+  NITRITES,
   SEUIL_BACT,
   SEUIL_JOURS_PESTICIDES,
   SEUILS_NITRATES,
@@ -38,17 +39,17 @@ export const TEXTES_FAMILLES: Record<FamilleReseau, { titre: string; methode: st
   pesticides: {
     titre: 'Pesticides et métabolites',
     methode: 'Durée des dépassements dans l’année, selon le bilan national.',
-    lecture: `Conforme, dépassements de ${SEUIL_JOURS_PESTICIDES}${NBSP}jours cumulés au plus, de plus de ${SEUIL_JOURS_PESTICIDES}${NBSP}jours, ou restriction de consommation.`,
+    lecture: `Le bilan national distingue quatre classes : conforme, dépassements pendant ${SEUIL_JOURS_PESTICIDES}${NBSP}jours cumulés au plus, dépassements pendant plus de ${SEUIL_JOURS_PESTICIDES}${NBSP}jours, restriction de consommation.`,
   },
   azote: {
     titre: 'Nitrates',
-    methode: 'Classe de la concentration maximale de l’année.',
-    lecture: `Moins de ${N1}, de ${N1} à ${N2}, de ${N2} à ${N3}${NBSP}mg/L : conforme. Au-delà de ${N3}${NBSP}mg/L, limite de qualité dépassée.`,
+    methode: 'Tranche de la concentration maximale de l’année.',
+    lecture: `Une concentration maximale de moins de ${N1}, de ${N1} à ${N2} ou de ${N2} à ${N3}${NBSP}mg/L est conforme. Au-delà de ${N3}${NBSP}mg/L, la limite de qualité est dépassée.`,
   },
   pfas: {
     titre: 'PFAS',
     methode: 'Conformité à la limite de qualité.',
-    lecture: `Somme de 20 PFAS comparée à la limite de qualité de ${fmt.sig(LIMITE_PFAS_DEFAUT)}${NBSP}µg/L.`,
+    lecture: `La somme de 20 PFAS est comparée à la limite de qualité de ${fmt.sig(LIMITE_PFAS_DEFAUT)}${NBSP}µg/L.`,
   },
   microbio: {
     titre: 'Bactériologie',
@@ -59,6 +60,12 @@ export const TEXTES_FAMILLES: Record<FamilleReseau, { titre: string; methode: st
     titre: 'Métaux et minéraux',
     methode: 'Conformité aux limites de qualité.',
     lecture: 'Chaque paramètre est comparé à sa limite de qualité (plomb, arsenic, fluorures…).',
+  },
+  autres: {
+    titre: 'Autres limites de qualité',
+    methode: 'Conformité aux limites de qualité.',
+    lecture:
+      'Chaque paramètre est comparé à sa limite de qualité : sous-produits de la désinfection (trihalométhanes, chlorates, chlorites), solvants chlorés, nitrites, turbidité au point de mise en distribution…',
   },
 }
 
@@ -124,13 +131,20 @@ export interface ValeursReseau {
 }
 
 const estFamilleReseau = (f: string): f is FamilleReseau => (FAMILLES_SITU as readonly string[]).includes(f)
+/**
+ * Famille du bulletin d'un paramètre : les paramètres organiques et physico-chimiques à limite forment « autres », avec
+ * les nitrites (NITRITES), que la classe des nitrates ne juge pas.
+ */
+export const familleBulletin = (f: string, code?: string): string =>
+  f === 'organiques' || f === 'physico_chimie' || code === NITRITES ? 'autres' : f
 
 export function valeursReseau(stats: CommuneYearStats | undefined, params: Record<string, ParamInfo>): ValeursReseau {
   const enCause: ValeursReseau['enCause'] = {}
   for (const [code, analyses, depassements, , , max] of stats?.dep ?? []) {
     const info = params[code]
-    if (!info || !estFamilleReseau(info.f)) continue
-    ;(enCause[info.f] ??= []).push({ code, libelle: info.l, analyses, depassements, max, unite: info.u, limite: info.lim })
+    const f = info ? familleBulletin(info.f, code) : ''
+    if (!info || !estFamilleReseau(f)) continue
+    ;(enCause[f] ??= []).push({ code, libelle: info.l, analyses, depassements, max, unite: info.u, limite: info.lim })
   }
   const [, nc, ne] = stats?.plv ?? []
   const lim = parseSeuil(params[SOMME_PFAS]?.lim).max
@@ -249,19 +263,20 @@ function regletteBacterio(b: ValeursReseau['bacterio']): Reglette {
 function paliers(f: FamilleReseau, classe: number | null): Paliers {
   return {
     forme: 'paliers',
-    classes: libellesCourts(f).map((t, i) => ({ t: t[0].toUpperCase() + t.slice(1), ton: toneSituation(f, i) })),
+    classes: libellesCourts(f).map((t, i) => ({ t: majuscule(t), ton: toneSituation(f, i) })),
     actif: classe,
   }
 }
 
 /** Instrument d'une famille : classe et ton du code de situation, valeur placée si la garde l'admet. */
-export function instrument(f: FamilleReseau, classe: number | null, v: ValeursReseau): Instrument {
+export function instrument(f: FamilleReseau, classe: number | null, v: ValeursReseau, annee?: string | number): Instrument {
   const garde = valeurCoherente(f, classe, v)
   const commun = {
     famille: f,
     classe,
     ton: classe == null ? null : toneSituation(f, classe),
-    libelle: classe == null ? NON_ANALYSEE : libellesSituation(f)[classe],
+    // Libellé de l'année, comme le verdict (millésime partiel : « conforme depuis le 1er janvier »).
+    libelle: classe == null ? NON_ANALYSEE : libelleClasse(f, classe, annee),
     enCause: v.enCause[f] ?? [],
   }
   switch (f) {
@@ -276,10 +291,15 @@ export function instrument(f: FamilleReseau, classe: number | null, v: ValeursRe
   }
 }
 
-/** Les cinq instruments d'un réseau pour une année, dans l'ordre des bilans. */
-export function instrumentsReseau(stats: CommuneYearStats | undefined, code: string | null | undefined, params: Record<string, ParamInfo>): Instrument[] {
+/** Les six instruments d'un réseau pour une année, dans l'ordre des bilans. */
+export function instrumentsReseau(
+  stats: CommuneYearStats | undefined,
+  code: string | null | undefined,
+  params: Record<string, ParamInfo>,
+  annee?: string | number,
+): Instrument[] {
   const v = valeursReseau(stats, params)
-  return FAMILLES_SITU.map((f) => instrument(f, codeFamille(code, f), v))
+  return FAMILLES_SITU.map((f) => instrument(f, codeFamille(code, f), v, annee))
 }
 
 /**
@@ -300,6 +320,8 @@ export function causeInstrument(i: Instrument): { gras: string | null; texte: st
   if (i.famille === 'azote' || i.ton === 'good' || !i.enCause.length) return null
   const [p, ...autres] = i.enCause
   const max = p.max != null ? `, au plus ${fmt.sig(p.max)}${p.unite ? `${NBSP}${p.unite}` : ''}` : ''
-  const reste = autres.length ? ` ${fmt.nb(autres.length, 'autre paramètre', 'autres paramètres')} au détail.` : ''
+  const reste = autres.length
+    ? ` ${fmt.nb(autres.length, 'autre paramètre a', 'autres paramètres ont')} aussi dépassé ${autres.length > 1 ? 'leur' : 'sa'} limite (voir « Tout le détail »).`
+    : ''
   return { gras: p.libelle, texte: `${fmt.nb(p.depassements, 'analyse')} sur ${fmt.int(p.analyses)} au-dessus de la limite${max}.${reste}` }
 }

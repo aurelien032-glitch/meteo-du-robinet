@@ -8,8 +8,7 @@ const INITIALES = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 /**
  * Maximum de chaque mois de l'année choisie, face à la limite de qualité (maquette du 23/09) : une seule échelle,
  * limite toujours dans le cadre, douze emplacements même sans analyse (« – »). SVG dessiné à la largeur réelle
- * (textes nets), sans ECharts. `juge` : série d'un réseau, dont les mois au-dessus de la limite prennent le ton
- * « non conforme » ; sinon (plusieurs réseaux réunis) tout reste neutre, comme les autres agrégats. Les valeurs sont
+ * (textes nets), sans ECharts. Les mois au-dessus de la limite prennent le ton « non conforme ». Les valeurs sont
  * reprises dans un tableau pour les lecteurs d'écran.
  */
 export default function SerieMensuelle({
@@ -18,7 +17,6 @@ export default function SerieMensuelle({
   annee,
   unite,
   limite,
-  juge = true,
   compact = false,
 }: {
   /** légende du tableau lu par les lecteurs d'écran */
@@ -27,7 +25,6 @@ export default function SerieMensuelle({
   annee: string
   unite: string
   limite: number | null
-  juge?: boolean
   compact?: boolean
 }) {
   const boite = useRef<HTMLDivElement>(null)
@@ -47,7 +44,8 @@ export default function SerieMensuelle({
   const { haut, graduations } = echelleSerie(r.maximum, limite)
   const W = Math.max(compact ? 220 : 280, largeur || (compact ? 320 : 640))
   const H = compact ? 150 : W < 520 ? 190 : 220
-  const m = { t: 24, r: 8, b: 24, l: compact ? 36 : 44 }
+  // Marge du haut : l'étiquette de la limite ; marge du bas : la rangée des repères de mois (« – », « ○ ») puis les initiales.
+  const m = { t: 30, r: 8, b: 38, l: compact ? 36 : 44 }
   const iw = W - m.l - m.r
   const ih = H - m.t - m.b
   const y = (v: number) => m.t + ih - (Math.min(v, haut) / haut) * ih
@@ -56,9 +54,16 @@ export default function SerieMensuelle({
   const parMois = new Map(serie.map((x) => [Number(x.mois.slice(5, 7)) - 1, x]))
   const val = (v: number) => `${fmt.sig(v)}${unite ? `${NBSP}${unite}` : ''}`
   const base = Math.round(y(0)) + 0.5
+  // Mois sans analyse et mois analysés sans valeur quantifiée : distingués sous l'axe, jamais confondus avec une barre de
+  // hauteur nulle ni masqués par la ligne de limite proche de la base (critique UX du 2026-10-05, Rennes, novembre).
+  const sansAnalyse = INITIALES.some((_, i) => !parMois.get(i)?.analyses)
+  const nonQuantifie = INITIALES.some((_, i) => {
+    const x = parMois.get(i)
+    return !!x?.analyses && !(x.max != null && x.max > 0)
+  })
 
   return (
-    <div className={`serie${juge ? '' : ' serie--neutre'}${compact ? ' serie--compacte' : ''}`}>
+    <div className={`serie${compact ? ' serie--compacte' : ''}`}>
       <div className="serie-graphe" ref={boite}>
         <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} aria-hidden="true" focusable="false">
           {limite != null && <rect className="serie-zone" x={m.l} y={m.t} width={iw} height={Math.max(0, y(limite) - m.t)} />}
@@ -77,7 +82,7 @@ export default function SerieMensuelle({
             const cx = m.l + bande * i + bande / 2
             const v = x?.max
             let barre = null
-            if (v != null) {
+            if (v != null && v > 0) {
               const h = Math.max(1, y(0) - y(v))
               const x0 = cx - bw / 2
               const y0 = y(v)
@@ -92,11 +97,14 @@ export default function SerieMensuelle({
               <g key={i} className="serie-mois">
                 <title>{bulle}</title>
                 <rect className="serie-cible" x={m.l + bande * i} y={m.t} width={bande} height={ih} />
-                {barre ?? (
-                  <text className="serie-vide" x={cx} y={y(0) - 6} textAnchor="middle">
-                    –
-                  </text>
-                )}
+                {barre ??
+                  (x?.analyses ? (
+                    <circle className="serie-nq" cx={cx} cy={H - 25} r={3.5} />
+                  ) : (
+                    <text className="serie-vide" x={cx} y={H - 21} textAnchor="middle">
+                      –
+                    </text>
+                  ))}
                 <text x={cx} y={H - 6} textAnchor="middle">
                   {initiale}
                 </text>
@@ -107,13 +115,21 @@ export default function SerieMensuelle({
           {limite != null && (
             <>
               <line className="serie-limite" x1={m.l} x2={W - m.r} y1={y(limite)} y2={y(limite)} />
-              <text className="serie-limite-lab" x={W - m.r} y={y(limite) - 6} textAnchor="end">
+              {/* Étiquette dans la marge du haut, à gauche, avec le trait de la limite en repère : posée sur la ligne, à
+                  droite, elle chevauchait les barres de fin d'année. */}
+              <line className="serie-limite" x1={m.l} x2={m.l + 16} y1={m.t - 13} y2={m.t - 13} />
+              <text className="serie-limite-lab" x={m.l + 22} y={m.t - 9} textAnchor="start">
                 {compact ? 'limite' : 'limite de qualité'} {val(limite)}
               </text>
             </>
           )}
         </svg>
       </div>
+      {(sansAnalyse || nonQuantifie) && (
+        <p className="serie-legende">
+          {[sansAnalyse && '– mois sans analyse', nonQuantifie && '○ mois analysé, aucune valeur quantifiée'].filter(Boolean).join(' · ')}
+        </p>
+      )}
       {/* Masqué dans un div : sur un <table>, `sr-only` ne borne pas la largeur et la page débordait sur mobile. */}
       <div className="sr-only">
         <table>

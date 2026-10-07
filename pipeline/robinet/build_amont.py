@@ -9,27 +9,18 @@ from __future__ import annotations
 
 import json
 import time
-from pathlib import Path
 
 import duckdb
 
 from . import config as C
+from .util import arrondi, dept_site
+from .util import dump as _dump
 
 RESEAU_AEP_BRUTES = "0000000028"  # réseau national de suivi des eaux brutes utilisées pour l'eau potable
 
 
-def _dump(path: Path, obj) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8")
-    print(f"  → {path.relative_to(C.ROOT).as_posix()} ({path.stat().st_size / 1e3:.0f} ko)")
-
-
 def _n(x, d: int = 2):
-    if x is None:
-        return None
-    if isinstance(x, float):
-        return None if x != x else round(x, d)
-    return x
+    return arrondi(x, d)
 
 
 def _glob(sub: str) -> str | None:
@@ -53,16 +44,16 @@ def run() -> None:
         con.execute("""
             CREATE TABLE prel AS
             WITH c AS (
-                SELECT code_ouvrage, annee, max(volume) AS volume, any_value(code_commune_insee) AS code_commune_insee,
-                       any_value(code_departement) AS code_departement, any_value(nom_commune) AS nom_commune,
-                       any_value(nom_ouvrage) AS nom_ouvrage_c, any_value(longitude) AS longitude, any_value(latitude) AS latitude
+                SELECT code_ouvrage, annee, max(volume) AS volume, min(code_commune_insee) AS code_commune_insee,
+                       min(code_departement) AS code_departement, min(nom_commune) AS nom_commune,
+                       min(nom_ouvrage) AS nom_ouvrage_c, min(longitude) AS longitude, min(latitude) AS latitude
                 FROM chro WHERE volume IS NOT NULL AND volume > 0 GROUP BY 1, 2)
             SELECT c.code_ouvrage, c.annee, c.volume, c.code_commune_insee, c.code_departement, c.nom_commune,
                    coalesce(o.code_type_milieu, 'INC') AS milieu, coalesce(o.nom_ouvrage, c.nom_ouvrage_c) AS nom_ouvrage,
                    c.longitude, c.latitude
             FROM c LEFT JOIN (SELECT DISTINCT ON (code_ouvrage) * FROM ouv) o USING (code_ouvrage)""")
         nat = con.execute("""
-            SELECT annee, sum(volume), sum(volume) FILTER (WHERE milieu = 'SOUT'), sum(volume) FILTER (WHERE milieu = 'CONT'),
+            SELECT annee, CAST(sum(CAST(volume AS DECIMAL(38,10))) AS DOUBLE), CAST(sum(CAST(volume AS DECIMAL(38,10))) FILTER (WHERE milieu = 'SOUT') AS DOUBLE), CAST(sum(CAST(volume AS DECIMAL(38,10))) FILTER (WHERE milieu = 'CONT') AS DOUBLE),
                    count(DISTINCT code_ouvrage), count(DISTINCT code_departement)
             FROM prel GROUP BY 1 ORDER BY 1""").fetchall()
         out["bnpe"]["annees"] = {a: {"volume": _n(v, 0), "sout": _n(s, 0), "cont": _n(sup, 0), "n_ouvrages": n, "n_depts": nd}
@@ -72,7 +63,7 @@ def run() -> None:
         ref = max(complete) if complete else max(out["bnpe"]["annees"])
         out["bnpe"]["annee_ref"] = ref
         for dep, v, s, n, top in con.execute(f"""
-                SELECT code_departement, sum(volume), sum(volume) FILTER (WHERE milieu = 'SOUT'), count(DISTINCT code_ouvrage),
+                SELECT code_departement, CAST(sum(CAST(volume AS DECIMAL(38,10))) AS DOUBLE), CAST(sum(CAST(volume AS DECIMAL(38,10))) FILTER (WHERE milieu = 'SOUT') AS DOUBLE), count(DISTINCT code_ouvrage),
                        (SELECT list(struct_pack(nom := nom_ouvrage, commune := code_commune_insee, volume := volume, milieu := milieu))
                         FROM (SELECT * FROM prel p2 WHERE p2.code_departement = p.code_departement AND p2.annee = {ref}
                               ORDER BY volume DESC LIMIT 5))
@@ -80,8 +71,8 @@ def run() -> None:
             out["bnpe"].setdefault("depts", {})[dep] = {"volume": _n(v, 0), "part_sout": _n((s or 0) / v, 3) if v else None,
                                                         "n_ouvrages": n, "top": top}
         for dep, insee, code, nom, milieu, lon, lat, vols in con.execute("""
-                SELECT code_departement, code_commune_insee, code_ouvrage, any_value(nom_ouvrage), any_value(milieu),
-                       any_value(longitude), any_value(latitude),
+                SELECT code_departement, code_commune_insee, code_ouvrage, min(nom_ouvrage), min(milieu),
+                       min(longitude), min(latitude),
                        map_from_entries(list(struct_pack(k := CAST(annee AS VARCHAR), v := volume) ORDER BY annee))
                 FROM prel WHERE annee >= 2012 GROUP BY 1, 2, 3""").fetchall():
             d = depts.setdefault(dep, {"ouvrages": {}, "nappes": {}})
@@ -95,8 +86,8 @@ def run() -> None:
         con.execute(f"CREATE VIEW ventes AS SELECT * FROM read_json_auto({bnvd}, union_by_name=true)")
         out["bnvd"]["annees"] = {}
         for a, q, herb, fong, ins, nd in con.execute("""
-                SELECT annee, sum(quantite), sum(quantite) FILTER (WHERE fonction ILIKE 'herbicide%'),
-                       sum(quantite) FILTER (WHERE fonction ILIKE 'fongicide%'), sum(quantite) FILTER (WHERE fonction ILIKE 'insecticide%'),
+                SELECT annee, CAST(sum(CAST(quantite AS DECIMAL(38,10))) AS DOUBLE), CAST(sum(CAST(quantite AS DECIMAL(38,10))) FILTER (WHERE fonction ILIKE 'herbicide%') AS DOUBLE),
+                       CAST(sum(CAST(quantite AS DECIMAL(38,10))) FILTER (WHERE fonction ILIKE 'fongicide%') AS DOUBLE), CAST(sum(CAST(quantite AS DECIMAL(38,10))) FILTER (WHERE fonction ILIKE 'insecticide%') AS DOUBLE),
                        count(DISTINCT code_departement)
                 FROM ventes GROUP BY 1 ORDER BY 1""").fetchall():
             out["bnvd"]["annees"][a] = {"kg": _n(q, 0), "herbicides": _n(herb, 0), "fongicides": _n(fong, 0), "insecticides": _n(ins, 0), "n_depts": nd}
@@ -105,14 +96,14 @@ def run() -> None:
         out["bnvd"]["annee_ref"] = ref
         out["bnvd"]["top_substances"] = [
             {"s": s, "f": f, "kg": _n(q, 0), "cas": cas} for s, f, q, cas in con.execute(f"""
-                SELECT libelle_substance, any_value(fonction), sum(quantite), any_value(code_cas) FROM ventes
-                WHERE annee = {ref} GROUP BY 1 ORDER BY 3 DESC LIMIT 30""").fetchall()]
+                SELECT libelle_substance, min(fonction), CAST(sum(CAST(quantite AS DECIMAL(38,10))) AS DOUBLE), min(code_cas) FROM ventes
+                WHERE annee = {ref} GROUP BY 1 ORDER BY 3 DESC, 1 LIMIT 30""").fetchall()]
         for dep, q, herb, fong, top in con.execute(f"""
-                SELECT code_departement, sum(quantite), sum(quantite) FILTER (WHERE fonction ILIKE 'herbicide%'),
-                       sum(quantite) FILTER (WHERE fonction ILIKE 'fongicide%'),
-                       (SELECT list(struct_pack(s := libelle_substance, kg := round(kg, 0)))
-                        FROM (SELECT libelle_substance, sum(quantite) kg FROM ventes v2
-                              WHERE v2.code_departement = v.code_departement AND v2.annee = {ref} GROUP BY 1 ORDER BY 2 DESC LIMIT 8))
+                SELECT code_departement, CAST(sum(CAST(quantite AS DECIMAL(38,10))) AS DOUBLE), CAST(sum(CAST(quantite AS DECIMAL(38,10))) FILTER (WHERE fonction ILIKE 'herbicide%') AS DOUBLE),
+                       CAST(sum(CAST(quantite AS DECIMAL(38,10))) FILTER (WHERE fonction ILIKE 'fongicide%') AS DOUBLE),
+                       (SELECT list(struct_pack(s := libelle_substance, kg := round(kg, 0)) ORDER BY kg DESC, libelle_substance)
+                        FROM (SELECT libelle_substance, CAST(sum(CAST(quantite AS DECIMAL(38,10))) AS DOUBLE) kg FROM ventes v2
+                              WHERE v2.code_departement = v.code_departement AND v2.annee = {ref} GROUP BY 1 ORDER BY 2 DESC, 1 LIMIT 8))
                 FROM ventes v WHERE annee = {ref} GROUP BY 1""").fetchall():
             out["bnvd"].setdefault("depts", {})[dep] = {"kg": _n(q, 0), "herbicides": _n(herb, 0), "fongicides": _n(fong, 0), "top": top}
         print(f"  BNV-D : {len(out['bnvd']['annees'])} années, référence {ref}")
@@ -126,15 +117,17 @@ def run() -> None:
             CREATE OR REPLACE VIEW ana AS
             SELECT code_bss, num_departement, code_insee_actuel, longitude, latitude, resultat,
                    CAST(year(CAST(date_debut_prelevement AS TIMESTAMP)) AS INTEGER) AS annee,
+                   CAST(date_debut_prelevement AS VARCHAR) AS date_plv,
                    list_contains(codes_reseau, '{RESEAU_AEP_BRUTES}') AS aep
             FROM read_json_auto({files}, union_by_name=true, maximum_object_size=67108864)
             WHERE resultat IS NOT NULL""")
         con.execute("""
             CREATE OR REPLACE TABLE pts AS
-            SELECT code_bss, any_value(num_departement) AS dept, any_value(code_insee_actuel) AS insee,
-                   any_value(longitude) AS lon, any_value(latitude) AS lat, bool_or(aep) AS aep,
-                   max(annee) AS derniere_annee, count(*) AS n, max(resultat) AS vmax, avg(resultat) AS vmoy,
-                   arg_max(resultat, annee) AS vlast
+            SELECT code_bss, min(num_departement) AS dept, min(code_insee_actuel) AS insee,
+                   min(longitude) AS lon, min(latitude) AS lat, bool_or(aep) AS aep,
+                   max(annee) AS derniere_annee, count(*) AS n, max(resultat) AS vmax, avg(CAST(resultat AS DECIMAL(38,10))) AS vmoy,
+                   -- dernière valeur : celle du dernier prélèvement daté, la plus haute à date égale (déterministe)
+                   arg_max(resultat, (date_plv, resultat)) AS vlast
             FROM ana GROUP BY 1""")
         nat = con.execute(f"""
             SELECT count(*), count(*) FILTER (WHERE vmax > {seuil}), count(*) FILTER (WHERE vmax > {demi}),
@@ -164,14 +157,15 @@ def run() -> None:
             SELECT code_station, libelle_station, longitude, latitude, resultat,
                    -- l'API ne renvoie pas le département : on le lit dans le nom du fichier de cache (<dept>.json)
                    regexp_extract(filename, '([^/]+)[.]json$', 1) AS code_departement,
-                   CAST(substr(CAST(date_prelevement AS VARCHAR), 1, 4) AS INTEGER) AS annee
+                   CAST(substr(CAST(date_prelevement AS VARCHAR), 1, 4) AS INTEGER) AS annee,
+                   CAST(date_prelevement AS VARCHAR) AS date_plv
             FROM read_json_auto({files}, union_by_name=true, maximum_object_size=67108864, filename=true)
             WHERE resultat IS NOT NULL""")
         con.execute("""
             CREATE OR REPLACE TABLE stations AS
-            SELECT code_station, any_value(libelle_station) AS nom, any_value(code_departement) AS dept,
-                   any_value(longitude) AS lon, any_value(latitude) AS lat, max(annee) AS derniere_annee, count(*) AS n,
-                   max(resultat) AS vmax, avg(resultat) AS vmoy, arg_max(resultat, annee) AS vlast
+            SELECT code_station, min(libelle_station) AS nom, min(code_departement) AS dept,
+                   min(longitude) AS lon, min(latitude) AS lat, max(annee) AS derniere_annee, count(*) AS n,
+                   max(resultat) AS vmax, avg(CAST(resultat AS DECIMAL(38,10))) AS vmoy, arg_max(resultat, (date_plv, resultat)) AS vlast
             FROM riv GROUP BY 1""")
         nat = con.execute(f"""
             SELECT count(*), count(*) FILTER (WHERE vmax > {seuil}), count(*) FILTER (WHERE vmax > {demi}), quantile_cont(vmoy, 0.5)
@@ -198,7 +192,7 @@ def run() -> None:
         ref = str(max(complete)) if complete else str(max(meta["annees"]))
         out["croisement"]["annee_robinet"] = int(ref)
         for sise, by_year in th["depts"].items():
-            dep = sise[1:] if len(sise) == 3 and sise.startswith("0") else sise
+            dep = dept_site(sise)
             v = by_year.get(ref)
             if not v or not v["res_tot"]:
                 continue

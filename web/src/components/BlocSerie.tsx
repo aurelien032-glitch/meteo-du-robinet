@@ -1,50 +1,45 @@
-import SerieMensuelle from './SerieMensuelle'
-import { parseSeuil } from '../lib/hubeau'
-import { phraseSerie, type MoisSerie } from '../lib/serie'
-import type { ParamInfo } from '../lib/types'
+import SerieFamille from './SerieFamille'
+import type { GraphiqueFamille } from '../lib/serie'
+import type { ParamInfo, SeriesReseauxFile } from '../lib/types'
 
 /**
- * Bloc « {paramètre}, maximum de chaque mois en {année} », sous le bulletin d'une fiche commune ou réseau : la série qui
- * explique le bulletin du réseau affiché (lib/serie.ts, parametreSerie), sa phrase de résumé en dessous.
+ * Bloc « Maximum de chaque mois en {année} », sous le bulletin d'une fiche commune ou réseau : un graphique par famille
+ * en cause dans le bulletin du réseau affiché (lib/serie.ts, graphiquesBulletin), chacun avec le menu des paramètres
+ * de la famille au-dessus de leur limite.
  */
 export default function BlocSerie({
-  parametre,
-  info,
+  graphiques,
+  fichier,
   reseau,
-  annee,
-  serie,
+  nom,
+  params,
   precision = '',
 }: {
-  parametre: string
-  info: ParamInfo | undefined
-  /** nom du réseau */
+  graphiques: GraphiqueFamille[]
+  fichier: SeriesReseauxFile
+  /** code du réseau */
   reseau: string
-  annee: string
-  serie: MoisSerie[]
-  /** complément après le nom du réseau (« , celui qu’affiche le bulletin ») */
+  /** nom du réseau */
+  nom: string
+  params: Record<string, ParamInfo>
+  /** complément après le nom du réseau (« , affiché dans le bulletin ») */
   precision?: string
 }) {
-  const nom = info?.k ?? info?.l ?? parametre
-  const unite = info?.u ?? ''
   return (
     <section className="bloc-serie" aria-labelledby="serie-titre">
       <div className="bloc-tete">
-        <h2 id="serie-titre">
-          {nom}, maximum de chaque mois en {annee}
-        </h2>
+        <h2 id="serie-titre">Maximum de chaque mois en {fichier.annee}</h2>
         <p className="cap">
-          Réseau {reseau}
-          {precision} ; un mois sans barre n’a pas eu d’analyse.
+          Réseau {nom}
+          {precision}. Un graphique par famille en cause dans le bulletin. Un mois sans barre correspond à un mois sans
+          analyse.
         </p>
       </div>
-      <SerieMensuelle
-        titre={`${nom}, maximum de chaque mois en ${annee}, réseau ${reseau}`}
-        serie={serie}
-        annee={annee}
-        unite={unite}
-        limite={parseSeuil(info?.lim).max ?? null}
-      />
-      <p className="serie-resume">{phraseSerie(serie, annee, unite)}</p>
+      <div className="multiples series-bulletin">
+        {graphiques.map((g) => (
+          <SerieFamille key={`${reseau}-${fichier.annee}-${g.famille}`} famille={g.famille} parametres={g.parametres} fichier={fichier} reseaux={[reseau]} params={params} />
+        ))}
+      </div>
     </section>
   )
 }

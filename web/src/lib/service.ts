@@ -1,6 +1,9 @@
+import { ligneBilan } from './bilan'
 import { fmt } from './data'
-import { codeFamille } from './situations'
-import type { DeptFile, ReseauInfo } from './types'
+import { nomCompletReseau, nomLisibleReseau } from './nomsReseaux'
+import { renseigne } from './sispea'
+import { classeArs, codeFamille, situationReseau, toneSituation, type LettreArs, type SituationsFile, type Ton } from './situations'
+import type { DeptFile, ReseauInfo, SispeaNationalFile, SispeaServicesIndex, SispeaYear } from './types'
 
 /**
  * Fiche service (pages/Service.tsx). La SISPEA rattache des COMMUNES à un service ; le contrôle sanitaire
@@ -15,6 +18,27 @@ import type { DeptFile, ReseauInfo } from './types'
  * distincts du SIECT en 2025) ; seul le pipeline, qui voit les références des prélèvements, peut les
  * dédoublonner.
  */
+
+/**
+ * Où lire la fiche d'un service : l'index (sispea/services-index.json) donne son département, dont le fichier
+ * (sispea/services/<dd>.json) porte la fiche. Vérification du 27/09 : trois services présents dans l'index sans
+ * département (351134, CA Privas Centre Ardèche, que la recherche propose) laissaient la page en chargement, le
+ * fichier n'étant jamais demandé. Chaque issue a désormais sa réponse ; `nom` : collectivité, à défaut entité, si
+ * l'index la connaît.
+ */
+export type RoutageService =
+  | { etat: 'attente' }
+  | { etat: 'inconnu' }
+  | { etat: 'sans-departement'; nom: string | null }
+  | { etat: 'fichier'; chemin: string }
+
+export function routageService(index: SispeaServicesIndex | null | undefined, id: string): RoutageService {
+  if (!index) return { etat: 'attente' }
+  // hasOwn : « /service/constructor » ne doit pas trouver une méthode d'Object dans l'index.
+  const e = Object.hasOwn(index, id) ? index[id] : undefined
+  if (!e) return { etat: 'inconnu' }
+  return e[1] ? { etat: 'fichier', chemin: `sispea/services/${e[1]}.json` } : { etat: 'sans-departement', nom: e[0] ?? e[4] }
+}
 
 /** Un réseau qui dessert au moins une commune du service l'année considérée. */
 export interface ReseauDuService {
@@ -88,7 +112,9 @@ export interface CompteSituations {
   restr: number
 }
 
-/** Compte des réseaux par situation, au sens des bilans officiels (codeFamille, lib/situations.ts). */
+/**
+ * Compte des réseaux par situation, au sens des bilans officiels (codeFamille, lib/situations.ts).
+ */
 export function compteSituations(codes: readonly (string | null | undefined)[]): CompteSituations {
   const t: CompteSituations = { n: 0, nc: 0, restr: 0 }
   for (const c of codes) {
@@ -101,7 +127,17 @@ export function compteSituations(codes: readonly (string | null | undefined)[]):
   return t
 }
 
-/** L'agrégat en une phrase, sans couleur de jugement : la couleur reste aux réseaux, un par un. */
+/**
+ * Ton du voyant d'un agrégat (choix de l'auteur du 04/10, « la palette couleur partout ») : celui du réseau le plus
+ * défavorable, comme la carte communale (restriction ou consigne, sinon non conforme, sinon conforme) ; null sans réseau
+ * analysé. La phrase qui l'accompagne (phraseAgregat) dit les nombres.
+ */
+export function tonAgregat({ n, nc, restr }: CompteSituations): Ton | null {
+  if (n === 0) return null
+  return toneSituation('toutes', restr ? 2 : nc ? 1 : 0)
+}
+
+/** L'agrégat en une phrase ; son voyant prend le ton du réseau le plus défavorable (tonAgregat). */
 export function phraseAgregat({ n, nc, restr }: CompteSituations): string {
   if (n === 0) return 'Aucun réseau analysé'
   if (n === 1)
@@ -112,4 +148,74 @@ export function phraseAgregat({ n, nc, restr }: CompteSituations): string {
         : 'Le réseau analysé est non conforme pour au moins une famille'
   if (nc === 0) return `Les ${fmt.int(n)} réseaux analysés sont conformes aux limites réglementaires`
   return `${fmt.nb(nc, 'réseau non conforme', 'réseaux non conformes')} sur ${fmt.int(n)}${restr ? `, dont ${fmt.int(restr)} sous restriction ou consigne` : ''}`
+}
+
+/** Indicateurs SISPEA de la fiche service, face à la médiane France (clé de sispea/national.json). */
+export const INDICATEURS_SERVICE: { code: string; label: string; unit: string; nat: keyof Pick<SispeaYear, 'prix' | 'rend' | 'ilp' | 'renouv' | 'cbact' | 'cchim' | 'patrim' | 'impayes'> }[] = [
+  { code: 'D102.0', label: 'Prix TTC du m³ (120 m³/an)', unit: '€', nat: 'prix' },
+  { code: 'P104.3', label: 'Rendement du réseau', unit: '%', nat: 'rend' },
+  { code: 'P106.3', label: 'Pertes en réseau', unit: 'm³/km/j', nat: 'ilp' },
+  { code: 'P107.2', label: 'Renouvellement annuel', unit: '%', nat: 'renouv' },
+  { code: 'P101.1', label: 'Conformité microbiologique déclarée', unit: '%', nat: 'cbact' },
+  { code: 'P102.1', label: 'Conformité physico-chimique déclarée', unit: '%', nat: 'cchim' },
+  { code: 'P103.2B', label: 'Connaissance du patrimoine', unit: '/120', nat: 'patrim' },
+  { code: 'P154.0', label: 'Taux d’impayés', unit: '%', nat: 'impayes' },
+]
+
+/**
+ * Millésime national auquel comparer un service : le sien, s'il est assez déclaré (au moins 3 000 services avec un
+ * prix, même garde que la page Services), sinon le dernier qui l'est, plutôt que la poignée de déclarants précoces
+ * d'une année neuve.
+ */
+export function anneeMediane(nat: SispeaNationalFile, anneeInd: number | null | undefined): string | undefined {
+  const annees = Object.keys(nat.annees).filter((a) => (nat.annees[a].prix.n ?? 0) >= 3000).sort()
+  const a = anneeInd ? String(anneeInd) : undefined
+  return a && annees.includes(a) ? a : annees[annees.length - 1]
+}
+
+/** Ligne de la liste « Ses réseaux en {année} » : nom, distributeur, situation de l'année. */
+export interface LigneReseauService {
+  r: ReseauDuService
+  /** nom lisible (lib/nomsReseaux) */
+  nom: string
+  dist: string | null
+  s: ReturnType<typeof situationReseau>
+  /** note A–D calculée par le site (classeArs), null sans note */
+  lettre: LettreArs | null
+  /** cause courte de la note, celle du bilan des fiches (ligneBilan) */
+  cause: string
+}
+
+/**
+ * Réseaux d'un service, de la note la plus défavorable à la plus favorable, les réseaux sans note en dernier (refonte du
+ * 2026-10-05 : la note A–D de chaque réseau, comme les fiches commune et réseau, et non plus « non conforme » dès un
+ * dépassement).
+ */
+export function lignesReseauxService(
+  reseaux: readonly ReseauDuService[],
+  situ: SituationsFile,
+  annee: string,
+  /** code INSEE → nom officiel : la commune de tête du nom d'un réseau sous sa forme officielle (nomCompletReseau) */
+  noms?: ReadonlyMap<string, string>,
+): LigneReseauService[] {
+  return reseaux
+    .map((r) => {
+      const nom = (noms ? nomCompletReseau(r.info.nom, r.communes.map((c) => noms.get(c) ?? c)) : nomLisibleReseau(r.info.nom)) || r.code
+      const b = ligneBilan({ code: r.code, nom, situation: situ.reseaux[r.code] ?? null, ars: classeArs(situ, r.code) }, annee)
+      return { r, nom, dist: renseigne(r.info.dist), s: situationReseau(situ.reseaux[r.code], annee), lettre: b.lettre, cause: b.cause }
+    })
+    .sort((a, b) => (b.lettre ?? '').localeCompare(a.lettre ?? '') || a.nom.localeCompare(b.nom, 'fr'))
+}
+
+/** Les notes des réseaux d'un service en une phrase : « 12 réseaux notés C et 1 réseau noté A ». */
+export function phraseNotesReseaux(lignes: readonly Pick<LigneReseauService, 'lettre'>[]): string {
+  const parts: string[] = []
+  for (const l of ['D', 'C', 'B', 'A'] as const) {
+    const n = lignes.filter((x) => x.lettre === l).length
+    if (n) parts.push(`${fmt.int(n)} ${n > 1 ? 'réseaux notés' : 'réseau noté'} ${l}`)
+  }
+  const sans = lignes.filter((x) => !x.lettre).length
+  if (sans) parts.push(`${fmt.int(sans)} ${sans > 1 ? 'réseaux' : 'réseau'} sans note`)
+  if (!parts.length) return 'Aucun réseau'
+  return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} et ${parts[parts.length - 1]}` : parts[0]
 }

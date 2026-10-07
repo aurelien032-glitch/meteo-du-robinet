@@ -17,7 +17,9 @@ import math
 import time
 
 from . import config as C
-from .build import _dept_of_insee, _dump, _n
+from .util import arrondi as _n
+from .util import dept_of_insee as _dept_of_insee
+from .util import dump as _dump
 
 CLASSES = ["très bas", "bas", "modérément bas", "autour de la normale", "modérément haut", "haut", "très haut"]
 SEUILS = [0.10, 0.20, 0.40, 0.60, 0.80, 0.90]

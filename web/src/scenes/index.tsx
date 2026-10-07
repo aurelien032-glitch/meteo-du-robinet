@@ -10,8 +10,8 @@ import { fmt } from '../lib/data'
 import { useDepartements } from '../lib/geo'
 import { useJson } from '../lib/hooks'
 import { chartPalette, useCleTheme } from '../lib/theme'
-import { linearScale } from '../lib/scale'
-import { serieMedianes } from '../lib/sispea'
+import { qualiteScale } from '../lib/scale'
+import { anneesSispea, serieMedianes } from '../lib/sispea'
 import { deptCode, type AmontFile, type MetaFile, type SispeaNationalFile, type ThemeFile } from '../lib/types'
 import Kpi from '../components/Kpi'
 import ids from './ids.json'
@@ -41,7 +41,7 @@ function PesticidesEffacement() {
       grid: { left: 80, right: 40, top: 60, bottom: 50 },
       xAxis: { type: 'category' as const, data: years.map((y) => ((meta?.partiel ?? []).includes(Number(y)) ? `${y} (en cours)` : y)), ...axisDefaults(), axisLabel: { color: p.text, fontSize: p.fontSize } },
       yAxis: { type: 'value' as const, ...axisDefaults(), axisLabel: { color: p.muted, fontSize: p.fontSize * 0.85 } },
-      series: [{ type: 'bar' as const, data: years.map((y) => ((meta?.partiel ?? []).includes(Number(y)) ? { value: t.national[y].res_dep ?? null, itemStyle: partielItemStyle() } : (t.national[y].res_dep ?? null))), itemStyle: { color: p.mark, borderRadius: [6, 6, 0, 0] }, barMaxWidth: 140, label: { show: true, position: 'top' as const, color: p.text, fontSize: p.fontSize * 1.4, fontWeight: 'bold' as const, formatter: (o: { value?: unknown }) => fmt.int(Number(o.value)) } }],
+      series: [{ type: 'bar' as const, data: years.map((y) => ((meta?.partiel ?? []).includes(Number(y)) ? { value: t.national[y].res_dep ?? null, itemStyle: partielItemStyle() } : (t.national[y].res_dep ?? null))), itemStyle: { color: p.alerte, borderRadius: [6, 6, 0, 0] }, barMaxWidth: 140, label: { show: true, position: 'top' as const, color: p.text, fontSize: p.fontSize * 1.4, fontWeight: 'bold' as const, formatter: (o: { value?: unknown }) => fmt.int(Number(o.value)) } }],
     }
   }, [t, meta, cle])
   if (!option) return <Chargement />
@@ -64,7 +64,7 @@ function PfasDepistage() {
       yAxis: { type: 'value' as const, ...axisDefaults(), axisLabel: { color: p.muted, fontSize: p.fontSize * 0.85 } },
       series: [
         { type: 'bar' as const, name: 'réseaux analysés', data: years.map((y) => t.national[y].res_tot ?? 0), itemStyle: { color: p.series[0] }, barMaxWidth: 110, label: { show: true, position: 'top' as const, color: p.text, fontSize: p.fontSize * 1.2, formatter: (o: { value?: unknown }) => fmt.int(Number(o.value)) } },
-        { type: 'bar' as const, name: 'réseaux au-dessus de 0,1 µg/L', data: years.map((y) => t.national[y].res_dep ?? 0), itemStyle: { color: p.mark }, barMaxWidth: 110, label: { show: true, position: 'top' as const, color: p.text, fontSize: p.fontSize * 1.2, formatter: (o: { value?: unknown }) => fmt.int(Number(o.value)) } },
+        { type: 'bar' as const, name: 'réseaux au-dessus de 0,1 µg/L', data: years.map((y) => t.national[y].res_dep ?? 0), itemStyle: { color: p.alerte }, barMaxWidth: 110, label: { show: true, position: 'top' as const, color: p.text, fontSize: p.fontSize * 1.2, formatter: (o: { value?: unknown }) => fmt.int(Number(o.value)) } },
       ],
     }
   }, [t, meta, cle])
@@ -74,7 +74,7 @@ function PfasDepistage() {
 
 function PrixFuites() {
   const nat = useJson<SispeaNationalFile>('sispea/national.json').data
-  const years = nat ? Object.keys(nat.annees).filter((y) => nat.annees[y].prix.n >= 3000).sort() : []
+  const years = anneesSispea(nat)
   const y = years[years.length - 1]
   if (!nat || !y) return <Chargement />
   const v = nat.annees[y]
@@ -83,9 +83,9 @@ function PrixFuites() {
   return (
     <div className="grid cols-2">
       <Kpi value={`${fmt.dec(v.prix.pond, 2)} €`} label={`le m³ d'eau potable en ${y}, prix moyen pondéré`} sub={`de ${fmt.dec(v.prix.p10, 2)} à ${fmt.dec(v.prix.p90, 2)} € selon les services`} />
-      <Kpi value={fmt.pct(v.rend.pond == null ? null : 100 - v.rend.pond, 1)} label="de l'eau mise en distribution est perdue en fuites" sub={`rendement pondéré ${fmt.pct(v.rend.pond, 1)}`} />
+      <Kpi value={fmt.pct(v.pertes_vol ?? null, 1)} label="de l'eau mise en distribution est perdue en fuites" sub="volumes déclarés : eau mise en distribution moins eau consommée" />
       <Kpi value={`${fmt.int(v.renouv.p50 ? 100 / v.renouv.p50 : null)} ans`} label="pour renouveler tout le réseau au rythme médian" sub={`${fmt.dec(v.renouv.p50, 2)} % renouvelés par an`} />
-      <Kpi value={fmt.pct(popTot ? (100 * (g.delegation?.pop ?? 0)) / popTot : null, 0)} label="des habitants sont servis par une délégation privée" sub={`prix médian ${fmt.dec(g.delegation?.prix.p50, 2)} € contre ${fmt.dec(g.regie?.prix.p50, 2)} € en régie`} />
+      <Kpi value={fmt.pct(popTot ? (100 * (g.delegation?.pop ?? 0)) / popTot : null, 0)} label="des habitants relèvent d'un service en gestion déléguée" sub={`prix médian ${fmt.dec(g.delegation?.prix.p50, 2)} € contre ${fmt.dec(g.regie?.prix.p50, 2)} € en régie`} />
     </div>
   )
 }
@@ -128,9 +128,10 @@ function NitratesNappeRobinet() {
     }
     return m
   }, [t, last])
-  // Même échelle que la page Thème (0 → maximum observé, 7 paliers), avec sa légende : sans elle la
-  // couleur ne se lit pas, et l'ancien calcul saturait au rouge dès 15 % de réseaux concernés.
-  const scale = useMemo(() => linearScale(0, Math.max(0.05, ...share.values()), { relative: true }), [share, cle])
+  // Même échelle que la page Thème et /carte : la rampe de la qualité de l'eau à paliers fixes (5, 10, 20, 40 %), avec sa
+  // légende.
+  // L'échelle relative à sept paliers de l'ancienne scène ne se comparait à aucune autre carte (audit du 27/09).
+  const scale = useMemo(() => qualiteScale(), [cle])
   const colorOf = useCallback((p: Record<string, unknown>) => scale.color(share.get(String(p.code)) ?? null), [share, scale])
   const nit = am?.ades.nitrates
   return (
@@ -181,14 +182,14 @@ function SecheresseJour() {
 }
 
 const DEFS: Record<string, Omit<SceneDef, 'id'>> = {
-  'pesticides-effacement': { titre: 'Pesticides : 2 900 réseaux, puis 2 000', sousTitre: "Réseaux de distribution avec au moins une analyse au-dessus de la limite de qualité, par millésime. L'eau n'a pas changé, la règle oui.", source: 'Contrôle sanitaire SISE-Eaux, ministère chargé de la Santé', Component: PesticidesEffacement },
-  'pfas-depistage': { titre: "PFAS : l'année où l'on a commencé à regarder", sousTitre: 'Réseaux analysés et réseaux au-dessus de 0,1 µg/L pour la somme des 20 PFAS.', source: 'Contrôle sanitaire SISE-Eaux', Component: PfasDepistage },
-  'prix-fuites': { titre: "L'eau la plus chère et la plus fuyarde", sousTitre: "Les services d'eau potable en quatre chiffres.", source: 'SISPEA, Office français de la biodiversité', Component: PrixFuites },
-  'prix-depuis-2008': { titre: 'Le prix du m³ depuis 2009', sousTitre: 'Prix médian TTC des services déclarants, pour 120 m³ par an. 2019 : trop peu de déclarants pour une médiane fiable.', source: "SISPEA, API Hub'Eau puis extractions annuelles", Component: PrixDepuis2008 },
-  'nitrates-nappe-robinet': { titre: 'Nitrates : de la nappe au robinet', sousTitre: 'Ce qui dépasse 50 mg/L sous terre, et ce qui arrive au robinet.', source: 'ADES (BRGM) et contrôle sanitaire SISE-Eaux', Component: NitratesNappeRobinet },
-  'ventes-robinet': { titre: "Ce qu'on vend, ce qu'on boit", sousTitre: 'Chaque point est un département : tonnes vendues contre part des réseaux touchés.', source: 'BNV-D (OFB) et contrôle sanitaire SISE-Eaux', Component: VentesRobinet },
-  'chloridazone-mois': { titre: 'Chloridazone desphényl, mois par mois', sousTitre: "Un herbicide interdit depuis 2020, dont le métabolite reste le premier dépassement de France.", source: 'Contrôle sanitaire SISE-Eaux', Component: ChloridazoneMois },
-  'secheresse-jour': { titre: "Sécheresse : les restrictions d'aujourd'hui", sousTitre: 'Niveau maximal de restriction par département, en direct.', source: 'VigiEau, ministère de la Transition écologique', Component: SecheresseJour },
+  'pesticides-effacement': { titre: 'Pesticides : de 2 900 à 2 000 réseaux avec un dépassement', sousTitre: "Réseaux de distribution avec au moins une analyse au-dessus de la limite de qualité, par millésime. La baisse résulte d'une modification de la règle d'évaluation ; l'eau distribuée n'a pas changé.", source: 'Contrôle sanitaire SISE-Eaux, ministère chargé de la Santé', Component: PesticidesEffacement },
+  'pfas-depistage': { titre: "PFAS : l'extension de la recherche dans l'eau distribuée", sousTitre: 'Réseaux analysés et réseaux au-dessus de 0,1 µg/L pour la somme des 20 PFAS.', source: 'Contrôle sanitaire SISE-Eaux', Component: PfasDepistage },
+  'prix-fuites': { titre: "Services d'eau : prix, pertes, renouvellement et gestion", sousTitre: "Quatre indicateurs nationaux des services d'eau potable, pour la dernière année disponible.", source: 'SISPEA, Office français de la biodiversité', Component: PrixFuites },
+  'prix-depuis-2008': { titre: 'Le prix du m³ depuis 2009', sousTitre: 'Prix médian TTC des services déclarants, pour une consommation de 120 m³ par an. Pour 2019, les déclarants sont trop peu nombreux pour établir une médiane fiable.', source: "SISPEA, API Hub'Eau puis extractions annuelles", Component: PrixDepuis2008 },
+  'nitrates-nappe-robinet': { titre: 'Nitrates : de la nappe au robinet', sousTitre: 'Dépassements de 50 mg/L de nitrates dans les eaux souterraines suivies et dans l’eau distribuée.', source: 'ADES (BRGM) et contrôle sanitaire SISE-Eaux', Component: NitratesNappeRobinet },
+  'ventes-robinet': { titre: 'Ventes de pesticides et dépassements au robinet', sousTitre: "Chaque point représente un département. L'axe horizontal indique les tonnes de substances vendues, l'axe vertical la part des réseaux avec un dépassement en pesticides.", source: 'BNV-D (OFB) et contrôle sanitaire SISE-Eaux', Component: VentesRobinet },
+  'chloridazone-mois': { titre: 'Chloridazone desphényl, mois par mois', sousTitre: "La chloridazone est un herbicide interdit depuis 2020. Son métabolite reste le paramètre qui compte le plus de dépassements de la limite de qualité en France.", source: 'Contrôle sanitaire SISE-Eaux', Component: ChloridazoneMois },
+  'secheresse-jour': { titre: 'Sécheresse : restrictions du jour', sousTitre: 'Niveau maximal de restriction par département, en direct.', source: 'VigiEau, ministère de la Transition écologique', Component: SecheresseJour },
 }
 
 export const SCENES: SceneDef[] = (ids as string[]).filter((id) => DEFS[id]).map((id) => ({ id, ...DEFS[id] }))

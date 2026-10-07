@@ -30,7 +30,7 @@ const d = (id: string, coll: string, prix: number | null): SispeaCommuneYear => 
 const SISPEA: SispeaDeptFile = {
   '35238': { '2024': d('77654', 'Collectivité Eau du Bassin Rennais (CEBR)', 2.72) },
   '35281': { '2024': d('77654', 'Collectivité Eau du Bassin Rennais (CEBR)', 2.72) },
-  '35999': { '2024': d('11111', 'Autre syndicat', 2.1) },
+  '35999': { '2024': d('111110', 'Autre syndicat', 2.1) },
 }
 
 describe('fiche réseau : ce que dessert le réseau', () => {
@@ -42,7 +42,7 @@ describe('fiche réseau : ce que dessert le réseau', () => {
   })
   it('services de ces communes, chacun une fois, par nom', () => {
     expect(servicesDesCommunes(SISPEA, ['35238', '35281']).map((s) => [s.id, s.nom])).toEqual([['77654', 'Collectivité Eau du Bassin Rennais (CEBR)']])
-    expect(servicesDesCommunes(SISPEA, ['35999', '35238', '35000']).map((s) => s.id)).toEqual(['11111', '77654'])
+    expect(servicesDesCommunes(SISPEA, ['35999', '35238', '35000']).map((s) => s.id)).toEqual(['111110', '77654'])
     expect(servicesDesCommunes(null, ['35238'])).toEqual([])
   })
 })

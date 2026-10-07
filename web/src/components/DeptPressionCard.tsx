@@ -40,7 +40,8 @@ export default function DeptPressionCard({ dd }: { dd: string }) {
         </tbody>
       </table></div>
       <div className="source">
-        Pas de volumes autorisés (arrêtés de DUP) : ils ne sont pas publiés en données ouvertes. « – » : donnée absente ou non comparable.{' '}
+        Les volumes autorisés par les arrêtés de déclaration d'utilité publique (DUP) ne figurent pas dans ce tableau, car ils ne sont pas
+        publiés en données ouvertes. Le signe « – » indique une donnée absente ou non comparable.{' '}
         <Link to={`/ressource`}>Tous les départements</Link>.
       </div>
     </div>

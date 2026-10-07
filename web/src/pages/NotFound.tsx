@@ -15,7 +15,7 @@ export default function NotFound() {
       <p className="lead">Cette adresse ne correspond à aucune page de Météo du robinet — lien périmé ou mal recopié.</p>
       <Search autoFocus placeholder="Nom de la commune ou code INSEE…" />
       <p className="muted">
-        Ou repartez de <Link to="/ma-commune">Ma commune</Link>, de la <Link to="/carte">carte de France</Link>, ou de{' '}
+        Ou repartez de <Link to="/ma-commune">Ma commune</Link>, de la page <Link to="/france">La France</Link>, ou de{' '}
         <Link to="/">l'accueil</Link>.
       </p>
     </div>

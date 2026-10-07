@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { act, createElement, type ReactElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
+import { MemoryRouter, useLocation } from 'react-router-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { instrument, valeursReseau, type Paliers as EchellePaliers, type Reglette } from '../lib/instruments'
 import type { MetaFile } from '../lib/types'
@@ -30,19 +31,39 @@ afterEach(() => {
   document.body.innerHTML = ''
 })
 
+/** Adresse courante du routeur de test (recherche et ancre). */
+function Adresse() {
+  const l = useLocation()
+  return createElement('output', { id: 'adresse' }, `${l.search}${l.hash}`)
+}
+
 describe('BarreAnnee', () => {
-  it('boutons à bascule : l’année choisie enfoncée, « en cours » et « sans données » écrits, le clic choisit', () => {
-    const meta: MetaFile = { annees: [2023, 2024, 2025, 2026], partiel: [2026], construit_le: '2026-09-18', themes: [] }
-    const choisir = vi.fn()
-    const el = rendre(
-      createElement(BarreAnnee, { titre: 'Bilan de l’année', note: 'Le bulletin suit l’année choisie.', annees: anneesFiche(meta, ['2024', '2025']), annee: 2025, onChange: choisir }),
+  const meta: MetaFile = { annees: [2023, 2024, 2025, 2026], partiel: [2026], construit_le: '2026-09-18', themes: [] }
+  const barre = (props: Partial<Parameters<typeof BarreAnnee>[0]>, entree = '/commune/35238') =>
+    createElement(
+      MemoryRouter,
+      { initialEntries: [entree] },
+      createElement(BarreAnnee, { titre: 'Bilan de l’année', note: 'Le bulletin suit l’année choisie.', annees: anneesFiche(meta, ['2024', '2025']), annee: 2025, onChange: vi.fn(), ...props }),
+      createElement(Adresse),
     )
+
+  it('boutons à bascule : l’année choisie enfoncée, « en cours » et « sans données » écrits, le clic choisit', () => {
+    const choisir = vi.fn()
+    const el = rendre(barre({ onChange: choisir }))
     const boutons = [...el.querySelectorAll('button')]
     expect(boutons.map((b) => b.getAttribute('aria-pressed'))).toEqual(['false', 'false', 'true', 'false'])
-    expect(boutons.map((b) => b.textContent)).toEqual(['2023 sans données', '2024', '2025', '2026 en cours sans données'])
+    expect(boutons.map((b) => b.textContent)).toEqual(['2023 sans données', '2024', '2025', '2026 (en cours) sans données'])
     expect(el.querySelector('[role="group"]')?.getAttribute('aria-label')).toBe('Année')
     act(() => boutons[1].click())
     expect(choisir).toHaveBeenCalledWith(2024)
+  })
+  it('écrit l’année affichée dans l’adresse, sous sa clé, en gardant l’ancre (choix de l’auteur, 25/09)', () => {
+    expect(rendre(barre({}, '/commune/35238#avis')).querySelector('#adresse')?.textContent).toBe('?annee=2025#avis')
+    act(() => racine?.unmount())
+    expect(rendre(barre({ param: 'sispea', annee: 2024 }, '/services?indic=rend')).querySelector('#adresse')?.textContent).toBe('?indic=rend&sispea=2024')
+  })
+  it('n’écrit pas une année d’attente que la barre ne propose pas encore (analyses : année civile avant le chargement)', () => {
+    expect(rendre(barre({ annees: [], annee: 2026 })).querySelector('#adresse')?.textContent).toBe('')
   })
 })
 

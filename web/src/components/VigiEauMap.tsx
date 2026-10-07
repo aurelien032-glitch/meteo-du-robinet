@@ -1,19 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useCallback, useMemo } from 'react'
+import { lienDepartement } from '../lib/parcours'
 import FranceMap from './FranceMap'
 import { useDepartements } from '../lib/geo'
 import { couleursEtats, noData } from '../lib/theme'
-import { TONS_SECHERESSE } from '../lib/vigieau'
+import { TONS_SECHERESSE, useVigiEauDepartements, type VigiDept } from '../lib/vigieau'
 
-/** Réponse de https://api.vigieau.gouv.fr/api/departements (extrait). */
-export interface VigiDept {
-  code: string
-  nom: string
-  niveauGraviteMax: string | null
-  niveauGraviteSupMax: string | null
-  niveauGraviteSouMax: string | null
-  niveauGraviteAepMax: string | null
-}
+export type { VigiDept }
 export type Ressource = 'max' | 'sup' | 'sou' | 'aep'
 export const RESSOURCES: { key: Ressource; label: string; field: keyof VigiDept }[] = [
   { key: 'max', label: 'Niveau maximal', field: 'niveauGraviteMax' },
@@ -30,41 +22,16 @@ export const NIVEAUX: { key: string; label: string; ordre: number }[] = [
 ]
 /**
  * Couleur d'un niveau de sécheresse dans le thème courant, la même sur la carte, sa légende, les listes et les
- * graphiques : la palette de « Lire un bulletin » (lib/vigieau.ts, TONS_SECHERESSE) ; de deux degrés d'une même
- * couleur, le plus grave ressort davantage (orange clair puis orange, rouge puis rouge fort).
+ * graphiques : la palette de « Lire un bulletin », celle de la carte (lib/vigieau.ts, TONS_SECHERESSE) : bleu clair,
+ * jaune, orange, rouge, puis rouge très sombre pour la crise.
  */
 export function couleurNiveau(key: string): string {
   const n = NIVEAUX.find((x) => x.key === key)
   return n ? couleursEtats(TONS_SECHERESSE)[n.ordre] : noData()
 }
 
-// Mémorisé au niveau module : la carte et la page Sécheresse appellent chacune useVigiEau() sur le même
-// rendu, sans ce cache elles interrogeraient l'API deux fois et pourraient afficher des états différents
-// le temps que les deux requêtes répondent. Un échec n'est pas gardé en cache, pour être retenté au montage suivant.
-let vigiEauPromise: Promise<VigiDept[]> | null = null
-function fetchVigiEau(): Promise<VigiDept[]> {
-  if (!vigiEauPromise) {
-    const p = fetch('https://api.vigieau.gouv.fr/api/departements').then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-    p.catch(() => {
-      vigiEauPromise = null
-    })
-    vigiEauPromise = p
-  }
-  return vigiEauPromise
-}
-
-export function useVigiEau(): { depts: VigiDept[] | null; error: string | null } {
-  const [depts, setDepts] = useState<VigiDept[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  useEffect(() => {
-    let alive = true
-    fetchVigiEau().then((d) => alive && setDepts(d), (e) => alive && setError(String(e)))
-    return () => {
-      alive = false
-    }
-  }, [])
-  return { depts, error }
-}
+/** Niveaux du jour de tous les départements (lib/vigieau.ts, partagé avec l'accueil, qui n'a pas de carte). */
+export const useVigiEau = useVigiEauDepartements
 
 /** Carte de France des restrictions sécheresse du jour, par département, interrogée en direct chez VigiEau. */
 type Props = {
@@ -83,7 +50,6 @@ type Props = {
 export default function VigiEauMap({ ressource = 'max', height = 560, onHover, selected }: Props) {
   const { deps } = useDepartements()
   const { depts, error } = useVigiEau()
-  const nav = useNavigate()
   const field = RESSOURCES.find((r) => r.key === ressource)!.field
   const byCode = useMemo(() => new Map((depts ?? []).map((d) => [d.code, d])), [depts])
   const colorOf = useCallback(
@@ -110,12 +76,11 @@ export default function VigiEauMap({ ressource = 'max', height = 560, onHover, s
         data={depts || error ? deps : null}
         colorOf={colorOf}
         labelOf={labelOf}
-        onClick={(p) => nav(`/departement/${p.code}`)}
-        actionLabel="Ouvrir la fiche du département →"
+        encart={(dd) => ({ fiche: lienDepartement(dd, { section: 'ressource' }) })}
         onHover={onHover}
         selected={selected}
         height={height}
-        message={error ? `VigiEau injoignable (${error}) : réessayer dans quelques minutes.` : null}
+        message={error ? `Le service VigiEau n'a pas répondu (${error}). Réessayez dans quelques minutes.` : null}
         ariaLabel={`Niveaux de restriction sécheresse par département (${RESSOURCES.find((r) => r.key === ressource)!.label.toLowerCase()})`}
       />
       <div className="legend">
@@ -127,7 +92,7 @@ export default function VigiEauMap({ ressource = 'max', height = 560, onHover, s
             </span>
           ))}
           <span className="legend-item">
-            <span className="swatch" style={{ background: noData() }} aria-hidden="true" /> sans donnée
+            <span className="swatch swatch-nd" aria-hidden="true" /> sans donnée
           </span>
         </span>
       </div>

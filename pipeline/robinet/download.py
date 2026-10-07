@@ -10,15 +10,26 @@ import time
 from pathlib import Path
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from . import config as C
 
 MANIFEST = C.RAW / "manifest.json"
 
 
+# Reprises des requêtes GET (revue du 04/10) : coupure de connexion, délai de lecture dépassé, 429 (en respectant
+# Retry-After) et erreurs 5xx, avec une attente croissante (2, 4, 8, 16 s…). Une erreur 4xx n'est jamais reprise :
+# elle ne changera pas. Une session par appel : la piézométrie interroge Hub'Eau depuis plusieurs fils.
+REPRISES = Retry(total=5, connect=5, read=5, status=5, backoff_factor=2, status_forcelist=(429, 500, 502, 503, 504),
+                 allowed_methods=frozenset({"GET", "HEAD"}), respect_retry_after_header=True, raise_on_status=False)
+
+
 def session() -> requests.Session:
     s = requests.Session()
     s.headers["User-Agent"] = C.USER_AGENT
+    s.mount("https://", HTTPAdapter(max_retries=REPRISES))
+    s.mount("http://", HTTPAdapter(max_retries=REPRISES))
     return s
 
 
@@ -195,6 +206,28 @@ def download_secheresse(*, force: bool = False) -> Path:
         raise RuntimeError("ressource « Arrêtés » introuvable dans le jeu Donnée Sécheresse - VigiEau")
     return fetch(res["url"], C.RAW / "secheresse" / "arretes.csv", version=_resource_version(res),
                  expected_size=res.get("filesize"), force=force)
+
+
+CODES_POSTAUX_DATASET_ID = "545b55e1c751df52de9b6045"  # « Base officielle des codes postaux » (La Poste, licence ouverte)
+CODES_POSTAUX = C.RAW / "codes-postaux" / "laposte-hexasmal.csv"
+
+
+def download_codes_postaux(*, force: bool = False) -> Path:
+    """Base officielle des codes postaux de La Poste (fichier HexaSmal, CSV, environ 1,5 Mo), pour la recherche par code
+    postal (lot 2 de la refonte, 05/10). Ressource CSV du jeu data.gouv.fr, téléchargée seulement quand sa date de
+    modification change. Une panne de data.gouv.fr ou de La Poste ne bloque pas la construction : le fichier déjà en
+    cache sert, et le message le dit ; sans cache, l'erreur remonte."""
+    try:
+        res = [r for r in datagouv_resources(CODES_POSTAUX_DATASET_ID).values() if (r.get("format") or "").lower() == "csv"]
+        if not res:
+            raise RuntimeError("aucune ressource CSV dans le jeu « Base officielle des codes postaux »")
+        r = res[0]
+        return fetch(r["url"], CODES_POSTAUX, version=_resource_version(r), expected_size=r.get("filesize"), force=force)
+    except (requests.RequestException, RuntimeError) as e:
+        if CODES_POSTAUX.exists():
+            print(f"  ! codes postaux : {e} ; le fichier en cache sert ({CODES_POSTAUX.stat().st_size / 1e6:.1f} Mo)")
+            return CODES_POSTAUX
+        raise
 
 
 ZRE_WFS = ("https://services.sandre.eaufrance.fr/geo/zrpe?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature"

@@ -1,5 +1,6 @@
+import TableauDeptsValeur from '../components/TableauDeptsValeur'
 import { useCallback, useMemo, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import Chargement from '../components/Chargement'
 import Crumbs from '../components/Crumbs'
 import FranceMap from '../components/FranceMap'
@@ -13,6 +14,8 @@ import { INDICS_RESSOURCE, fmtRessource, valeurRessource } from '../lib/ressourc
 import { divergingScale, stepScale } from '../lib/scale'
 import { usePageTitle } from '../lib/title'
 import type { RessourceFile } from '../lib/types'
+import { lienDepartement } from '../lib/parcours'
+import IndicInconnu from '../components/IndicInconnu'
 import Kpi from '../components/Kpi'
 
 /**
@@ -29,6 +32,7 @@ export default function Ressource() {
   const { deps, names } = useDepartements()
   const [sp, setSp] = useSearchParams()
   const ind = INDICS_RESSOURCE.find((i) => i.key === sp.get('indic')) ?? INDICS_RESSOURCE[0]
+  const indicInconnu = !!sp.get('indic') && !INDICS_RESSOURCE.some((i) => i.key === sp.get('indic'))
   const setIndic = (k: string) => {
     const next = new URLSearchParams(sp)
     if (k === INDICS_RESSOURCE[0].key) next.delete('indic')
@@ -36,7 +40,6 @@ export default function Ressource() {
     setSp(next, { replace: true })
   }
   const [survol, setSurvol] = useState<string | null>(null)
-  const nav = useNavigate()
   // Tri du tableau complet : colonne et sens, au clic sur l'en-tête (revue du 2026-09-22).
   const [tri, setTri] = useState<{ cle: string; desc: boolean }>({ cle: 'nom', desc: false })
   const val = useCallback((dd: string) => valeurRessource(r?.depts[dd], ind.key), [r, ind])
@@ -51,7 +54,7 @@ export default function Ressource() {
   }, [r, val])
   // Paliers ronds fixes par indicateur ; l'évolution des prélèvements, qui a un zéro, est divergente.
   const scale = useMemo(
-    () => (ind.divergent ? divergingScale(ind.paliers) : stepScale(ind.paliers, { invert: ind.pire === 'bas', ouvertBas: ind.ouvertBas })),
+    () => (ind.divergent ? divergingScale(ind.paliers) : stepScale(ind.paliers, { invert: ind.pire === 'bas', ouvertBas: ind.ouvertBas, rampe: ind.rampe })),
     [ind],
   )
   const fmtV = useCallback((v: number | null) => fmtRessource(ind, v), [ind])
@@ -62,30 +65,35 @@ export default function Ressource() {
     [valeurs, ind],
   )
 
-  if (!r) return <Chargement />
+  if (!r) return <Chargement reserve />
   const n = r.national
   const annee = ind.annee(n)
 
   return (
     <div className="page">
-      <p className="eyebrow">Comprendre</p>
-      <Crumbs items={[{ label: 'Comprendre', to: '/themes' }, { label: 'Pression sur la ressource' }]} />
+      <p className="eyebrow">La ressource</p>
+      <Crumbs items={[{ label: 'La ressource', to: '/ressource-en-eau' }, { label: 'Pression sur la ressource' }]} />
       <h1>Pression sur la ressource en eau potable</h1>
       <p className="lead">
-        Combien on prélève pour l'eau potable, et où ; ce qui se perd en route ; si les captages sont protégés ; et si les nappes et les
-        rivières sont à la peine. Chaque indicateur est montré pour lui-même : les additionner en un score inventerait une pondération.
+        Cette page présente, département par département, les volumes prélevés pour l'eau potable et leur localisation, les pertes en
+        distribution, l'avancement de la protection des captages, l'état des nappes et les restrictions d'usage liées à la sécheresse. Chaque
+        indicateur est présenté séparément, car leur agrégation en un score unique supposerait une pondération arbitraire.
       </p>
       <div className="card note">
-        <b>Ce que ce bilan ne dit pas.</b> La marge entre ce qui est prélevé et ce qui est autorisé : les volumes autorisés figurent dans les
-        arrêtés de déclaration d'utilité publique (DUP) des captages et dans la base des ARS, qui ne sont pas publiés en données ouvertes.
-        Un département peut donc prélever sans dépasser ses autorisations et rester sous forte pression, ou l'inverse.
+        <b>Limites de ce bilan.</b> Les volumes prélevés ne sont pas comparés aux volumes autorisés. Ces derniers figurent dans les arrêtés de
+        déclaration d'utilité publique (DUP) des captages et dans la base des ARS, qui ne sont pas publiés en données ouvertes. Un département
+        peut donc respecter ses autorisations tout en subissant une forte pression sur la ressource, et inversement.
       </div>
 
       <div className="grid cols-4">
         <Kpi value={`${fmt.dec((n.prel_m3 ?? 0) / 1e9, 2)} Md m³`} label={`prélevés pour l'eau potable en ${n.annee_bnpe}`} sub={n.prel_evol == null ? '' : `${n.prel_evol > 0 ? '+' : ''}${fmt.dec(n.prel_evol, 1)} % en cinq ans (moyennes de trois ans)`} />
-        <Kpi value={fmt.pct(n.part_zre, 0)} label="dans une zone de répartition des eaux" sub="déficit structurel reconnu entre ressource et besoins" />
-        <Kpi value={fmt.pct(n.pertes_pct, 0)} label={`de l'eau mise en distribution perdue en fuites (${n.annee_sispea})`} sub={`${fmt.int(n.conso_l_hab_j)} L par habitant et par jour à domicile`} />
-        <Kpi value={fmt.pct(n.protection_moy, 0)} label="d'avancement de la protection des captages" sub="moyenne des services (indicateur SISPEA P108.3)" />
+        <Kpi value={fmt.pct(n.part_zre, 0)} label="des prélèvements d'eau potable faits en zone de répartition des eaux" sub="zones où la ressource manque de façon chronique face aux besoins" />
+        <Kpi value={fmt.pct(n.pertes_pct, 1)} label={`de l'eau mise en distribution perdue en fuites (${n.annee_sispea})`} sub={`${fmt.int(n.conso_l_hab_j)} L par habitant et par jour à domicile`} />
+        <Kpi
+          value={fmt.pct(n.protection_moy, 0)}
+          label="d'avancement des procédures de protection des captages"
+          sub="de 0 % (aucune procédure engagée) à 100 % (protection mise en place et suivie) ; moyenne des services, indicateur SISPEA P108.3"
+        />
       </div>
 
       <div className="toolbar">
@@ -100,6 +108,7 @@ export default function Ressource() {
             ))}
           </select>
         </label>
+        {indicInconnu && <IndicInconnu affiche={ind.label} />}
       </div>
       <div className="grid cols-map">
         <div>
@@ -107,8 +116,7 @@ export default function Ressource() {
             data={deps}
             colorOf={colorOf}
             labelOf={labelOf}
-            onClick={(p) => nav(`/departement/${p.code}`)}
-            actionLabel="Ouvrir la fiche du département →"
+            encart={(dd) => ({ fiche: lienDepartement(dd, { section: 'pressions' }) })}
             onHover={(p) => setSurvol(p ? String(p.code) : null)}
             selected={survol}
             height={540}
@@ -117,30 +125,27 @@ export default function Ressource() {
           <MapLegend desc={`${ind.label} (${ind.unit}, ${annee})`} scale={scale} format={(v) => fmtRessource(ind, v, false)} />
         </div>
         <div className="card">
-          <h3>{ind.pire === 'bas' ? 'Les plus faibles' : ind.pire === 'haut' ? 'Les plus élevés' : 'Du plus haut au plus bas'}</h3>
-          <div className="table-scroll"><table className="data">
-            <caption className="sr-only">Départements classés selon « {ind.label} » ; version textuelle de la carte</caption>
-            <tbody>
-              {classement.slice(0, 14).map(([dd, v]) => (
-                <tr key={dd} className={survol === dd ? 'on' : undefined} onMouseEnter={() => setSurvol(dd)} onMouseLeave={() => setSurvol(null)}>
-                  <td>
-                    <Link to={`/departement/${dd}`}>{names.get(dd) ?? dd}</Link> <span className="muted">({dd})</span>
-                  </td>
-                  <td className="num">
-                    <b>{fmtV(v)}</b>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table></div>
-          <p className="muted">France : {fmtV(valeurRessource(n, ind.key))}</p>
+          <h3>Les départements</h3>
+          <p className="muted">Par ordre alphabétique ; un tri est proposé. France : {fmtV(valeurRessource(n, ind.key))}.</p>
+          <TableauDeptsValeur
+            valeurs={new Map(classement)}
+            noms={names}
+            titre={ind.unit}
+            format={fmtV}
+            quoi={ind.label.toLowerCase()}
+            lien={(dd) => lienDepartement(dd, { section: 'pressions' })}
+            legende={`Départements par ordre alphabétique : ${ind.label} ; version textuelle de la carte`}
+            csv={{ sujet: `ressource-${ind.key}`, annee, entete: `${ind.label} (${ind.unit})` }}
+            selection={survol}
+            onSurvol={setSurvol}
+          />
         </div>
       </div>
 
       {/* Le tableau le plus lourd du site (101 lignes × 9 indicateurs) : replié par défaut (audit du
           2026-09-22). La carte et le classement ci-dessus répondent déjà à « quel département », ce tableau
           sert à comparer un département précis sur tous les indicateurs à la fois. */}
-      <Section key={`tous-les-indicateurs-${densite}`} id="tous-les-indicateurs" titre="Tous les indicateurs, département par département" resume="Le tableau complet, triable, pour comparer un département sur les neuf indicateurs à la fois" ouvert={densite === 'detaille'}>
+      <Section key={`tous-les-indicateurs-${densite}`} id="tous-les-indicateurs" titre="Tous les indicateurs, département par département" resume="Le tableau complet, triable, pour comparer un département sur tous les indicateurs à la fois" ouvert={densite === 'detaille'}>
       <div className="card">
         <p className="muted">Cliquer sur un en-tête pour trier ; le libellé complet et l'année s'affichent au survol.</p>
         <div className="table-scroll haut">
@@ -190,7 +195,7 @@ export default function Ressource() {
                 .map((dd) => (
                   <tr key={dd} className={survol === dd ? 'on' : undefined}>
                     <td className="fige">
-                      <Link to={`/departement/${dd}`}>{names.get(dd) ?? dd}</Link>
+                      <Link to={lienDepartement(dd, { section: 'pressions' })}>{names.get(dd) ?? dd}</Link>
                     </td>
                     {INDICS_RESSOURCE.map((i) => {
                       const v = valeurRessource(r.depts[dd], i.key)
@@ -209,13 +214,14 @@ export default function Ressource() {
       </Section>
 
       <div className="source">
-        Sources : BNPE (volumes prélevés pour l'eau potable, OFB, {n.annee_bnpe}) ; zones de répartition des eaux (Sandre) : {n.n_zre} zones,
-        un ouvrage compte s'il est dans une zone du même type de ressource (nappe ou cours d'eau), hors zones ne visant qu'une nappe profonde
-        ({n.zre_exclues.length} zones : {n.zre_exclues.slice(0, 3).join(', ')}…) ; évolution des prélèvements entre les moyennes
-        {n.annee_bnpe_ref - 2}-{n.annee_bnpe_ref} et {n.annee_bnpe - 2}-{n.annee_bnpe}, publiée seulement si le nombre d'ouvrages déclarants a
-        varié de moins de 15 % (sinon « – ») ; SISPEA {n.annee_sispea} (volumes déclarés par les services qui
-        distribuent l'eau, indicateur P108.3) ; piézométrie Hub'Eau ; arrêtés sécheresse. La consommation par habitant rapporte les volumes aux
-        seuls résidents : elle est gonflée là où le tourisme est fort. <Link to="/methode">Méthode</Link>.
+        Sources : BNPE (volumes prélevés pour l'eau potable, OFB, {n.annee_bnpe}) ; zones de répartition des eaux (Sandre, {n.n_zre} zones) ;
+        SISPEA {n.annee_sispea} (volumes déclarés par les services qui distribuent l'eau, indicateur P108.3) ; piézométrie Hub'Eau ; arrêtés
+        sécheresse. Un ouvrage est compté en zone de répartition s'il se trouve dans une zone du même type de ressource (nappe ou cours d'eau) ;
+        les {n.zre_exclues.length} zones qui ne visent qu'une nappe profonde sont exclues ({n.zre_exclues.slice(0, 3).join(', ')}…). L'évolution
+        des prélèvements compare les moyennes {n.annee_bnpe_ref - 2}-{n.annee_bnpe_ref} et {n.annee_bnpe - 2}-{n.annee_bnpe} ; elle n'est publiée
+        que si le nombre d'ouvrages déclarants a varié de moins de 15 % et elle est remplacée par « – » dans le cas contraire. La consommation par
+        habitant rapporte les volumes aux seuls résidents ; elle est donc surestimée dans les départements très touristiques.{' '}
+        <Link to="/methode#ressource">Méthode</Link>.
       </div>
     </div>
   )

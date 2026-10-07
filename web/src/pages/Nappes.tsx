@@ -1,5 +1,6 @@
+import TableauDeptsValeur from '../components/TableauDeptsValeur'
 import { useCallback, useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Chart, { axisDefaults } from '../components/Chart'
 import Chargement from '../components/Chargement'
 import Crumbs from '../components/Crumbs'
@@ -13,6 +14,7 @@ import { stepScale } from '../lib/scale'
 import { chartPalette, useCleTheme } from '../lib/theme'
 import { usePageTitle } from '../lib/title'
 import type { NappesNational } from '../lib/types'
+import { lienDepartement } from '../lib/parcours'
 import Kpi from '../components/Kpi'
 
 /** Part des piézomètres « bas » ou « très bas » (les deux classes les plus basses) dans un décompte par classe. */
@@ -29,7 +31,6 @@ export default function Nappes() {
   const nat = useJson<NappesNational>('nappes/national.json').data
   const { deps, names } = useDepartements()
   const [survol, setSurvol] = useState<string | null>(null)
-  const nav = useNavigate()
 
   const ref = nat?.mois_ref
   // Moins de 3 piézomètres classés : gris, comme dans le classement (« 100 % sur 1 » ne dit rien d'un
@@ -42,7 +43,8 @@ export default function Nappes() {
     },
     [nat, ref],
   )
-  const scale = useMemo(() => stepScale([0, 0.1, 0.25, 0.4, 0.6, 0.8]), [cle])
+  // Ocre, comme les classes basses du graphique voisin (audit du 27/09 : l'ardoise y désigne le côté « haut »).
+  const scale = useMemo(() => stepScale([0, 0.1, 0.25, 0.4, 0.6, 0.8], { rampe: 'ocre' }), [cle])
   const colorOf = useCallback((p: Record<string, unknown>) => scale.color(valeur(String(p.code))), [scale, valeur])
   const labelOf = useCallback(
     (p: Record<string, unknown>) => {
@@ -91,31 +93,31 @@ export default function Nappes() {
       .sort((a, b) => b.v - a.v || b.n - a.n)
   }, [nat, ref])
 
-  if (!nat || !ref) return <Chargement />
+  if (!nat || !ref) return <Chargement reserve />
   const c = nat.historique[ref]
   const tot = c ? c.reduce((a, b) => a + b, 0) : 0
   const ilya1an = nat.historique[nat.mois[nat.mois.length - 13]]
 
   return (
     <div className="page">
-      <p className="eyebrow">Comprendre</p>
-      <Crumbs items={[{ label: 'Comprendre', to: '/themes' }, { label: 'Le niveau des nappes' }]} />
+      <p className="eyebrow">La ressource</p>
+      <Crumbs items={[{ label: 'La ressource', to: '/ressource-en-eau' }, { label: 'Le niveau des nappes' }]} />
       <h1>Le niveau des nappes · {moisFr(ref)}</h1>
       <p className="lead">
-        Chaque piézomètre mesure le niveau d'une nappe. Son niveau moyen du mois est comparé à celui des mêmes mois des années passées : une
-        nappe « basse » en août l'est par rapport aux autres mois d'août, pas par rapport à l'hiver.
+        Un piézomètre mesure le niveau d'une nappe d'eau souterraine. Le niveau moyen du mois est comparé à celui des mêmes mois des années
+        passées. Une nappe classée basse en août l'est donc par rapport aux autres mois d'août, indépendamment des niveaux de l'hiver.
       </p>
       <div className="grid cols-4">
         <Kpi value={fmt.pct(100 * (partSous(c) ?? 0), 0)} label={`des piézomètres sous la normale en ${moisFr(ref)}`} sub={`un an plus tôt : ${fmt.pct(100 * (partSous(ilya1an) ?? 0), 0)}`} />
-        <Kpi value={fmt.int(c ? c[0] : 0)} label="piézomètres au niveau « très bas »" sub="parmi les 10 % d'années les plus basses" />
-        <Kpi value={fmt.int(c ? c[5] + c[6] : 0)} label="piézomètres « haut » ou « très haut »" sub="au-dessus de 80 % des années passées" />
+        <Kpi value={fmt.int(c ? c[0] : 0)} label="piézomètres au niveau très bas" sub="parmi les 10 % d'années les plus basses" />
+        <Kpi value={fmt.int(c ? c[5] + c[6] : 0)} label="piézomètres au niveau haut ou très haut" sub="au-dessus de 80 % des années passées" />
         <Kpi value={fmt.int(tot)} label="piézomètres classés ce mois-ci" sub="suivis depuis au moins 15 ans" />
       </div>
 
       <div className="card">
-        <h2>Cinq ans de nappes, mois par mois</h2>
+        <h2>Répartition mensuelle des piézomètres par classe de niveau, sur cinq ans</h2>
         <Chart option={evolution!} height={360} exportName="nappes-evolution" />
-        <div className="source">Répartition des piézomètres classés chaque mois, du plus bas (rouge) au plus haut (bleu) par rapport aux mêmes mois des années passées.</div>
+        <div className="source">Répartition des piézomètres classés chaque mois, du plus bas (ocre) au plus haut (ardoise) par rapport aux mêmes mois des années passées.</div>
       </div>
 
       <h2>Par département · {moisFr(ref)}</h2>
@@ -125,41 +127,38 @@ export default function Nappes() {
             data={deps}
             colorOf={colorOf}
             labelOf={labelOf}
-            onClick={(p) => nav(`/departement/${p.code}`)}
-            actionLabel="Ouvrir la fiche du département →"
+            encart={(dd) => ({ fiche: lienDepartement(dd, { section: 'ressource' }) })}
             onHover={(p) => setSurvol(p ? String(p.code) : null)}
             selected={survol}
             height={520}
             ariaLabel={`Part des piézomètres bas ou très bas par département, ${moisFr(ref)}`}
           />
-          <MapLegend desc={`part des piézomètres « bas » ou « très bas », ${moisFr(ref)}`} scale={scale} format={fmt.pctBorne} noDataLabel="moins de 3 piézomètres classés" />
+          <MapLegend desc={`part des piézomètres au niveau bas ou très bas, ${moisFr(ref)}`} scale={scale} format={fmt.pctBorne} noDataLabel="moins de 3 piézomètres classés" />
         </div>
         <div className="card">
-          <h3>Départements aux nappes les plus basses</h3>
-          <p className="muted">Départements comptant au moins 3 piézomètres classés.</p>
-          <div className="table-scroll"><table className="data">
-            <caption className="sr-only">Départements classés par part de piézomètres bas ou très bas ; version textuelle de la carte</caption>
-            <tbody>
-              {classement.slice(0, 14).map((r) => (
-                <tr key={r.dd} className={survol === r.dd ? 'on' : undefined} onMouseEnter={() => setSurvol(r.dd)} onMouseLeave={() => setSurvol(null)}>
-                  <td>
-                    <Link to={`/departement/${r.dd}`}>{names.get(r.dd) ?? r.dd}</Link> <span className="muted">({r.dd})</span>
-                  </td>
-                  <td className="num">
-                    <b>{fmt.pct(100 * r.v, 0)}</b> <span className="muted">sur {r.n}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table></div>
+          <h3>Les départements</h3>
+          <p className="muted">Par ordre alphabétique ; un tri est proposé. Départements comptant au moins 3 piézomètres classés.</p>
+          <TableauDeptsValeur
+            valeurs={new Map(classement.map((r) => [r.dd, { v: r.v, n: r.n }]))}
+            noms={names}
+            titre="Bas ou très bas"
+            format={(v) => fmt.pct(100 * v, 0)}
+            quoi="la part des piézomètres bas ou très bas"
+            effectif="Piézomètres classés"
+            lien={(dd) => lienDepartement(dd, { section: 'ressource' })}
+            legende={`Départements par ordre alphabétique : part des piézomètres au niveau bas ou très bas, ${moisFr(ref)} ; version textuelle de la carte`}
+            csv={{ sujet: 'nappes', annee: ref, entete: 'Part des piézomètres bas ou très bas (0–1)' }}
+            selection={survol}
+            onSurvol={setSurvol}
+          />
         </div>
       </div>
 
       <div className="source">
         Source : piézométrie Hub'Eau (BRGM, réseaux de suivi des eaux souterraines). Piézomètres actifs suivis depuis au moins 15 ans ; niveau
         moyen mensuel comparé au même mois des années antérieures (30 ans au plus), classé selon les seuils de l'indicateur piézométrique
-        standardisé du BRGM. Calcul du site par rang, pas l'indicateur officiel : les classes sont comparables, pas les chiffres du bulletin
-        du BRGM. <Link to="/methode">Méthode</Link> · <Link to="/secheresse">Restrictions sécheresse</Link>.
+        standardisé du BRGM. Le classement est calculé par le site à partir du rang de chaque mesure et ne reproduit pas l'indicateur officiel ;
+        ses classes sont comparables à celles du bulletin du BRGM, mais ses chiffres ne le sont pas. <Link to="/methode#nappes">Méthode</Link> · <Link to="/secheresse">Restrictions sécheresse</Link>.
       </div>
     </div>
   )

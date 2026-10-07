@@ -1,6 +1,7 @@
 // Revue visuelle : capture chaque page du site en bureau, mobile, sombre, couleurs forcées et studio dans
 // web/exports/review/, et audite l'accessibilité (axe-core, WCAG 2.2 AA) des passes claire, mobile et sombre.
-// Usage : node scripts/review-pages.mjs [http://localhost:5173] ; AXE_CORE=<chemin d'axe.min.js> pour un autre axe.
+// Usage : node scripts/review-pages.mjs [http://localhost:5173] ; AXE_CORE=<chemin d'axe.min.js> pour un autre axe,
+// PW_CHANNEL=msedge pour le navigateur du poste.
 import { chromium } from 'playwright'
 import { mkdirSync, readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
@@ -25,19 +26,34 @@ let audits = 0
 
 const pages = [
   ['home', '/'],
+  // « La France » (refonte, lot 3, 05/10) : classes A–D par département, tableau alphabétique, CSV.
+  ['france', '/france'],
   ['carte', '/carte'],
+  // Indicateur « Classes A–D » de la carte détaillée : vue communale d'un département (lettre la plus défavorable).
+  ['carte-classes-aisne', '/carte?indic=classes&dept=02&annee=2025'],
   // Isère : délégation de l'ARS sans information sur les consignes (24/09), communes en gris, classement expliqué.
   ['carte-avis-isere', '/carte?indic=avis&dept=38'],
+  // Vue communale des services d'eau (24/09) : France entière au prix, un département en régie ou délégation.
+  ['carte-prix-communes', '/carte?indic=prix&fond=communes'],
+  ['carte-gestion-ille', '/carte?indic=delegation&dept=35'],
   ['departement', '/departement/35'],
+  // Tête de la fiche département (lot 3) : bilan A–D, carte communale des classes, réseaux classés C ou D.
+  ['departement-aisne', '/departement/02'],
   // Cas de la maquette du 23/09 : conforme avec réserve, sept réseaux et restriction PFAS, consigne d'ébullition.
   ['commune', '/commune/35238'],
   ['commune-cherbourg', '/commune/50129'],
   ['commune-fonsorbes', '/commune/31187'],
+  // Refonte des fiches, lot 1 (05/10) : trois réseaux en classe C, avis de l'ARS de l'année en cours cité.
+  ['commune-saint-quentin', '/commune/02691'],
   ['analyses', '/commune/35238/analyses'],
   ['reseau', '/reseau/035004230'],
   ['reseau-asselinerie', '/reseau/050000645'],
   ['themes', '/themes'],
   ['theme-pesticides', '/themes/pesticides'],
+  // Pages de sujets (lot 4, 05/10) : PFAS et TFA (section TFA), plomb (hors du jugement), radioactivité (références).
+  ['theme-pfas', '/themes/pfas'],
+  ['theme-plomb', '/themes/plomb'],
+  ['theme-radioactivite', '/themes/radioactivite'],
   ['services', '/services'],
   ['service', '/service/77654'],
   ['amont', '/amont'],
@@ -46,11 +62,14 @@ const pages = [
   ['hors-grille', '/hors-grille'],
   ['nappes', '/nappes'],
   ['ressource', '/ressource'],
+  // Sommaire de l'entrée « La ressource » du menu (lot 2, 05/10).
+  ['ressource-en-eau', '/ressource-en-eau'],
   ['methode', '/methode'],
   ['scenes', '/scene'],
 ]
 
-const browser = await chromium.launch()
+// PW_CHANNEL=msedge (ou chrome) : navigateur installé sur le poste, quand celui de Playwright n'est pas téléchargé.
+const browser = await chromium.launch(process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {})
 const errors = []
 // Sombre par le réglage du système, comme la plupart des visiteurs qui n'ont rien choisi ; couleurs forcées
 // (contraste élevé de Windows), où seules les formes et les textes distinguent les états.

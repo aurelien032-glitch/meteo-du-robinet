@@ -7,6 +7,8 @@ import { useDepartements } from '../lib/geo'
 import { useJson } from '../lib/hooks'
 import { chartPalette, useCleTheme } from '../lib/theme'
 import type { SecheresseHist } from '../lib/types'
+import { lienDepartement } from '../lib/parcours'
+import { useAnneeDansAdresse } from '../lib/year'
 
 const LIBELLES = ['vigilance', 'alerte', 'alerte renforcée', 'crise']
 
@@ -17,7 +19,8 @@ function jourFr(annee: string, i: number): string {
 
 /**
  * Historique des restrictions sécheresse depuis 2012 (arrêtés préfectoraux) : ce que VigiEau, qui ne donne que le
- * jour même, ne permet pas de voir. Année choisie dans l'URL (?hist=), comparée à l'année record.
+ * jour même, ne permet pas de voir. L'année choisie, comparée à l'année record, est toujours écrite dans l'adresse
+ * (?hist=), comme celle des barres d'année ; par défaut l'année en cours, la sécheresse suivant la saison (Méthode).
  */
 export default function SecheresseHistorique() {
   const cle = useCleTheme()
@@ -26,6 +29,7 @@ export default function SecheresseHistorique() {
   const [sp, setSp] = useSearchParams()
   const derniere = h?.annees[h.annees.length - 1]
   const annee = h && h.annees.includes(sp.get('hist') ?? '') ? sp.get('hist')! : derniere
+  useAnneeDansAdresse('hist', annee ? Number(annee) : undefined)
   // Année de comparaison : celle qui a cumulé le plus de jours-départements en crise, hors année choisie.
   const record = useMemo(() => {
     if (!h) return undefined
@@ -82,16 +86,30 @@ export default function SecheresseHistorique() {
 
   return (
     <>
-      <div className="toolbar">
-        <h2>Depuis 2012 : les arrêtés sécheresse, jour par jour</h2>
+      <h2>Historique des arrêtés sécheresse depuis 2012, jour par jour</h2>
+      <div className="card">
+        <h3>Jours de restriction cumulés, par année</h3>
+        {parAnnee && <Chart option={parAnnee} height={320} exportName="secheresse-annees" />}
+        <div className="source">
+          Somme, sur l'ensemble des départements, des jours passés à chaque niveau. Le niveau retenu pour un département est le plus grave en
+          vigueur sur l'une de ses zones.
+        </div>
+      </div>
+      {/* L'année au-dessus de ce qu'elle gouverne (règle de l'auteur, 23/09), sous le graphique qui les montre toutes.
+          Une liste plutôt que la barre des autres pages, faite pour quatre années : il y en a quinze (choix de
+          l'auteur, 26/09). */}
+      <div className="barre-annee">
+        <div>
+          <p className="ba-titre">Année de l’historique</p>
+          <p className="ba-note">Elle vaut pour la saison jour par jour et le classement ci-dessous ; le graphique ci-dessus montre toutes les années.</p>
+        </div>
         <label>
           Année{' '}
           <select
             value={annee}
             onChange={(e) => {
               const next = new URLSearchParams(sp)
-              if (e.target.value === derniere) next.delete('hist')
-              else next.set('hist', e.target.value)
+              next.set('hist', e.target.value)
               setSp(next, { replace: true })
             }}
           >
@@ -105,51 +123,46 @@ export default function SecheresseHistorique() {
       </div>
       <div className="grid cols-2">
         <div className="card">
-          <h3>Jours de restriction cumulés, par année</h3>
-          {parAnnee && <Chart option={parAnnee} height={320} exportName="secheresse-annees" />}
-          <div className="source">Somme sur les départements des jours passés à chaque niveau (le plus grave en vigueur sur l'une de leurs zones).</div>
-        </div>
-        <div className="card">
           <h3>
-            {annee} : départements en crise, jour par jour
+            Nombre de départements en crise, jour par jour, en {annee}
           </h3>
           {saison && <Chart option={saison} height={320} exportName={`secheresse-saison-${annee}`} />}
           <div className="source">
-            {nat ? `${nat.depts_crise} départements passés au moins un jour en crise en ${annee}, ${nat.depts_touches} concernés par un arrêté.` : ''}
+            {nat ? `En ${annee}, ${nat.depts_crise} départements ont connu au moins un jour de crise et ${nat.depts_touches} ont fait l'objet d'au moins un arrêté.` : ''}
           </div>
         </div>
-      </div>
-      <div className="card">
-        <h3>Départements les plus longtemps en crise en {annee}</h3>
-        <div className="table-scroll"><table className="data">
-          <caption className="sr-only">Départements classés par nombre de jours en crise pendant l'année choisie</caption>
-          <thead>
-            <tr>
-              <th>Département</th>
-              <th className="num">Jours en crise</th>
-              <th className="num">Alerte renforcée</th>
-              <th className="num">Alerte</th>
-            </tr>
-          </thead>
-          <tbody>
-            {classement.slice(0, 15).map((r) => (
-              <tr key={r.dd}>
-                <td>
-                  <Link to={`/departement/${r.dd}`}>{names.get(r.dd) ?? r.dd}</Link> <span className="muted">({r.dd})</span>
-                </td>
-                <td className="num">
-                  <b>{fmt.int(r.j![3])}</b>
-                </td>
-                <td className="num">{fmt.int(r.j![2])}</td>
-                <td className="num">{fmt.int(r.j![1])}</td>
+        <div className="card">
+          <h3>Départements les plus longtemps en crise en {annee}</h3>
+          <div className="table-scroll"><table className="data">
+            <caption className="sr-only">Départements classés par nombre de jours en crise pendant l'année choisie</caption>
+            <thead>
+              <tr>
+                <th>Département</th>
+                <th className="num">Jours en crise</th>
+                <th className="num">Alerte renforcée</th>
+                <th className="num">Alerte</th>
               </tr>
-            ))}
-          </tbody>
-        </table></div>
-        <div className="source">
-          Arrêtés préfectoraux de restriction (jeu « Donnée Sécheresse », VigiEau, qui succède à Propluvia), mis à jour le {h.maj}. Un département
-          compte un jour « en crise » si l'une de ses zones d'alerte l'est : ce n'est pas tout le territoire. Les niveaux ne sont renseignés qu'à
-          partir de 2012.
+            </thead>
+            <tbody>
+              {classement.slice(0, 15).map((r) => (
+                <tr key={r.dd}>
+                  <td>
+                    <Link to={lienDepartement(r.dd, { section: 'ressource' })}>{names.get(r.dd) ?? r.dd}</Link> <span className="muted">({r.dd})</span>
+                  </td>
+                  <td className="num">
+                    <b>{fmt.int(r.j![3])}</b>
+                  </td>
+                  <td className="num">{fmt.int(r.j![2])}</td>
+                  <td className="num">{fmt.int(r.j![1])}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table></div>
+          <div className="source">
+            Arrêtés préfectoraux de restriction (jeu « Donnée Sécheresse » de VigiEau, qui succède à Propluvia), mis à jour le {/^\d{4}-\d{2}-\d{2}$/.test(h.maj) ? fmt.date(h.maj) : h.maj}. Un jour
+            est compté en crise pour un département dès que l'une de ses zones d'alerte atteint ce niveau, même si le reste de son territoire ne
+            l'atteint pas. Les niveaux ne sont renseignés qu'à partir de 2012.
+          </div>
         </div>
       </div>
     </>

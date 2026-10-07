@@ -3,8 +3,8 @@ import type { Ton } from '../lib/situations'
 import Voyant from './Voyant'
 
 /**
- * Étiquette d'état : voyant et libellé sur le fond teinté du ton (avis de l'ARS, statut d'un réseau). Sans ton
- * (avis limité à un bâtiment), étiquette neutre, sans voyant.
+ * Étiquette d'état : voyant et libellé sur le fond teinté du ton (avis de l'ARS, statut d'un réseau). Sans ton (avis
+ * limité à un bâtiment, ou avis de l'année en cours absent des prélèvements suivants), étiquette neutre, sans voyant.
  */
 export default function Tag({ ton, children }: { ton: Ton | null; children: ReactNode }) {
   return (

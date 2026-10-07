@@ -17,11 +17,11 @@ const ESPACES = new RegExp(`[${String.fromCharCode(0xa0, 0x202f)}]`, 'g')
 const texte = (el: Element | null) => (el?.textContent ?? '').replace(ESPACES, ' ')
 
 let racine: Root | null = null
-function rendre(juge = true): HTMLElement {
+function rendre(): HTMLElement {
   const hote = document.createElement('div')
   document.body.append(hote)
   racine = createRoot(hote)
-  act(() => racine!.render(createElement(SerieMensuelle, { titre: 'Somme 20 PFAS, 2025', serie: SERIE, annee: '2025', unite: 'µg/L', limite: 0.1, juge })))
+  act(() => racine!.render(createElement(SerieMensuelle, { titre: 'Somme 20 PFAS, 2025', serie: SERIE, annee: '2025', unite: 'µg/L', limite: 0.1 })))
   return hote
 }
 afterEach(() => {
@@ -50,9 +50,5 @@ describe('SerieMensuelle', () => {
     const lignes = [...table.querySelectorAll('tbody tr')].map((tr) => [...tr.children].map((c) => texte(c)))
     expect(lignes[0]).toEqual(['janvier', 'aucune analyse', '0', '0 analyse'])
     expect(lignes[2]).toEqual(['mars', '0,459 µg/L', '2', '2 analyses'])
-  })
-
-  it('plusieurs réseaux réunis : neutre, sans sémaphore', () => {
-    expect(rendre(false).querySelector('.serie')?.classList.contains('serie--neutre')).toBe(true)
   })
 })

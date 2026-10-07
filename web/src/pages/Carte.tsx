@@ -1,23 +1,57 @@
 import BarreAnnee from '../components/BarreAnnee'
+import CarteDept from '../components/CarteDept'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import type { FeatureCollection } from 'geojson'
+import { infoBulleLettre, useLettresCommunes } from '../components/CarteClassesCommunes'
+import CommunesAvis from '../components/CommunesAvis'
 import FranceMap from '../components/FranceMap'
 import MapLegend from '../components/MapLegend'
+import ReseauxConcernes from '../components/ReseauxConcernes'
 import Search from '../components/Search'
+import TableauDepartements from '../components/TableauDepartements'
+import TableauDeptsTri, { type Colonne } from '../components/TableauDeptsTri'
+import { lignesCarte, pctCsv, type Effectif, type LigneCarte } from '../lib/tableauDepts'
 import { departementSansInformation, phraseCarteSansInformation, resumeSansInformation } from '../lib/avis'
-import { fmt } from '../lib/data'
-import { useJson } from '../lib/hooks'
-import { pctCarte } from '../lib/carte'
-import { NBSP } from '../lib/instruments'
-import { ardoiseScale, avisScale, niceScale, stepScale } from '../lib/scale'
-import { classesNonConformes, codeFamille, libellesCourts, libellesSituation, nbClasses, partNonConformes, situationScale, type FamilleSitu, type SituationsFile } from '../lib/situations'
+import { fmt, majuscule } from '../lib/data'
+import { classesScale, comptesParDepartement, infoBulleDept, legendeClasses, lignesFrance, partCD, PHRASE_PART } from '../lib/france'
+import { libelleParametre } from '../lib/parametres'
+import { useDepartements } from '../lib/geo'
+import { GROUPES_DEPT, INDICS_DEPT } from '../lib/indicateursDept'
 import {
-  AVIS_PAR_CODE,
+  agregerDepartements,
+  agregerParametre,
+  aVueCommunale,
+  detailDepartement,
+  enteteClassement,
+  FAMILLE_DU_PARAM,
+  formaterValeur,
+  INDICS,
+  MESURES,
+  PAGE_OF,
+  STEPS_AVIS,
+  STEPS_TAUX,
+  valeurParametre,
+  type IndicKey,
+  type Mesure,
+} from '../lib/indicateursCarte'
+import { echelleCommune, etatCommune, infoBulleCommune, niveauxCommune, valeurCommune } from '../lib/indicateursCommunes'
+import Chargement from '../components/Chargement'
+import { useJson } from '../lib/hooks'
+import { BORNES_RESTRICTIONS, ETIQUETTES_RESTRICTIONS, partRestrictions } from '../lib/carte'
+import { EFFECTIF_MIN, reseauxParDept } from '../lib/classement'
+import { NBSP, familleBulletin } from '../lib/instruments'
+import { niceScale, qualiteScale, stepScale } from '../lib/scale'
+import {
+  legendeSituation,
+  partNonConformes,
+  reseauxAnalyses,
+  type SituationsFile,
+} from '../lib/situations'
+import {
   AVIS_SANS_INFORMATION,
-  deptCode,
+  communeDeRattachement,
   deptOfInsee,
-  libelleAvisCarte,
   type AvisNationalFile,
   type CommuneIndexEntry,
   type MapFile,
@@ -29,71 +63,24 @@ import {
 } from '../lib/types'
 import { usePageTitle } from '../lib/title'
 import { anneesFiche, useYear } from '../lib/year'
+import Crumbs from '../components/Crumbs'
+import IndicInconnu from '../components/IndicInconnu'
 
-type IndicKey = 'pesticides' | 'azote' | 'pfas' | 'microbio' | 'any' | 'avis' | 'bact' | 'chim' | 'param'
-type Mesure = 'share' | 'nd' | 'max'
-
-/**
- * Indicateurs de la carte (revue du 2026-09-22, décisions de l'auteur) :
- *  · `situation` : part des RÉSEAUX de distribution non conformes, à la manière des bilans du ministère de la
- *    Santé (lib/situations.ts) ; en vue communale, situation du réseau le plus défavorable qui dessert la
- *    commune. Ni part de communes ni part d'habitants : une commune n'est pas touchée en entier parce qu'une
- *    analyse a dépassé la limite, et la population de chaque réseau n'est pas publiée ;
- *  · `avis` : nombre de communes ayant reçu une consigne de l'ARS (une consigne vise bien les habitants) ;
- *  · `taux` : part des prélèvements non conformes, comme les bilans bactériologiques des ARS.
- */
-const INDICS: { key: IndicKey; label: string; kind: 'situation' | 'avis' | 'taux' | 'param'; fam?: FamilleSitu; col?: number; desc: string; descCommune?: string; binaire?: string[] }[] = [
-  { key: 'pesticides', label: 'Pesticides et métabolites', kind: 'situation', fam: 'pesticides', col: 5, desc: 'part des réseaux non conformes : au moins une analyse de pesticides au-dessus de 0,1 µg/L dans l’année', descCommune: 'situation pesticides du réseau le plus défavorable qui dessert la commune' },
-  { key: 'azote', label: 'Nitrates', kind: 'situation', fam: 'azote', col: 6, desc: 'part des réseaux non conformes : au moins une analyse de nitrates au-dessus de 50 mg/L dans l’année', descCommune: 'situation nitrates du réseau le plus défavorable qui dessert la commune' },
-  { key: 'pfas', label: 'PFAS', kind: 'situation', fam: 'pfas', col: 7, desc: 'part des réseaux non conformes : somme des 20 PFAS au-dessus de 0,1 µg/L au moins une fois dans l’année', descCommune: 'situation PFAS du réseau le plus défavorable qui dessert la commune' },
-  { key: 'microbio', label: 'Bactéries', kind: 'situation', fam: 'microbio', col: 8, desc: 'part des réseaux dont au moins un prélèvement n’est pas conforme en bactériologie', descCommune: 'conformité bactériologique du réseau le plus défavorable qui dessert la commune' },
-  { key: 'any', label: 'Toutes familles', kind: 'situation', fam: 'toutes', col: 10, desc: 'part des réseaux non conformes pour au moins une famille de paramètres', descCommune: 'situation la plus défavorable, toutes familles, des réseaux qui desservent la commune' },
-  {
-    key: 'avis',
-    label: "Avis sanitaires de l'ARS",
-    kind: 'avis',
-    col: 14,
-    desc: "nombre de communes ayant reçu au moins une restriction ou une recommandation de consommation de l'ARS",
-    descCommune: "commune ayant reçu au moins une restriction ou une recommandation de consommation de l'ARS",
-    binaire: ['aucun avis', 'déconseillée aux publics sensibles', "consigne d'ébullition", 'restriction de consommation'],
-  },
-  { key: 'bact', label: 'Non-conformité bactériologique', kind: 'taux', desc: 'part des prélèvements non conformes (bactériologie)' },
-  { key: 'chim', label: 'Non-conformité chimique', kind: 'taux', desc: 'part des prélèvements non conformes (chimie)' },
-  { key: 'param', label: 'Un paramètre au choix…', kind: 'param', desc: 'valeur par département pour le paramètre choisi' },
-]
-const MESURES: { key: Mesure; label: string }[] = [
-  { key: 'share', label: 'part des analyses au-dessus de la limite' },
-  { key: 'nd', label: "nombre d'analyses au-dessus de la limite" },
-  { key: 'max', label: 'valeur maximale mesurée' },
-]
-
-const THEME_OF: Partial<Record<IndicKey, string>> = { pesticides: 'pesticides', azote: 'nitrates', pfas: 'pfas', microbio: 'bacteries', bact: 'bacteries' }
-/**
- * Indicateur de famille d'un paramètre, pour revenir au niveau communal (revue du 24/09 : « la vue communes
- * n'est pas accessible », en mode paramètre, sans explication) : un paramètre ne se lit que par département,
- * une commune n'a de situation que par famille. Les familles sans indicateur sur la carte (métaux,
- * physico-chimie…) mènent à « Toutes familles ».
- */
-const FAMILLE_DU_PARAM: Partial<Record<string, IndicKey>> = { pesticides: 'pesticides', azote: 'azote', pfas: 'pfas', microbio: 'microbio' }
-/** Nombre de communes ayant reçu un avis de l'ARS dans l'année (médiane départementale : 25). */
-const STEPS_AVIS = [0, 1, 5, 10, 25, 50, 100]
-/**
- * Paliers des taux de non-conformité : médiane départementale vers 0,4 % en bactériologie. Sur les
- * paliers des parts de communes (0-5-10… %), 93 départements sur 101 avaient la même teinte.
- */
-const STEPS_TAUX = [0, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1]
 const pctBorne = fmt.pctBorne
-
-type DeptAgg = { n: number; hit: number; ncb: number; neb: number; ncc: number; nec: number }
-type ParamAgg = { n: number; nd: number; max: number | null }
 
 export default function Carte() {
   const meta = useJson<MetaFile>('meta.json').data
+  // Année en cours par défaut, sur toutes les pages (auteur, 2026-10-06 : « le but c'est d'abord de savoir ce qu'il se passe
+  // actuellement ») ; les années complètes restent dans la barre « Année du bilan ».
   const [y, setYear] = useYear(meta)
   // Tout l'état de la vue est dans l'URL : indicateur, paramètre, mesure, département sélectionné, fond de carte.
   // Une vue se partage, se rejoue en scène, et le bouton « précédent » du navigateur fonctionne.
   const [sp, setSp] = useSearchParams()
+  // Indicateur d'une page « Comprendre » (services d'eau, ressource, amont ; lib/indicateursDept.ts) : sa carte,
+  // départementale, et communale pour les services d'eau, remplace celle de l'eau du robinet (components/CarteDept.tsx).
+  const externe = INDICS_DEPT.find((i) => i.key === sp.get('indic')) ?? null
   const indic = (INDICS.some((i) => i.key === sp.get('indic')) ? sp.get('indic') : 'pesticides') as IndicKey
+  const indicInconnu = !!sp.get('indic') && !INDICS.some((i) => i.key === sp.get('indic')) && !INDICS_DEPT.some((i) => i.key === sp.get('indic'))
   const mesure = (MESURES.some((m) => m.key === sp.get('mesure')) ? sp.get('mesure') : 'share') as Mesure
   const deptUrl = sp.get('dept')
   const fondCommunes = sp.get('fond') === 'communes'
@@ -111,6 +98,18 @@ export default function Carte() {
     },
     [sp, setSp],
   )
+  // Vue de la carte transmise à la fiche du département, indicateur compris même quand c'est celui par défaut.
+  const versFiche = useMemo(() => {
+    const q = new URLSearchParams(sp)
+    if (!q.has('indic')) q.set('indic', externe ? externe.key : indic)
+    return q.toString()
+  }, [sp, externe, indic])
+  /** Fiche d'un département choisi dans l'encart de la carte : la vue courante, sans le département sélectionné. */
+  const ficheDe = (dd: string) => {
+    const q = new URLSearchParams(versFiche)
+    q.delete('dept')
+    return `/departement/${dd}?${q.toString()}`
+  }
   // Équivalent en URL de setQ({ dept }) : sert de destination à un <Link>, pour que sélectionner un
   // département depuis le classement reste possible au clavier (setQ seul n'est accessible qu'au clic).
   const deptHref = useCallback(
@@ -121,7 +120,8 @@ export default function Carte() {
     },
     [sp],
   )
-  const deps = useJson<FeatureCollection>('geo/departements.json').data
+  // Contours et noms des départements ; les noms arrivent avant les contours (lib/geo.ts), le titre aussi.
+  const { deps, names: deptName } = useDepartements()
   const avecContour = useMemo(() => new Set((deps?.features ?? []).map((f) => String(f.properties?.code))), [deps])
   // Un code de département inconnu (adresse retouchée, lien périmé) est ignoré : sans cela la page afficherait
   // une carte vide sous un titre inventé. Tant que les contours ne sont pas chargés, on fait confiance à l'URL.
@@ -132,7 +132,7 @@ export default function Carte() {
     setSurvol(null)
     setSurvolCommune(null)
     setTout(false)
-  }, [indic, mesure, dept, fondCommunes, y])
+  }, [indic, externe, mesure, dept, fondCommunes, y])
   const params = useJson<ParamsFile>('params.json').data
   const seriesIndex = useJson<SeriesIndexEntry[]>('series/index.json').data
   // Un code inconnu dans l'URL retombe sur les nitrates plutôt que sur une carte vide.
@@ -140,18 +140,28 @@ export default function Carte() {
   const param = paramUrl && (!seriesIndex || seriesIndex.some((e) => e.code === paramUrl)) ? paramUrl : '1340'
   const ind = INDICS.find((i) => i.key === indic)!
   const isParam = ind.kind === 'param'
-  // Le niveau communal n'existe que pour les indicateurs de famille : en mode paramètre, la carte reste départementale.
-  const vueCommunes = !isParam && (dept != null || fondCommunes)
+  // Le niveau communal existe pour les indicateurs de famille et pour ceux des services d'eau (`commune`, chaque
+  // commune y prend la valeur de son service) : en mode paramètre et pour les autres sources, la carte reste
+  // départementale (auteur, 24/09 : « il manque l'option Toutes les communes » aux thèmes des services d'eau).
+  const communesPossibles = externe ? !!externe.commune : !isParam
+  // Classes A–D : la lettre d'une commune se lit dans le fichier de son département (réseaux de chaque commune), un
+  // département à la fois ; pas de fond « toutes les communes », qui chargerait les cent fichiers.
+  const isClasses = ind.kind === 'classes'
+  const vueCommunes = communesPossibles && (dept != null || (fondCommunes && !isClasses))
 
-  const communes = useJson<FeatureCollection>(!isParam && dept ? `geo/communes/${dept}.json` : null).data
-  const communesFrance = useJson<FeatureCollection>(!isParam && !dept && fondCommunes ? 'geo/communes-1000m.json' : null).data
-  const index = useJson<CommuneIndexEntry[]>('communes.json').data
+  // Rien de l'eau du robinet n'est chargé pour un indicateur départemental d'une autre source.
+  const communes = useJson<FeatureCollection>(!externe && !isParam && dept ? `geo/communes/${dept}.json` : null).data
+  const communesFrance = useJson<FeatureCollection>(!externe && !isParam && !isClasses && !dept && fondCommunes ? 'geo/communes-1000m.json' : null).data
+  const index = useJson<CommuneIndexEntry[]>(!externe ? 'communes.json' : null).data
   const nameOf = useMemo(() => new Map((index ?? []).map((e) => [e.c, e.n])), [index])
-  const map = useJson<MapFile>(y ? `map/${y}.json` : null).data
+  const map = useJson<MapFile>(!externe && y ? `map/${y}.json` : null).data
   // Situations des réseaux (bilans du ministère), par année.
-  const situ = useJson<SituationsFile>(y ? `situations/${y}.json` : null).data
-  // Départements « sans information » de l'année (avis.sans_information du pipeline) : gris, pas « aucun avis ».
-  const avisNat = useJson<AvisNationalFile>(ind.kind === 'avis' ? 'avis/national.json' : null).data
+  const situ = useJson<SituationsFile>(!externe && y ? `situations/${y}.json` : null).data
+  // Classes A–D : comptes par département, lettre de chaque commune du département affiché (lib/france.ts).
+  const comptesDept = useMemo(() => (isClasses ? comptesParDepartement(situ) : new Map()), [isClasses, situ])
+  const lettresDept = useLettresCommunes(isClasses && dept ? dept : null, y, situ)
+  // Départements « sans information » de l'année (avis.sans_information du pipeline) : hachurés, pas « aucun avis ».
+  const avisNat = useJson<AvisNationalFile>(ind.kind === 'avis' || ind.kind === 'restriction' ? 'avis/national.json' : null).data
   const serieState = useJson<SeriesFile>(isParam ? `series/${param}.json` : null)
   const serie = serieState.data
   const nav = useNavigate()
@@ -159,156 +169,102 @@ export default function Carte() {
   const mesureLabel = MESURES.find((m) => m.key === mesure)!.label
   // Un nombre brut d'analyses dépend autant du volume de contrôle que de l'eau : la légende le rappelle.
   const desc = isParam
-    ? `${mesureLabel} · ${paramInfo?.l ?? param}${(mesure === 'share' || mesure === 'nd') && paramInfo?.lim ? ` (${paramInfo.lim})` : ''}${mesure === 'nd' ? ', nombre brut, mécaniquement plus haut là où l’on analyse davantage' : ''}`
+    ? `${mesureLabel} · ${libelleParametre(param, paramInfo?.l)}${(mesure === 'share' || mesure === 'nd') && paramInfo?.lim ? ` (${fmt.seuil(paramInfo.lim)})` : ''}${mesure === 'nd' ? ', nombre brut, plus élevé là où les analyses sont plus nombreuses' : ''}`
     : ind.desc
   // Le titre dit la vue réellement affichée : en fond communal, « Carte des départements » faisait croire à un retour
   // au niveau départemental (revue du 24/09).
-  usePageTitle(vueCommunes ? (dept ? `Carte des communes · département ${dept}` : 'Carte de toutes les communes') : 'Carte des départements', `Carte de la qualité de l'eau du robinet : ${desc}.`)
-  const indicFamille: IndicKey = FAMILLE_DU_PARAM[paramInfo?.f ?? ''] ?? 'any'
+  usePageTitle(
+    vueCommunes ? (dept ? `Carte des communes · département ${dept}` : 'Carte de toutes les communes') : 'Carte des départements',
+    externe
+      ? vueCommunes && externe.commune
+        ? `Carte des communes : ${externe.commune.desc}.`
+        : `Carte des départements : ${externe.label}.`
+      : `Carte de la qualité de l'eau du robinet : ${desc}.`,
+  )
+  // Un paramètre organique ou physico-chimique soumis à une limite relève des autres limites de qualité (lib/instruments.ts,
+  // familleBulletin) ; sans limite (pH, conductivité : références seules), d'aucune famille jugée.
+  const indicFamille: IndicKey = FAMILLE_DU_PARAM[paramInfo?.lim ? familleBulletin(paramInfo.f, paramInfo.code) : (paramInfo?.f ?? '')] ?? 'any'
 
-  const deptAgg = useMemo(() => {
-    const agg = new Map<string, DeptAgg>()
-    if (!map) return agg
-    for (const [insee, row] of Object.entries(map)) {
-      const d = deptOfInsee(insee)
-      // Saint-Martin et Saint-Barthélemy figurent dans le contrôle sanitaire mais ne sont pas des départements :
-      // ils n'ont ni contour ni fiche, on ne les fait donc pas apparaître dans un classement départemental.
-      if (avecContour.size && !avecContour.has(d)) continue
-      const a = agg.get(d) ?? { n: 0, hit: 0, ncb: 0, neb: 0, ncc: 0, nec: 0 }
-      if (row[0] > 0) {
-        a.n++
-        if (ind.col != null && ((row[ind.col] as number | undefined) ?? 0) > 0) a.hit++
-      }
-      a.ncb += row[1]
-      a.neb += row[2]
-      a.ncc += row[3]
-      a.nec += row[4]
-      agg.set(d, a)
-    }
-    return agg
-  }, [map, ind, avecContour])
-
-  // Mode paramètre : on cumule les mois du millésime dans la série départementale du paramètre.
-  const paramAgg = useMemo(() => {
-    const agg = new Map<string, ParamAgg>()
-    if (!serie || !y) return agg
-    const months = serie.mois.map((m, i) => (m.startsWith(`${y}-`) ? i : -1)).filter((i) => i >= 0)
-    for (const [sise, d] of Object.entries(serie.depts)) {
-      const a: ParamAgg = { n: 0, nd: 0, max: null }
-      for (const i of months) {
-        a.n += d.n[i] ?? 0
-        a.nd += d.nd[i] ?? 0
-        const v = d.max[i]
-        if (v != null && (a.max == null || v > a.max)) a.max = v
-      }
-      if (a.n > 0) agg.set(deptCode(sise), a)
-    }
-    return agg
-  }, [serie, y])
-  const paramMax = useMemo(() => {
-    let m = 0
-    for (const a of paramAgg.values()) {
-      const v = mesure === 'share' ? a.nd / a.n : mesure === 'nd' ? a.nd : (a.max ?? 0)
-      if (v > m) m = v
-    }
-    return m
-  }, [paramAgg, mesure])
+  const deptAgg = useMemo(() => agregerDepartements(map, avecContour), [map, avecContour])
+  const paramAgg = useMemo(() => agregerParametre(serie, y), [serie, y])
+  const paramMax = useMemo(() => Math.max(0, ...[...paramAgg.values()].map((a) => valeurParametre(a, mesure) ?? 0)), [paramAgg, mesure])
 
   const valueOfDept = useCallback(
     (code: string): number | null => {
       if (isParam) {
         const a = paramAgg.get(code)
-        if (!a) return null
-        return mesure === 'share' ? a.nd / a.n : mesure === 'nd' ? a.nd : a.max
+        return a ? valeurParametre(a, mesure) : null
       }
+      if (ind.kind === 'classes') return partCD(comptesDept.get(code))
       if (ind.kind === 'situation') return partNonConformes(situ?.depts[code]?.[ind.fam!], ind.fam!)
+      if (ind.kind === 'restriction') {
+        // Département sans information (règle « pas d'information » étendue aux restrictions, choix de l'auteur, 27/09) :
+        // aucune restriction trouvée n'y prouve pas qu'il n'y en a pas eu.
+        const v = partRestrictions(situ?.depts[code]?.toutes)
+        return v === 0 && departementSansInformation(avisNat, code, String(y)) ? null : v
+      }
       const a = deptAgg.get(code)
       if (!a || a.n === 0) return null
       if (ind.kind === 'avis') return a.hit || !departementSansInformation(avisNat, code, String(y)) ? a.hit : null
       return ind.key === 'bact' ? (a.neb ? a.ncb / a.neb : null) : a.nec ? a.ncc / a.nec : null
     },
-    [deptAgg, paramAgg, ind, isParam, mesure, situ, avisNat, y],
+    [deptAgg, paramAgg, ind, isParam, mesure, situ, avisNat, y, comptesDept],
   )
-  const fmtValue = useCallback(
-    (v: number | null) => {
-      if (v == null) return ind.kind === 'avis' ? AVIS_SANS_INFORMATION : 'pas de donnée'
-      if (ind.kind === 'avis') return `${fmt.int(v)} commune${v > 1 ? 's' : ''}`
-      // Une part de réseaux s'écrit sans franchir une borne de la légende (lib/carte.ts).
-      if (ind.kind === 'situation') return pctCarte(v)
-      if (!isParam || mesure === 'share') return fmt.pct(100 * v, v < 0.1 ? 1 : 0)
-      if (mesure === 'nd') return fmt.int(v)
-      return `${fmt.dec(v, v >= 10 ? 1 : v >= 1 ? 2 : 3)} ${paramInfo?.u ?? ''}`
-    },
-    [isParam, mesure, paramInfo, ind],
-  )
+  const fmtValue = useCallback((v: number | null) => formaterValeur(ind, v, isParam ? mesure : null, paramInfo?.u), [isParam, mesure, paramInfo, ind])
 
   // Une seule source pour les couleurs et pour la légende : elles ne peuvent pas diverger.
   const scaleDept = useMemo(
-    // Parts de réseaux non conformes : rampe ardoise à 5, 10, 20, 40 %, la même que l'accueil et les thèmes.
-    () => (isParam ? niceScale(0, paramMax, { entier: mesure === 'nd' }) : ind.kind === 'situation' ? ardoiseScale() : stepScale(ind.kind === 'taux' ? STEPS_TAUX : STEPS_AVIS)),
+    // Parts de réseaux non conformes : rampe de la qualité de l'eau à 5, 10, 20, 40 %, la même que l'accueil et les thèmes.
+    () =>
+      isParam
+        ? niceScale(0, paramMax, { entier: mesure === 'nd', rampe: 'qualite' })
+        : ind.kind === 'situation' || ind.kind === 'classes'
+          ? qualiteScale()
+          : ind.kind === 'taux'
+            ? stepScale(STEPS_TAUX, { rampe: 'qualite' })
+            : stepScale(ind.kind === 'restriction' ? BORNES_RESTRICTIONS : STEPS_AVIS, { premierAucun: true, rampe: 'qualite' }),
     [isParam, paramMax, mesure, ind],
   )
-  const scaleCommune = useMemo(
-    () => (ind.kind === 'avis' ? avisScale : ind.kind === 'situation' ? situationScale(ind.fam!) : stepScale(STEPS_TAUX)),
-    [ind],
-  )
+  const scaleCommune = useMemo(() => (ind.kind === 'classes' ? classesScale : aVueCommunale(ind) ? echelleCommune(ind) : stepScale(STEPS_TAUX, { rampe: 'qualite' })), [ind])
 
   const colorDept = useCallback((p: Record<string, unknown>) => scaleDept.color(valueOfDept(String(p.code))), [scaleDept, valueOfDept])
   const labelDept = useCallback(
     (p: Record<string, unknown>) => {
+      if (ind.kind === 'classes') return infoBulleDept(String(p.nom), String(p.code), comptesDept.get(String(p.code)), y ?? '')
       const v = valueOfDept(String(p.code))
       if (ind.kind === 'avis' && v == null && y)
         return `<b>${p.nom}</b> (${p.code})<br>${AVIS_SANS_INFORMATION}${NBSP}: ${resumeSansInformation(String(y), avisNat?.lecture?.[String(p.code)]?.[String(y)]?.[0] ?? 0)}`
       const a = paramAgg.get(String(p.code))
       const extra = isParam && a ? ` · ${fmt.int(a.n)} analyses` : ''
-      const r = ind.kind === 'situation' ? situ?.depts[String(p.code)]?.[ind.fam!] : undefined
-      const lib = ind.fam ? libellesSituation(ind.fam) : []
-      const detail = r
-        ? `<br><span class="muted">${fmt.int(r[0] + r[1] + r[2] + r[3])} réseaux : ${r
-            .slice(0, nbClasses(ind.fam!))
-            .map((x, i) => `${fmt.int(x)} ${lib[i]}`)
-            .join(' · ')}</span>`
-        : ''
-      return `<b>${p.nom}</b> (${p.code})<br>${fmtValue(v)} · ${desc}${extra}${detail}`
+      return `<b>${p.nom}</b> (${p.code})<br>${fmtValue(v)} · ${desc}${extra}${detailDepartement(ind, situ?.depts[String(p.code)], y)}`
     },
-    [valueOfDept, fmtValue, desc, isParam, paramAgg, ind, situ, avisNat, y],
+    [valueOfDept, fmtValue, desc, isParam, paramAgg, ind, situ, avisNat, y, comptesDept],
   )
 
+  // Situation, restriction et avis comme sur la fiche département (lib/indicateursCommunes.ts) ; taux de prélèvements
+  // non conformes de la commune.
   const valueOfCommune = useCallback(
     (row: MapRow | undefined): number | null => {
+      if (aVueCommunale(ind)) return valeurCommune(ind, row)
       if (!row || row[0] === 0) return null
-      // niveau de gravité, pas seulement présence ; null : pas d'information (délégation sans information)
-      if (ind.kind === 'avis') return row[14] === undefined ? 0 : row[14]
-      if (ind.kind === 'situation') return codeFamille(row[15], ind.fam!)
       return ind.key === 'bact' ? (row[2] ? row[1] / row[2] : null) : row[4] ? row[3] / row[4] : null
     },
     [ind],
   )
-  const colorCommune = useCallback((p: Record<string, unknown>) => scaleCommune.color(valueOfCommune(map?.[String(p.code)])), [map, valueOfCommune, scaleCommune])
-  const labelCommune = useCallback(
-    (p: Record<string, unknown>) => {
-      const nom = (p.nom as string | undefined) ?? nameOf.get(String(p.code)) ?? String(p.code)
-      const row = map?.[String(p.code)]
-      if (!row || row[0] === 0) return `<b>${nom}</b><br>pas de prélèvement en ${y}`
-      const v = valueOfCommune(row)
-      const txt =
-        ind.kind === 'avis'
-          ? libelleAvisCarte(row[14])
-          : ind.kind === 'situation'
-            ? v == null
-              ? 'famille non analysée'
-              : libellesSituation(ind.fam!)[v]
-            : fmt.pct(100 * (v ?? 0), 1)
-      return `<b>${nom}</b><br>${txt} · ${fmt.int(row[0])} prélèvements`
-    },
-    [map, valueOfCommune, ind, y, nameOf],
+  // Un arrondissement de Paris, Marseille ou Lyon prend les données de sa commune (communeDeRattachement) : le
+  // contrôle sanitaire ne connaît que la commune, et Paris paraissait « sans prélèvement ».
+  const colorCommune = useCallback(
+    (p: Record<string, unknown>) =>
+      ind.kind === 'classes' ? lettresDept.couleur(p) : scaleCommune.color(valueOfCommune(map?.[communeDeRattachement(String(p.code))])),
+    [map, valueOfCommune, scaleCommune, ind, lettresDept],
   )
-
-  const deptName = useMemo(() => {
-    const m = new Map<string, string>()
-    deps?.features.forEach((f) => m.set(String(f.properties?.code), String(f.properties?.nom)))
-    return m
-  }, [deps])
+  const labelCommune = useCallback(
+    (p: Record<string, unknown>) =>
+      ind.kind === 'classes'
+        ? infoBulleLettre(p, nameOf, lettresDept.lettreDe(String(p.code)), y ?? '')
+        : infoBulleCommune(p, map, nameOf, y, (row) => (aVueCommunale(ind) ? etatCommune(ind, row, y) : fmt.pct(100 * (valueOfCommune(row) ?? 0), 1))),
+    [map, valueOfCommune, ind, y, nameOf, lettresDept],
+  )
 
   // Paramètres proposés, groupés par famille.
   const paramGroups = useMemo(() => {
@@ -317,38 +273,109 @@ export default function Carte() {
     return [...g.entries()]
   }, [seriesIndex])
 
-  // Classement des communes du département affiché : la colonne de droite ne reste pas vide en vue communale.
+  // Classement des communes du département affiché, pour les avis de l'ARS et les taux de prélèvements non conformes :
+  // les familles et les restrictions ont la liste des réseaux concernés (ReseauxConcernes), jamais des communes.
   const classementCommunes = useMemo(() => {
-    if (!vueCommunes || !dept || !map) return []
+    if (!vueCommunes || !dept || !map || (ind.kind !== 'avis' && ind.kind !== 'taux')) return []
     return Object.entries(map)
       .filter(([insee]) => deptOfInsee(insee) === dept)
-      .map(([insee, row]) => ({ insee, nom: nameOf.get(insee) ?? insee, plv: row[0], v: valueOfCommune(row), dep: ind.col != null ? ((row[ind.col] as number | undefined) ?? 0) : 0 }))
-      // Communes dont un réseau est non conforme (nitrates : dès 40 mg/L, classe proche de la limite).
-      .filter((c) => c.plv > 0 && c.v != null && (ind.kind !== 'situation' ? c.v > 0 : ind.fam === 'azote' ? c.v >= 2 : classesNonConformes(ind.fam!).includes(c.v)))
-      // Situation d'abord (restriction, puis dépassements récurrents…), puis nombre d'analyses au-dessus de la limite.
-      .sort((a, b) => (b.v ?? 0) - (a.v ?? 0) || b.dep - a.dep || b.plv - a.plv)
+      .map(([insee, row]) => ({ insee, nom: nameOf.get(insee) ?? insee, plv: row[0], v: valueOfCommune(row) ?? 0 }))
+      // Communes qui ont reçu un avis, ou dont au moins un prélèvement est non conforme.
+      .filter((c) => c.plv > 0 && c.v > 0)
+      // Avis le plus grave, ou taux le plus élevé, d'abord ; puis le nombre de prélèvements.
+      .sort((a, b) => b.v - a.v || b.plv - a.plv)
   }, [vueCommunes, dept, map, nameOf, valueOfCommune, ind])
 
-  const classement = useMemo(
-    () =>
-      [...(isParam ? paramAgg.keys() : deptAgg.keys())]
-        .map((d) => ({ d, v: valueOfDept(d) }))
-        .filter((r) => r.v != null)
-        .sort((a, b) => (b.v ?? 0) - (a.v ?? 0)),
-    [isParam, paramAgg, deptAgg, valueOfDept],
+  // Effectif d'une part (lib/classement.ts) : réseaux analysés, analyses du paramètre ou prélèvements évalués, avec le
+  // total de réseaux du département quand il est connu ; null quand l'indicateur n'est pas une part (avis, nombres,
+  // maxima), qui se classe tel quel.
+  const totaux = useMemo(() => reseauxParDept(situ), [situ])
+  const effectif = useCallback(
+    (d: string): Effectif | null => {
+      if (isParam) {
+        const a = paramAgg.get(d)
+        return mesure === 'share' && a ? { n: a.n, unite: ['analyse', 'analyses'] } : null
+      }
+      if (ind.kind === 'classes') {
+        const c = comptesDept.get(d)
+        return c ? { n: c.classes, unite: ['réseau classé', 'réseaux classés'], total: c.classes + c.nonClasses } : null
+      }
+      if (ind.kind === 'situation' || ind.kind === 'restriction') {
+        const r = situ?.depts[d]?.[ind.kind === 'situation' ? ind.fam! : 'toutes']
+        return r ? { n: reseauxAnalyses(r), unite: ['réseau analysé', 'réseaux analysés'], total: totaux.get(d) } : null
+      }
+      const a = deptAgg.get(d)
+      return ind.kind === 'taux' && a ? { n: ind.key === 'bact' ? a.neb : a.nec, unite: ['prélèvement évalué', 'prélèvements évalués'] } : null
+    },
+    [isParam, paramAgg, mesure, ind, situ, totaux, deptAgg, comptesDept],
   )
-  const visibles = tout ? classement : classement.slice(0, 12)
+  // Tableau des départements (refonte, lot 4) : version textuelle de toute la carte, par ordre alphabétique, sans palmarès ;
+  // tri au choix du visiteur, les parts trop peu étayées en fin de liste (lib/tableauDepts.ts, règle des classements).
+  // Un département « sans information » sur les avis ou les restrictions y figure, avec la mention, jamais « aucun avis ».
+  const sansInfo = useCallback(
+    (d: string) => (ind.kind === 'avis' || ind.kind === 'restriction') && !!y && departementSansInformation(avisNat, d, String(y)),
+    [ind, y, avisNat],
+  )
+  const lignesTableau = useMemo(
+    () =>
+      lignesCarte(isParam ? paramAgg.keys() : deptAgg.keys(), valueOfDept, effectif, (d) => deptName.get(d) ?? d, (d, v) => v != null || sansInfo(d)),
+    [isParam, paramAgg, deptAgg, valueOfDept, effectif, deptName, sansInfo],
+  )
+  // Une part (0–1) s'écrit en % dans le CSV ; un nombre (avis, analyses) ou un maximum tel quel.
+  const estPart = isParam ? mesure === 'share' : ind.kind !== 'avis'
+  const enteteValeur = enteteClassement(ind, isParam ? mesure : null)
+  const uniteEffectif = lignesTableau.find((l) => l.e)?.e?.unite
+  const avecEffectif = lignesTableau.some((l) => l.e)
+  const colonnesCarte = useMemo<Colonne<LigneCarte>[]>(
+    () => ([
+      {
+        cle: 'v',
+        titre: enteteValeur,
+        quoi: `la valeur de l’indicateur (${enteteValeur.toLowerCase()})`,
+        num: true,
+        valeur: (l) => l.v,
+        classable: (l) => l.classable,
+        cellule: (l) => (l.v == null && sansInfo(l.dd) ? <span className="muted">{AVIS_SANS_INFORMATION}</span> : fmtValue(l.v)),
+      },
+      {
+        cle: 'e',
+        titre: uniteEffectif ? majuscule(uniteEffectif[1]) : 'Effectif',
+        num: true,
+        cellule: (l) =>
+          l.e ? (
+            <>
+              {fmt.int(l.e.n)}
+              {!l.classable && (
+                <span className="muted">
+                  {' '}
+                  <abbr title={`Part calculée sur moins de ${EFFECTIF_MIN} ${l.e.unite[1]} : hors des tris`}>(hors tri)</abbr>
+                </span>
+              )}
+            </>
+          ) : (
+            '–'
+          ),
+      },
+    ] satisfies Colonne<LigneCarte>[]).slice(0, avecEffectif ? 2 : 1),
+    [enteteValeur, sansInfo, fmtValue, avecEffectif],
+  )
+  // Classes A–D : le tableau des départements de « La France », alphabétique, au lieu d'un classement (aucun palmarès).
+  const lignesClasses = useMemo(() => (isClasses ? lignesFrance(comptesDept, (d) => deptName.get(d) ?? d) : []), [isClasses, comptesDept, deptName])
   const communesSansInfo = useMemo(
-    () => vueCommunes && ind.kind === 'avis' && !!map && Object.entries(map).some(([insee, r]) => r[14] === null && (!dept || deptOfInsee(insee) === dept)),
+    () => vueCommunes && (ind.kind === 'avis' || ind.kind === 'restriction') && !!map && Object.entries(map).some(([insee, r]) => r[14] === null && (!dept || deptOfInsee(insee) === dept)),
     [vueCommunes, ind, map, dept],
   )
   const nbMuets = ind.kind === 'avis' && y ? (avisNat?.sans_information?.[String(y)]?.length ?? 0) : 0
   const deptMuet = ind.kind === 'avis' && !!dept && !!y && departementSansInformation(avisNat, dept, String(y))
   const selection = survol ?? dept
+  // La barre d'année (meta.json) et les menus de paramètres (params.json) arrivaient après la carte et la décalaient
+  // (audit UI UX Pro Max du 2026-10-06) : la page attend ces deux fichiers.
+  if (!meta || !params) return <Chargement reserve />
 
   return (
     <div className="page">
-      <p className="eyebrow">Cartes</p>
+      <p className="eyebrow">La France</p>
+      <Crumbs items={[{ label: 'La France', to: '/france' }, { label: 'Carte détaillée' }]} />
       <div className="toolbar">
         <h1>
           {vueCommunes
@@ -361,14 +388,40 @@ export default function Carte() {
         </h1>
         <label>
           Indicateur{' '}
-          <select value={indic} onChange={(e) => setQ({ indic: e.target.value, ...(e.target.value === 'param' ? { fond: null } : {}) })}>
-            {INDICS.map((i) => (
-              <option key={i.key} value={i.key}>
-                {i.label}
-              </option>
+          <select
+            value={externe ? externe.key : indic}
+            onChange={(e) => {
+              const k = e.target.value
+              const cible = INDICS_DEPT.find((i) => i.key === k)
+              // Un indicateur départemental n'a pas de paramètre ; sans vue communale, département choisi et fond communal
+              // tombent aussi. Ceux des services d'eau gardent la vue communale en cours, comme ceux de l'eau du robinet.
+              const sansCommunes = cible && !cible.commune
+              setQ({
+                indic: k,
+                ...(k === 'param' || k === 'classes' || sansCommunes ? { fond: null } : {}),
+                ...(cible ? { param: null, mesure: null, ...(sansCommunes ? { dept: null } : {}) } : { sispea: null }),
+              })
+            }}
+          >
+            <optgroup label="Au robinet">
+              {INDICS.map((i) => (
+                <option key={i.key} value={i.key}>
+                  {i.label}
+                </option>
+              ))}
+            </optgroup>
+            {GROUPES_DEPT.map((g) => (
+              <optgroup key={g} label={g}>
+                {INDICS_DEPT.filter((i) => i.groupe === g).map((i) => (
+                  <option key={i.key} value={i.key}>
+                    {i.menu}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </label>
+        {indicInconnu && <IndicInconnu affiche={ind.label} />}
         {isParam && (
           <label>
             Paramètre{' '}
@@ -377,7 +430,7 @@ export default function Carte() {
                 <optgroup key={f} label={params?.familles[f as keyof ParamsFile['familles']] ?? f}>
                   {list.map((e) => (
                     <option key={e.code} value={e.code}>
-                      {e.k ?? e.l}
+                      {e.k ?? libelleParametre(e.code, e.l)}
                     </option>
                   ))}
                 </optgroup>
@@ -397,24 +450,36 @@ export default function Carte() {
             </select>
           </label>
         )}
-        {THEME_OF[indic] && (
-          <Link to={`/themes/${THEME_OF[indic]}`} className="btn">
+        {externe ? (
+          <Link to={externe.page.to} className="btn">
+            {externe.page.label}
+          </Link>
+        ) : ind.theme ? (
+          <Link to={`/themes/${ind.theme}`} className="btn">
             Voir le thème
           </Link>
+        ) : (
+          PAGE_OF[indic] && (
+            <Link to={PAGE_OF[indic].to} className="btn">
+              {PAGE_OF[indic].label}
+            </Link>
+          )
         )}
-        {dept && (
+        {dept && (!externe || externe.commune) && (
           // Toute la vue courante (indicateur, paramètre, mesure, millésime) part avec le lien : la fiche
           // département ne fait pas table rase de ce qu'on regardait, et le retour la restitue à l'identique.
-          <Link to={`/departement/${dept}?${sp.toString()}`} className="btn" viewTransition>
+          // L'indicateur affiché part toujours avec le lien, même celui par défaut, absent de l'URL : sans lui, la fiche
+          // s'ouvrait sur « Toutes familles » au lieu de ce qu'on regardait (relecture du 25/09).
+          <Link to={`/departement/${dept}?${versFiche}`} className="btn" viewTransition>
             Fiche du département
           </Link>
         )}
-        {dept && (
+        {dept && (!externe || externe.commune) && (
           <button className="btn" onClick={() => setQ({ dept: null })}>
             {vueCommunes ? '← France entière' : '✕ Désélectionner'}
           </button>
         )}
-        {!dept && !isParam && (
+        {!dept && communesPossibles && !isClasses && (
           <button className="btn" onClick={() => setQ({ fond: fondCommunes ? null : 'communes' })} title="Fond communal simplifié à 1 km, 7 Mo">
             {fondCommunes ? 'Départements' : 'Toutes les communes'}
           </button>
@@ -425,27 +490,56 @@ export default function Carte() {
         // faisait que le sélectionner, sans que rien ne dise pourquoi (revue du 24/09). Le lien du thème
         // (« Voir sur la carte ») ouvre la carte dans ce mode.
         <p className="muted">
-          Un paramètre se lit par département : ses analyses ne sont pas publiées commune par commune.{' '}
+          Les résultats d’un paramètre sont présentés par département, car ses analyses ne sont pas publiées commune par commune.{' '}
           <button type="button" className="btn-link" onClick={() => setQ({ indic: indicFamille, ...(dept ? {} : { fond: 'communes' }) })}>
             {dept ? 'Voir ses communes' : 'Voir les communes'} ({INDICS.find((i) => i.key === indicFamille)!.label.toLowerCase()}) →
           </button>
         </p>
       )}
+      {externe ? (
+        // Sans `key` : d'un indicateur départemental à l'autre, la carte se recolore au lieu d'être recréée.
+        <CarteDept ind={externe} deps={deps} deptName={deptName} dept={dept} fondCommunes={fondCommunes} />
+      ) : (
+      <>
       {/* L'année, au-dessus de ce qu'elle gouverne (règle de l'auteur, 23/09) : la carte et le classement. */}
-      <BarreAnnee titre="Année des données" note="Elle vaut pour la carte et le classement des départements." annees={anneesFiche(meta)} annee={y} onChange={setYear} />
+      <BarreAnnee
+        titre="Année du bilan"
+        note={
+          vueCommunes
+            ? dept
+              ? isClasses
+                ? 'Elle vaut pour la carte et la liste des réseaux notés C ou D.'
+                : ind.kind === 'situation' || ind.kind === 'restriction'
+                ? 'Elle vaut pour la carte et la liste des réseaux concernés.'
+                : 'Elle vaut pour la carte et la liste des communes.'
+              : 'Elle vaut pour la carte.'
+            : isClasses
+              ? 'Elle vaut pour la carte et le tableau des départements.'
+              : 'Elle vaut pour la carte et le tableau des départements.'
+        }
+        annees={anneesFiche(meta)}
+        annee={y}
+        onChange={setYear}
+      />
       <div className="grid cols-map">
         <div>
           {vueCommunes ? (
             <FranceMap
               key={dept ? `communes-${dept}` : 'communes-france'}
-              data={dept ? communes : communesFrance}
+              data={dept ? (isClasses && !lettresDept.pret ? null : communes) : communesFrance}
               colorOf={colorCommune}
               labelOf={labelCommune}
-              onClick={(p) => nav(`/commune/${p.code}`, { viewTransition: true })}
-              onHover={dept ? (p) => setSurvolCommune(p ? String(p.code) : null) : undefined}
+              onClick={(p) => nav(`/commune/${communeDeRattachement(String(p.code))}`, { viewTransition: true })}
+              onHover={dept ? (p) => setSurvolCommune(p ? communeDeRattachement(String(p.code)) : null) : undefined}
               selected={dept ? survolCommune : null}
               height={620}
-              ariaLabel={dept ? 'Carte des communes du département ; les communes les plus touchées sont listées à côté' : 'Carte de toutes les communes de France'}
+              ariaLabel={
+                dept
+                  ? ind.kind === 'situation' || ind.kind === 'restriction' || isClasses
+                    ? 'Carte des communes du département ; les réseaux concernés sont listés à côté'
+                    : 'Carte des communes du département ; les communes concernées sont listées à côté'
+                  : 'Carte de toutes les communes de France'
+              }
             />
           ) : (
             <FranceMap
@@ -453,29 +547,43 @@ export default function Carte() {
               data={deps}
               colorOf={colorDept}
               labelOf={labelDept}
-              onClick={(p) => setQ({ dept: String(p.code) })}
+              // Encart (choix de l'auteur, 25/09) : le zoom sur les communes et la fiche, qui reçoit toute la vue courante.
+              encart={(dd) => ({ fiche: ficheDe(dd), communes: isParam ? undefined : () => setQ({ dept: dd }) })}
               onHover={(p) => setSurvol(p ? String(p.code) : null)}
               selected={selection}
               height={620}
-              actionLabel={isParam ? 'Sélectionner ce département →' : 'Voir ses communes →'}
-              ariaLabel="Carte des départements ; le classement à côté reprend les valeurs"
+              ariaLabel="Carte des départements ; le tableau à côté reprend les valeurs"
             />
           )}
           <MapLegend
             desc={vueCommunes && ind.descCommune ? ind.descCommune : desc}
             scale={vueCommunes ? scaleCommune : scaleDept}
             format={(v) => (ind.kind === 'avis' ? fmt.int(v) : !isParam || mesure === 'share' ? pctBorne(v) : fmtValue(v))}
-            binaire={vueCommunes && ind.kind === 'avis' ? ind.binaire : vueCommunes && ind.kind === 'situation' ? libellesSituation(ind.fam!) : undefined}
+            binaire={
+              vueCommunes
+                ? aVueCommunale(ind)
+                  ? niveauxCommune(ind)
+                  : undefined
+                : ind.kind === 'restriction'
+                  ? ETIQUETTES_RESTRICTIONS
+                  : undefined
+            }
             premier={!vueCommunes && ind.kind === 'avis' ? 'aucun avis' : undefined}
+            cases={vueCommunes && ind.kind === 'situation' ? legendeSituation(ind.fam!, y) : vueCommunes && isClasses ? legendeClasses() : undefined}
             noDataLabel={
-              vueCommunes ? (communesSansInfo ? `sans prélèvement ou ${AVIS_SANS_INFORMATION}` : 'sans prélèvement') : ind.kind === 'avis' ? AVIS_SANS_INFORMATION : 'sans donnée'
+              isClasses ? 'aucun réseau classé' : vueCommunes ? (communesSansInfo ? `sans prélèvement ou ${AVIS_SANS_INFORMATION}` : 'sans prélèvement') : ind.kind === 'avis' ? AVIS_SANS_INFORMATION : ind.kind === 'restriction' ? `sans donnée ou ${AVIS_SANS_INFORMATION}` : 'sans donnée'
             }
           />
           {isParam && serieState.error && <p className="muted">Pas de série mensuelle pour ce paramètre ({param}).</p>}
           {isParam && (
             <p className="muted">
-              Cumul des analyses du millésime par département
-              {paramInfo?.lim ? `, limite de qualité ${paramInfo.lim}` : paramInfo?.ref ? `, référence de qualité ${paramInfo.ref}, pas de limite` : ''}.
+              Les analyses de l’année sont cumulées par département
+              {paramInfo?.lim
+                ? `. Limite de qualité${NBSP}: ${fmt.seuil(paramInfo.lim)}`
+                : paramInfo?.ref
+                  ? `. Ce paramètre n’a pas de limite de qualité. Référence de qualité${NBSP}: ${fmt.seuil(paramInfo.ref)}`
+                  : ''}
+              .
             </p>
           )}
         </div>
@@ -484,14 +592,35 @@ export default function Carte() {
           <Search />
           <p className="muted">
             {isParam
-              ? 'Cliquez un département pour le sélectionner, puis « Fiche du département » pour l’ouvrir.'
+              ? 'Le survol d’un département indique sa valeur ; un clic ouvre sa fiche.'
               : vueCommunes
-                ? 'Cliquez une commune pour ouvrir sa fiche.'
-                : 'Cliquez un département pour afficher ses communes, puis une commune pour ouvrir sa fiche.'}
+                ? 'Un clic sur une commune ouvre sa fiche.'
+                : isClasses
+                  ? 'Un clic sur un département ouvre sa fiche, qui porte la carte de ses communes. La carte de toutes les communes n’est pas proposée pour les classes, qui se lisent département par département.'
+                  : 'Un clic sur un département ouvre sa fiche, qui porte la carte de ses communes.'}
           </p>
-          {vueCommunes && dept && (
+          {isClasses && <p className="cap">Classes calculées par le site selon la méthode de l’indicateur de l’ARS ; la synthèse de l’ARS jointe à la facture d’eau fait foi et peut différer. <Link to="/methode#classe-ars">Méthode</Link>.</p>}
+          {/* Des réseaux, pas des communes (choix de l'auteur, 24/09, règle du projet) : une analyse au-dessus de la limite
+              ne touche pas une commune entière. Les avis de l'ARS, qui visent des communes, et les taux de prélèvements
+              non conformes, calculés commune par commune, gardent leur liste de communes, sans compte pour les taux. */}
+          {vueCommunes && dept && isClasses && <ReseauxConcernes dept={dept} annee={y ?? ''} situ={situ} critere="classes" libelle={ind.label} />}
+          {!vueCommunes && isClasses && lignesClasses.length > 0 && (
             <>
-              <h3>Communes concernées{classementCommunes.length ? ` (${classementCommunes.length})` : ''}</h3>
+              <h3>Les départements</h3>
+              <p className="muted">{PHRASE_PART}</p>
+              <TableauDepartements lignes={lignesClasses} annee={y ?? ''} lien={(d) => `?${deptHref(d)}`} selection={selection} onSurvol={setSurvol} />
+            </>
+          )}
+          {vueCommunes && dept && (ind.kind === 'situation' || ind.kind === 'restriction') && (
+            <ReseauxConcernes dept={dept} annee={y ?? ''} situ={situ} critere={ind.kind === 'restriction' ? 'restriction' : ind.fam!} libelle={ind.label} />
+          )}
+          {vueCommunes && dept && (ind.kind === 'avis' || ind.kind === 'taux') && (
+            <>
+              <h3>
+                {ind.kind === 'avis'
+                  ? `Communes ayant reçu un avis de l'ARS${classementCommunes.length ? ` (${classementCommunes.length})` : ''}`
+                  : 'Communes aux prélèvements non conformes'}
+              </h3>
               {classementCommunes.length === 0 ? (
                 <p className="muted">
                   {deptMuet
@@ -499,56 +628,17 @@ export default function Carte() {
                     : `Aucune commune du département n'est concernée par cet indicateur en ${y}.`}
                 </p>
               ) : (
-                <div className="table-scroll"><table className="data">
-                  <caption className="sr-only">Communes concernées, version textuelle de la carte</caption>
-                  <thead>
-                    <tr>
-                      <th>Commune</th>
-                      {ind.kind === 'taux' ? (
-                        <th className="num">Non conformes</th>
-                      ) : ind.kind === 'avis' ? (
-                        <th>Avis</th>
-                      ) : (
-                        <>
-                          <th>Situation</th>
-                          <th className="num">Analyses au-dessus</th>
-                        </>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(tout ? classementCommunes : classementCommunes.slice(0, 15)).map((c) => (
-                      <tr
-                        key={c.insee}
-                        className={survolCommune === c.insee ? 'on' : undefined}
-                        onMouseEnter={() => setSurvolCommune(c.insee)}
-                        onMouseLeave={() => setSurvolCommune(null)}
-                      >
-                        <td>
-                          {/* Lien, pas juste un clic sur la ligne : la légende annonce ce tableau comme l'équivalent
-                              textuel de la carte, elle-même non navigable au clavier (FranceMap.tsx). */}
-                          <Link to={`/commune/${c.insee}`}>{c.nom}</Link>
-                        </td>
-                        {ind.kind === 'taux' ? (
-                          <td className="num">{fmt.pct(100 * (c.v ?? 0), 1)}</td>
-                        ) : ind.kind === 'avis' ? (
-                          <td>{AVIS_PAR_CODE[c.dep]}</td>
-                        ) : (
-                          <>
-                            <td>
-                              <span className="swatch" style={{ background: situationScale(ind.fam!).color(c.v) }} aria-hidden="true" /> {c.v != null ? libellesCourts(ind.fam!)[c.v] : '–'}
-                            </td>
-                            <td className="num">{fmt.int(c.dep)}</td>
-                          </>
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table></div>
+                <CommunesAvis
+                  communes={tout ? classementCommunes : classementCommunes.slice(0, 15)}
+                  legende="Communes concernées, version textuelle de la carte"
+                  taux={ind.kind === 'taux'}
+                  survol={survolCommune}
+                  onSurvol={setSurvolCommune}
+                />
               )}
               {classementCommunes.length > 15 && (
                 <p className="muted">
-                  {tout ? `${classementCommunes.length} communes` : `15 premières sur ${classementCommunes.length}`}{' '}
+                  {tout ? `${classementCommunes.length} communes` : `15 premières sur ${classementCommunes.length}`}{' · '}
                   <button className="btn-link" type="button" onClick={() => setTout((v) => !v)}>
                     {tout ? 'voir les 15 premières' : 'voir toutes les communes'}
                   </button>
@@ -556,47 +646,41 @@ export default function Carte() {
               )}
             </>
           )}
-          {!vueCommunes && classement.length > 0 && (
+          {!vueCommunes && !isClasses && lignesTableau.length > 0 && (
             <>
-              <h3>Départements les plus touchés</h3>
-              <div className="table-scroll"><table className="data">
-                <caption className="sr-only">Départements classés par valeur décroissante de l'indicateur choisi ; version textuelle de la carte</caption>
-                <thead>
-                  <tr>
-                    <th>Département</th>
-                    <th className="num">
-                      {isParam ? { share: 'Part au-dessus', nd: 'Analyses au-dessus', max: 'Maximum' }[mesure] : ind.kind === 'taux' ? 'Prélèvements non conformes' : ind.kind === 'avis' ? 'Communes avec un avis' : 'Réseaux non conformes'}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {visibles.map((r) => (
-                    <tr key={r.d} className={selection === r.d ? 'on' : undefined} onMouseEnter={() => setSurvol(r.d)} onMouseLeave={() => setSurvol(null)}>
-                      <td>
-                        <Link to={`?${deptHref(r.d)}`}>{deptName.get(r.d) ?? r.d}</Link>
-                      </td>
-                      <td className="num">{fmtValue(r.v)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table></div>
-              <p className="muted">
-                {tout ? `${classement.length} départements avec une valeur` : `12 premiers sur ${classement.length} départements avec une valeur`}{' '}
-                <button className="btn-link" type="button" onClick={() => setTout((v) => !v)}>
-                  {tout ? 'voir les 12 premiers' : 'voir tout le classement'}
-                </button>
-              </p>
+              <h3>Les départements</h3>
+              <p className="muted">Par ordre alphabétique ; un tri est proposé. Un lien affiche le département sur la carte.</p>
+              <TableauDeptsTri
+                lignes={lignesTableau}
+                colonnes={colonnesCarte}
+                lien={(d) => `?${deptHref(d)}`}
+                legende={`Les départements, par ordre alphabétique ou selon le tri choisi : ${desc}, ${y ?? ''} ; version textuelle de la carte`}
+                selection={selection}
+                onSurvol={setSurvol}
+                unite={uniteEffectif?.[1] ?? 'réseaux analysés'}
+                csv={{
+                  sujet: `carte-${isParam ? `parametre-${param}-${mesure}` : indic}`,
+                  annee: y ?? '',
+                  entetes: ['Code du département', 'Département', 'Année', `${enteteValeur}${estPart ? ' (%)' : ''}`, 'Effectif', 'Unité de l’effectif', 'Valeur retenue dans les tris'],
+                  ligne: (l) => [l.dd, l.nom, String(y ?? ''), estPart ? pctCsv(l.v) : l.v, l.e?.n ?? null, l.e?.unite[1] ?? null, l.classable ? 'oui' : 'non'],
+                  note: `Indicateur : ${desc} ; séparateur point-virgule.`,
+                }}
+              />
               {nbMuets > 0 && (
                 <p className="muted">
-                  Pas d’information en {y} dans {fmt.nb(nbMuets, 'département')}, en gris sur la carte{NBSP}: aucune conclusion de l’ARS n’y évoque de consigne, ni
-                  pour en prescrire une, ni pour l’écarter. <Link to={`/avis?annee=${y}`}>Liste et méthode</Link>.
+                  En {y}, aucune conclusion de l’ARS n’évoque de consigne dans {fmt.nb(nbMuets, 'département')}, qu’il s’agisse d’en prescrire une ou de
+                  l’écarter. Ces départements sont hachurés sur la carte, avec la mention « {AVIS_SANS_INFORMATION} ». <Link to={`/avis?annee=${y}`}>Liste et méthode</Link>.
                 </p>
               )}
             </>
           )}
         </div>
       </div>
-      <div className="source">Source : contrôle sanitaire SISE-Eaux (ministère de la Santé). Contours : Etalab / IGN Admin Express.</div>
+      </>
+      )}
+      <div className="source">
+        {externe ? externe.sourceTexte : 'Source : contrôle sanitaire SISE-Eaux (ministère de la Santé).'} Contours : Etalab / IGN Admin Express.
+      </div>
     </div>
   )
 }

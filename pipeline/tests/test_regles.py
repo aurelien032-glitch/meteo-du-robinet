@@ -3,7 +3,7 @@ import duckdb
 import pandas as pd
 import pytest
 
-from robinet.build import _bound
+from robinet.themes import borne as _bound
 from robinet.check import compare
 from robinet.geo import _dept_of, _round_coords
 from robinet.sispea import _clean_code, _clean_dept, _norm_code
@@ -23,6 +23,8 @@ def famille(cdparametre, lib, limitequal, unite):
     (("6276", "Total des pesticides analysés", "<=0,5 µg/L", "133"), "pesticides"),
     (("8847", "Somme de 20 substances perfluoroalkylées (PFAS)", "<=0,1 µg/L", "133"), "pfas"),
     (("1457", "Acrylamide", "<=0.1 µg/L", "133"), "organiques"),
+    # Somme des HAP : limite écrite avec une virgule, comme celle des pesticides (2026-10-04).
+    (("2033", "Hydrocarbures polycycliques aromatiques (4 substances)", "<=0,1 µg/L", "133"), "organiques"),
     (("1340", "Nitrates (en NO3)", "<=50 mg/L", "162"), "azote"),
     (("1449", "Escherichia coli /100ml - MF", "<=0 n/(100mL)", "226"), "microbio"),
     (("1382", "Plomb", "<=10 µg/L", "133"), "metaux_mineraux"),
@@ -392,6 +394,93 @@ def test_avis_ars_manganese():
          "nécessité une restriction d e la consommation de l'eau pour les enfants de moins de 4 ans. Des mes ures correctives "
          "ont été demandées à l'exploitant.")
     assert classer(t) == "sensibles" and causes(t) == ["manganèse"]
+
+
+def test_avis_ars_plomb_des_canalisations_n_est_pas_une_cause():
+    """Relevé du 2026-10-05 : l'avertissement général sur les canalisations faisait du plomb la cause d'une interdiction
+    pour la bactériologie (070000667, 2024), rangée parmi les métaux (CAUSES_FAMILLE)."""
+    from robinet.avis import causes
+    bacterio = ("L'eau favorise la dissolution des canalisations (plomb, cuivre,...). Lorsqu'il subsiste de telles canalisations "
+                "à l'intérieur des bâtiments, laisser couler l'eau avant de la consommer et changer ces conduites dans les "
+                "meilleurs délais. L'eau présente une qualité microbiologique insuffisante qui nécessite une interdiction de "
+                "consommation. L'eau ne doit pas être consommée.")
+    assert classer(bacterio) == "interdiction" and causes(bacterio) == ["bactériologie"]
+    for avertissement in [
+        "L'absence de canalisation en plomb dans les parties privatives des réseaux doit être vérifiée.",
+        "L’eau prélevée respecte les limites de qualité pour les paramètres analysés, mais son pH et sa conductivité inférieurs "
+        "aux références peuvent favoriser la dissolution des métaux dans les canalisati ons en plomb et cuivre.",
+        "Eau d'alimentation conforme aux limites de qualité et non conforme aux références de qualité en raison de son "
+        "caractère agressif, susceptible de favoriser la dissolution des métaux, notamment le plomb s'il est constitutif des "
+        "branchements publics ou des réseaux privés.",
+        "Cette eau présente un caractère agressif, susceptible de provoquer une corrosion des conduites ce qui peut entrainer "
+        "une augmentation de certaines substances (plomb, cuivre) et présenter alors un risque pour la santé des consommateurs.",
+    ]:
+        assert "plomb" not in causes(avertissement + " Par arrêté préfectoral, l'eau est interdite à la consommation."), avertissement
+    # un plomb mesuré reste une cause, même à côté des canalisations
+    assert "plomb" in causes("Eau d’alimentation non conforme aux limites de qualité en vigueur pour le paramètre plomb. Une "
+                             "enquête doit être effectuée afin de déterminer les causes (réseau intérieur et/ou branchement "
+                             "public en plomb). L'eau ne doit pas être consommée par les femmes enceintes et les nourrissons.")
+    assert "plomb" in causes("Le branchement public présente une teneur en plomb de 25 µg/L. L'eau ne doit pas être consommée.")
+
+
+def test_avis_ars_eau_trouble_sans_consigne():
+    """Choix de l'auteur (2026-10-05) : « ne pas consommer une eau présentant un trouble » (ARS de l'Yonne, 089000646 en
+    2025, sous une turbidité au-dessus de la référence de qualité) ne vaut que si l'eau est trouble au robinet, comme
+    « lorsqu'il subsiste de telles canalisations, laisser couler l'eau » : pas un avis sur l'eau du réseau."""
+    from robinet.avis import causes
+    yonne = ("Eau d'alimentation conforme aux limites de qualité et non conforme aux références de qualité du fait de la "
+             "turbidité. Il est recommandé à la population de ne pas consommer une ea u présentant un trouble.")
+    assert classer(yonne) is None and causes(yonne) == ["turbidité"]
+    assert classer("Il est conse illé de ne pas boire une eau trouble et de veiller à avoir une bonne c hlorat ion.") is None
+    assert classer("Il est conseillé de ne pas co nsommer une eau trouble surtout quand la teneur en chlore est faible.") is None
+    # une consigne énoncée par ailleurs reste lue, et une restriction pour la turbidité reste une restriction
+    assert classer("La turbidité dépasse la limite de qualité. Il est recommandé à la popu lation de ne pas consommer une eau "
+                   "trouble. Une interdiction de consommer l'eau concernant les femmes enceintes et nourrissons est "
+                   "actuellement en vigueur.") == "sensibles"
+    assert classer("L a non conformité concernant la turbidité a nécessité une restriction d e consommation de l'eau.") == "interdiction"
+
+
+def test_avis_ars_levee_n_est_pas_une_consigne():
+    """Une conclusion qui lève une consigne n'en porte aucune, ni n'ouvre une nouvelle période : le rappel de la consigne
+    passée (« fait suite à une interdiction », « recontrôle… ayant entraîné une interdiction ») n'est pas lu quand le texte
+    la lève (Beaumont-sur-Vingeanne, 021000697, 27/02/2026), ni une incise longue avant « est levée » (Haute-Saône, 2026)."""
+    assert classer("Ce prélèvement fait suite à une interdiction de consommation pour risq ue microbiologique et confirme le "
+                   "retour à la normale. L'interdiction de consommer l'eau est levée.") is None
+    assert classer("La restriction d'usage de l'eau, mise en place le 10/01/2026 par mesure de précaution, suite à une rupture "
+                   "temporaire d'approvisionnement en eau, est levée.") is None
+    assert classer("Cette analyse est un recontrôle effectué suite à une teneur élevée en aluminium révélée par les analyses "
+                   "réalisées le 04 avril 2023 et ayant entrainée une demande de restriction de consommation pour les personnes "
+                   "sensibles. Au regard des présents résultats, une demande de levée des restrictions de consommation a été "
+                   "réalisée.") is None
+    # consigne maintenue : le rappel reste lu, avec ou sans levée d'une autre consigne
+    assert classer("Ce prélèvement fait suite à la mise en place d'une restriction de cons ommation de l'eau pour toute la "
+                   "population pour le paramètre bactériol ogique. Dans l'attente d'un retour à la normale du taux de chlore, la "
+                   "restriction est maintenue.") == "interdiction"
+    assert classer("Ce prélèvement fait suite à une non conformité microbiologique et confirme le retour à la normale. "
+                   "L'interdiction de consommer l'eau est levée pour la population générale sauf pour les femmes enceintes e t "
+                   "les nourrissons de moins de 6 mois.") == "sensibles"
+    # « statuer sur la levée » : la consigne court toujours
+    assert classer("Cette analyse est un recontrôle suite à la mise en place d'une restric tion d'usage. Le taux de nitrates se "
+                   "situe à la limite de qualité. L'a ttente du résultat de l'analyse analogue faite au niveau du bourg bas est "
+                   "nécessaire pour statuer sur la levée de l'interdiction.") == "interdiction"
+
+
+def test_avis_ars_espaces_parasites():
+    """Une espace parasite, à n'importe quelle position, ne change pas la lecture d'une négation (012000732, 2025), ni
+    celle d'une condition : « Ain si, une demande d'interdiction… » n'est pas une condition, « S i l'analyse… » en est une."""
+    from robinet.avis import causes
+    for neg in ["La non conformité concernant les chlorites n'a pas nécessité la restriction de la consommation de l'eau.",
+                "La non-conformité porte sur un paramètre microbiologique et n'a toutefois pas nécessité de restriction de la "
+                "consommation de l'eau.",
+                "Ces germes sont un indicateur, mais leur présence ne nécessite pas de restriction de la consommation de l'eau."]:
+        assert all(classer(neg[:i] + " " + neg[i:]) is None for i in range(1, len(neg))), neg
+    vraie = "La non conformité concernant les chlorites a nécessité une restriction de la consommation de l'eau."
+    assert classer(vraie) == "interdiction" and causes(vraie) == ["chlorites / chlorates"]
+    assert classer("Certains ont présenté des dépassements de la limite de qualité. Ain si, une demande d'interdiction de "
+                   "consommation a été réalisée le 01 décembre 2023.") == "interdiction"
+    assert classer("Aus si l'utilisation de cette eau est déconseillée pour les nourrissons.") == "sensibles"
+    assert classer("Un nouveau prélèvement sera réalisé prochainement. S i l'analyse met à nouveau une valeur non conforme, une "
+                   "restriction d'usage de l'eau sera mis en place.") is None
 
 
 # --- Délégations sans information (constat du 2026-09-24) : une conclusion « évoque » une consigne quand elle la prescrit,

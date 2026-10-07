@@ -4,8 +4,9 @@ import { NIVEAUX_SECHERESSE, rangZone, secheresseCommune, TONS_SECHERESSE, TYPES
 
 /**
  * Restrictions sécheresse en vigueur aujourd'hui, interrogées en direct chez VigiEau (lib/vigieau.ts : une seule
- * requête partagée avec la bande ressource de la fiche). Un niveau de restriction est un fait réglementaire, pas un
- * jugement de la qualité de l'eau : il s'écrit, sans couleur de sémaphore (grammaire du 23/09).
+ * requête partagée avec la bande ressource de la fiche). Un niveau de restriction est une alerte officielle (règle
+ * « juger et alerter en couleur », auteur, 24/09) : chaque niveau, celui de la commune comme celui de chaque zone,
+ * prend l'étiquette de son ton (TONS_SECHERESSE), la même que sur la carte ; l'absence de restriction, le bleu de « conforme ».
  */
 export default function VigiEauCard({ insee }: { insee: string }) {
   const { zones, erreur } = useVigiEau(insee)
@@ -16,8 +17,8 @@ export default function VigiEauCard({ insee }: { insee: string }) {
         <h2>Restrictions sécheresse</h2>
         <p className="muted">
           {erreur.includes('plusieurs zones')
-            ? 'VigiEau ne rattache pas cette commune à une zone unique : les restrictions se lisent sur la carte nationale.'
-            : 'VigiEau injoignable pour le moment.'}{' '}
+            ? 'VigiEau ne rattache pas cette commune à une zone unique. Les restrictions applicables figurent sur la carte nationale.'
+            : 'Le service VigiEau ne répond pas pour le moment.'}{' '}
           <Link to="/secheresse">Voir la carte des restrictions</Link>
         </p>
       </div>
@@ -29,7 +30,7 @@ export default function VigiEauCard({ insee }: { insee: string }) {
       <h2>Restrictions sécheresse · {today}</h2>
       {actives.length === 0 ? (
         <p>
-          <b>Aucune restriction</b> <span className="muted">en vigueur sur la commune aujourd'hui.</span>
+          <Tag ton={TONS_SECHERESSE[0]}>Aucune restriction</Tag> <span className="muted">en vigueur sur la commune aujourd'hui.</span>
         </p>
       ) : (
         <>
@@ -49,7 +50,7 @@ export default function VigiEauCard({ insee }: { insee: string }) {
                       </div>
                     </td>
                     <td className="num">
-                      <span className="badge neutre">{NIVEAUX_SECHERESSE[rangZone(z)]}</span>
+                      <Tag ton={TONS_SECHERESSE[rangZone(z)]}>{NIVEAUX_SECHERESSE[rangZone(z)]}</Tag>
                     </td>
                   </tr>
                 ))}

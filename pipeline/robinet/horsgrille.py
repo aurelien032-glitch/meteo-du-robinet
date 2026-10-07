@@ -22,8 +22,10 @@ REPERES = {
          "src": "recommandation DGS/Anses citée par les ARS"},
     ],
 }
-REPERE_METABOLITES = {"v": 0.9, "lib": "« valeur de vigilance » des métabolites de pesticides sans limite",
-                      "src": "citée par les ARS"}
+# Valeur indicative de l'arrêté du 11 janvier 2007 (annexe I, partie III) ; les « valeurs de vigilance » de la partie IV
+# sont une autre catégorie (17-bêta-estradiol, nonylphénol). Terme corrigé le 2026-10-05.
+REPERE_METABOLITES = {"v": 0.9, "lib": "valeur indicative des métabolites de pesticides non pertinents",
+                      "src": "arrêté du 11 janvier 2007, annexe I"}
 
 GROUPES = {
     "perchlorate": "Perchlorate",
@@ -66,7 +68,9 @@ def build(con, years: list[int], params: dict) -> None:
     import pandas as pd
 
     from . import config as C
-    from .build import _dept_of_insee, _dump, _n
+    from .util import arrondi as _n
+    from .util import dept_of_insee as _dept_of_insee
+    from .util import dump as _dump
 
     codes = {c: g for c, info in params.items() if (g := groupe(c, info))}
     df = pd.DataFrame({"code": list(codes), "groupe": list(codes.values())})

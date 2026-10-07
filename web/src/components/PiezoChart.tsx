@@ -4,6 +4,9 @@ import { fmt } from '../lib/data'
 import { chartPalette, useCleTheme } from '../lib/theme'
 import type { Piezometre } from '../lib/types'
 
+/** « 2023-11 » → « nov. 2023 » : l'axe et l'info-bulle en mois lisibles (critique UX du 2026-10-05). */
+const moisLisible = (m: string) => new Date(Number(m.slice(0, 4)), Number(m.slice(5, 7)) - 1, 1).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })
+
 /**
  * Niveau mensuel d'un piézomètre sur les `mois` derniers mois, dans la bande de ses années passées : entre le
  * 10e et le 90e centile du même mois calendaire (aplat), médiane en pointillé. Sous la bande : nappe basse
@@ -22,17 +25,24 @@ export default function PiezoChart({ p, mois = 36, height = 260, code }: { p: Pi
       return n && n[0] != null && n[2] != null ? n[2] - n[0] : null
     })
     return {
-      grid: { left: 56, right: 16, top: 58, bottom: 28 },
+      // Légende sous le tracé (sur téléphone, en haut, elle passait sur deux lignes et recouvrait « m NGF »).
+      grid: { left: 56, right: 16, top: 30, bottom: 76 },
       tooltip: {
         trigger: 'axis' as const,
         formatter: (ps: unknown) => {
           const i = (ps as { dataIndex: number }[])[0]?.dataIndex ?? 0
           const n = norm(i)
-          return `<b>${x[i]}</b><br>niveau ${serie[i][1] == null ? '–' : `${fmt.dec(serie[i][1]!, 2)} m`}${n ? `<br>normale ${fmt.dec(n[1] ?? 0, 2)} m (de ${fmt.dec(n[0] ?? 0, 2)} à ${fmt.dec(n[2] ?? 0, 2)})` : ''}`
+          return `<b>${moisLisible(x[i])}</b><br>niveau ${serie[i][1] == null ? '–' : `${fmt.dec(serie[i][1]!, 2)} m`}${n ? `<br>normale ${fmt.dec(n[1] ?? 0, 2)} m (de ${fmt.dec(n[0] ?? 0, 2)} à ${fmt.dec(n[2] ?? 0, 2)})` : ''}`
         },
       },
-      legend: { top: 0, data: ['niveau du mois', 'médiane des années passées', 'années passées (10 % – 90 %)'], textStyle: { color: c.muted, fontSize: c.fontSize } },
-      xAxis: { type: 'category' as const, data: x, ...axisDefaults(), axisLabel: { color: c.muted, fontSize: c.fontSize, interval: 5 } },
+      legend: { bottom: 0, type: 'plain' as const, data: ['niveau du mois', 'médiane des années passées', 'années passées (10 % – 90 %)'], textStyle: { color: c.muted, fontSize: c.fontSize } },
+      // Janvier et juillet seulement, en mois lisibles ; les étiquettes qui se chevauchent sont omises.
+      xAxis: {
+        type: 'category' as const,
+        data: x,
+        ...axisDefaults(),
+        axisLabel: { color: c.muted, fontSize: c.fontSize, interval: (_: number, v: string) => v.slice(5, 7) === '01' || v.slice(5, 7) === '07', formatter: moisLisible, hideOverlap: true },
+      },
       yAxis: { type: 'value' as const, scale: true, name: 'm NGF', nameGap: 10, ...axisDefaults() },
       series: [
         // stackStrategy 'all' : sinon ECharts empile à part valeurs positives et négatives, et la bande d'une nappe

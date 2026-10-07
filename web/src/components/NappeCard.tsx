@@ -59,7 +59,7 @@ export default function NappeCard({ insee, dept }: { insee: string; dept: string
       <p>
         Restrictions sécheresse dans le département :{' '}
         {annees.length === 0 ? (
-          <span className="muted">aucun arrêté avec niveau depuis 2012.</span>
+          <span className="muted">aucun arrêté assorti d'un niveau de restriction depuis 2012.</span>
         ) : !pire || crise(pire) === 0 ? (
           <>
             aucun jour en crise depuis 2012 ; en {derniere}, {fmt.int(h[derniere]?.[2] ?? 0)} jours en alerte renforcée et {fmt.int(h[derniere]?.[1] ?? 0)} en alerte.
@@ -67,12 +67,12 @@ export default function NappeCard({ insee, dept }: { insee: string; dept: string
         ) : (
           <>
             <b>{fmt.int(crise(derniere))}</b> jour{crise(derniere) > 1 ? 's' : ''} en crise en {derniere} (sur au moins une zone)
-            {pire && pire !== derniere ? `, ${fmt.int(crise(pire))} en ${pire}, l'année la plus longue depuis 2012` : ''}.
+            {pire && pire !== derniere ? `, ${fmt.int(crise(pire))} en ${pire}, année qui en compte le plus depuis 2012` : ''}.
           </>
         )}
       </p>
       <div className="source">
-        Piézométrie Hub'Eau (BRGM), classes calculées par le site à la manière de l'indicateur du BRGM ; arrêtés sécheresse (VigiEau).{' '}
+        Piézométrie Hub'Eau (BRGM), classes calculées par le site sur le modèle de l'indicateur piézométrique du BRGM ; arrêtés sécheresse (VigiEau).{' '}
         <Link to="/nappes">Les nappes en France</Link> · <Link to="/secheresse">Sécheresse</Link>.
       </div>
     </div>

@@ -1,11 +1,12 @@
 import type { CSSProperties } from 'react'
 import type { Ton } from '../lib/situations'
+import { jetonsEtats } from '../lib/theme'
 
 /**
  * Échelle par classes : pesticides et métaux avec les tons de leur bilan, sécheresse avec les tons de ses niveaux
  * officiels (lib/vigieau.ts), nappes en gris (sans ton).
- * Les classes non conformes sont teintées ; la classe atteinte est pleine, dans son ton, ou à l'encre pour une
- * échelle grise. Échelle longue (plus de quatre classes) : extrémités dessous, classe atteinte lue au-dessus,
+ * Les classes non conformes sont teintées ; la classe atteinte est pleine, dans la couleur de son degré (palette de la
+ * carte, `jetonsEtats` : vigilance en jaune, alerte en orange), ou à l'encre pour une échelle grise. Échelle longue (plus de quatre classes) : extrémités dessous, classe atteinte lue au-dessus,
  * comme sur une réglette.
  */
 export default function Paliers({
@@ -21,6 +22,7 @@ export default function Paliers({
 }) {
   const n = classes.length
   const on = actif != null && actif >= 0 && actif < n ? actif : null
+  const jetons = classes.every((c) => c.ton) ? jetonsEtats(classes.map((c) => c.ton!)) : null
   const aria = on != null ? `${nom} : ${classes[on].t}` : `${nom} : échelle ${classes.map((c) => c.t.toLowerCase()).join(', ')}`
   return (
     <div className={`paliers${compact ? ' paliers--compact' : ''}`} style={{ '--n': n } as CSSProperties} role="img" aria-label={aria}>
@@ -36,6 +38,7 @@ export default function Paliers({
           <span
             key={i}
             className={`p-palier${c.ton === 'warn' ? ' p-palier--warn' : c.ton === 'bad' ? ' p-palier--bad' : ''}${i === on ? ` actif tone-${c.ton ?? 'neutre'}` : ''}`}
+            style={i === on && jetons ? ({ '--tone': `var(${jetons[i]})` } as CSSProperties) : undefined}
           />
         ))}
       </div>

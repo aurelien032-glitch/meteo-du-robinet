@@ -1,28 +1,42 @@
 import { describe, expect, it } from 'vitest'
-import { classeArdoise, ETIQUETTES_ARDOISE, etiquettesVisibles, lectureDepartement, lignesDepartements, lignesEtiquette, pctCarte } from './carte'
-import { palierArdoise, PALIERS_ARDOISE } from './scale'
+import {
+  BORNES_RESTRICTIONS,
+  causesRestriction,
+  classePart,
+  ETIQUETTES_PARTS,
+  ETIQUETTES_RESTRICTIONS,
+  etiquettesVisibles,
+  lignesDepartements,
+  lignesEtiquette,
+  partRestrictions,
+  pctCarte,
+  pctRestrictions,
+} from './carte'
+import { palierPart, PALIERS_PARTS } from './scale'
+import { codeFamille } from './situations'
 
 const NB = String.fromCharCode(0xa0)
 
-describe('rampe ardoise de la carte', () => {
-  it('cinq classes aux bornes 5, 10, 20 et 40 %, chacune ouverte à sa borne ; 0 sans réseau analysé', () => {
-    expect([null, 0, 0.049, 0.05, 0.0999, 0.1, 0.2, 0.39, 0.4, 1].map(classeArdoise)).toEqual([0, 1, 1, 2, 2, 3, 4, 4, 5, 5])
-    expect(ETIQUETTES_ARDOISE).toEqual(['< 5', '5–10', '10–20', '20–40', '≥ 40'])
+describe('rampe des parts de la carte', () => {
+  it('quatre classes aux bornes 10, 25 et 50 % (couleurs des notes, 07/10), chacune ouverte à sa borne ; 0 sans réseau analysé', () => {
+    expect([null, 0, 0.0999, 0.1, 0.2499, 0.25, 0.49, 0.5, 1].map(classePart)).toEqual([0, 1, 1, 2, 2, 3, 3, 4, 4])
+    expect(ETIQUETTES_PARTS).toEqual(['< 10', '10–25', '25–50', '≥ 50'])
   })
   it('les classes de la carte et les paliers de l’échelle des autres cartes viennent des mêmes bornes', () => {
-    for (const b of PALIERS_ARDOISE) expect(classeArdoise(b)).toBe(palierArdoise(b) + 1)
+    for (const b of PALIERS_PARTS) expect(classePart(b)).toBe(palierPart(b) + 1)
   })
 })
 
 describe('pctCarte', () => {
-  it('une décimale sous 10 %, aucune au-delà', () => {
-    expect([0.0753, 0.0336, 0.1029, 0.5955, 0].map(pctCarte)).toEqual([`7,5${NB}%`, `3,4${NB}%`, `10${NB}%`, `60${NB}%`, `0,0${NB}%`])
+  it('une décimale partout (règle des décimales du 2026-10-05)', () => {
+    expect([0.0753, 0.0336, 0.1029, 0.5955, 0].map(pctCarte)).toEqual([`7,5${NB}%`, `3,4${NB}%`, `10,3${NB}%`, `59,6${NB}%`, `0,0${NB}%`])
   })
   it('ne franchit jamais une borne de la légende à l’arrondi', () => {
     expect(pctCarte(0.0997)).toBe(`9,97${NB}%`)
     expect(pctCarte(0.396)).toBe(`39,6${NB}%`)
-    expect(pctCarte(0.3996)).toBe(`39,96${NB}%`)
-    expect(pctCarte(0.1)).toBe(`10${NB}%`)
+    expect(pctCarte(0.2497)).toBe(`24,97${NB}%`)
+    expect(pctCarte(0.4996)).toBe(`49,96${NB}%`)
+    expect(pctCarte(0.1)).toBe(`10,0${NB}%`)
   })
 })
 
@@ -46,13 +60,7 @@ describe('tableau et lecture des départements', () => {
       ['Saint-Pierre-et-Miquelon', 0, 0],
     ])
     expect(l.at(-1)?.part).toBeNull()
-    expect(l.map((x) => classeArdoise(x.part))).toEqual([5, 3, 2, 1, 0])
-  })
-  it('lecture en une phrase, accordée', () => {
-    const [marne] = lignesDepartements(DEPTS, NOMS)
-    expect(lectureDepartement(marne)).toBe(`Marne : 60${NB}% des réseaux non conformes, 187 sur 314 analysés`)
-    expect(lectureDepartement({ nom: 'Réseau seul', part: 0, nonConformes: 0, analyses: 1 })).toBe(`Réseau seul : 0,0${NB}% des réseaux non conformes, 0 sur 1 analysé`)
-    expect(lectureDepartement({ nom: 'Saint-Pierre-et-Miquelon', part: null, nonConformes: 0, analyses: 0 })).toBe('Saint-Pierre-et-Miquelon : aucun réseau analysé')
+    expect(l.map((x) => classePart(x.part))).toEqual([4, 2, 1, 1, 0])
   })
 })
 
@@ -71,5 +79,39 @@ describe('étiquettes de la carte', () => {
     expect([...etiquettesVisibles([b('a', 0, 2), b('b', 11, 1)], 2)]).toEqual(['a'])
     // une étiquette qui sortirait du dessin est écartée, même prioritaire
     expect([...etiquettesVisibles([b('bord', 995, 9), b('dedans', 500, 1)], 0, { largeur: 1000, hauteur: 1000 })]).toEqual(['dedans'])
+  })
+})
+
+describe('restrictions de consommation', () => {
+  it('part des réseaux sous restriction ou consigne : la classe 2 de « toutes familles » ; null sans réseau analysé', () => {
+    // Haute-Garonne 2025 (situations/2025.json) : 157 conformes, 8 non conformes, 10 sous restriction ou consigne.
+    expect(partRestrictions([157, 8, 10, 0])).toBeCloseTo(10 / 175)
+    expect(partRestrictions([86, 7, 0, 0])).toBe(0)
+    expect(partRestrictions([0, 0, 0, 0])).toBeNull()
+    expect(partRestrictions(undefined)).toBeNull()
+  })
+  it('paliers : « aucun réseau » à part, puis 2, 5 et 10 % ; une étiquette par palier', () => {
+    expect(BORNES_RESTRICTIONS).toHaveLength(ETIQUETTES_RESTRICTIONS.length)
+    expect(ETIQUETTES_RESTRICTIONS[0]).toBe('aucun réseau')
+    // un seul réseau sur 2 000 n'est pas « aucun »
+    expect(1 / 2000).toBeGreaterThanOrEqual(BORNES_RESTRICTIONS[1])
+  })
+  it('écrite sans franchir une borne de sa légende', () => {
+    expect(pctRestrictions(0.0199)).toBe(`1,99${NB}%`)
+    expect(pctRestrictions(0.0571)).toBe(`5,7${NB}%`)
+    expect(pctRestrictions(0.0999)).toBe(`9,99${NB}%`)
+    expect(pctRestrictions(0.13)).toBe(`13,0${NB}%`)
+  })
+  it('familles en cause, dans l’ordre des codes ; les nitrates ne valent jamais restriction', () => {
+    // ordre : pesticides, nitrates, PFAS, bactériologie, métaux et minéraux ; « - » : famille non analysée
+    expect(causesRestriction('300300')).toEqual(['pesticides', 'bactériologie'])
+    expect(causesRestriction('3--020')).toEqual(['pesticides', 'métaux et minéraux'])
+    // nitrates en classe 3 (au-delà de 50 mg/L) et bactériologie en classe 2 (moins de 95 %) : pas de restriction
+    expect(causesRestriction('330200')).toEqual(['pesticides'])
+    expect(causesRestriction('030200')).toEqual([])
+    expect(causesRestriction(null)).toEqual([])
+    // cohérent avec la classe « toutes familles »
+    expect(codeFamille('300300', 'toutes')).toBe(2)
+    expect(codeFamille('030200', 'toutes')).toBe(1)
   })
 })

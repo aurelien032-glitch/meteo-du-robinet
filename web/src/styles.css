@@ -5,8 +5,9 @@
    ============================================================================================= */
 /* ---------------------------------------------------------------------------------------------
    Charte « Vigilance + instruments » (refonte du 2026-09-23, décision de l'auteur, maquette de référence
-   dans docs/maquette-2026-09-23/). Une seule famille : Atkinson Hyperlegible Next pour les mots, Mono pour
-   ce qui sort du laboratoire (valeurs mesurées, codes, dates). Dessinée par le Braille Institute pour la
+   dans docs/maquette-2026-09-23/). Une seule famille : Atkinson Hyperlegible Next pour les mots et les nombres (en
+   chiffres tabulaires, critique UX du 2026-10-05 : la chasse fixe donnait aux chiffres un registre de code et lisait
+   « 1 713 » comme deux nombres), Mono pour les seuls codes (réseau, INSEE). Dessinée par le Braille Institute pour la
    lisibilité, en graisses variables (200 à 800). Fichiers réduits aux signes du site, servis avec lui
    (web/public/fonts/atkinson, licence OFL, script web/scripts/polices/reduire.py) : aucun appel à un
    service extérieur. Le signe micro (µ) et l'espace fine insécable des milliers, absents du dessin, y sont
@@ -33,9 +34,10 @@
   --font-display: var(--font);
   --font-chiffre: 'Atkinson Hyperlegible Mono', ui-monospace, 'Cascadia Mono', monospace;
   /* Grammaire « neutre + sémaphore » (maquette du 23/09) : fonds blancs et gris froids, encre, un seul
-     accent bleu, réservé aux liens et aux commandes. Le vert, l'orange et le rouge ne jugent qu'un réseau
-     (lib/situations.ts, toneSituation) ; les chiffres agrégés restent à l'encre. Noms de jetons inchangés :
-     seules leurs valeurs changent, si bien que le reste de la feuille suit. */
+     accent bleu, réservé aux liens et aux commandes. Le vert, l'orange et le rouge jugent un réseau
+     (lib/situations.ts, toneSituation), et un agrégat par le voyant de son réseau le plus défavorable (tonAgregat) ;
+     les agrégats de la qualité de l'eau prennent la rampe bleu → jaune → rouge (--q*), les chiffres d'une tuile restent à
+     l'encre. Noms de jetons inchangés : seules leurs valeurs changent, si bien que le reste de la feuille suit. */
   --bg: #ffffff;
   --surface: #ffffff;
   --surface-2: #f3f5f8;
@@ -51,37 +53,45 @@
   --accent-voile: #e6eef9;
   /* Texte posé sur un aplat d'accent (.btn-primary) : blanc en clair, encre en sombre (l'accent s'y éclaircit). */
   --text-on-accent: #fff;
-  /* Séries de graphiques : des encres ardoise, jamais une couleur de jugement. --c5 garde le violet de la
-     « consigne d'ébullition » sur la carte des avis (lib/scale.ts, avisScale). */
+  /* Séries de graphiques : des encres ardoise, jamais une couleur de jugement. */
   --c1: #4e5a6f;
   --c2: #8c97a8;
   --c3: #2f3b4f;
   --c4: #6c788c;
-  --c5: #7a4f8a;
   --c6: #5a6576;
   /* Marques de données neutres (barres, points) et leur survol. */
   --mark: #6a7587;
   --mark-hi: #26303f;
-  /* Sémaphore validé par calcul (outil dataviz, 23/09) : paires distinctes sous daltonisme (ΔE ≥ 9) comme en
-     vision normale (ΔE ≥ 22), contraste ≥ 3:1 sur blanc. L'orange (3:1) ne sert jamais de couleur de texte :
-     formes et pastilles seulement ; le texte reste à l'encre, sur le fond teinté (--*-tint). */
-  --good: #1e8452;
-  --on-good: #ffffff;
-  --good-tint: #e7f4ec;
-  --good-line: #b3dbc3;
-  --warn: #d08400;
+  /* Sémaphore : une seule palette, celle de la carte (auteur, 2026-10-07, « il faut appliquer la palette couleur comme
+     la carte partout ») : les paliers de la rampe RdYlBu (--q2 à --q5) jugent partout ; conforme et note A en bleu clair,
+     y compris dans les gouttes (« A en bleu clair partout »), note B et le moins grave de deux degrés en jaune, note C
+     et non conforme en orange, note D et restriction en rouge ; le plus grave de deux degrés (crise, restriction de
+     consommation) prolonge la rampe en rouge très sombre. Une forme par état sur les voyants, cernée de --contour-forme
+     (le jaune et l'orange n'atteignent pas 3:1 sur le fond). Dans chaque échelle peinte (notes, classes d'une famille,
+     avis de l'ARS, restrictions, sécheresse), toute paire reste à ΔE OKLab ≥ 13 en vision normale et sous
+     deutéranopie, protanopie et tritanopie (Machado 2009 ; jetons.test.ts). Ces couleurs ne servent jamais de
+     couleur de texte ; le texte reste à l'encre, sur le fond teinté (--*-tint). */
+  --good: var(--q2);
+  --on-good: #0e1726;
+  --good-tint: #e9f3ff;
+  --good-line: var(--q2);
+  --warn: var(--q4);
   --on-warn: #1a1204;
   --warn-tint: #fdf3e1;
-  --warn-line: #efcb8a;
-  --bad: #a11a12;
+  --warn-line: var(--q3);
+  --on-warn-line: var(--on-warn);
+  --bad: var(--q5);
   --on-bad: #ffffff;
   --bad-tint: #fbeae8;
   --bad-line: #edb3ad;
-  /* Rouge du plus grave de deux degrés (crise après alerte renforcée, restriction après ébullition) : plus foncé que
-     --bad en clair, plus clair en sombre, pour que la clarté suive la gravité sur les cartes (24/09). */
-  --bad-fort: #6b100c;
-  /* Rampe ardoise des parts agrégées sur les cartes (paliers 5/10/20/40 %) : clair → foncé, le premier
-     palier à 2:1 du fond pour qu'aucun département ne disparaisse ; en sombre, la rampe s'inverse. */
+  /* Rouge du plus grave de deux degrés (crise après alerte renforcée, restriction après ébullition) : le rouge très
+     sombre qui prolonge la rampe de la carte en clair, un rose mauve en sombre (07/10, calculé pour les daltonismes). */
+  --bad-fort: #67001f;
+  /* Contour des formes peintes (voyants, gouttes, tuiles) : 3:1 au moins sur le fond clair ; le fond lui-même en sombre,
+     où les couleurs claires ressortent seules. */
+  --contour-forme: #7a8494;
+  /* Rampe ardoise du contexte (SISPEA, ressource, amont) : clair →
+     foncé, le premier palier à 2:1 du fond pour qu'aucun département ne disparaisse ; en sombre, la rampe s'inverse. */
   --m1: #aeb7c4;
   --m2: #8c97a8;
   --m3: #6c788c;
@@ -94,12 +104,28 @@
   --w1: #d4bc9c;
   --w2: #a5845e;
   --w3: #6f5236;
+  /* Rampe de la qualité de l'eau (choix de l'auteur du 04/10, « la palette couleur partout » ; le 05/10, bleu → jaune →
+     rouge, lisible « pour les daltoniens et la vision normale en même temps ») : ColorBrewer RdYlBu en cinq classes
+     (C. Brewer, palettes conçues et testées pour les cartes choroplèthes). Paliers voisins à ΔE OKLab ≥ 15 en vision
+     normale, deutéranopie, protanopie et tritanopie (simulation de Machado et al., 2009) ; le vert → rouge essayé avant
+     confondait ses deux extrêmes en protanopie (ΔE 5). Encre des noms ≥ 3,7:1 ; en sombre, une suite recalculée le 07/10 (l'orange et le rouge
+     assourdis du 05/10 se confondaient en deutéranopie, ΔE 10,9), noms cernés d'un halo sombre. Depuis le 07/10, ces
+     paliers sont aussi ceux du sémaphore (--good, --warn-line, --warn, --bad). Barres des mêmes agrégats en --q-mark. */
+  --q1: #4575b4;
+  --q2: #91bfdb;
+  --q3: #fee090;
+  --q4: #fc8d59;
+  --q5: #d73027;
+  --q-mark: #fc8d59;
+  --q-mark-hi: #d73027;
   /* Deux rayons : --radius pour les contrôles et petits blocs, --radius-lg pour les cartes et surfaces. */
   --radius: 8px;
   --radius-sm: var(--radius);
   --radius-lg: 12px;
   --shadow: 0 1px 2px rgba(14, 23, 38, .06);
   --shadow-pop: 0 14px 34px -14px rgba(14, 23, 38, .30);
+  /* Flèche des listes déroulantes, à la couleur --muted du thème (écrite en dur, elle tombait à 2,85:1 en sombre). */
+  --fleche-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%235a6576' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   /* Vignette de bord (« il reste du contenu à faire défiler »). */
   --edge-shadow: rgba(14, 23, 38, .16);
   /* Cinq tailles seulement (maquette du 23/09, « textes énormes et disparates ») : 13 · 16 · 17→20 · 20→26 ·
@@ -148,23 +174,24 @@
     --c2: #6e7b8f;
     --c3: #d0d8e3;
     --c4: #8792a7;
-    --c5: #c79bd1;
     --c6: #8f9baa;
     --mark: #8f9baa;
     --mark-hi: #dce3eb;
-    --good: #2c9c63;
+    --good: var(--q2);
     --on-good: #06140c;
-    --good-tint: #0f2a1d;
-    --good-line: #25613f;
-    --warn: #e0a030;
+    --good-tint: #122334;
+    --good-line: var(--q2);
+    --warn: var(--q4);
     --on-warn: #1f1405;
     --warn-tint: #2e220c;
-    --warn-line: #7a5a1c;
-    --bad: #f0584c;
-    --on-bad: #240b09;
+    --warn-line: var(--q3);
+    --on-warn-line: var(--on-warn);
+    --bad: var(--q5);
+    --on-bad: #000000;
     --bad-tint: #33130f;
     --bad-line: #813028;
-    --bad-fort: #ff9d92;
+    --bad-fort: #ad6494;
+    --contour-forme: #0e131a;
     --m1: #4a5568;
     --m2: #66728a;
     --m3: #8792a7;
@@ -174,8 +201,16 @@
     --w1: #604b36;
     --w2: #ac8a62;
     --w3: #e5c79f;
+    --q1: #4a78b5;
+    --q2: #9dc1dd;
+    --q3: #f0e2a5;
+    --q4: #f29b5d;
+    --q5: #e72a16;
+    --q-mark: #f29b5d;
+    --q-mark-hi: #e72a16;
     --shadow: 0 1px 2px rgba(0, 0, 0, .35);
     --shadow-pop: 0 14px 34px -14px rgba(0, 0, 0, .8);
+    --fleche-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%238f9baa' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
     --edge-shadow: rgba(0, 0, 0, .55);
   }
 }
@@ -200,23 +235,24 @@ html.studio {
   --c2: #6e7b8f;
   --c3: #d0d8e3;
   --c4: #8792a7;
-  --c5: #c79bd1;
   --c6: #8f9baa;
   --mark: #8f9baa;
   --mark-hi: #dce3eb;
-  --good: #2c9c63;
+  --good: var(--q2);
   --on-good: #06140c;
-  --good-tint: #0f2a1d;
-  --good-line: #25613f;
-  --warn: #e0a030;
+  --good-tint: #122334;
+  --good-line: var(--q2);
+  --warn: var(--q4);
   --on-warn: #1f1405;
   --warn-tint: #2e220c;
-  --warn-line: #7a5a1c;
-  --bad: #f0584c;
-  --on-bad: #240b09;
+  --warn-line: var(--q3);
+  --on-warn-line: var(--on-warn);
+  --bad: var(--q5);
+  --on-bad: #000000;
   --bad-tint: #33130f;
   --bad-line: #813028;
-  --bad-fort: #ff9d92;
+  --bad-fort: #ad6494;
+  --contour-forme: #0e131a;
   --m1: #4a5568;
   --m2: #66728a;
   --m3: #8792a7;
@@ -226,8 +262,16 @@ html.studio {
   --w1: #604b36;
   --w2: #ac8a62;
   --w3: #e5c79f;
+  --q1: #4a78b5;
+  --q2: #9dc1dd;
+  --q3: #f0e2a5;
+  --q4: #f29b5d;
+  --q5: #e72a16;
+  --q-mark: #f29b5d;
+  --q-mark-hi: #e72a16;
   --shadow: 0 1px 2px rgba(0, 0, 0, .35);
   --shadow-pop: 0 14px 34px -14px rgba(0, 0, 0, .8);
+  --fleche-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%238f9baa' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
   --edge-shadow: rgba(0, 0, 0, .55);
 }
 /* Mode studio : scène 1920×1080 capturée en vidéo, textes plus grands et aucune ombre. */
@@ -265,6 +309,8 @@ code { font-family: var(--font-chiffre); font-size: .92em; }
 /* --- Structure --- */
 .layout { min-height: 100%; display: flex; flex-direction: column; }
 .topbar { display: flex; align-items: center; gap: var(--s5); height: 52px; padding: 0 var(--s5); background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+/* Une ancre (lexique, section d'une fiche ouverte par un lien) s'arrête sous l'en-tête collant, pas dessous (25/09). */
+[id] { scroll-margin-top: 72px; }
 /* Transition native entre les pages (App.tsx passe `viewTransition` aux liens de navigation) : la barre
    ne fait pas partie du changement, elle reste immobile pendant qu'une page remplace l'autre dessous —
    même principe que `.topbar { view-transition-name: topbar }` sur hydroforge.fr. */
@@ -283,12 +329,34 @@ code { font-family: var(--font-chiffre); font-size: .92em; }
 .topbar .spacer { flex: 1; }
 .theme-toggle { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; color: var(--muted); background: none; border: 1px solid var(--border); border-radius: 999px; cursor: pointer; transition: border-color .15s, color .15s; }
 .theme-toggle:hover { color: var(--text); border-color: var(--accent); }
-/* Recherche dans l'en-tête et menu mobile (maquette du 23/09) : champ compact après la marque ; sous 1080 px, liens
+/* Partage (auteur, 24/09) : avant le bouton de thème. Icône seule jusqu'à 1280 px, le mot restant lu par les
+   lecteurs d'écran : avec lui, le champ de recherche de l'en-tête perdait la place de son indication. */
+.partage { position: relative; flex: none; }
+.partage-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 34px; padding: 0 12px; color: var(--text-2); background: none; border: 1px solid var(--border); border-radius: 999px; font: inherit; font-size: var(--fs-sm); font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s; }
+.partage-btn:hover, .partage-btn[aria-expanded='true'] { color: var(--text); border-color: var(--accent); }
+.partage-panneau { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; min-width: 230px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-pop); }
+.partage-titre { margin: 0 0 6px; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.partage-panneau ul { display: grid; margin: 0; padding: 0; list-style: none; }
+.partage-panneau a, .partage-panneau li > button { display: flex; align-items: center; gap: .3em; width: 100%; min-height: 40px; padding: 0 6px; color: var(--text); background: none; border: 0; border-radius: var(--radius-sm); font: inherit; font-size: var(--fs-sm); text-align: left; text-decoration: none; cursor: pointer; }
+.partage-panneau a:hover, .partage-panneau li > button:hover { background: var(--surface-2); }
+.partage-statut { min-height: 1.2em; margin: 6px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+@media (max-width: 1280px) {
+  .partage-btn { width: 34px; padding: 0; }
+  .partage-texte { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+/* Sur téléphone, le panneau prend la largeur de la barre, ancré à la barre collante : aligné sur le bouton, il
+   sortait de l'écran à gauche. */
+@media (max-width: 560px) {
+  .partage { position: static; }
+  .partage-panneau { left: 16px; right: 16px; min-width: 0; }
+}
+/* Recherche dans l'en-tête et menu mobile (maquette du 23/09) : champ compact après la marque ; sous 1100 px, liens
    et champ passent dans un panneau ouvert par « Menu », logé dans l'en-tête collant pour s'ouvrir en place même
    page défilée. Ses règles suivent celles de `.topbar nav a`, qui l'atteignent aussi. Le champ prend jusqu'à
    300 px et cède quand la barre est pleine : à largeur fixe, son indication était coupée entre 860 et 1080 px.
    Seuil relevé de 960 à 1080 px avec la cinquième entrée, « À propos » (24/09) : à 961 px, le champ tombait à
-   130 px, sous les 220 px que demande son indication ; à 1081 px, il en garde 260. */
+   130 px, sous les 220 px que demande son indication ; à 1081 px, il en garde 260. Relevé à 1100 px avec le bouton
+   « Partager » (24/09) : à 1081 px, le champ retombait à 203 px ; à 1101 px, il en garde 223. */
 .entete-recherche { flex: 0 1 300px; min-width: 0; }
 .topbar .brand, .topbar > nav { flex: none; white-space: nowrap; }
 .entete-recherche .search-box { max-width: none; }
@@ -301,8 +369,8 @@ code { font-family: var(--font-chiffre); font-size: .92em; }
 .menu-panneau nav { display: grid; gap: 0; }
 .menu-panneau nav a { display: flex; align-items: center; min-height: 48px; padding: 0 var(--s2); border-radius: 0; border-bottom: 1px solid var(--border); color: var(--text); font-size: var(--fs-md); font-weight: 600; }
 .menu-panneau nav a.active { background: none; box-shadow: inset 3px 0 0 var(--text); }
-@media (min-width: 1081px) { .menu-panneau { display: none; } }
-@media (max-width: 1080px) {
+@media (min-width: 1101px) { .menu-panneau { display: none; } }
+@media (max-width: 1100px) {
   .topbar { height: auto; min-height: 52px; flex-wrap: wrap; }
   .topbar > nav, .entete-recherche { display: none; }
   .menu-btn { display: inline-flex; }
@@ -314,12 +382,15 @@ code { font-family: var(--font-chiffre); font-size: .92em; }
 .content { flex: 1; width: 100%; padding-block: var(--s5); }
 .page { width: 100%; }
 .page > :not(.bande) { max-width: 1280px; margin-inline: auto; padding-inline: var(--s5); }
+/* Paragraphe enfant direct de la page : même colonne de 1280 px et même gouttière que ses voisins, la ligne réduite à la
+   mesure du texte courant par le rembourrage de droite (`--mesure`, audit UI UX Pro Max du 2026-10-06). */
+.page > :is(p, .lead) { padding-inline-end: max(var(--s5), calc(min(100%, 1280px) - var(--mesure) - var(--s5))); }
 .footer { padding: var(--s4) var(--s5) var(--s5); color: var(--muted); font-size: var(--fs-xs); border-top: 1px solid var(--border); margin-top: var(--s6); }
 
 /* Rythme vertical d'une page : les blocs de premier niveau sont espacés par la même mesure. */
 .page > * + * { margin-top: var(--s4); }
-.page > .crumbs + *, .page > h1 + *, .page > .toolbar + .lead, .page > .hero + * { margin-top: var(--s2); }
-.page > h1, .page > .lead, .page > .hero p { margin-bottom: 0; }
+.page > .crumbs + *, .page > h1 + *, .page > .toolbar + .lead { margin-top: var(--s2); }
+.page > h1, .page > .lead { margin-bottom: 0; }
 
 /* Grilles fluides plutôt qu'un seuil unique qui bascule tout en une colonne (revue ergonomie,
    2026-09-23 : « une seule colonne, monotone » — la fenêtre de la prévisualisation elle-même mesure
@@ -373,7 +444,7 @@ code { font-family: var(--font-chiffre); font-size: .92em; }
 }
 
 /* --- Contrôles : une hauteur, un rayon, un contour --- */
-.btn, .toolbar select, .chip, .map-territoires button, input.search {
+.btn, .toolbar select, .map-territoires button, input.search {
   font: inherit; line-height: 1.2; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
   transition: border-color .15s, background-color .15s, box-shadow .15s;
 }
@@ -390,26 +461,24 @@ code { font-family: var(--font-chiffre); font-size: .92em; }
 /* Un h2 de toolbar (ex. « Par département ») partage sa ligne avec les contrôles : il n'est pas mis en
    pleine largeur comme h1, juste poussé à gauche. 8 pages dupliquaient ce seul style en ligne
    (revue design du 2026-09-22) — centralisé ici. */
-.toolbar > h2 { margin-right: auto; }
+.toolbar > h2, .toolbar > h3 { margin-right: auto; }
 .toolbar > div:has(> h1) > h1 { margin-bottom: 0; }
+/* Indicateur de l'adresse inconnu de la page (25/09) : dit sur sa propre ligne, sous le sélecteur. */
+.indic-inconnu { flex-basis: 100%; margin: 0; color: var(--text-2); font-size: var(--fs-sm); }
 .toolbar label { display: inline-flex; align-items: center; gap: var(--s2); min-width: 0; max-width: 100%; overflow-wrap: normal; white-space: nowrap; color: var(--muted); font-size: var(--fs-sm); }
 .toolbar select {
   height: var(--control); max-width: 100%; min-width: 0; padding: 0 30px 0 10px; font-size: var(--fs-sm); color: var(--text); cursor: pointer; appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%235a6576' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: var(--fleche-select);
   background-repeat: no-repeat; background-position: right 10px center;
 }
 .toolbar select:hover { border-color: var(--accent); }
 input.search { width: 100%; height: var(--control); padding: 0 var(--s3); font-size: var(--fs-md); }
 input.search::placeholder { color: var(--muted); }
-input.search:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
-.chips { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0 0 var(--s3); }
-.chip { height: 32px; padding: 0 var(--s3); border-radius: 999px; font-size: var(--fs-sm); color: var(--muted); cursor: pointer; }
-.chip.on { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); font-weight: 400; }
-.chip:hover { border-color: var(--accent); }
+/* Même contour de focus que le reste du site (2 px), au lieu d'un halo à 22 % d'opacité (audit UI UX Pro Max du 2026-10-06). */
+input.search:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* --- Porte de la page /ma-commune (gabarit à part, cf. MaCommune.tsx) --- */
 .porte-tete { max-width: 62ch; display: flex; flex-direction: column; gap: var(--s3); }
-.hero .lead { color: var(--muted); font-size: var(--fs-lead); max-width: 70ch; }
 
 /* --- Fiches : sections dépliables (refonte du 2026-09-22) --- */
 
@@ -454,13 +523,13 @@ a.card:hover, button.card:hover { border-color: var(--accent); box-shadow: var(-
 .card-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s2) var(--s3); margin-bottom: var(--s3); }
 .card-head h2, .card-head h3 { margin: 0; margin-right: auto; }
 .card-head label { display: inline-flex; align-items: center; gap: var(--s2); min-width: 0; max-width: 100%; color: var(--muted); font-size: var(--fs-sm); white-space: nowrap; }
-.card-head select {
+.card-head select, .serie-tete select {
   font: inherit; height: var(--control); max-width: 100%; min-width: 0; padding: 0 30px 0 10px; font-size: var(--fs-sm); line-height: 1.2;
   color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%235a6576' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: var(--fleche-select);
   background-repeat: no-repeat; background-position: right 10px center;
 }
-.card-head select:hover { border-color: var(--accent); }
+.card-head select:hover, .serie-tete select:hover { border-color: var(--accent); }
 html.studio .card-head label, html.studio .card-head .btn { display: none; }
 .card > .source:last-child { margin-bottom: 0; }
 .kpi { display: flex; flex-direction: column; gap: var(--s1); }
@@ -477,6 +546,13 @@ html.studio .card-head label, html.studio .card-head .btn { display: none; }
    3 pages répétaient le même style en ligne (revue design du 2026-09-22). */
 .text-xs { font-size: var(--fs-xs); }
 .source { color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; margin-top: var(--s3); }
+/* Mesure du texte courant (audit UI UX Pro Max du 2026-10-06) : 75 caractères par ligne environ. Avec Atkinson Hyperlegible
+   Next, un « ch » (largeur du zéro) vaut 1,56 caractère moyen d'un texte français, d'où 48ch. Sans spécificité : une
+   règle de composant l'emporte. */
+:root { --mesure: 48ch; }
+:where(main) :where(p, blockquote, dd, .prose li, ul.cap li, .essentiel-notes li) { max-width: var(--mesure); }
+/* Attente d'une page entière : la hauteur de l'écran, pour que rien ne soit affiché puis repoussé (Chargement `reserve`). */
+.chargement-reserve { min-height: 100vh; min-height: 100dvh; }
 table.data { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
 table.data th, table.data td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--grid); vertical-align: middle; }
 /* En-têtes sur une ligne, sans césure (revue du 2026-09-22 : « Dépasse-ments », « Rende-ment ») ; un
@@ -491,7 +567,7 @@ table.data th .tri { font: inherit; color: inherit; background: none; border: 0;
 table.data th .tri:hover { color: var(--text); text-decoration: underline; }
 table.data td { overflow-wrap: normal; hyphens: manual; }
 table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; }
-table.data td.num { font-family: var(--font-chiffre); font-size: .94em; }
+table.data td.num { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: .94em; }
 table.data td.num { white-space: nowrap; }
 table.data tbody tr:last-child td { border-bottom: 0; }
 table.data tbody tr:hover td { background: color-mix(in srgb, var(--accent) 5%, transparent); }
@@ -509,11 +585,15 @@ table.data tbody tr:hover td { background: color-mix(in srgb, var(--accent) 5%, 
 /* Pastille de couleur en ligne, à côté d'un libellé écrit (jamais la couleur seule) ; la légende l'élargit. */
 .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; }
 .legend .swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+/* Filet des pastilles : les teintes les plus claires (vert clair, --d0) restaient sans bord sur le fond (audit du 27/09). */
+.legend .swatch, .swatch-nd { box-shadow: inset 0 0 0 1px var(--border-fort); }
+/* « Sans donnée » et « pas d'information » : les hachures des cartes (FranceMap, carte de l'accueil), jamais un aplat. */
+.swatch-nd { background: repeating-linear-gradient(135deg, var(--border-fort) 0 1.5px, var(--bg) 1.5px 4.2px); }
 .legend-desc { font-weight: 700; }
 .legend-scale { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1) var(--s3); }
 .legend-item { display: inline-flex; align-items: center; white-space: nowrap; }
-.legend-note { font-style: italic; opacity: .85; border-bottom: 1px dotted currentColor; cursor: help; }
-/* Ligne du classement liée à la carte : la sélection se voit des deux côtés. */
+.legend-note { font-style: italic; color: var(--muted); border-bottom: 1px dotted currentColor; cursor: help; }
+/* Ligne du tableau des départements liée à la carte : la sélection se voit des deux côtés. */
 table.data tbody tr.on td { background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .btn-link { font: inherit; font-size: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
 .btn-link:hover { color: var(--text); }
@@ -542,11 +622,13 @@ table.data tbody tr.on td { background: color-mix(in srgb, var(--accent) 12%, tr
 .map-territoires button:hover { border-color: var(--accent); }
 :root { --inset-w: 96px; --inset-h: 76px; }
 html.studio { --inset-w: 128px; --inset-h: 100px; }
-.map-insets { position: absolute; left: 10px; bottom: 10px; display: flex; gap: 6px; z-index: 2; }
-.map-inset-box { width: var(--inset-w); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+/* Les encarts passent à la ligne quand la carte est trop étroite pour leur rangée (tablette) : ils étaient coupés
+   au-delà du bord. Le conteneur laisse passer le pointeur vers la carte entre ses cases. */
+.map-insets { position: absolute; left: 10px; bottom: 10px; max-width: calc(100% - 20px); display: flex; flex-wrap: wrap; gap: 6px; z-index: 2; pointer-events: none; }
+.map-inset-box { width: var(--inset-w); display: flex; flex-direction: column; align-items: center; gap: 2px; pointer-events: auto; }
 .map-inset-box .map-wrap { width: 100%; height: var(--inset-h); }
 .map-inset-box .map { height: 100% !important; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); }
-.map-inset-box span { font-size: var(--fs-xs); color: var(--muted); line-height: 1.1; }
+.map-inset-box span { font-size: var(--fs-xs); color: var(--muted); line-height: 1.1; text-align: center; }
 .map-inset .maplibregl-ctrl { display: none; }
 
 /* --- Recherche, thèmes, graphiques, prose --- */
@@ -557,14 +639,11 @@ html.studio { --inset-w: 128px; --inset-h: 100px; }
 .eyebrow::before { content: ''; width: 22px; height: 2px; background: currentColor; flex: none; }
 .page > .eyebrow + * { margin-top: var(--s1); }
 
-.hero { padding: var(--s3) 0 0; max-width: 760px; }
-.hero h1 { font-size: var(--fs-hero); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: var(--s2); }
-/* `color: var(--muted)` manquait ici (audit du 23/09) : `.hero .lead` l'avait déjà (ligne 450), mais pas
-   ce jeton générique, utilisé par la plupart des pages « Comprendre » (Nappes, Thème, Amont, Ressource…).
-   Un chapeau de plusieurs lignes en encre pleine — la même que le corps de texte — pesait presque autant
-   que le h1 au-dessus (« les tailles !!! ») : la couleur fait maintenant l'essentiel du travail de
-   hiérarchie que la taille seule ne suffisait pas à porter. */
-.lead { font-size: var(--fs-lead); color: var(--muted); max-width: 800px; text-wrap: pretty; }
+/* `color: var(--muted)` manquait ici (audit du 23/09) sur ce jeton générique, utilisé par la plupart des pages
+   « Comprendre » (Nappes, Thème, Amont, Ressource…). Un chapeau de plusieurs lignes en encre pleine — la même que
+   le corps de texte — pesait presque autant que le h1 au-dessus (« les tailles !!! ») : la couleur fait maintenant
+   l'essentiel du travail de hiérarchie que la taille seule ne suffisait pas à porter. */
+.lead { font-size: var(--fs-lead); color: var(--muted); max-width: var(--mesure); text-wrap: pretty; }
 .search-box { position: relative; max-width: 560px; }
 /* Résultats groupés par type (components/Search.tsx) : titre de groupe en capitales, pictogramme, nom et précision. */
 .search-results { position: absolute; z-index: 30; left: 0; right: 0; max-height: min(70vh, 540px); overflow-y: auto; margin: var(--s1) 0 0; padding: var(--s1); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-pop); }
@@ -582,8 +661,6 @@ html.studio { --inset-w: 128px; --inset-h: 100px; }
 
 /* Encadré d'avertissement (limites d'une vue) : même carte, filet d'attention à gauche. */
 .card.note { border-left: 3px solid var(--border-fort); }
-/* Bandeau des avis de l'ARS de l'année en cours (components/AvisEnCours.tsx, étude UX du 23/09) : rouge
-   pour une restriction ou une consigne d'ébullition, orange pour les publics sensibles, comme AvisCard. */
 
 /* Groupes de substances hors grille : cartes cliquables qui choisissent la carte et le tableau. */
 .hg-groupe { font: inherit; text-align: left; color: var(--text); cursor: pointer; transition: border-color .15s, box-shadow .15s; }
@@ -608,10 +685,27 @@ html.studio { --inset-w: 128px; --inset-h: 100px; }
 .table-scroll.haut thead th.fige { z-index: 2; }
 /* Ligne d'intitulé de groupe dans un tableau (niveau de restriction…), figée en haut pendant le défilement. */
 table.data tr.groupe th { position: sticky; top: 0; z-index: 1; background: var(--surface); color: var(--text); font-size: var(--fs-sm); padding-top: 10px; }
+html:not(.studio) .chart-export { display: none; }
 .chart-export { position: absolute; top: var(--s1); right: var(--s1); height: 24px; padding: 0 var(--s2); font-size: .72rem; opacity: 0; transition: opacity .15s; }
 .chart-wrap:hover .chart-export { opacity: .9; }
 .prose ul { padding-left: 1.2rem; } .prose li { margin-bottom: .5rem; }
+/* Lexique de la Méthode (24/09) : le terme à gauche, sa définition à droite ; l'un sous l'autre sur téléphone. */
+.lexique { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: var(--s2) var(--s4); margin: 0; }
+.lexique dt { font-weight: 700; color: var(--text); }
+.lexique dd { margin: 0; color: var(--text-2); }
+@media (max-width: 640px) { .lexique { grid-template-columns: minmax(0, 1fr); gap: 2px; } .lexique dd { margin-bottom: var(--s2); } }
+/* Réseaux concernés (24/09) : les noms SISE, soudés par des « _ » et des « / », se coupent n'importe où ; sans cela le
+   tableau débordait de sa carte et cachait la colonne des communes. */
+.reseaux-concernes { width: 100%; }
+.reseaux-concernes td:first-child { overflow-wrap: anywhere; }
+/* Liste à côté d'une carte : les cellules passent à la ligne plutôt que de faire défiler le tableau (« non confor… », 05/10). */
+.reseaux-concernes td, .reseaux-concernes th, .data.reseaux-concernes td.nowrap { white-space: normal; }
+.reseaux-concernes .voyant-ligne { display: inline-flex; align-items: flex-start; gap: 4px; }
 .crumbs { color: var(--muted); font-size: var(--fs-sm); margin: 0; }
+/* Lien d'évitement, visible au seul focus ; le contenu, cible du focus à chaque changement de page, n'a pas de contour. */
+.evitement { position: absolute; left: var(--s3); top: -200px; z-index: 30; padding: 10px 16px; background: var(--surface); color: var(--accent); border: 2px solid var(--accent); border-radius: var(--radius-sm); font-weight: 600; text-decoration: none; }
+.evitement:focus { top: var(--s2); }
+#contenu:focus { outline: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .content { overflow-wrap: anywhere; }
 .wrap-any { overflow-wrap: anywhere; }
@@ -620,10 +714,11 @@ table.data tr.groupe th { position: sticky; top: 0; z-index: 1; background: var(
 
 /* --- Bulletin : voyants, étiquettes, instruments, barre d'année (maquette « vigilance + instruments », 23/09) --- */
 /* Tons sans jugement : famille non analysée (anneau pointillé), avis limité à un bâtiment, échelle grise. */
+.tone-na .v-forme, .tone-neutre .v-forme { stroke: none; }
 .tone-na { --tone: var(--muted); --on-tone: var(--surface); --tone-tint: var(--surface-2); --tone-line: var(--border-fort); }
 .tone-neutre { --tone: var(--text-2); --on-tone: var(--surface); --tone-tint: var(--surface-2); --tone-line: var(--border-fort); }
 .voyant { flex: none; display: block; }
-.voyant .v-forme { fill: var(--tone); }
+.voyant .v-forme { fill: var(--tone); stroke: var(--contour-forme); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .voyant .v-signe { fill: var(--on-tone); }
 .voyant .v-trait { fill: none; stroke: var(--on-tone); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .voyant .v-anneau { fill: none; stroke: var(--tone); stroke-width: 2; stroke-dasharray: 3.2 2.6; }
@@ -638,12 +733,12 @@ table.data tr.groupe th { position: sticky; top: 0; z-index: 1; background: var(
 .j-repere { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px solid var(--muted); }
 .j-repere--limite { top: -7px; bottom: -7px; border-left: 2px solid var(--text); }
 .j-echelle { position: relative; height: 0; }
-.j-grad { position: absolute; top: 10px; transform: translateX(-50%); font-family: var(--font-chiffre); font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; line-height: 1; }
+.j-grad { position: absolute; top: 10px; transform: translateX(-50%); font-family: var(--font); font-variant-numeric: tabular-nums; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; line-height: 1; }
 .j-grad.debut { transform: none; }
 .j-grad.fin { transform: translateX(-100%); }
 .j-grad.limite { color: var(--text); font-weight: 600; }
 .j-marque { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: var(--tone); box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--tone-line); animation: j-pop .45s cubic-bezier(.2, .9, .3, 1.3) both; }
-.j-lecture { position: absolute; bottom: calc(100% + 9px); left: 50%; transform: translateX(-50%); font-family: var(--font-chiffre); font-weight: 600; font-size: var(--fs-md); color: var(--text); white-space: nowrap; line-height: 1; }
+.j-lecture { position: absolute; bottom: calc(100% + 9px); left: 50%; transform: translateX(-50%); font-family: var(--font); font-variant-numeric: tabular-nums; font-weight: 600; font-size: var(--fs-md); color: var(--text); white-space: nowrap; line-height: 1; }
 .j-lecture.debut { left: -2px; transform: none; }
 .j-lecture.fin { left: auto; right: -2px; transform: none; }
 @keyframes j-pop { from { transform: scale(.4); opacity: .3; } to { transform: scale(1); opacity: 1; } }
@@ -657,7 +752,7 @@ table.data tr.groupe th { position: sticky; top: 0; z-index: 1; background: var(
 .p-palier:last-child { border-radius: 0 4px 4px 0; }
 .p-palier--warn { background: var(--warn-tint); box-shadow: inset 0 0 0 1px var(--warn-line); }
 .p-palier--bad { background: var(--bad-tint); box-shadow: inset 0 0 0 1px var(--bad-line); }
-.p-palier.actif { height: 14px; border-radius: 4px; background: var(--tone); box-shadow: 0 0 0 2px var(--surface); }
+.p-palier.actif { height: 14px; border-radius: 4px; background: var(--tone); box-shadow: 0 0 0 2px var(--surface), inset 0 0 0 1px var(--contour-forme); }
 .p-libelles { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 2px; margin-top: 8px; font-size: var(--fs-xs); color: var(--muted); line-height: 1.25; }
 .p-libelles span { padding-right: 6px; }
 .p-libelles .actif { color: var(--text); font-weight: 700; }
@@ -671,10 +766,12 @@ table.data tr.groupe th { position: sticky; top: 0; z-index: 1; background: var(
 .barre-annee { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3) var(--s5); padding-block: 14px; border-block: 1px solid var(--border); }
 .ba-titre { margin: 0; font-weight: 700; }
 .ba-note { margin: 0; font-size: var(--fs-xs); color: var(--muted); }
+/* Période d'une source qui n'en publie qu'une (/carte, indicateurs des pages « Comprendre ») : une date, pas un bouton. */
+.ba-periode { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
 .seg { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-2); }
 .seg button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 9px; background: transparent; color: var(--text-2); font: inherit; font-variant-numeric: tabular-nums; cursor: pointer; }
 .seg button:hover { color: var(--text); }
-.seg button[aria-pressed='true'] { background: var(--surface); color: var(--text); font-weight: 700; box-shadow: 0 0 0 1px var(--border), 0 1px 2px rgb(14 23 38 / .08); }
+.seg button[aria-pressed='true'] { background: var(--surface); color: var(--text); font-weight: 700; box-shadow: 0 0 0 1px var(--border-fort); }
 .seg small { font-size: var(--fs-xs); color: var(--muted); font-weight: 400; }
 .seg button.sans-donnees { color: var(--muted); }
 
@@ -711,7 +808,7 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .exemple-genre { font-size: var(--fs-xs); font-weight: 400; color: var(--muted); }
 .accueil-france { display: grid; gap: var(--s4); }
 .accueil-contexte { margin: 0; color: var(--text-2); }
-/* Quatre chiffres nationaux, sans couleur : des statistiques, pas des jugements. */
+/* Quatre chiffres nationaux : le chiffre reste à l'encre ; un voyant, quand il y en a un, sert de légende à l'état compté (règle du CLAUDE.md). */
 .chiffres { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-block: 1px solid var(--border); }
 .chiffre { display: flex; flex-direction: column; gap: 4px; padding: var(--s4) var(--s4) var(--s4) 0; }
 .chiffre + .chiffre { padding-left: var(--s4); border-left: 1px solid var(--border); }
@@ -720,33 +817,27 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .chiffre-valeur { order: 1; font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; color: var(--text-fort); }
 .chiffre-detail { order: 3; font-size: var(--fs-xs); color: var(--muted); }
 .accueil-sous-titre { margin: var(--s3) 0 0; }
+.accueil-nuance { margin: 0; max-width: var(--mesure); font-size: var(--fs-sm); color: var(--text-2); }
 
-/* --- Fiches : en-tête, bandeau des avis en cours, bulletin (maquette « vigilance + instruments », 23/09) --- */
+/* --- Fiches : en-tête, bulletin (maquette « vigilance + instruments », 23/09) --- */
 .page-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s4) var(--s6); }
 .page-head h1 { margin: 0; }
-.page-head .meta { margin: 6px 0 0; color: var(--text-2); max-width: 90ch; }
+.page-head .meta { margin: 6px 0 0; color: var(--text-2); max-width: var(--mesure); }
 .kind { margin: 0 0 6px; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .h1-udi { font-size: var(--fs-h2); overflow-wrap: anywhere; }
 .cap { font-size: var(--fs-xs); color: var(--muted); line-height: 1.45; }
 .link-arrow { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 700; text-decoration: none; }
 .link-arrow:hover { text-decoration: underline; }
-/* L'avis de l'année en cours : hors de la portée de la barre d'année, teinté du ton de l'avis le plus grave. */
-.bandeau-avis { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px var(--s4); align-items: start; padding: 18px 20px; border: 1px solid var(--tone-line); border-radius: var(--radius-lg); background: var(--tone-tint); }
-.bandeau-avis > .voyant { grid-row: 1 / span 2; margin-top: 1px; }
-.bandeau-avis-titre, .bandeau-avis-detail { grid-column: 2; }
-.bandeau-avis-titre { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0; font-weight: 700; }
-.bandeau-avis-detail { margin: 0; color: var(--text-2); max-width: 78ch; }
-.bandeau-avis .link-arrow { grid-column: 3; grid-row: 1 / span 2; align-self: center; white-space: nowrap; }
 .etat-vide { padding: var(--s5); border: 1px dashed var(--border-fort); border-radius: var(--radius-lg); }
 .etat-vide p { margin: 0; }
 .etat-vide p + p { margin-top: var(--s2); color: var(--text-2); }
 .fiche-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s6); align-items: start; }
 .bulletin { padding: 28px 32px 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
 .b-q { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; font-size: var(--fs-md); font-weight: 700; letter-spacing: 0; }
-.b-y { font-family: var(--font-chiffre); font-size: var(--fs-xs); font-weight: 500; color: var(--muted); }
+.b-y { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: var(--fs-xs); font-weight: 500; color: var(--muted); }
 .b-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s4) 18px; align-items: start; margin-top: var(--s4); }
 .b-verdict { margin: 6px 0 0; font-size: var(--fs-h2); font-weight: 700; line-height: 1.2; letter-spacing: -.012em; text-wrap: balance; color: var(--text-fort); }
-.b-head p + p { margin: 8px 0 0; color: var(--text-2); max-width: 60ch; }
+.b-head p + p { margin: 8px 0 0; color: var(--text-2); max-width: var(--mesure); }
 /* Onglets des réseaux : chacun jugé séparément, le plus défavorable d'abord. */
 .rpick-wrap { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
 .rpick-wrap .cap { margin: 0 0 10px; }
@@ -755,7 +846,7 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .rpick button:hover { border-color: var(--border-fort); color: var(--text); }
 .rpick button[aria-selected='true'] { border-color: var(--text); color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
 .rpick-now { margin: 14px 0 0; font-size: var(--fs-xs); color: var(--muted); }
-.rpick-now b { color: var(--text); font-family: var(--font-chiffre); font-weight: 600; overflow-wrap: anywhere; }
+.rpick-now b { color: var(--text); font-family: var(--font); font-variant-numeric: tabular-nums; font-weight: 600; overflow-wrap: anywhere; }
 /* Une famille par ligne : voyant, nom et classe, instrument, ce qui est en cause. */
 .fams { margin-top: 24px; border-top: 1px solid var(--border); }
 .fam { display: grid; grid-template-columns: minmax(170px, 210px) minmax(0, 1fr); gap: 8px var(--s6); align-items: center; padding-block: 14px; border-bottom: 1px solid var(--border); }
@@ -767,8 +858,10 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .fam-cause b { color: var(--text); }
 .b-avis { padding-block: 16px 12px; border-bottom: 1px solid var(--border); }
 .b-sub { margin: 0 0 6px; font-weight: 700; }
+.b-sub .cap { font-weight: 400; }
+.b-avis-note { margin: 6px 0 0; }
 .b-avis > .muted { margin: 0; }
-.b-sans-info { margin: 0; max-width: 68ch; }
+.b-sans-info { margin: 0; max-width: var(--mesure); }
 .b-avis-liste { margin: 0; padding: 0; list-style: none; }
 .b-avis-liste li { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 0; padding-block: 8px; border-bottom: 1px solid var(--border); }
 .b-avis-liste li:first-child { padding-top: 2px; }
@@ -777,7 +870,7 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .b-avis-liste blockquote { margin: 6px 0 0; padding: 6px 12px; border-left: 3px solid var(--border); color: var(--text-2); font-size: var(--fs-xs); line-height: 1.5; }
 .b-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px var(--s5); padding-top: 10px; }
 .counts { margin: 0; color: var(--text-2); }
-.counts b { font-family: var(--font-chiffre); font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+.counts b { font-family: var(--font); font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
 @media (max-width: 1080px) {
   .fiche-grid { grid-template-columns: minmax(0, 1fr); }
 }
@@ -787,8 +880,6 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
   .b-head > .voyant { width: 32px; height: 32px; }
   .fam { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .fam-cause { grid-column: 1; margin-top: 2px; }
-  .bandeau-avis { grid-template-columns: auto minmax(0, 1fr); padding: 16px; }
-  .bandeau-avis .link-arrow { grid-column: 2; grid-row: auto; justify-self: start; }
 }
 
 /* « Qui la distribue ? », à côté du bulletin : le service daté SISPEA, puis les réseaux de l'année. */
@@ -813,6 +904,8 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .qui-communes li { margin: 0; padding-block: 3px; break-inside: avoid; }
 .qui-service { margin: 0 0 4px; }
 .qui > section > .cap { margin: 4px 0 0; }
+/* Lien vers les définitions (Méthode, #exploitant), sous la dernière section de l'encart. */
+.qui > .cap { margin: 10px 0 0; }
 @media (min-width: 1081px) {
   .fiche-grid > .qui { position: sticky; top: 72px; }
 }
@@ -840,16 +933,16 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
   .bande-interieur { padding-inline: var(--s3); }
 }
 
-/* Mois par mois de l'année choisie (components/SerieMensuelle.tsx) : barres neutres, limite à l'encre ; la série d'un
-   réseau jugé colore ses mois au-dessus de la limite, un agrégat de plusieurs réseaux reste neutre. */
+/* Mois par mois de l'année choisie (components/SerieMensuelle.tsx) : barres neutres, limite à l'encre ; les mois
+   au-dessus de la limite prennent le ton « non conforme ». */
 .page > .bloc-serie { margin-top: var(--s6); }
 .bloc-tete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px var(--s5); margin-bottom: 12px; }
 .bloc-tete h2 { margin: 0; font-size: var(--fs-lead); }
 .bloc-tete .cap { margin: 0; }
 .serie-graphe { width: 100%; }
 .serie-graphe svg { display: block; width: 100%; height: auto; overflow: visible; }
-.serie text { font-family: var(--font-chiffre); font-size: 12px; fill: var(--muted); }
-.serie--compacte text { font-size: 11px; }
+.serie text { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: 12px; fill: var(--muted); }
+.serie--compacte text { font-size: 12px; }
 .serie-grille { stroke: var(--border); stroke-width: 1; shape-rendering: crispEdges; }
 .serie-base { stroke: var(--border-fort); stroke-width: 1; shape-rendering: crispEdges; }
 .serie-limite { stroke: var(--text); stroke-width: 1.5; }
@@ -858,13 +951,18 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .serie-barre { fill: var(--mark); }
 .serie-barre.au-dessus { fill: var(--warn); }
 .serie-mois:hover .serie-barre:not(.au-dessus) { fill: var(--mark-hi); }
-.serie--neutre .serie-zone { fill: var(--surface-2); }
-.serie--neutre .serie-barre.au-dessus, .serie--neutre .serie-mois:hover .serie-barre { fill: var(--mark-hi); }
 .serie-cible { fill: transparent; }
 .serie-resume { margin: 8px 0 0; color: var(--text-2); }
 .multiples { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: var(--s5) var(--s6); }
 .multiples h3 { margin: 0 0 4px; font-size: var(--fs-md); }
 .multiples .cap { margin: 4px 0 0; }
+/* Graphique d'une famille (components/SerieFamille.tsx) : titre, puis le menu de ses paramètres ; sous le bulletin,
+   un graphique par famille en cause, deux par ligne au plus. */
+.series-bulletin { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.serie-tete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px var(--s4); margin-bottom: 8px; }
+.serie-tete h3 { margin: 0; }
+.serie-tete .cap { margin: 0; }
+.serie-tete label { display: inline-flex; align-items: center; gap: var(--s2); min-width: 0; max-width: 100%; color: var(--muted); font-size: var(--fs-sm); }
 
 /* Fiche service (maquette du 23/09) : le service daté SISPEA, puis ses réseaux de l'année, puis ses communes. */
 .svc-sispea { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--s5) 56px; align-items: start; }
@@ -873,6 +971,8 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
 .svc-id .cap { margin: 8px 0 0; }
 .page > .bloc-service { margin-top: var(--s6); }
 .agg { margin: 0 0 4px; font-size: var(--fs-lead); color: var(--text); }
+.agg-voyant { display: flex; align-items: flex-start; gap: var(--s2); }
+.agg-voyant .voyant { flex: none; margin-top: .2em; }
 .agg-detail { margin: 0 0 12px; }
 .reseaux-dist { margin: 0 0 8px; }
 .reseaux-lignes { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
@@ -897,17 +997,18 @@ ul.grammaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(min
   .reseaux-lignes .rl-situation { grid-column: 2; }
 }
 
-/* Carte des départements (components/CarteDepartements.tsx) : rampe ardoise, hachures sans donnée, noms à halo. */
+/* Carte des départements (components/CarteDepartements.tsx) : rampe de la qualité de l'eau (--q1…--q5), hachures sans
+   donnée, noms à halo. */
 .carte-france { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s5) var(--s6); align-items: start; }
 .carte-dessin { min-width: 0; }
 .carte-svg { display: block; width: 100%; height: auto; max-height: 680px; }
 .carte-svg path { stroke: var(--bg); stroke-width: .9; stroke-linejoin: round; cursor: pointer; }
 .carte-svg path.actif, .carte-vignette path.actif { stroke: var(--text); stroke-width: 1.8; }
 .carte-svg path.choisi, .carte-vignette path.choisi { stroke: var(--text); stroke-width: 2.4; }
-.carte-m1 { fill: var(--m1); } .carte-m2 { fill: var(--m2); } .carte-m3 { fill: var(--m3); } .carte-m4 { fill: var(--m4); } .carte-m5 { fill: var(--m5); }
+.carte-q1 { fill: var(--good); } .carte-q2 { fill: var(--warn-line); } .carte-q3 { fill: var(--warn); } .carte-q4 { fill: var(--bad); }
 .carte-hachures-fond { fill: var(--bg); }
 .carte-hachures-trait { stroke: var(--border-fort); stroke-width: 2; }
-.carte-nom { fill: var(--text); stroke: var(--surface); paint-order: stroke; stroke-linejoin: round; text-anchor: middle; font-weight: 600; pointer-events: none; }
+.carte-nom { fill: var(--text); stroke: var(--surface); stroke-width: 3px; paint-order: stroke; stroke-linejoin: round; text-anchor: middle; font-weight: 600; pointer-events: none; }
 .carte-vignettes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s2); }
 .carte-vignette { display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; padding: 8px 4px 6px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text-2); font: inherit; font-size: var(--fs-xs); line-height: 1.2; text-align: center; }
 button.carte-vignette { cursor: pointer; }
@@ -923,28 +1024,35 @@ button.carte-vignette:hover, .carte-vignette.choisi { border-color: var(--text);
 .carte-case { height: 12px; }
 .carte-case:first-child { border-radius: 3px 0 0 3px; }
 .carte-case:nth-child(5) { border-radius: 0 3px 3px 0; }
-.carte-fond-m1 { background: var(--m1); } .carte-fond-m2 { background: var(--m2); } .carte-fond-m3 { background: var(--m3); } .carte-fond-m4 { background: var(--m4); } .carte-fond-m5 { background: var(--m5); }
-.carte-borne { font-family: var(--font-chiffre); font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+.carte-fond-q1 { background: var(--good); } .carte-fond-q2 { background: var(--warn-line); } .carte-fond-q3 { background: var(--warn); } .carte-fond-q4 { background: var(--bad); }
+.carte-borne { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
 .carte-note { margin: 0; font-size: var(--fs-xs); color: var(--muted); }
 .carte-lecture { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; min-height: 84px; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--surface-2); }
 .carte-lecture-nom { flex-basis: 100%; font-weight: 700; }
-.carte-lecture-part { font-family: var(--font-chiffre); font-size: var(--fs-lead); font-weight: 600; }
+.carte-lecture-part { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: var(--fs-lead); font-weight: 600; }
 .carte-lecture-detail { color: var(--text-2); }
 .carte-lecture-aide, .carte-lecture-lien { flex-basis: 100%; font-size: var(--fs-xs); }
 .carte-lecture-aide { color: var(--muted); }
+/* Encart des cartes (choix de l'auteur, 25/09) : un clic sur un département le sélectionne ; l'encart en donne la valeur
+   et mène à la fiche, qui garde le sujet de la page, et à ses communes. Même allure que la lecture de l'accueil. */
+.encart-carte { position: relative; display: grid; gap: 2px; margin-top: 10px; padding: 12px 52px 4px 16px; border-radius: var(--radius-lg); background: var(--surface-2); }
+.encart-carte-texte { line-height: 1.45; }
+.encart-carte-liens { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.encart-carte-fermer { position: absolute; top: 4px; right: 4px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--text-2); font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.encart-carte-fermer:hover { background: var(--surface); color: var(--text); }
 .carte-tableau summary { display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; cursor: pointer; }
 .carte-tableau .table-scroll { max-height: 340px; overflow-y: auto; }
 
-/* Familles et paramètres : barres neutres (--mark), le chiffre à côté. */
+/* Familles et paramètres : barres de la qualité de l'eau (--q-mark, 04/10), le chiffre à côté. */
 .accueil-duo { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s6); margin-top: var(--s4); }
 .accueil-duo h3 { margin: 0 0 4px; }
 .accueil-duo .muted { margin: 0; }
 .barres { display: grid; gap: 14px; margin: var(--s4) 0 0; padding: 0; list-style: none; }
 .barres li { display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr) auto; align-items: center; gap: 14px; margin: 0; }
 .barre-piste { position: relative; height: 18px; border-left: 1px solid var(--border-fort); }
-.barre-trait { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--mark); }
-.barres li:hover .barre-trait { background: var(--mark-hi); }
-.barre-valeur { font-family: var(--font-chiffre); white-space: nowrap; }
+.barre-trait { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--q-mark); }
+.barres li:hover .barre-trait { background: var(--q-mark-hi); }
+.barre-valeur { font-family: var(--font); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .barre-valeur small { font-size: var(--fs-xs); color: var(--muted); }
 @media (max-width: 860px) {
   .accueil-tete, .carte-france, .accueil-duo { grid-template-columns: minmax(0, 1fr); }
@@ -965,7 +1073,7 @@ button.carte-vignette:hover, .carte-vignette.choisi { border-color: var(--text);
    qui les décodent (`.swatch` des légendes et des tableaux) les gardent donc, cernées pour rester visibles quand elles
    sont pâles (revue du 24/09 : légendes vides sur toutes les cartes). */
 @media (forced-colors: active) {
-  .j-fond, .p-palier, .tag, .grammaire li { border: 1px solid CanvasText; }
+  .j-fond, .p-palier, .tag, .grammaire li, .encart-carte { border: 1px solid CanvasText; }
   .j-zone, .p-palier--warn, .p-palier--bad { forced-color-adjust: none; background: repeating-linear-gradient(135deg, CanvasText 0 1px, Canvas 1px 5px); box-shadow: none; }
   .j-marque { forced-color-adjust: none; background: CanvasText; box-shadow: 0 0 0 3px Canvas; }
   .j-marque .j-lecture { forced-color-adjust: auto; }
@@ -1017,13 +1125,628 @@ html.studio .chart-export { opacity: .5; }
   .topbar .brand { margin-right: auto; }
   .content { padding-block: var(--s3); }
   .page > :not(.bande) { padding-inline: var(--s3); }
+  .page > :is(p, .lead) { padding-inline: var(--s3) max(var(--s3), calc(min(100%, 1280px) - var(--mesure) - var(--s3))); }
   .page > * + * { margin-top: var(--s3); }
   .card { padding: var(--s3); }
   .toolbar { gap: var(--s2) var(--s3); }
   /* Sur mobile, le tableau défile dans son conteneur .table-scroll ; seuls les en-têtes et les nombres
      restent sur une ligne, les textes (noms, conclusions) se replient au lieu de s'étirer sans fin. */
   table.data td:first-child { min-width: 12ch; }
-  :root { --inset-w: 58px; --inset-h: 46px; }
-  .map-insets { position: static; margin-top: 6px; gap: 3px; } /* sur mobile, les encarts prennent leur propre ligne sous la carte */
+  /* Sur mobile, les six encarts (petite couronne et outre-mer) passent sous la carte, en grille de trois comme
+     les vignettes de l'accueil : sur une seule ligne, « Guadeloupe » ne tenait plus dans sa case. */
+  :root { --inset-h: 52px; }
+  .map-insets { position: static; margin-top: 6px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .map-inset-box { width: auto; }
   .map-inset-box span { font-size: .6rem; }
 }
+
+/* Note A–D du bulletin : la lettre dans une tuile aux couleurs de la note (tuile-A…D, 07/10), jamais une lettre colorée. */
+.b-ars { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--border); }
+.b-ars .b-sub { margin: 0 0 var(--s2); }
+.b-ars-ligne { display: flex; align-items: flex-start; gap: var(--s3); margin: 0 0 var(--s2); }
+.b-ars-lettre { flex: none; display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 6px;
+  font-size: var(--fs-h3); font-weight: 700; line-height: 1; }
+@media (forced-colors: active) { .b-ars-lettre { forced-color-adjust: none; border: 2px solid CanvasText; background: Canvas; color: CanvasText; } }
+
+/* --- Fiches commune et réseau (refonte, lot 1, maquettes du 2026-10-05) ------------------------------------------
+   En tête, deux cartes côte à côte : « En ce moment » (année en cours, hors de la portée de la barre d'année) et
+   « Bilan <année> » (barre d'année en tête de carte) ; l'une sous l'autre quand la largeur manque. */
+.fiche-tete { display: flex; flex-direction: column; gap: 6px; }
+.fiche-tete h1, .fiche-tete .kind { margin: 0; }
+.fiche-tete .meta { margin: 0; color: var(--text-2); max-width: var(--mesure); }
+.page.fiche > * + * { margin-top: var(--s5); }
+.page.fiche > .crumbs + * { margin-top: var(--s2); }
+.page.fiche > .section + .section, .page.fiche > .sections-outils + .section { margin-top: 0; }
+.fiche-deux { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: var(--s5); align-items: start; }
+.fiche-deux > * { min-width: 0; }
+.carte-fiche { display: flex; flex-direction: column; gap: 16px; padding: var(--s5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow); }
+.carte-fiche > * { margin: 0; }
+.cf-tete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px var(--s3); }
+.cf-tete p { margin: 0; }
+.cf-sur { font-size: var(--fs-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.cf-date { font-size: var(--fs-xs); color: var(--muted); }
+.cf-titre { margin: 0; font-size: var(--fs-lead); color: var(--text-2); letter-spacing: 0; }
+.cf-grand-titre { margin: 0; font-size: var(--fs-h3); }
+.cf-texte { color: var(--text-2); max-width: var(--mesure); }
+.cf-principal { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; }
+.cf-principal .voyant, .cf-principal .cf-info { margin-top: 2px; }
+.cf-phrase { margin: 0; font-size: var(--fs-h2); font-weight: 700; line-height: 1.25; letter-spacing: -.012em; color: var(--text-fort); text-wrap: balance; }
+.cf-info { flex: none; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+.cf-citation { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 14px 16px; border-radius: var(--radius); background: var(--tone-tint); box-shadow: inset 3px 0 0 var(--tone-line); }
+.cf-citation blockquote { margin: 0; }
+.cf-citation blockquote p { margin: 0; overflow-wrap: anywhere; }
+.cf-citation figcaption { font-size: var(--fs-xs); color: var(--text-2); }
+.cf-prudence { font-size: var(--fs-xs); color: var(--text-2); max-width: var(--mesure); }
+.cf-resultats { display: flex; flex-direction: column; gap: 10px; padding-top: var(--s4); border-top: 1px solid var(--border); }
+.cf-resultats > * { margin: 0; }
+.cf-sous { margin: 0; font-size: var(--fs-md); letter-spacing: 0; }
+.cf-familles { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.cf-familles li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; margin: 0; }
+.cf-familles .voyant { margin-top: 3px; }
+.cf-resultats .link-arrow { align-self: flex-start; }
+.cf-liens { display: flex; flex-wrap: wrap; gap: 4px var(--s5); }
+/* La barre d'année dans la carte du bilan : sans ses filets, au-dessus de tout ce qu'elle gouverne. */
+.barre-annee.compacte { padding-block: 0 4px; border-block: 0; }
+/* Tuile d'une classe calculée : la lettre sur sa couleur, jamais la couleur seule (maquette du 2026-10-05). */
+.tuile-ars { flex: none; display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 10px; font-size: 38px; font-weight: 700; line-height: 1; font-family: var(--font-display); }
+.tuile-ars.grande { width: 96px; height: 96px; border-radius: 14px; font-size: 60px; }
+.tuile-A { background: var(--good); color: var(--on-good); }
+.tuile-B { background: var(--warn-line); color: var(--on-warn-line); }
+.tuile-C { background: var(--warn); color: var(--on-warn); }
+.tuile-D { background: var(--bad); color: var(--on-bad); }
+.tuile-A, .tuile-B, .tuile-C, .tuile-D { box-shadow: inset 0 0 0 1px var(--contour-forme); }
+.tuile-na { background: var(--surface-2); color: var(--muted); box-shadow: inset 0 0 0 1px var(--border-fort); }
+.bilan-reseaux { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.bilan-ligne { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; align-items: center; margin: 0; padding: 12px; border: 1px solid var(--border); border-radius: 10px; }
+.bilan-ligne p, .bilan-un p { margin: 0; }
+.bl-nom { font-weight: 700; overflow-wrap: anywhere; }
+.bl-nom-seul { color: var(--text-2); overflow-wrap: anywhere; }
+.bl-cause { color: var(--text-2); }
+.bl-lien { margin-top: 4px !important; font-size: var(--fs-xs); }
+.bilan-un { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center; }
+.bilan-un > div { display: flex; flex-direction: column; gap: 6px; }
+.bu-libelle { font-size: var(--fs-h3); font-weight: 700; color: var(--text-fort); }
+.carte-fiche > .btn { align-self: flex-start; }
+.legende-ars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; font-size: var(--fs-xs); }
+.legende-ars li { display: flex; flex-direction: column; gap: 4px; margin: 0; }
+.la-barre { display: block; height: 8px; border-radius: 4px; }
+/* « Pourquoi la classe » : une colonne par famille, la jauge sous ses phrases. */
+.pq-familles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: var(--s5) var(--s6); }
+.pq-famille { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.pq-famille h3, .pq-famille p { margin: 0; }
+.pq-famille h3 { font-size: var(--fs-md); letter-spacing: 0; }
+.pq-rappel { padding: 12px 16px; border-radius: var(--radius); background: var(--surface-2); max-width: var(--mesure); }
+/* « Prix et service » : une ligne. */
+.prix-service { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 8px var(--s6); padding-block: 18px; }
+.ps-prix { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: var(--fs-h3); font-weight: 600; color: var(--text-fort); }
+.ps-service { color: var(--text-2); }
+/* « Pour aller plus loin » : cartes-liens, nom et une ligne. */
+.plus-loin { display: flex; flex-direction: column; gap: 14px; }
+.plus-loin > * { margin: 0; }
+.plus-loin ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.plus-loin li { margin: 0; display: flex; }
+.pl-carte { display: flex; flex: 1; flex-direction: column; gap: 4px; min-height: 44px; padding: 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+.plus-loin .pl-carte { text-decoration: none; }
+.pl-carte:hover { border-color: var(--accent); box-shadow: var(--shadow-pop); text-decoration: none; }
+.pl-carte b { color: var(--accent); }
+.pl-carte span { color: var(--text-2); font-size: var(--fs-xs); }
+.qui-code { margin-left: auto; font-family: var(--font-chiffre); font-size: var(--fs-xs); color: var(--muted); }
+@media (max-width: 640px) {
+  .carte-fiche { padding: 18px; gap: 12px; }
+  .cf-phrase { font-size: var(--fs-lead); }
+  .tuile-ars { width: 52px; height: 52px; font-size: 30px; }
+  .tuile-ars.grande { width: 72px; height: 72px; font-size: 44px; }
+  .bilan-ligne { grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 10px; }
+  .bilan-un { grid-template-columns: 72px minmax(0, 1fr); gap: 14px; }
+  .legende-ars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prix-service { flex-direction: column; gap: 6px; }
+}
+@media (forced-colors: active) {
+  .tuile-ars, .la-barre { forced-color-adjust: none; border: 2px solid CanvasText; background: Canvas; color: CanvasText; }
+  .cf-citation { border-left: 3px solid CanvasText; }
+}
+
+/* Remarque sous un paramètre du détail des analyses (hors du jugement du réseau, 03/10). */
+.data small.bloc { display: block; font-size: var(--fs-xs); }
+
+/* --- Accueil (refonte, lot 2, maquette validée le 2026-10-05) ----------------------------------------------------
+   Bandeau de recherche sur la surface, puis le corps sur --surface-2 (le fond de la maquette), où les cartes du lot 1
+   ressortent en blanc. Les deux bandes touchent les bords de l'écran et rejoignent l'en-tête et le pied de page. */
+.content:has(> .page.accueil) { padding-block: 0; }
+.layout:has(.page.accueil) .footer { margin-top: 0; }
+.page.accueil > .accueil-corps { margin-top: 0; }
+.accueil-bandeau { background: var(--surface); border-bottom: 1px solid var(--border); }
+.accueil-bandeau .bande-interieur { max-width: 820px; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-block: 72px 64px; text-align: center; }
+.accueil-bandeau h1 { margin: 0; font-size: clamp(32px, 2.4vw + 22px, 44px); line-height: 1.1; }
+.accueil-chapeau { margin: 0; max-width: 640px; font-size: var(--fs-lead); color: var(--text-2); text-wrap: pretty; }
+.accueil-champ { width: 100%; max-width: 640px; margin-top: 8px; text-align: left; }
+.accueil-champ .search-box { max-width: none; }
+.search-ligne { display: flex; gap: 8px; }
+.search-ligne input.search { flex: 1 1 auto; min-width: 0; }
+.accueil-champ input.search { height: 56px; padding-inline: 18px; border: 2px solid var(--accent); border-radius: 10px; font-size: var(--fs-lead); }
+.search-go { flex: none; height: 56px; padding-inline: 22px; border-radius: 10px; font-size: var(--fs-md); }
+.accueil-par-exemple { margin: 0; font-size: var(--fs-sm); color: var(--muted); }
+.accueil-corps { background: var(--surface-2); }
+.accueil-corps > .bande-interieur { max-width: 1120px; display: flex; flex-direction: column; gap: 40px; padding-block: 40px 64px; }
+.accueil-corps .bande-interieur > * { margin: 0; }
+.accueil-cartes { align-items: stretch; }
+.accueil-carte { gap: 14px; }
+.accueil-carte .cf-liens { margin-top: auto; }
+.ac-principal { align-items: center; }
+.ac-principal p { margin: 0; }
+.ac-nombre { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: 30px; font-weight: 600; line-height: 1.1; color: var(--text-fort); }
+/* Barre empilée des classes : couleurs des tuiles, séparées de 2 px par le fond de la carte. */
+.repartition-ars { display: flex; gap: 2px; height: 28px; border-radius: 6px; overflow: hidden; }
+.repartition-ars > span { flex: 0 1 0; min-width: 3px; }
+.chiffres-ars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; font-size: var(--fs-xs); }
+.chiffres-ars li { display: flex; flex-direction: column; gap: 2px; margin: 0; }
+.ca-part { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: 18px; font-weight: 600; color: var(--text-fort); }
+.ca-nb { color: var(--muted); }
+.accueil-sujets h2 { margin: 0; }
+.accueil-sujets ul { grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+.accueil-sujets .pl-carte { padding: 18px; gap: 6px; }
+.accueil-sujets .pl-carte b { font-size: var(--fs-lead); }
+.accueil-sujets .pl-carte span { font-size: var(--fs-sm); }
+.accueil-ressource { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 40px; }
+.accueil-ressource > div { flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px; }
+.accueil-ressource h2 a { color: inherit; text-decoration: none; }
+.accueil-ressource h2 a:hover { color: var(--accent); text-decoration: underline; }
+.pastilles { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pastilles li { margin: 0; }
+.pastilles a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-fort); border-radius: 8px; color: var(--text); text-decoration: none; }
+.pastilles a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.accueil-pied { display: flex; flex-direction: column; gap: 16px; }
+.accueil-pied p { margin: 0; }
+.accueil-methode { max-width: var(--mesure); font-size: var(--fs-sm); color: var(--text-2); }
+.accueil-pied .source { padding-top: 16px; border-top: 1px solid var(--border); }
+@media (max-width: 640px) {
+  .accueil-bandeau .bande-interieur { padding-block: 40px 36px; gap: 16px; }
+  .search-ligne { flex-direction: column; }
+  .search-go { width: 100%; justify-content: center; }
+  .accueil-corps > .bande-interieur { gap: 28px; padding-block: 24px 40px; }
+  .chiffres-ars { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
+}
+@media (forced-colors: active) {
+  .repartition-ars { gap: 0; }
+  .repartition-ars > span { forced-color-adjust: none; background: Canvas; border: 1px solid CanvasText; }
+}
+
+/* Sommaire « La ressource en eau » (/ressource-en-eau, lot 2) : cartes-liens du lot 1. */
+.sommaire-ressource ul { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
+
+/* --- « La France » et tête de la fiche département (refonte, lot 3, maquette validée le 2026-10-05) ----------------- */
+.page.france > h1 { margin-bottom: 0; }
+.france-national .cf-sur { margin: 0; }
+/* Quatre chiffres de la maquette : la tuile, le nombre de réseaux, le libellé de l'indicateur et la part. */
+.chiffres-tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.chiffres-tuiles li { display: flex; gap: 12px; align-items: center; margin: 0; }
+.ct-texte { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: var(--fs-sm); color: var(--text-2); }
+.ct-nb { font-family: var(--font); font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; line-height: 1.2; color: var(--text-fort); }
+.tuile-ars.moyenne { width: 48px; height: 48px; border-radius: 8px; font-size: 28px; }
+.tuile-ars.petite { width: 26px; height: 26px; border-radius: 6px; font-size: 16px; vertical-align: middle; }
+.france-deux { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: var(--s5); align-items: start; }
+.france-deux > * { min-width: 0; }
+.france-sujets .pastilles { margin-top: 2px; }
+.france-detail { margin: 0; }
+.france-pied { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid var(--border); font-size: var(--fs-sm); color: var(--text-2); }
+.france-pied p { margin: 0; max-width: var(--mesure); }
+.france-pied .source { margin-top: 0; }
+/* Tableau des départements : les colonnes A à D s'effacent quand la place manque (le CSV les garde toutes). */
+.tableau-france-boite { container: tableau-france / inline-size; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tableau-france-boite > p { margin: 0; }
+.tableau-france td .muted { white-space: nowrap; }
+@container tableau-france (max-width: 520px) {
+  .tableau-france .col-lettre { display: none; }
+}
+/* Carte des départements dans une demi-largeur : les encarts de Paris et de l'outre-mer passent sous la carte, sur une
+   ligne, au lieu d'occuper le bas de la carte sur deux rangées (la métropole y perdait la moitié de sa hauteur). */
+.france-deux .map-wrap:not(.map-inset) { container: carte-france / inline-size; }
+@container carte-france (max-width: 720px) {
+  .map-insets { position: static; margin-top: 6px; max-width: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+  .map-inset-box { width: auto; }
+  .map-inset-box span { font-size: .65rem; }
+}
+@container carte-france (max-width: 420px) {
+  .map-insets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.tableau-france-csv { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.classe-cellule { white-space: nowrap; }
+.bilan-dept + .grid.cols-map { margin-top: var(--s4); }
+@media (forced-colors: active) {
+  .chiffres-tuiles .tuile-ars, .tuile-ars.petite { forced-color-adjust: none; border: 2px solid CanvasText; background: Canvas; color: CanvasText; }
+}
+.ct-part { white-space: nowrap; }
+
+/* --- Pages de sujets (refonte, lot 4, 2026-10-05) ------------------------------------------------------------------
+   Ce que mesure le contrôle sanitaire et la recherche d'une commune, puis les cartes « En ce moment » et « Bilan » de
+   l'accueil, la carte des départements et son tableau (« La France »), les réseaux concernés par département. */
+.page.sujet > h1 { margin-bottom: 0; }
+.page.sujet > * + * { margin-top: var(--s5); }
+.sujet-tete { display: grid; grid-template-columns: minmax(0, 2fr) minmax(min(280px, 100%), 1fr); gap: var(--s5); align-items: start; }
+.sujet-phrases { display: flex; flex-direction: column; gap: 10px; max-width: 75ch; color: var(--text-2); }
+.sujet-phrases p { margin: 0; }
+.sujet-refs { display: flex; flex-direction: column; gap: 4px; padding-top: 12px; border-top: 1px solid var(--border); }
+.sujet-refs p, .sujet-refs ul { margin: 0; }
+.sujet-refs ul { padding-left: 1.1rem; }
+.sujet-refs li { margin: 2px 0; }
+.sujet-recherche { display: flex; flex-direction: column; gap: 10px; padding: var(--s5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+.sujet-recherche > * { margin: 0; }
+.sujet-recherche .accueil-champ { margin-top: 0; }
+.sujet-recherche input.search { height: 48px; font-size: var(--fs-md); }
+.sujet-recherche .search-go { height: 48px; }
+.sujet-classes { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: var(--fs-sm); }
+.sujet-classes li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto 4.5em; gap: 10px; align-items: baseline; margin: 0; }
+.sujet-classes.sans-couleur li { grid-template-columns: minmax(0, 1fr) auto 4.5em; }
+.sujet-classes .sc-nb, .sujet-classes .sc-part { font-family: var(--font); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.sujet-classes .sc-nb { color: var(--text-fort); font-weight: 600; }
+.sujet-classes .sc-part { color: var(--muted); }
+.sujet-carte { display: flex; flex-direction: column; gap: var(--s4); }
+.sujet-carte > h2 { margin: 0; }
+.sujet-choix select { max-width: 100%; }
+.voyant-ligne { display: inline-block; vertical-align: -3px; margin-right: 6px; }
+.sujet-tfa .cf-liens { gap: 4px var(--s5); }
+@media (max-width: 900px) {
+  .sujet-tete { grid-template-columns: minmax(0, 1fr); }
+}
+/* Une carte posée directement dans la page garde la marge latérale de la page : son propre remplissage remplaçait celui
+   de `.page > :not(.bande)`, et sa bordure touchait le bord de l'écran sous 1 280 px. */
+.page > .carte-fiche, .page > .sujet-recherche, .page > .me-avis, .page > .essentiel { margin-inline: max(var(--s5), calc((100% - 1280px) / 2 + var(--s5))); }
+.sujet-recherche .search-ligne { flex-wrap: wrap; }
+.sujet-recherche .search-ligne input.search { min-width: 11em; }
+@media (max-width: 700px) {
+  .page > .carte-fiche, .page > .sujet-recherche, .page > .me-avis, .page > .essentiel { margin-inline: var(--s3); }
+}
+
+/* ---------- Fiche « Mon eau » (refonte complète, 2026-10-05) : carte d'identité de l'eau, écrite pour un habitant ---------- */
+.mon-eau { display: flex; flex-direction: column; gap: var(--s5); }
+.mon-eau h2, .me-note-bloc h2, .me-avis h2, .me-cases-bloc h2, .me-section h2 { margin: 0; }
+.me-aide { margin: 0; color: var(--text-2); font-size: var(--fs-md); }
+.me-petit { margin: 0; color: var(--muted); font-size: var(--fs-xs); }
+.me-sur { margin: 0; color: var(--muted); font-size: var(--fs-xs); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.me-reseaux { display: flex; flex-direction: column; gap: var(--s2); margin-bottom: var(--s4); }
+.me-reseaux h2 { font-size: var(--fs-lead); }
+.me-note { display: grid; grid-template-columns: auto 1fr; gap: var(--s4) var(--s5); align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: var(--s5); }
+.me-note-texte { display: flex; flex-direction: column; gap: 6px; }
+.me-note-texte h2 { font-size: clamp(24px, 3.6vw, 32px); line-height: 1.15; }
+.me-note-texte p:last-child { margin: 0; font-size: var(--fs-lead); }
+.me-goutte { width: 88px; height: auto; }
+.me-goutte text { font-family: var(--font); font-weight: 700; font-size: 46px; }
+.me-goutte.note-A path { fill: var(--good); } .me-goutte.note-A text { fill: var(--on-good); }
+.me-goutte.note-B path { fill: var(--warn-line); } .me-goutte.note-B text { fill: var(--on-warn-line); }
+.me-goutte.note-C path { fill: var(--warn); } .me-goutte.note-C text { fill: var(--on-warn); }
+.me-goutte.note-D path { fill: var(--bad); } .me-goutte.note-D text { fill: var(--on-bad); }
+.me-goutte:is(.note-A, .note-B, .note-C, .note-D) path { stroke: var(--contour-forme); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.me-goutte.note-na path { fill: var(--surface-2); stroke: var(--border-fort); stroke-dasharray: 4 3; } .me-goutte.note-na text { fill: var(--muted); }
+.me-echelle { grid-column: 1 / -1; list-style: none; margin: var(--s1) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 2px; }
+/* Échelle A–D en bande continue, non cliquable (critique UX du 2026-10-05 : les tuiles imitaient des boutons) : quatre
+   segments aux couleurs des notes, un repère au-dessus de la note du réseau, libellés dessous, l'actuel en gras. */
+.me-echelle li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0; padding-top: 24px; font-size: var(--fs-xs); line-height: 1.25; color: var(--muted); text-align: center; hyphens: none; overflow-wrap: normal; }
+.me-echelle li::before { content: ''; position: absolute; top: 10px; left: 0; right: 0; height: 8px; background: var(--seg, var(--border)); box-shadow: inset 0 0 0 1px var(--contour-forme); }
+.me-echelle li:first-child::before { border-radius: 4px 0 0 4px; }
+.me-echelle li:last-child::before { border-radius: 0 4px 4px 0; }
+.me-echelle li.note-A { --seg: var(--good); } .me-echelle li.note-B { --seg: var(--warn-line); } .me-echelle li.note-C { --seg: var(--warn); } .me-echelle li.note-D { --seg: var(--bad); }
+.me-echelle li b { font-size: var(--fs-sm); color: var(--text-2); }
+.me-echelle li.me-actuelle, .me-echelle li.me-actuelle b { color: var(--text); font-weight: 700; }
+.me-echelle li.me-actuelle::after { content: ''; position: absolute; top: 4px; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--text-fort); }
+.me-note > .me-petit { grid-column: 1 / -1; }
+.me-avis { display: flex; flex-direction: column; gap: 6px; border-radius: 18px; padding: var(--s4) var(--s5); border: 1px solid var(--border); background: var(--surface); }
+.me-avis h2 { font-size: var(--fs-md); }
+.me-avis-texte { margin: 0; font-size: var(--fs-lead); font-weight: 700; }
+.me-avis-alerte { background: var(--warn-tint); border-color: var(--warn-line); }
+.me-avis-grave { background: var(--bad-tint); border-color: var(--bad-line); }
+.me-avis details summary { cursor: pointer; color: var(--accent); min-height: 32px; }
+.me-avis blockquote { margin: 6px 0; font-size: var(--fs-md); }
+.me-cases-bloc { display: flex; flex-direction: column; gap: var(--s2); }
+.me-cases-bloc h2 { font-size: var(--fs-h2); }
+.me-cases { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: var(--s2); }
+@media (min-width: 760px) { .me-cases { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.me-case { font: inherit; color: var(--text); text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px; min-height: 120px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; animation: me-monte .4s ease both; }
+.me-case:hover { border-color: var(--accent); }
+.me-case[aria-expanded="true"] { border-color: var(--text-fort); box-shadow: inset 0 0 0 2px var(--text-fort); }
+.me-case-titre { font-size: var(--fs-xs); font-weight: 700; color: var(--text-2); }
+.me-case-reponse { display: flex; gap: 6px; align-items: flex-start; font-size: 18px; font-weight: 700; line-height: 1.2; }
+.me-case-precision { font-size: var(--fs-xs); color: var(--muted); }
+.me-alerte { border-color: var(--warn-line); }
+.me-grave { border-color: var(--bad-line); }
+.me-absent .me-case-reponse { color: var(--muted); font-weight: 400; }
+.me-etat { width: 20px; height: 20px; flex: 0 0 auto; margin-top: 1px; }
+.me-etat-bon { fill: var(--good); } .me-etat-alerte { fill: var(--warn); } .me-etat-grave { fill: var(--bad); }
+.me-etat-bon, .me-etat-alerte, .me-etat-grave { stroke: var(--contour-forme); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.me-detail { margin-top: var(--s2); background: var(--surface); border: 2px solid var(--text-fort); border-radius: 18px; padding: var(--s5); display: flex; flex-direction: column; gap: 8px; }
+.me-detail p { margin: 0; }
+.me-detail-tete { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); }
+.me-detail-tete h3 { margin: 0; font-size: var(--fs-lead); }
+/* Fiche complétée le 2026-10-05 (« il manque des sections et des détails ») : réseaux, évolution, derniers contrôles,
+   groupes de cases et sections ouvertes. */
+.me-goutte.me-goutte-petite { width: 30px; flex: 0 0 auto; }
+.me-goutte-petite text { font-size: 52px; }
+.me-reseaux ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--s2); }
+.me-reseaux button { width: 100%; font: inherit; color: var(--text); text-align: left; display: flex; gap: 12px; align-items: center; min-height: 56px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; }
+.me-reseaux button:hover { border-color: var(--accent); }
+.me-reseaux button[aria-pressed="true"] { border-color: var(--text-fort); box-shadow: inset 0 0 0 2px var(--text-fort); }
+.me-reseaux button > span { display: flex; flex-direction: column; line-height: 1.25; }
+.me-reseaux button > span > span { font-size: var(--fs-xs); color: var(--text-2); }
+.me-evolution { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: var(--s3); }
+.me-evolution h3 { margin: 0 0 var(--s2); font-size: var(--fs-md); }
+.me-evolution ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2); }
+.me-evolution li { font-size: var(--fs-xs); color: var(--text-2); display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 64px; padding: 6px 8px; border-radius: 12px; border: 1px solid transparent; }
+.me-evolution li[aria-current="true"] { border-color: var(--border-fort); color: var(--text); font-weight: 700; background: var(--surface-2); }
+.me-avis .me-sur { margin-bottom: -2px; }
+.me-resultats { margin-top: var(--s2); padding-top: var(--s3); border-top: 1px solid color-mix(in srgb, var(--text) 14%, transparent); display: flex; flex-direction: column; gap: 6px; }
+.me-resultats h3 { margin: 0; font-size: var(--fs-md); }
+.me-resultats p { margin: 0; }
+.me-resultats ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.me-resultats li { display: flex; gap: 8px; align-items: flex-start; }
+.me-groupe { display: flex; flex-direction: column; gap: var(--s2); margin-top: var(--s3); }
+.me-groupe h3 { margin: 0; font-size: var(--fs-md); color: var(--text-2); }
+.me-groupe .me-cases { margin-top: 0; }
+.me-section { display: flex; flex-direction: column; gap: var(--s3); }
+.me-section h2 { font-size: var(--fs-h2); }
+.me-section .cadre { padding-inline: 0; margin-inline: 0; }
+@keyframes me-monte { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+@media (prefers-reduced-motion: reduce) { .me-case { animation: none } }
+@media (max-width: 480px) {
+  .me-note { padding: var(--s4); gap: var(--s3) var(--s4); }
+  .me-goutte { width: 68px; }
+  .me-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .me-case { min-height: 108px; padding: 12px; }
+  .me-case-reponse { font-size: 16px; }
+}
+.analyse-remarque { display: block; margin-top: 2px; max-width: 46ch; }
+/* Menu des paramètres d'une série : « Paramètre » ne se coupe jamais (« Paramèt re » sur téléphone, 05/10). */
+.serie-tete label { display: flex; align-items: center; gap: 8px; white-space: nowrap; min-width: 0; max-width: 100%; }
+.serie-tete label select { min-width: 0; flex: 1 1 auto; max-width: 100%; }
+/* Accueil : titre de section (refonte du 2026-10-05). */
+.accueil-section { margin: 0; font-size: var(--fs-h2); }
+.accueil-corps .bande-interieur > .accueil-section:not(.accueil-section-premiere) { margin-top: var(--s6); }
+.ta-type { display: block; font-weight: 400; }
+.tableau-arrete th[scope="row"] { text-align: left; font-weight: 600; }
+.me-case { position: relative; padding-right: 34px; }
+.me-case::after { content: '+'; position: absolute; top: 10px; right: 12px; font-size: 20px; line-height: 1; color: var(--accent); transition: transform .15s ease; }
+.me-case[aria-expanded="true"]::after { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .me-case::after { transition: none } }
+/* Pages de sujets : la carte puis le tableau des départements, pleine largeur ; côte à côte, le tableau (cinq colonnes) était
+   coupé et les noms tenaient sur quatre lignes (05/10). */
+.sujet-carte .france-deux { grid-template-columns: minmax(0, 1fr); }
+/* Alignement des graphiques (05/10) : en-tête de série identique avec ou sans menu ; « Évolution et substances » en deux
+   colonnes alignées par subgrid (titre, introduction, graphique, source), le suivi mensuel en pleine largeur. */
+.serie-param-fixe { margin: 0; display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: var(--fs-sm); }
+.serie-param-fixe span { display: inline-flex; align-items: center; min-height: var(--control); padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; color: var(--text); background: var(--surface-2); }
+.graphiques-sujet { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); }
+.graphiques-sujet > .card:not(.graphiques-plein) { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; }
+.graphiques-sujet > .card > * { margin-top: 0; margin-bottom: 0; }
+.graphiques-sujet > .graphiques-plein { grid-column: 1 / -1; }
+@media (max-width: 900px) { .graphiques-sujet { grid-template-columns: minmax(0, 1fr); } .graphiques-sujet > .card:not(.graphiques-plein) { grid-row: auto; display: block; } }
+/* Graphiques côte à côte : titre puis paramètre, toujours sur deux lignes, pour que les tracés partent à la même hauteur. */
+.multiples .serie-tete { flex-direction: column; align-items: flex-start; justify-content: flex-start; }
+/* Méthode (refonte du 2026-10-05, « lecture inintelligible pour un usager ») : « L'essentiel » en six blocs, puis les règles
+   détaillées repliées par sujet ; mesure de lecture bornée pour les longs paragraphes. */
+.page > .methode-maj { margin-top: var(--s2); font-size: var(--fs-sm); color: var(--muted); }
+.essentiel { padding: var(--s4) var(--s5); }
+.essentiel > h2 { margin: 0 0 var(--s3); }
+.essentiel-grille { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--s6); }
+.essentiel-bloc { display: flex; flex-direction: column; gap: var(--s2); padding: var(--s4) 0; border-top: 1px solid var(--border); }
+.essentiel-bloc h3 { margin: 0; font-size: var(--fs-md); }
+.essentiel-bloc p { margin: 0; color: var(--text-2); text-wrap: pretty; }
+.essentiel-bloc .essentiel-lien { font-size: var(--fs-sm); }
+.essentiel-notes { display: grid; gap: var(--s2); margin: var(--s1) 0 0; padding: 0; list-style: none; }
+.prose .essentiel-notes li { display: flex; align-items: center; gap: var(--s3); margin: 0; color: var(--text-2); }
+.methode-regles-titre { margin: var(--s6) 0 var(--s1); }
+.methode-regles-intro { margin: 0 0 var(--s3); color: var(--muted); }
+.methode .section-corps > p, .methode .section-corps > ul, .methode .regle > p, .methode .regle > ul, .methode .lexique { max-width: 80ch; }
+.methode .section-corps > p { margin: 0; }
+.regle { display: grid; gap: var(--s2); }
+.regle + .regle { padding-top: var(--s4); border-top: 1px solid var(--border); }
+.regle h3 { margin: 0; font-size: var(--fs-md); }
+.regle p, .regle ul { margin: 0; }
+.regle p, .regle li { text-wrap: pretty; }
+@media (max-width: 760px) { .essentiel { padding: var(--s3) var(--s4); } .essentiel-grille { grid-template-columns: minmax(0, 1fr); } }
+/* « En ce moment » : période et réseaux de l'avis, sous la phrase (2026-10-05). */
+.me-avis-detail { margin: 0; color: var(--text-2); font-size: var(--fs-sm); }
+/* Tableaux des départements déroulés (critique UX du 2026-10-05) ; la mention des colonnes masquées n'apparaît que
+   lorsque des colonnes le sont (conteneur étroit). Menus déroulants natifs au format des autres contrôles. */
+.tableau-france-tout { margin: 0; }
+.tableau-france-etroit { display: none; }
+@container tableau-france (max-width: 520px) { .tableau-france-etroit { display: block; } }
+select { font: inherit; height: var(--control); max-width: 100%; min-width: 0; padding: 0 30px 0 10px; font-size: var(--fs-sm); line-height: 1.2; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; appearance: none; background-image: var(--fleche-select); background-repeat: no-repeat; background-position: right 10px center; }
+select:hover { border-color: var(--accent); }
+@media (pointer: coarse) { select { height: 44px; } }
+/* Tableau SISPEA d'un service (critique UX du 2026-10-05) : sur un écran étroit, la médiane France passe sous la
+   valeur du service au lieu d'une troisième colonne coupée. */
+.med-dessous { display: none; }
+@media (max-width: 600px) {
+  table.sispea-med .col-med { display: none; }
+  table.sispea-med .med-dessous { display: block; font-size: var(--fs-xs); color: var(--muted); font-weight: 400; }
+}
+/* Carte et liste côte à côte (fiche département, carte détaillée) : la carte reste à l'écran pendant qu'on parcourt une
+   liste plus longue (critique UX du 2026-10-05 : environ 800 px de vide sous la carte). Seulement si la fenêtre contient
+   la carte entière avec sa légende, faute de quoi la légende resterait cachée. */
+@media (min-width: 701px) and (min-height: 900px) {
+  .grid.cols-map { align-items: start; }
+  .grid.cols-map > :first-child { position: sticky; top: 64px; }
+}
+/* Série mensuelle : repères des mois sans barre, sous l'axe, et leur légende (critique UX du 2026-10-05). */
+.serie-nq { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.serie-legende { margin: 2px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+/* Audit de lisibilité sur téléphone (2026-10-06, 360 et 390 px). */
+/* Tableaux : les en-têtes passent à la ligne au lieu d'imposer leur largeur (« Part non conforme ↕ » pour « 1,1 % ») ;
+   médianes sous la valeur. */
+@media (max-width: 480px) {
+  table.data th, table.data th .tri { white-space: normal; }
+  .med-sous { display: block; }
+  /* Réglages de la carte (territoires, noms, encarts) : une rangée défilante sous la carte, plus sur la France. */
+  .map-territoires { position: static; max-width: none; flex-wrap: nowrap; overflow-x: auto; margin-top: 6px; padding-bottom: 2px; }
+  .map-territoires button { flex: none; height: 36px; }
+}
+/* Barre d'année : une seule rangée, boutons à parts égales, « 2026 (en cours) » sur deux lignes au besoin. */
+@media (max-width: 420px) {
+  .barre-annee .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); width: 100%; }
+  .barre-annee .seg button { min-height: 44px; padding: 2px 4px; white-space: normal; line-height: 1.15; }
+}
+/* Cases « Mon eau » : la place du « + » ne vaut que pour le titre (le texte n'avait plus que 95 px à 360). */
+.me-case { padding-right: 14px; }
+.me-case-titre { padding-right: 22px; }
+/* Code du réseau jamais coupé (« 035004 / 230 »). */
+.qui-code { flex: none; white-space: nowrap; overflow-wrap: normal; }
+/* Cibles tactiles : 44 px au toucher. */
+@media (pointer: coarse) {
+  .theme-toggle { width: 44px; height: 44px; }
+  .partage-btn, .menu-btn, input.search, .seg button { min-height: 44px; }
+  .partage-btn, .menu-btn { height: 44px; }
+  .me-avis details summary { display: flex; align-items: center; min-height: 44px; }
+  table.data th .tri { padding-block: 12px; margin-block: -12px; }
+}
+.footer a { display: inline-block; padding-block: 4px; }
+/* Noms des encarts lisibles (9,6 px auparavant). */
+.map-inset-box span { font-size: .75rem; }
+/* Notes des années publiées : une rangée, même à 360 px. */
+.me-evolution ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); }
+.me-evolution li { min-width: 0; text-align: center; }
+/* Sections repliées sur téléphone : le « + » reste sur la ligne du titre. */
+@media (max-width: 700px) {
+  .section > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; }
+  .section > summary::after { grid-column: 2; grid-row: 1; margin-left: 0; }
+}
+/* La France : le lien vers la carte détaillée ne touche plus le bloc qui le précède. */
+.france-detail { margin-top: var(--s4); }
+/* Audit mobile, second passage (2026-10-06) : petits tableaux à deux colonnes de la fiche département ; menus des
+   graphiques et bouton « Partager » à 44 px au toucher. */
+@media (max-width: 480px) { table.data.tableau-court td, table.data.tableau-court td.num { white-space: normal; } }
+@media (pointer: coarse) {
+  .card-head select, .serie-tete select, .toolbar select { height: 44px; }
+  .partage-btn { min-width: 44px; }
+}
+/* Fiche département : intertitre du contexte, après le bilan de l'année (2026-10-06). */
+.contexte-tete { margin-top: var(--s6); padding-top: var(--s4); border-top: 2px solid var(--border-fort); }
+.contexte-tete h2 { margin: 0 0 var(--s1); }
+.contexte-tete p { margin: 0; }
+/* Audit UI UX Pro Max (2026-10-06) : 44 px au toucher pour les cibles qui en restaient loin (boutons des cartes, zoom et
+   attribution de MapLibre, boutons des tableaux, liens isolés). Un lien pris dans une ligne grandit par un rembourrage
+   compensé (marge négative) : la mise en page ne bouge pas, seule la zone de toucher s'étend. */
+@media (pointer: coarse) {
+  .btn { min-height: 44px; }
+  .map-territoires button { height: 44px; }
+  .maplibregl-ctrl-group button { width: 44px; height: 44px; }
+  .maplibregl-ctrl-attrib-button { width: 44px; height: 44px; background-position: center; }
+  table.data th .tri { padding-block: 14px; margin-block: -14px; }
+  .topbar .brand { display: inline-block; padding-block: 9px; margin-block: -9px; }
+  .cf-grand-titre a { display: inline-block; padding-block: 11px; margin-block: -11px; }
+  /* Liens empilés : une vraie hauteur de 44 px, sans recouvrement des zones de deux liens voisins. */
+  .cf-liens { row-gap: 0; }
+  .cf-liens a, .qui-reseaux a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer a { padding-block: 12px; }
+}
+/* Fiches dans l'ordre de l'habitant (maquette validée le 2026-10-06, components/Cartes.tsx) : chaque bloc dans sa carte
+   délimitée sur un fond gris clair, une valeur clé, une ligne de contexte ; la couleur réservée à ce qui juge ou alerte. */
+.content:has(> .page.fiche2) { background: color-mix(in srgb, var(--surface-2) 60%, var(--bg)); }
+.page.fiche2 > .cartes-fiche { margin-top: var(--s3); }
+.cartes-fiche { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.cartes-fiche > :first-child, .cartes-fiche > .savoir, .cartes-fiche > .etat-vide { grid-column: 1 / -1; }
+@media (max-width: 760px) { .cartes-fiche { grid-template-columns: minmax(0, 1fr); } }
+.carte2 { display: flex; flex-direction: column; gap: 12px; padding: 16px 18px; border: 1px solid var(--border-fort); border-radius: 14px; background: var(--surface); min-width: 0; }
+.carte2-tete { display: flex; justify-content: space-between; align-items: center; gap: 8px 12px; flex-wrap: wrap; }
+.carte2-titre { margin: 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.carte2-date { font-size: var(--fs-xs); color: var(--muted); }
+.carte2-valeur { margin: 0; font-size: 28px; font-weight: 700; line-height: 1.15; color: var(--text-fort); }
+.carte2-unite { font-size: var(--fs-md); font-weight: 400; color: var(--text-2); }
+.carte2-ligne { margin: 0; color: var(--text-2); line-height: 1.5; }
+.carte2-note { margin: 0; font-size: var(--fs-xs); line-height: 1.45; color: var(--muted); }
+.carte2-avis { margin: 0; display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+.pastille-avis { flex: none; margin-top: .5em; width: 9px; height: 9px; border-radius: 999px; background: var(--muted); }
+.carte2-avis--alerte .pastille-avis { background: var(--warn); }
+.carte2-avis--grave .pastille-avis { background: var(--bad); }
+.carte2-avis--alerte .pastille-avis, .carte2-avis--grave .pastille-avis { box-shadow: 0 0 0 1px var(--contour-forme); }
+.carte2-date-avis { color: var(--muted); }
+.carte2 .paliers { padding-block: 0; }
+/* Années du bilan en onglets légers. */
+.onglets-annee { display: flex; flex-wrap: wrap; gap: 2px; }
+.onglets-annee button { min-height: 36px; padding: 0 8px; border: 0; border-bottom: 2px solid transparent; background: none; font: inherit; font-size: var(--fs-sm); color: var(--muted); cursor: pointer; }
+.onglets-annee button[aria-pressed='true'] { color: var(--text-fort); font-weight: 700; border-bottom-color: var(--text-fort); }
+.onglets-annee button:disabled { opacity: .45; cursor: default; }
+/* Note de chaque réseau : une goutte, le nom, le mot de la note. */
+.gouttes-reseaux { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; }
+.gouttes-reseaux button, .gouttes-reseaux .gr-seul { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px; border: 1px solid transparent; border-radius: 12px; background: none; font: inherit; color: var(--text); text-align: center; }
+.gouttes-reseaux button { cursor: pointer; }
+.gouttes-reseaux button[aria-pressed='true'] { border-color: var(--border-fort); background: var(--surface-2); }
+.gouttes-reseaux .me-goutte { width: 46px; }
+.gr-nom { font-size: var(--fs-sm); line-height: 1.3; overflow-wrap: anywhere; }
+.gr-mot { font-size: var(--fs-xs); color: var(--muted); }
+/* « Pour en savoir plus » : des lignes, chacune s'ouvre sur place ou mène à une page. */
+.savoir { padding-block: 8px; gap: 0; }
+.savoir > .carte2-titre { margin: 8px 0 2px; }
+.savoir ul { list-style: none; margin: 0; padding: 0; }
+.savoir li + li { border-top: 1px solid var(--border); }
+.savoir-ligne > summary, .savoir-lien { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 52px; color: var(--text); font-size: var(--fs-md); text-decoration: none; cursor: pointer; list-style: none; }
+.savoir-ligne > summary::-webkit-details-marker { display: none; }
+.savoir-ligne[open] > summary { font-weight: 700; }
+.savoir-chevron { flex: none; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg) translate(-2px, -2px); transition: transform .15s; }
+.savoir-ligne[open] .savoir-chevron { transform: rotate(-135deg) translate(-2px, -2px); }
+.savoir-fleche { color: var(--muted); font-size: 20px; line-height: 1; }
+.savoir-corps { display: flex; flex-direction: column; gap: var(--s4); padding: 4px 0 var(--s4); }
+.savoir-corps > * { margin: 0; }
+.savoir-note { display: flex; flex-direction: column; gap: 6px; }
+.savoir-note p { margin: 0; line-height: 1.5; }
+.savoir-sur { font-size: var(--fs-xs); color: var(--muted); }
+.savoir-h3 { margin: 0; font-size: var(--fs-md); }
+@media (pointer: coarse) { .onglets-annee button { min-height: 44px; } .gouttes-reseaux button { min-height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .savoir-chevron { transition: none; } }
+.savoir .savoir-lien { color: var(--text); text-decoration: none; }
+.savoir .savoir-lien:hover span:first-child { text-decoration: underline; }
+/* Contenu ouvert d'une ligne « Pour en savoir plus » : jamais une carte dans la carte (auteur, 2026-10-06). Les blocs
+   déplacés (pourquoi la note, avis, prélèvements, nappe, VigiEau) perdent leur cadre, séparés par un filet ; les cases de
+   résultats deviennent des tuiles claires sans bordure, la teinte gardée pour ce qui alerte. */
+.savoir-corps .card, .savoir-corps .carte-fiche, .savoir-corps .me-avis, .savoir-corps .me-section { border: 0; border-radius: 0; padding: 0; background: none; box-shadow: none; }
+.savoir-corps .card + .card { border-top: 1px solid var(--border); padding-top: var(--s4); }
+.savoir-corps .card > h2, .savoir-corps .carte-fiche > h2, .savoir-corps .me-avis h2, .savoir-corps .me-section > h2 { font-size: var(--fs-md); margin: 0 0 var(--s2); }
+#origine .savoir-corps > .card:first-child > h2:first-child { display: none; }
+.savoir-corps .me-case { min-height: 0; border-radius: 10px; border-color: transparent; background: var(--surface-2); animation: none; }
+.savoir-corps .me-case.me-alerte { background: var(--warn-tint); }
+.savoir-corps .me-case.me-grave { background: var(--bad-tint); }
+.savoir-corps .me-case:hover { border-color: var(--border-fort); }
+
+/* --- Accueil dans l'ordre de l'habitant (lot 2, maquette « Vision d'ensemble » du 2026-10-06) : la recherche, puis
+   l'eau en France en cartes délimitées comme les fiches (.fiche2), et « Pour en savoir plus ». --- */
+.accueil2-tete { display: flex; flex-direction: column; align-items: center; gap: 20px; padding-block: 40px 28px; text-align: center; }
+.accueil2-tete h1 { margin: 0; font-size: clamp(30px, 2.4vw + 20px, 44px); line-height: 1.1; text-wrap: balance; }
+.accueil2-tete .accueil-champ { margin-top: 0; }
+.accueil2-sur { margin: 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.page.accueil2 > .cartes-fiche { margin-top: var(--s3); }
+/* Barre empilée d'une répartition (notes A–D, niveaux de sécheresse) : segments jointifs séparés de 2 px, cernés. */
+.barre-parts { display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden; }
+.barre-parts > span { min-width: 3px; box-shadow: inset 0 0 0 1px var(--contour-forme); }
+.legende-parts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: var(--fs-sm); }
+.legende-parts li { display: inline-flex; align-items: center; gap: 6px; }
+/* Carte chargée en direct (VigiEau) : sa hauteur est réservée, la suite de la page ne bouge pas à l'arrivée. */
+.carte2-reserve { min-height: 236px; }
+.carte2-avis--neutre .pastille-avis { background: var(--d0); box-shadow: 0 0 0 1px var(--contour-forme); }
+@media (forced-colors: active) { .barre-parts > span { forced-color-adjust: none; border: 1px solid CanvasText; } }
+
+/* --- La France et fiche département dans l'ordre de l'habitant (lot 3, 2026-10-07) : carte des départements ou des
+   communes dans la carte « Qualité de l'eau », évolution des notes en barres A–D, une par année, alignées. --- */
+.carte2-carte { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.evolution-notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 14px; }
+.evolution-notes li { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; row-gap: 4px; align-items: center; }
+.evolution-notes .en-annee { font-weight: 700; }
+.evolution-notes .en-parts { grid-column: 2; font-size: var(--fs-xs); color: var(--text-2); }
+@media (max-width: 480px) {
+  .evolution-notes { grid-template-columns: minmax(0, 1fr); }
+  .evolution-notes .en-parts { grid-column: 1; }
+}
+
+/* Historique des changements de la méthode (2026-10-07) : une date, puis ce qui a changé. */
+.historique-methode { display: grid; gap: 12px; margin: 0; }
+.historique-methode > div { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 4px 16px; }
+.historique-methode dt { font-weight: 700; }
+.historique-methode dd { margin: 0; }
+@media (max-width: 560px) { .historique-methode > div { grid-template-columns: minmax(0, 1fr); } }
+
+/* « Signaler une erreur sur cette page » (2026-10-07) : message seul, champ piège caché à tous. */
+.signalement { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.signalement > * { max-width: var(--mesure); }
+.signalement-libelle { font-weight: 700; }
+.signalement textarea { width: 100%; min-height: 6.5em; padding: 10px 12px; border: 1px solid var(--contour-forme); border-radius: 10px;
+  background: var(--surface); color: var(--text); font: inherit; line-height: 1.5; resize: vertical; box-sizing: border-box; }
+.signalement textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.signalement .btn-primary[disabled] { opacity: .55; cursor: not-allowed; }
+.signalement-piege { display: none; }
+@media (pointer: coarse) { .signalement .btn-primary, .signalement .btn-link { min-height: 44px; } }

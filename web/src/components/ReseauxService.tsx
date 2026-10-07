@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { fmt } from '../lib/data'
-import type { ReseauDuService } from '../lib/service'
-import { renseigne } from '../lib/sispea'
-import { situationReseau, type SituationsFile } from '../lib/situations'
-import Voyant from './Voyant'
+import { TITRES_NOTE } from '../lib/monEau'
+import { lignesReseauxService, type ReseauDuService } from '../lib/service'
+import type { SituationsFile } from '../lib/situations'
+import { Goutte } from './MonEau'
 
 /** Nom de réseau coupable après « / » et « _ » (« CEBR_VILLEJEAN/ROPHEMEL/… »), jamais au milieu d'un mot. */
 function NomCoupable({ nom }: { nom: string }) {
@@ -24,16 +24,25 @@ function NomCoupable({ nom }: { nom: string }) {
 /**
  * Les réseaux qui desservent les communes d'un service, chacun avec sa situation de l'année (proposition
  * du 23/09, sur le modèle de la maquette « Vigilance + instruments ») : la page ne montrait qu'un agrégat
- * « X / N réseaux non conformes ». La couleur de jugement est réservée aux réseaux, un par un, selon le
- * sémaphore des bilans officiels (toneSituation) ; l'agrégat reste sans couleur. Une ligne par réseau, voyant en
+ * « X / N réseaux non conformes ». Chaque réseau porte le voyant du sémaphore des bilans officiels (toneSituation) ;
+ * l'agrégat, au-dessus, celui du réseau le plus défavorable (PhraseAgregat, tonAgregat). Une ligne par réseau, voyant en
  * tête (maquette du 23/09, « Ses réseaux en {année} ») : le statut est écrit, le voyant n'en est que la forme.
  */
-export default function ReseauxService({ reseaux, situ, annee }: { reseaux: readonly ReseauDuService[]; situ: SituationsFile; annee: string }) {
-  if (!reseaux.length) return <p className="muted">Aucun réseau rattaché aux communes du service en {annee}.</p>
-  const lignes = reseaux
-    .map((r) => ({ r, nom: r.info.nom ?? r.code, dist: renseigne(r.info.dist), s: situationReseau(situ.reseaux[r.code]) }))
-    // Du plus défavorable au plus favorable, les réseaux sans analyse en dernier.
-    .sort((a, b) => (b.s.classe ?? -1) - (a.s.classe ?? -1) || a.nom.localeCompare(b.nom, 'fr'))
+export default function ReseauxService({
+  reseaux,
+  situ,
+  annee,
+  noms,
+}: {
+  reseaux: readonly ReseauDuService[]
+  situ: SituationsFile
+  annee: string
+  /** code INSEE → nom officiel, pour le nom lisible complet des réseaux */
+  noms?: ReadonlyMap<string, string>
+}) {
+  if (!reseaux.length) return <p className="muted">Aucun réseau n’est rattaché aux communes du service en {annee}.</p>
+  // Du plus défavorable au plus favorable, les réseaux sans analyse en dernier (même ordre que la fiche pré-générée).
+  const lignes = lignesReseauxService(reseaux, situ, annee, noms)
   // Le distributeur principal est dit une fois, pas sur chaque ligne (même idée que la fiche commune pour les
   // six réseaux de Bordeaux) ; seules les exceptions sont écrites sur leur ligne (Grand Reims : 22 réseaux de
   // la communauté urbaine, un de Veolia).
@@ -46,14 +55,14 @@ export default function ReseauxService({ reseaux, situ, annee }: { reseaux: read
     <div>
       {distPrincipal && (
         <p className="cap reseaux-dist">
-          Distribution : {distPrincipal}
-          {exceptions ? ', sauf mention contraire' : ''}.
+          Distributeur (contrôle sanitaire) : {distPrincipal}
+          {exceptions ? ', sauf mention contraire' : ''}. <Link to="/methode#exploitant">Rôles du service, de l’exploitant et du distributeur</Link>.
         </p>
       )}
-      <ul className="reseaux-lignes" aria-label={`Réseaux qui desservent les communes du service en ${annee}, du plus défavorable au plus favorable`}>
-        {lignes.map(({ r, nom, dist, s }) => (
+      <ul className="reseaux-lignes" aria-label={`Réseaux qui desservent les communes du service en ${annee}, de la note la plus défavorable à la plus favorable`}>
+        {lignes.map(({ r, nom, dist, lettre, cause }) => (
           <li key={r.code}>
-            <Voyant ton={s.ton} taille={16} />
+            <Goutte lettre={lettre} petite />
             <div>
               <p className="rl-nom">
                 <Link to={`/reseau/${r.code}`}>
@@ -62,19 +71,20 @@ export default function ReseauxService({ reseaux, situ, annee }: { reseaux: read
               </p>
               <p className="rl-meta">
                 {fmt.nb(r.communes.length, 'commune du service', 'communes du service')}
-                {dist && dist !== distPrincipal && ` · distribution ${dist}`}
+                {dist && dist !== distPrincipal && ` · distributeur ${dist}`}
               </p>
             </div>
             <p className="rl-situation">
-              <b>{s.statut}</b>
-              {s.detail && ` — ${s.detail}`}
+              <b>{lettre ? TITRES_NOTE[lettre] : 'Pas de note'}</b>
+              {` — ${cause}`}
             </p>
           </li>
         ))}
       </ul>
       <p className="cap reseaux-note">
-        Chaque réseau est jugé selon la méthode du bilan officiel de chaque famille, sur tous ses prélèvements : un réseau peut aussi desservir des
-        communes hors du service. <Link to="/methode">Comment c’est établi</Link>.
+        Note calculée par le site selon la méthode de l’indicateur de l’ARS ; la synthèse annuelle de l’ARS, jointe à la facture d’eau, fait foi.
+        La note porte sur l’ensemble des prélèvements du réseau, y compris ceux des communes qu’il dessert hors du service.{' '}
+        <Link to="/methode#classe-ars">Calcul de la note</Link>.
       </p>
     </div>
   )

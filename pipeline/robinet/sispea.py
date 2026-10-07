@@ -2,11 +2,12 @@
 
 Chaque millésime a ses propres en-têtes (libellés longs en 2024, snake_case en 2023) : on les ramène
 à un schéma unique. Les colonnes nominatives (courriels des agents) ne sont jamais reprises.
-Une ligne = un service (entité de gestion) pour une année.
+Une ligne = un service (entité de gestion) pour une année (dedoublonner).
 """
 from __future__ import annotations
 
 import re
+import unicodedata
 import zipfile
 from pathlib import Path
 
@@ -150,18 +151,49 @@ def load_year(year: int) -> pd.DataFrame:
     return out
 
 
+# Circuit de validation d'une déclaration, de l'étape la plus avancée à la moins avancée. Les millésimes écrivent le
+# statut avec ou sans accents : « Confirme / publie » jusqu'en 2022, « Confirmé / publié » depuis.
+ETAPES_STATUT = ["confirme / publie", "publie non verifie", "verifie", "en cours de verification",
+                 "en attente de verification", "en cours de saisie", "en attente de saisie"]
+
+
+def _etape(statut) -> int:
+    """Rang du statut dans ETAPES_STATUT, accents et casse ignorés ; un statut absent ou inconnu passe en dernier."""
+    t = "".join(c for c in unicodedata.normalize("NFD", statut if isinstance(statut, str) else "")
+                if not unicodedata.combining(c)).strip().lower()
+    return ETAPES_STATUT.index(t) if t in ETAPES_STATUT else len(ETAPES_STATUT)
+
+
+def dedoublonner(df: pd.DataFrame) -> pd.DataFrame:
+    """Une ligne par service et par année. L'extraction 2021 déclare deux fois le service 48139 (Andernos-les-Bains,
+    COBAN Atlantique) : « En cours de saisie » sans taux de renouvellement, « Confirme / publie » avec. En aval, rien ne
+    départageait les deux lignes et le taux d'Andernos changeait d'une exécution de `robinet sispea` à l'autre (constat
+    du 27/09). On garde la déclaration la plus avancée dans le circuit de validation, puis celle qui porte le plus
+    d'indicateurs, puis la première du fichier ; l'ordre du fichier est conservé."""
+    ind = [c for c in df.columns if IND_RE.match(c)]
+    tri = df.assign(_etape=df["statut"].map(_etape).astype(int), _n=df[ind].notna().sum(axis=1))
+    tri = tri.sort_values(["_etape", "_n"], ascending=[True, False], kind="stable")
+    doublon = tri.duplicated(["id_service", "annee"]) & tri["id_service"].notna()
+    return tri[~doublon].sort_index().drop(columns=["_etape", "_n"])
+
+
 def to_parquet(years: list[int], *, force: bool = False) -> Path:
     dest = C.OUT / "sispea" / "services.parquet"
     dest.parent.mkdir(parents=True, exist_ok=True)
     frames = []
     for y in years:
         try:
-            df = load_year(y)
+            lu = load_year(y)
         except FileNotFoundError as e:
             print(f"  ! {e}")
             continue
+        df = dedoublonner(lu)
         n_ind = sum(1 for c in df.columns if IND_RE.match(c) or c in INDICATEURS)
         print(f"  + SISPEA {y} : {len(df):,} services, {n_ind} indicateurs/variables")
+        if len(df) < len(lu):
+            ecartes = lu.loc[lu.index.difference(df.index), ["id_service", "statut"]]
+            print(f"  ~ SISPEA {y} : déclaration en double écartée — "
+                  + ", ".join(f"{sid} ({st})" for sid, st in ecartes.itertuples(index=False)))
         frames.append(df)
     all_df = pd.concat(frames, ignore_index=True)
     all_df.to_parquet(dest, index=False)

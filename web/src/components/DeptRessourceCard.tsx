@@ -49,7 +49,8 @@ export default function DeptRessourceCard({ dd }: { dd: string }) {
         <h2>Restrictions sécheresse depuis 2012</h2>
         {option && <Chart option={option} height={260} exportName={`secheresse-${dd}`} />}
         <div className="source">
-          Jours par an au niveau le plus grave en vigueur sur l'une des zones d'alerte du département (arrêtés préfectoraux, VigiEau).{' '}
+          Nombre de jours par an passés à chaque niveau, en retenant le plus grave en vigueur sur l'une des zones d'alerte du département
+          (arrêtés préfectoraux, VigiEau).{' '}
           <Link to="/secheresse">En France</Link>.
         </div>
       </div>

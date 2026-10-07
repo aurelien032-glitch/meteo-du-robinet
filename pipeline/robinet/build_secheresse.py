@@ -16,7 +16,7 @@ import json
 import pandas as pd
 
 from . import config as C
-from .build import _dump
+from .util import dump as _dump
 
 NIVEAUX = ["vigilance", "alerte", "alerte_renforcee", "crise"]
 RANG = {n: i + 1 for i, n in enumerate(NIVEAUX)}

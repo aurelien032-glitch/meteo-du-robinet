@@ -16,16 +16,19 @@ export default function Section({
   titre,
   resume,
   ouvert: ouvertParDefaut = false,
+  aussi = [],
   children,
 }: {
   id: string
   titre: string
   resume?: string
   ouvert?: boolean
+  /** autres ancres qui ouvrent la section : un élément qu'elle contient (#avis du bulletin, dans « Le détail par famille ») */
+  aussi?: string[]
   children: ReactNode
 }) {
   const { hash } = useLocation()
-  const vise = hash === `#${id}`
+  const vise = hash === `#${id}` || aussi.some((a) => hash === `#${a}`)
   const [ouvert, setOuvert] = useState(ouvertParDefaut || vise)
   const [monte, setMonte] = useState(ouvertParDefaut || vise)
   useEffect(() => {

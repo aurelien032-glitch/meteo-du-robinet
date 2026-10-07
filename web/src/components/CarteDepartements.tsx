@@ -1,7 +1,9 @@
 import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { classeArdoise, ETIQUETTES_ARDOISE, etiquettesVisibles, lignesDepartements, lignesEtiquette, pctCarte, type LigneDepartement } from '../lib/carte'
+import { classePart, ETIQUETTES_PARTS, etiquettesVisibles, lignesDepartements, lignesEtiquette, pctCarte, type LigneDepartement } from '../lib/carte'
 import { fmt } from '../lib/data'
+import { useReglageCarte } from '../lib/hooks'
+import { lienCommunesCarte, lienDepartement } from '../lib/parcours'
 import { nonConformes, reseauxAnalyses, type FamilleSitu, type Repartition } from '../lib/situations'
 
 /** geo/departements-svg.json (pipeline/robinet/geo_svg.py). */
@@ -16,17 +18,9 @@ const PETITE_COURONNE = ['75', '92', '93', '94']
 /** Taille des noms à l'écran, en px, quelle que soit la largeur de la carte ; ceux qui ne tiennent pas s'effacent. */
 const TAILLE_NOM = 11
 
-function lireNoms(): boolean {
-  try {
-    return localStorage.getItem('carte-noms') !== '0'
-  } catch {
-    return true
-  }
-}
-
 /**
  * Carte des départements de l'accueil (maquette du 23/09) : part des réseaux non conformes, toutes familles, sur la
- * rampe ardoise (un agrégat n'a pas de sémaphore) ; hachures sans réseau analysé. À côté : légende, lecture au survol
+ * rampe de la qualité de l'eau, bleu → jaune → rouge (ColorBrewer RdYlBu, 05/10) ; hachures sans réseau analysé. À côté : légende, lecture au survol
  * ou au choix, tableau des départements ; dessous, vignettes de la petite couronne et de l'outre-mer. Les noms
  * suivent le réglage « Noms » des autres cartes (carte-noms), et s'effacent quand ils se chevauchent.
  */
@@ -47,7 +41,10 @@ export default function CarteDepartements({
   const parCode = useMemo(() => new Map(lignes.map((l) => [l.code, l])), [lignes])
   const [survol, setSurvol] = useState<string | null>(null)
   const [choix, setChoix] = useState<string | null>(null)
-  const [avecNoms, setAvecNoms] = useState(lireNoms)
+  // Réglages partagés avec les autres cartes (FranceMap, useReglageCarte).
+  const [avecNoms, basculerNoms] = useReglageCarte('carte-noms')
+  // Vignettes de la petite couronne et de l'outre-mer, masquables (choix de l'auteur, 27/09) ; le tableau garde ces départements.
+  const [avecEncarts, basculerEncarts] = useReglageCarte('carte-encarts')
   const svg = useRef<SVGSVGElement>(null)
   const [echelle, setEchelle] = useState(0)
   const [visibles, setVisibles] = useState<Set<string>>(new Set())
@@ -91,8 +88,8 @@ export default function CarteDepartements({
 
   /** Classe de la rampe (ou hachures sans réseau analysé) et états d'une zone. */
   const zone = (code: string, ...etats: (string | false)[]) => {
-    const c = classeArdoise(parCode.get(code)?.part)
-    return { className: [`carte-m${c}`, ...etats].filter(Boolean).join(' '), ...(c ? {} : { fill: `url(#${id}-hachures)` }) }
+    const c = classePart(parCode.get(code)?.part)
+    return { className: [`carte-q${c}`, ...etats].filter(Boolean).join(' '), ...(c ? {} : { fill: `url(#${id}-hachures)` }) }
   }
   const actif = survol ?? choix
   const ligneActive: LigneDepartement | null = actif ? (parCode.get(actif) ?? null) : null
@@ -108,15 +105,6 @@ export default function CarteDepartements({
     const code = (e.target as Element).closest('path[data-code]')?.getAttribute('data-code')
     if (code) setChoix((c) => (c === code ? null : code))
   }
-  const basculerNoms = () =>
-    setAvecNoms((v) => {
-      try {
-        localStorage.setItem('carte-noms', v ? '0' : '1')
-      } catch {
-        /* stockage indisponible : le choix vaut pour cette visite */
-      }
-      return !v
-    })
 
   return (
     <div className="carte-france">
@@ -133,8 +121,8 @@ export default function CarteDepartements({
         >
           <title id={`${id}-titre`}>Réseaux non conformes par département en {annee}</title>
           <desc id={`${id}-desc`}>
-            Carte de la France métropolitaine en cinq nuances de gris, de la plus discrète (moins de 5 % des réseaux non conformes) à la plus marquée (40 % et plus). Le tableau des
-            départements donne les mêmes chiffres.
+            Carte de la France métropolitaine en cinq teintes, du bleu au jaune, à l'orange puis au rouge, de la moins marquée (moins de 5 % des réseaux non conformes) à la plus marquée (40 % et plus). Le tableau
+            des départements présente les mêmes chiffres.
           </desc>
           <defs>
             <pattern id={`${id}-hachures`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -175,6 +163,7 @@ export default function CarteDepartements({
                 )
               })}
         </svg>
+        {avecEncarts && (
         <div className="carte-vignettes" role="group" aria-label="Encarts : Paris et petite couronne, outre-mer">
           <div className="carte-vignette">
             {vueIdf && (
@@ -206,6 +195,7 @@ export default function CarteDepartements({
             </button>
           ))}
         </div>
+        )}
       </div>
 
       <div className="carte-cote">
@@ -214,18 +204,31 @@ export default function CarteDepartements({
           <button type="button" className="carte-noms" aria-pressed={avecNoms} onClick={basculerNoms} title={avecNoms ? 'Masquer les noms sur la carte' : 'Afficher les noms sur la carte'}>
             Noms
           </button>
+          <button
+            type="button"
+            className="carte-noms"
+            aria-pressed={avecEncarts}
+            onClick={basculerEncarts}
+            title={avecEncarts ? 'Masquer les encarts de Paris et de l’outre-mer' : 'Afficher les encarts de Paris et de l’outre-mer'}
+          >
+            Encarts
+          </button>
         </div>
         <div className="carte-legende" aria-hidden="true">
-          {ETIQUETTES_ARDOISE.map((_, i) => (
-            <span key={`c${i}`} className={`carte-case carte-fond-m${i + 1}`} />
+          {ETIQUETTES_PARTS.map((_, i) => (
+            <span key={`c${i}`} className={`carte-case carte-fond-q${i + 1}`} />
           ))}
-          {ETIQUETTES_ARDOISE.map((t) => (
+          {ETIQUETTES_PARTS.map((t) => (
             <span key={t} className="carte-borne">
               {t}
             </span>
           ))}
         </div>
-        {sansDonnee && <p className="carte-note">Hachures : aucun réseau analysé.</p>}
+        {sansDonnee && (
+          <p className="carte-note">
+            <span className="swatch swatch-nd" aria-hidden="true" /> Les hachures désignent les départements sans réseau analysé.
+          </p>
+        )}
         <div className="carte-lecture" aria-live="polite">
           {lue && (
             <>
@@ -242,11 +245,17 @@ export default function CarteDepartements({
                 </>
               )}
               {ligneActive ? (
-                <Link to={`/departement/${ligneActive.code}`} className="carte-lecture-lien">
-                  Voir le département <span aria-hidden="true">→</span>
-                </Link>
+                // Mêmes liens que l'encart des autres cartes (choix de l'auteur, 25/09) : la fiche, puis les communes.
+                <>
+                  <Link to={lienDepartement(ligneActive.code)} className="carte-lecture-lien">
+                    Voir la fiche du département <span aria-hidden="true">→</span>
+                  </Link>
+                  <Link to={lienCommunesCarte(ligneActive.code, 'any')} className="carte-lecture-lien">
+                    Voir ses communes sur la carte <span aria-hidden="true">→</span>
+                  </Link>
+                </>
               ) : (
-                <span className="carte-lecture-aide">Survolez ou touchez un département.</span>
+                <span className="carte-lecture-aide">Le survol ou le toucher d’un département affiche sa valeur.</span>
               )}
             </>
           )}

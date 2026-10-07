@@ -19,13 +19,13 @@ const PARAMS: Record<string, ParamInfo> = {
 // Cherbourg-en-Cotentin en 2025 : codes réels, statistiques réelles d'ASSELINERIE réduites aux champs lus.
 const r = (code: string, nom: string, situation: string | null): ReseauBulletin => ({ code, nom, situation })
 const CHERBOURG = [
-  r('050000558', 'HAMEAU MESNAGE', '01000'),
-  r('050000639', 'DIVETTE', '00001'),
-  r('050000640', 'TOURLAVILLE EST', '00000'),
-  r('050000641', 'TOURLAVILLE OUEST', '00000'),
-  r('050000642', 'TRAISNELLERIE', '00000'),
-  r('050000644', 'BENECERE', '00000'),
-  r('050000645', 'ASSELINERIE', '01200'),
+  r('050000558', 'HAMEAU MESNAGE', '010000'),
+  r('050000639', 'DIVETTE', '000010'),
+  r('050000640', 'TOURLAVILLE EST', '000000'),
+  r('050000641', 'TOURLAVILLE OUEST', '000000'),
+  r('050000642', 'TRAISNELLERIE', '000000'),
+  r('050000644', 'BENECERE', '000000'),
+  r('050000645', 'ASSELINERIE', '012000'),
 ]
 const ASSELINERIE: CommuneYearStats = {
   plv: [63, 0, 13, 15, 63, 0, 0],
@@ -45,7 +45,7 @@ function rendre(reseaux: ReseauBulletin[], avis: GroupeAvis[] = [], sansInfo: { 
   document.body.append(hote)
   racine = createRoot(hote)
   const bulletin = createElement(Bulletin, {
-    question: 'Puis-je boire l’eau du robinet ?',
+    question: 'Qualité de l’eau du robinet',
     annee: '2025',
     reseaux,
     stats: (code: string) => (code === '050000645' ? ASSELINERIE : undefined),
@@ -85,7 +85,7 @@ describe('Bulletin', () => {
     touche(choisi(), 'ArrowRight')
     expect(texte(choisi().querySelector('span'))).toBe('DIVETTE')
     expect(document.activeElement).toBe(choisi())
-    expect(texte(el.querySelector('.rpick-now'))).toBe('Instruments du réseau DIVETTE')
+    expect(texte(el.querySelector('.rpick-now'))).toBe('Mesures du réseau DIVETTE')
     touche(choisi(), 'End')
     expect(texte(choisi().querySelector('span'))).toBe('TRAISNELLERIE')
     touche(choisi(), 'ArrowRight')
@@ -99,11 +99,12 @@ describe('Bulletin', () => {
     expect(panneau.getAttribute('aria-labelledby')).toBe(choisi().id)
   })
 
-  it('cinq familles du réseau affiché, avec ce qui est en cause', () => {
+  it('six familles du réseau affiché, avec ce qui est en cause', () => {
     const el = rendre(CHERBOURG)
     const lignes = [...el.querySelectorAll('.fam')]
-    expect(lignes.map((l) => texte(l.querySelector('.fam-name')))).toEqual(['Pesticides et métabolites', 'Nitrates', 'PFAS', 'Bactériologie', 'Métaux et minéraux'])
+    expect(lignes.map((l) => texte(l.querySelector('.fam-name')))).toEqual(['Pesticides et métabolites', 'Nitrates', 'PFAS', 'Bactériologie', 'Métaux et minéraux', 'Autres limites de qualité'])
     expect(texte(lignes[2].querySelector('.fam-status'))).toBe('restriction de consommation — restriction ou consigne')
+    // La limite des PFAS s'applique depuis le 1er janvier 2023.
     expect(texte(lignes[2].querySelector('.fam-cause'))).toBe('Somme de 20 substances perfluoroalkylées (PFAS) : 15 analyses sur 42 au-dessus de la limite, au plus 0,459 µg/L.')
     expect(texte(lignes[1].querySelector('.fam-status'))).toBe('maximum de 25 à 40 mg/L — conforme')
   })
@@ -118,20 +119,22 @@ describe('Bulletin', () => {
   })
 
   it('un seul réseau : ni onglets ni rappel du réseau affiché ; sans avis, une phrase', () => {
-    const el = rendre([r('050000645', 'ASSELINERIE', '01200')])
+    const el = rendre([r('050000645', 'ASSELINERIE', '012000')])
     expect(el.querySelector('[role="tablist"]')).toBeNull()
     expect(el.querySelector('.rpick-now')).toBeNull()
     expect(el.querySelector('.fams')?.getAttribute('role')).toBeNull()
-    expect(texte(el.querySelector('.b-avis .muted'))).toBe('Aucun avis : ni restriction, ni consigne d’ébullition, ni recommandation pour les publics sensibles.')
+    expect(texte(el.querySelector('.b-avis .muted'))).toBe(
+      'Aucun avis de l’ARS ne figure dans les conclusions des prélèvements de 2025 : ni restriction, ni consigne d’ébullition, ni recommandation pour les publics sensibles.',
+    )
     expect(texte(el.querySelector('.counts'))).not.toContain('réseaux)')
   })
 
   it('délégation sans information : « pas d’information », jamais « aucun avis » ; un avis présent l’emporte', () => {
     const isere = { conclusions: 8234, lieux: 'de l’Isère' }
-    const el = rendre([r('038000123', 'VIZILLE', '00000')], [], isere)
+    const el = rendre([r('038000123', 'VIZILLE', '000000')], [], isere)
     expect(el.querySelector('.b-avis .muted')).toBeNull()
     expect(texte(el.querySelector('.b-sans-info'))).toBe(
-      'Pas d’information sur les consignes. En 2025, aucune des 8 234 conclusions de l’ARS sur les réseaux de l’Isère n’évoque de consigne, ni pour en prescrire une, ni pour l’écarter : l’absence d’avis ne dit donc rien ici. La mairie et l’ARS font foi.',
+      'Pas d’information sur les consignes. En 2025, aucune des 8 234 conclusions de l’ARS sur les réseaux de l’Isère n’évoque de consigne, ni pour en prescrire une, ni pour l’écarter. L’absence d’avis ne permet donc pas de conclure à l’absence de consigne. La mairie et l’ARS font foi.',
     )
     act(() => racine?.unmount())
     racine = null

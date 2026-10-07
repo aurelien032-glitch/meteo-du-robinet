@@ -65,7 +65,7 @@ const reglette = (e: unknown) => e as Reglette
 
 describe('instruments des réseaux de la maquette', () => {
   it('Rennes : chaque valeur sur son échelle officielle', () => {
-    const [pesticides, nitrates, pfas, bacterio, metaux] = instrumentsReseau(RENNES, '02000', PARAMS)
+    const [pesticides, nitrates, pfas, bacterio, metaux] = instrumentsReseau(RENNES, '020000', PARAMS)
     expect(nitrates).toMatchObject({
       famille: 'azote',
       classe: 2,
@@ -96,7 +96,7 @@ describe('instruments des réseaux de la maquette', () => {
   })
 
   it('ASSELINERIE : la restriction PFAS garde son repère, et nomme la somme des 20 PFAS', () => {
-    const [, nitrates, pfas, bacterio] = instrumentsReseau(ASSELINERIE, '01200', PARAMS)
+    const [, nitrates, pfas, bacterio] = instrumentsReseau(ASSELINERIE, '012000', PARAMS)
     expect(pfas).toMatchObject({ classe: 2, ton: 'bad', libelle: 'restriction de consommation', echelle: { max: 0.6, valeur: 0.459, lecture: `0,459${NB}µg/L` } })
     expect(pfas.enCause).toEqual([
       { code: '8847', libelle: 'Somme de 20 substances perfluoroalkylées (PFAS)', analyses: 42, depassements: 15, max: 0.459, unite: 'µg/L', limite: '<=0,1 µg/L' },
@@ -106,7 +106,7 @@ describe('instruments des réseaux de la maquette', () => {
   })
 
   it('Fonsorbes : consigne avec 99,4 % de conformes, familles non analysées sans repère', () => {
-    const [, nitrates, pfas, bacterio] = instrumentsReseau(FONSORBES, '0--30', PARAMS)
+    const [, nitrates, pfas, bacterio] = instrumentsReseau(FONSORBES, '0--300', PARAMS)
     expect(bacterio).toMatchObject({
       classe: 3,
       ton: 'bad',
@@ -124,7 +124,7 @@ describe('instruments des réseaux de la maquette', () => {
   })
 
   it('Reims : paliers des pesticides et paramètres en cause, du plus au moins souvent', () => {
-    const [pesticides, nitrates, pfas, bacterio] = instrumentsReseau(REIMS, '22010', PARAMS)
+    const [pesticides, nitrates, pfas, bacterio] = instrumentsReseau(REIMS, '220100', PARAMS)
     expect(pesticides).toMatchObject({ classe: 2, ton: 'warn', libelle: 'dépassements plus de 30 jours', echelle: { forme: 'paliers', actif: 2 } })
     expect(pesticides.echelle).toMatchObject({
       classes: [
@@ -145,11 +145,11 @@ describe('instruments des réseaux de la maquette', () => {
     expect(pfas.echelle).toMatchObject({ valeur: 0.005, lecture: `0,005${NB}µg/L` })
   })
 
-  it('sans statistiques ni code : cinq familles non analysées, échelles nues', () => {
+  it('sans statistiques ni code : six familles non analysées, échelles nues', () => {
     const tous = instrumentsReseau(undefined, null, PARAMS)
-    expect(tous.map((i) => i.famille)).toEqual(['pesticides', 'azote', 'pfas', 'microbio', 'metaux_mineraux'])
+    expect(tous.map((i) => i.famille)).toEqual(['pesticides', 'azote', 'pfas', 'microbio', 'metaux_mineraux', 'autres'])
     expect(tous.every((i) => i.classe == null && i.ton == null && i.libelle === NON_ANALYSEE)).toBe(true)
-    expect(tous.map((i) => (i.echelle.forme === 'reglette' ? i.echelle.valeur : i.echelle.actif))).toEqual([null, null, null, null, null])
+    expect(tous.map((i) => (i.echelle.forme === 'reglette' ? i.echelle.valeur : i.echelle.actif))).toEqual([null, null, null, null, null, null])
   })
 })
 
@@ -157,25 +157,36 @@ describe('ligne « en cause » sous les instruments', () => {
   const causes = (s: CommuneYearStats, code: string) => instrumentsReseau(s, code, PARAMS).map(causeInstrument)
 
   it('Rennes : rien à dire', () => {
-    expect(causes(RENNES, '02000')).toEqual([null, null, null, null, null])
+    expect(causes(RENNES, '020000')).toEqual([null, null, null, null, null, null])
   })
   it('Reims : le premier paramètre en cause et le reste au détail ; un prélèvement non conforme', () => {
-    const [pesticides, nitrates, , bacterio] = causes(REIMS, '22010')
-    expect(pesticides).toEqual({ gras: 'Chloridazone desphényl', texte: `17 analyses sur 18 au-dessus de la limite, au plus 1,13${NB}µg/L. 2 autres paramètres au détail.` })
+    const [pesticides, nitrates, , bacterio] = causes(REIMS, '220100')
+    expect(pesticides).toEqual({
+      gras: 'Chloridazone desphényl',
+      texte: `17 analyses sur 18 au-dessus de la limite, au plus 1,13${NB}µg/L. 2 autres paramètres ont aussi dépassé leur limite (voir « Tout le détail »).`,
+    })
     expect(nitrates).toBeNull()
     expect(bacterio).toEqual({ gras: null, texte: '1 prélèvement non conforme sur 379.' })
   })
   it('ASSELINERIE : la somme des 20 PFAS, seule en cause', () => {
-    expect(causes(ASSELINERIE, '01200')[2]).toEqual({
+    expect(causes(ASSELINERIE, '012000')[2]).toEqual({
       gras: 'Somme de 20 substances perfluoroalkylées (PFAS)',
       texte: `15 analyses sur 42 au-dessus de la limite, au plus 0,459${NB}µg/L.`,
     })
   })
+  it('PFAS : la limite s’applique depuis 2023, dans le libellé comme dans la cause', () => {
+    for (const annee of [2023, 2025, 2026]) {
+      const [, , pfas] = instrumentsReseau(ASSELINERIE, '001000', PARAMS, annee)
+      expect(pfas.libelle).toBe('au moins un dépassement constaté')
+      expect(pfas.ton).toBe('warn')
+      expect(causeInstrument(pfas)?.texte).toBe(`15 analyses sur 42 au-dessus de la limite, au plus 0,459${NB}µg/L.`)
+    }
+  })
   it('Fonsorbes : la consigne vient de l’ARS, même à 99,4 % de conformes', () => {
-    const [, nitrates, pfas, bacterio] = causes(FONSORBES, '0--30')
+    const [, nitrates, pfas, bacterio] = causes(FONSORBES, '0--300')
     expect(bacterio).toEqual({ gras: null, texte: '1 prélèvement non conforme sur 168. Consigne ou restriction décidée par l’ARS.' })
     expect([nitrates, pfas]).toEqual([null, null])
-    const sansEchec = instrumentsReseau({ ...FONSORBES, plv: [168, 0, 168, 0, 168, 0, 16] }, '0--30', PARAMS)[3]
+    const sansEchec = instrumentsReseau({ ...FONSORBES, plv: [168, 0, 168, 0, 168, 0, 16] }, '0--300', PARAMS)[3]
     expect(causeInstrument(sansEchec)).toEqual({ gras: null, texte: 'Consigne ou restriction décidée par l’ARS.' })
   })
 })
@@ -188,7 +199,7 @@ describe('garde de cohérence', () => {
     expect(valeurCoherente('pfas', 1, v)).toBe(false) // 0,017 µg/L : le dépassement viendrait d'ailleurs
     expect(valeurCoherente('microbio', 2, v)).toBe(false) // 100 % de conformes
     expect(valeurCoherente('microbio', null, v)).toBe(false)
-    const [, nitrates] = instrumentsReseau(RENNES, '03000', PARAMS)
+    const [, nitrates] = instrumentsReseau(RENNES, '030000', PARAMS)
     expect(nitrates).toMatchObject({ classe: 3, ton: 'warn', echelle: { valeur: null, lecture: null, max: 60 } })
   })
 
@@ -238,6 +249,9 @@ describe('échelles et lectures', () => {
     expect(valeursReseau(RENNES, { ...PARAMS, '8847': p('Somme de 20 PFAS', 'µg/L', '<=0,07 µg/L', 'pfas') }).limitePfas).toBe(0.07)
     expect(valeursReseau(RENNES, {}).limitePfas).toBe(0.1)
     const ph = { ...RENNES, dep: [['1302', 10, 2, 0, 10, 9.5, 8, 8, '2025-01-01']] as CommuneYearStats['dep'] }
-    expect(valeursReseau(ph, { ...PARAMS, '1302': p('pH', 'unité pH', '>=6,5 et <=9 unité pH', 'physico_chimie') }).enCause).toEqual({})
+    expect(valeursReseau(ph, { ...PARAMS, '1302': p('Activité alpha', 'Bq/L', '<=0,1 Bq/L', 'radioactivite') }).enCause).toEqual({})
+    // Les paramètres organiques et physico-chimiques à limite forment la famille « autres limites de qualité ».
+    const cvm = { ...RENNES, dep: [['1753', 6, 1, 0, 6, 0.9, 0.2, 0.2, '2025-01-01']] as CommuneYearStats['dep'] }
+    expect(Object.keys(valeursReseau(cvm, { ...PARAMS, '1753': p('Chlorure de vinyl monomère', 'µg/L', '<=0.5 µg/L', 'organiques') }).enCause)).toEqual(['autres'])
   })
 })

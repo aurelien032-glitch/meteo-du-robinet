@@ -14,12 +14,16 @@ export interface ZoneVigiEau {
 export const NIVEAUX_SECHERESSE = ['Aucune', 'Vigilance', 'Alerte', 'Alerte renforcée', 'Crise'] as const
 /**
  * Ton de chaque niveau (règle « juger et alerter en couleur », auteur, 24/09) : une restriction sécheresse est une
- * alerte officielle, dans la palette de « Lire un bulletin » — pas de restriction en vert, vigilance et alerte en
- * orange, alerte renforcée et crise en rouge. Elle restreint des usages de l'eau, pas sa consommation : le libellé
- * le dit toujours à côté de la couleur.
+ * alerte officielle, dans la palette de la carte (07/10, `jetonsEtats`) — pas de restriction en bleu clair, vigilance
+ * en jaune, alerte en orange, alerte renforcée en rouge, crise en rouge très sombre. Elle restreint des usages de
+ * l'eau, pas sa consommation : le libellé le dit toujours à côté de la couleur.
  */
 export const TONS_SECHERESSE = ['good', 'warn', 'warn', 'bad', 'bad'] as const
 const RANG: Record<string, number> = { vigilance: 1, alerte: 2, alerte_renforcee: 3, crise: 4 }
+/** Clés VigiEau des niveaux, dans l'ordre de NIVEAUX_SECHERESSE. */
+export const CLES_SECHERESSE = ['pas_de_restriction', 'vigilance', 'alerte', 'alerte_renforcee', 'crise'] as const
+/** Rang d'une clé de niveau VigiEau (0 : pas de restriction, clé absente ou inconnue). */
+export const rangNiveau = (cle: string | null | undefined) => RANG[cle ?? ''] ?? 0
 export const TYPES_ZONE: Record<string, string> = { SUP: 'eaux superficielles', SOU: 'eaux souterraines', AEP: 'eau potable' }
 
 /** Rang d'une zone (0 : aucune restriction ou niveau inconnu). */
@@ -53,6 +57,45 @@ export function chargerVigiEau(insee: string): Promise<ZoneVigiEau[]> {
     cache.set(insee, p)
   }
   return p
+}
+
+/** Réponse de https://api.vigieau.gouv.fr/api/departements (extrait) : niveau le plus élevé de chaque département. */
+export interface VigiDept {
+  code: string
+  nom: string
+  niveauGraviteMax: string | null
+  niveauGraviteSupMax: string | null
+  niveauGraviteSouMax: string | null
+  niveauGraviteAepMax: string | null
+}
+
+// Mémorisé au niveau module : la carte, la page Sécheresse et l'accueil appellent chacun useVigiEauDepartements() sur
+// le même rendu, sans ce cache ils interrogeraient l'API plusieurs fois et pourraient afficher des états différents le
+// temps que les requêtes répondent. Un échec n'est pas gardé en cache, pour être retenté au montage suivant.
+let departements: Promise<VigiDept[]> | null = null
+function chargerDepartements(): Promise<VigiDept[]> {
+  if (!departements) {
+    const p = fetch('https://api.vigieau.gouv.fr/api/departements').then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+    p.catch(() => {
+      departements = null
+    })
+    departements = p
+  }
+  return departements
+}
+
+/** Niveaux du jour de tous les départements, interrogés en direct chez VigiEau. */
+export function useVigiEauDepartements(): { depts: VigiDept[] | null; error: string | null } {
+  const [depts, setDepts] = useState<VigiDept[] | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  useEffect(() => {
+    let alive = true
+    chargerDepartements().then((d) => alive && setDepts(d), (e) => alive && setError(String(e)))
+    return () => {
+      alive = false
+    }
+  }, [])
+  return { depts, error }
 }
 
 export function useVigiEau(insee: string): { zones: ZoneVigiEau[] | null; erreur: string | null } {

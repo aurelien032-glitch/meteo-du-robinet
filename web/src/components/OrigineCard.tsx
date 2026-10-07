@@ -5,20 +5,25 @@ import type { AmontDeptFile } from '../lib/types'
 
 const MILIEU: Record<string, string> = { SOUT: 'souterrain', CONT: 'superficiel', INC: 'milieu inconnu' }
 
-/** Ouvrages de prélèvement et points de suivi des nappes situés sur la commune (BNPE, ADES). */
-export default function OrigineCard({ insee, dept }: { insee: string; dept: string }) {
+/**
+ * Ouvrages de prélèvement et points de suivi des nappes situés sur la commune (BNPE, ADES). `communes` : fiche réseau,
+ * les ouvrages et les nappes de toutes les communes desservies (2026-10-07, ligne « D'où vient l'eau » de la maquette).
+ */
+export default function OrigineCard({ insee, dept, communes }: { insee: string; dept: string; communes?: readonly string[] }) {
+  const lieux = new Set(communes ?? [insee])
+  const reseau = communes != null
   const file = useJson<AmontDeptFile>(`amont/dept/${dept}.json`)
   if (file.error) return null
   if (!file.data) return <Chargement carte texte="Chargement des prélèvements…" />
   const ouvrages = Object.entries(file.data.ouvrages)
-    .filter(([, o]) => o.commune === insee)
+    .filter(([, o]) => o.commune != null && lieux.has(o.commune))
     .map(([code, o]) => {
       const years = Object.keys(o.volumes).sort()
       const last = years[years.length - 1]
       return { code, ...o, last, vol: last ? o.volumes[last] : null }
     })
     .sort((a, b) => (b.vol ?? 0) - (a.vol ?? 0))
-  const nappes = Object.entries(file.data.nappes).filter(([, n]) => n.commune === insee)
+  const nappes = Object.entries(file.data.nappes).filter(([, n]) => n.commune != null && lieux.has(n.commune))
   // Total sur une seule année (la plus récente déclarée) : additionner le dernier volume de chaque ouvrage
   // mêlerait des millésimes différents sous une même date.
   const annee = ouvrages.map((o) => o.last).filter(Boolean).sort().pop()
@@ -28,11 +33,15 @@ export default function OrigineCard({ insee, dept }: { insee: string; dept: stri
     <div className="card">
       <h2>D'où vient l'eau</h2>
       {ouvrages.length === 0 ? (
-        <p className="muted">Aucun ouvrage de prélèvement pour l'eau potable recensé sur le territoire de la commune : l'eau vient d'ailleurs, par le réseau.</p>
+        <p className="muted">
+          {reseau
+            ? 'Aucun ouvrage de prélèvement pour l’eau potable n’est recensé sur le territoire des communes desservies par ce réseau. L’eau distribuée y est acheminée depuis des ouvrages situés sur d’autres communes.'
+            : 'Aucun ouvrage de prélèvement pour l’eau potable n’est recensé sur le territoire de la commune. L’eau distribuée y est acheminée par le réseau depuis des ouvrages situés sur d’autres communes.'}
+        </p>
       ) : (
         <>
           <p>
-            <b>{ouvrages.length}</b> ouvrage{ouvrages.length > 1 ? 's' : ''} de prélèvement pour l'eau potable sur la commune
+            <b>{ouvrages.length}</b> ouvrage{ouvrages.length > 1 ? 's' : ''} de prélèvement pour l'eau potable {reseau ? 'sur les communes desservies par ce réseau' : 'sur la commune'}
             {annee && (
               <>
                 , <b>{fmt.int(total)} m³</b> prélevés en {annee}
@@ -65,7 +74,7 @@ export default function OrigineCard({ insee, dept }: { insee: string; dept: stri
       )}
       {nappes.length > 0 && (
         <>
-          <h3 style={{ marginTop: 'var(--s4)' }}>Nappes suivies sur la commune</h3>
+          <h3 style={{ marginTop: 'var(--s4)' }}>{reseau ? 'Nappes suivies sur les communes desservies' : 'Nappes suivies sur la commune'}</h3>
           <div className="table-scroll"><table className="data">
             <thead>
               <tr>
@@ -95,8 +104,10 @@ export default function OrigineCard({ insee, dept }: { insee: string; dept: stri
         </>
       )}
       <div className="source">
-        Sources : BNPE (volumes prélevés par ouvrage, Hub'Eau) et ADES (qualité des eaux souterraines depuis 2020, Hub'Eau). Un ouvrage situé
-        sur la commune peut alimenter d'autres communes, et inversement.
+        Sources : BNPE (volumes prélevés par ouvrage, Hub'Eau) et ADES (qualité des eaux souterraines depuis 2020, Hub'Eau).{' '}
+        {reseau
+          ? 'Un ouvrage situé sur l’une de ces communes peut alimenter d’autres réseaux, et le réseau peut être alimenté par des ouvrages situés ailleurs.'
+          : 'Un ouvrage situé sur la commune peut alimenter d’autres communes, et la commune peut être alimentée par des ouvrages situés ailleurs.'}
       </div>
     </div>
   )

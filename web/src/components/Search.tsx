@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { useJson } from '../lib/hooks'
 import {
   chercher,
+  choixRequis,
   entreesCommunes,
   entreesReseaux,
   entreesServices,
   indexer,
+  libelleResultat,
   lienFiche,
   normaliser,
-  precision,
   type EntreeFiche,
   type FichierCommunes,
   type FichierReseaux,
@@ -39,15 +40,22 @@ export function PictoType({ type }: { type: TypeResultat }) {
  * option active annoncée par aria-activedescendant. Index chargé en deux temps : communes et noms de
  * départements au premier focus, services et réseaux dès deux caractères, pour qu'un visiteur qui cherche sa
  * commune ne paie pas les 300 Ko compressés des deux autres fichiers.
+ *
+ * Code postal (lot 2 de la refonte, 05/10) : cinq chiffres proposent les communes de ce code, puis la commune dont c'est
+ * le code INSEE. Quand le code désigne plusieurs fiches (`choixRequis`), aucune option n'est présélectionnée : ni Entrée
+ * ni le bouton n'ouvrent une fiche avant que le visiteur en ait choisi une. `bouton` ajoute le bouton de l'accueil.
  */
 export default function Search({
   autoFocus = false,
-  placeholder = 'Commune, syndicat, réseau ou code…',
-  label = 'Rechercher une commune, un service d’eau ou un réseau',
+  placeholder = 'Commune ou code postal',
+  label = 'Rechercher une commune par son nom ou son code postal, un service d’eau ou un réseau',
+  bouton,
 }: {
   autoFocus?: boolean
   placeholder?: string
   label?: string
+  /** texte d'un bouton de validation à droite du champ (accueil : « Voir mon eau ») */
+  bouton?: string
 }) {
   const [actif, setActif] = useState(autoFocus)
   const [q, setQ] = useState('')
@@ -69,11 +77,16 @@ export default function Search({
   const index = useMemo(() => [...iCommunes, ...iServices, ...iReseaux], [iCommunes, iServices, iReseaux])
   const groupes = useMemo(() => (assez ? chercher(requete, index) : []), [assez, requete, index])
   const options = useMemo<EntreeFiche[]>(() => groupes.flatMap((g) => g.entrees), [groupes])
+  const choix = useMemo(() => choixRequis(requete, groupes), [requete, groupes])
 
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
+  // Choix explicite (flèches, survol) : sans lui, une saisie ambiguë n'a aucune option active.
+  const [explicite, setExplicite] = useState(false)
+  const courant = choix && !explicite ? -1 : active
   const nav = useNavigate()
   const box = useRef<HTMLDivElement>(null)
+  const champ = useRef<HTMLInputElement>(null)
   const id = useId()
   const listId = `${id}-liste`
   const optionId = (i: number) => `${id}-option-${i}`
@@ -88,7 +101,7 @@ export default function Search({
         ? 'L’index de recherche n’a pas pu être chargé. Réessayez dans un instant.'
         : charge
           ? 'Chargement de l’index de recherche…'
-          : 'Aucune commune, aucun service ni réseau ne correspond. Essayez un code INSEE, SISPEA ou de réseau.'
+          : 'Aucune commune, aucun service d’eau ni aucun réseau ne correspond à cette recherche. La recherche accepte aussi un code postal, un code INSEE, un code SISPEA ou un code de réseau.'
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -97,63 +110,95 @@ export default function Search({
     document.addEventListener('mousedown', onDoc)
     return () => document.removeEventListener('mousedown', onDoc)
   }, [])
-  // L'option choisie au clavier reste visible dans une liste qui défile (jusqu'à quatorze résultats).
+  // L'option choisie au clavier reste visible dans une liste qui défile (jusqu'à quatorze résultats, davantage pour un code postal).
   useEffect(() => {
-    if (showList) document.getElementById(optionId(active))?.scrollIntoView({ block: 'nearest' })
+    if (showList && courant >= 0) document.getElementById(optionId(courant))?.scrollIntoView({ block: 'nearest' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active, showList])
+  }, [courant, showList])
 
   const go = (e: EntreeFiche) => {
     setOpen(false)
     setQ('')
     nav(lienFiche(e))
   }
+  // Entrée ou bouton : la fiche de l'option active ; sans option active (saisie ambiguë, ou rien encore), la liste.
+  const valider = () => {
+    if (assez && courant >= 0 && options[courant]) go(options[courant])
+    else {
+      setActif(true)
+      setOpen(true)
+      champ.current?.focus()
+    }
+  }
 
-  return (
-    <div className="search-box" ref={box}>
-      <input
-        className="search"
-        type="search"
-        role="combobox"
-        aria-label={label}
-        aria-expanded={showList}
-        aria-controls={listId}
-        aria-autocomplete="list"
-        aria-activedescendant={showList ? optionId(active) : undefined}
-        autoComplete="off"
-        spellCheck={false}
-        value={q}
-        autoFocus={autoFocus}
-        placeholder={placeholder}
-        onChange={(e) => {
-          setQ(e.target.value)
+  const champRecherche = (
+    <input
+      ref={champ}
+      className="search"
+      type="search"
+      role="combobox"
+      aria-label={label}
+      aria-expanded={showList}
+      aria-controls={listId}
+      aria-autocomplete="list"
+      aria-activedescendant={showList && courant >= 0 ? optionId(courant) : undefined}
+      autoComplete="off"
+      spellCheck={false}
+      value={q}
+      autoFocus={autoFocus}
+      placeholder={placeholder}
+      onChange={(e) => {
+        setQ(e.target.value)
+        setOpen(true)
+        setActive(0)
+        setExplicite(false)
+      }}
+      onFocus={() => {
+        setActif(true)
+        setOpen(true)
+      }}
+      // Ferme au Tab (clavier sans souris) ; un clic sur un résultat empêche ce blur (mousedown sans défaut).
+      onBlur={() => setOpen(false)}
+      onKeyDown={(e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault()
           setOpen(true)
-          setActive(0)
-        }}
-        onFocus={() => {
-          setActif(true)
-          setOpen(true)
-        }}
-        // Ferme au Tab (clavier sans souris) ; un clic sur un résultat empêche ce blur (mousedown sans défaut).
-        onBlur={() => setOpen(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'ArrowDown') {
+          setExplicite(true)
+          setActive(courant < 0 ? 0 : Math.min(courant + 1, Math.max(options.length - 1, 0)))
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault()
+          setExplicite(true)
+          setActive(Math.max(courant - 1, 0))
+        } else if (e.key === 'Enter') {
+          if (showList && courant >= 0 && options[courant]) {
+            e.preventDefault()
+            go(options[courant])
+          } else if (choix) {
             e.preventDefault()
             setOpen(true)
-            setActive((a) => Math.min(a + 1, Math.max(options.length - 1, 0)))
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault()
-            setActive((a) => Math.max(a - 1, 0))
-          } else if (e.key === 'Enter' && showList && options[active]) {
-            e.preventDefault()
-            go(options[active])
-          } else if (e.key === 'Escape') {
-            // Échap ferme d'abord la liste ; seulement ensuite ce qui l'entoure (le menu mobile, App.tsx).
-            if (showList) e.stopPropagation()
-            setOpen(false)
           }
-        }}
-      />
+        } else if (e.key === 'Escape') {
+          // Échap ferme d'abord la liste ; seulement ensuite ce qui l'entoure (le menu mobile, App.tsx).
+          if (showList) e.stopPropagation()
+          setOpen(false)
+        }
+      }}
+    />
+  )
+
+  return (
+    <div className={`search-box${bouton ? ' avec-bouton' : ''}`} ref={box}>
+      {bouton ? (
+        <div className="search-ligne">
+          {champRecherche}
+          {/* mousedown sans défaut : le champ garde le focus, et la liste reste ouverte pour une saisie ambiguë. */}
+          <button type="button" className="btn btn-primary search-go" onMouseDown={(e) => e.preventDefault()} onClick={valider}>
+            {bouton}
+          </button>
+        </div>
+      ) : (
+        champRecherche
+      )}
       {showList && (
         <div className="search-results" id={listId} role="listbox" aria-label="Résultats de la recherche">
           {groupes.map((g) => (
@@ -163,23 +208,29 @@ export default function Search({
               </div>
               {g.entrees.map((e) => {
                 const i = options.indexOf(e)
+                const l = libelleResultat(e, requete, departements.data)
                 return (
                   <div
                     key={`${e.type}-${e.id}`}
                     id={optionId(i)}
                     role="option"
-                    aria-selected={i === active}
-                    className={`search-option${i === active ? ' active' : ''}`}
+                    aria-selected={i === courant}
+                    className={`search-option${i === courant ? ' active' : ''}`}
                     onMouseDown={(ev) => {
                       ev.preventDefault()
                       go(e)
                     }}
-                    onMouseMove={() => i !== active && setActive(i)}
+                    onMouseMove={() => {
+                      if (i !== courant) {
+                        setActive(i)
+                        setExplicite(true)
+                      }
+                    }}
                   >
                     <PictoType type={e.type} />
                     <span className="search-txt">
-                      <span className="search-nom">{e.nom}</span>
-                      <span className="search-meta">{precision(e, departements.data)}</span>
+                      <span className="search-nom">{l.nom}</span>
+                      <span className="search-meta">{l.meta}</span>
                     </span>
                   </div>
                 )
@@ -188,6 +239,10 @@ export default function Search({
           ))}
         </div>
       )}
+      {/* Saisie ambiguë : annoncée aux lecteurs d'écran ; à l'écran, les libellés disent code postal et code INSEE. */}
+      <p className="sr-only" role="status">
+        {showList && choix ? `${options.length} fiches correspondent à ce code. Choisissez-en une dans la liste avec les flèches.` : ''}
+      </p>
       {etat && (
         <p className="search-etat" role="status">
           {etat}

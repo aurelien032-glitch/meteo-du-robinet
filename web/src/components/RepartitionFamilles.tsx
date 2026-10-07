@@ -35,7 +35,10 @@ export default function RepartitionFamilles({ s, params }: { s: CommuneYearStats
           </tbody>
         </table>
       </div>
-      <div className="source">Limite de qualité = seuil sanitaire réglementaire ; référence de qualité = repère de bon fonctionnement, sans effet sur la potabilité.</div>
+      <div className="source">
+        Une limite de qualité est un seuil sanitaire réglementaire. Une référence de qualité est un indicateur du bon fonctionnement des
+        installations, sans incidence sur la potabilité de l’eau.
+      </div>
     </div>
   )
 }

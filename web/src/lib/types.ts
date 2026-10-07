@@ -55,8 +55,7 @@ export interface FamStats {
   npd: number // prélèvements avec au moins un dépassement
   res_dep?: number // réseaux avec dépassement
   res_tot?: number
-  com_dep?: number // communes avec dépassement
-  com_tot?: number
+  res_ref?: number // réseaux avec au moins une analyse au-dessus d'une référence de qualité (thèmes, 24/09)
 }
 
 export interface TopParam {
@@ -148,8 +147,10 @@ export interface ThemeFile {
   famille: Famille
   param_cle: string
   national: Record<string, FamStats>
-  params: { p: string; l: string | null; n: number; nd: number; nq: number; npd: number }[]
-  depts: Record<string, Record<string, { n: number; nd: number; nq: number; res_dep: number; res_tot: number }>>
+  // « nr », « res_ref » : analyses et réseaux au-dessus d'une référence de qualité (pipeline, 24/09) ; la radioactivité
+  // n'a que des références.
+  params: { p: string; l: string | null; n: number; nd: number; nq: number; npd: number; nr?: number }[]
+  depts: Record<string, Record<string, { n: number; nd: number; nq: number; res_dep: number; res_tot: number; nr?: number; res_ref?: number }>>
   top_reseaux: {
     r: string
     d: string
@@ -159,6 +160,7 @@ export interface ThemeFile {
     vmax: number | null
     nom: string | null
     nc: number
+    nr?: number
   }[]
   cle: Record<string, { n_res: number; p50: number | null; p90: number | null; max: number | null; res_dep: number }>
 }
@@ -170,8 +172,17 @@ export interface MetaFile {
   themes: { slug: string; titre: string; question: string }[]
 }
 
-/** Dernier millésime complet (les millésimes partiels ne sont proposés que sur demande). */
+/**
+ * Année sur laquelle le site s'ouvre : la plus récente, l'année en cours comprise (choix de l'auteur du 29/09 ; le
+ * dernier millésime complet l'était jusque-là). Ses libellés disent « depuis le 1er janvier » (situations.estPartiel).
+ */
 export function defaultYear(meta: MetaFile | null): number | undefined {
+  if (!meta) return undefined
+  return [...meta.annees].sort((a, b) => a - b).at(-1)
+}
+
+/** Dernier millésime complet : les comptes qui n'ont de sens que sur une année entière (Méthode, départements sans information). */
+export function dernierComplet(meta: MetaFile | null): number | undefined {
   if (!meta) return undefined
   const complete = meta.annees.filter((a) => !(meta.partiel ?? []).includes(a))
   return (complete.length ? complete : meta.annees).at(-1)
@@ -179,6 +190,15 @@ export function defaultYear(meta: MetaFile | null): number | undefined {
 
 export function yearLabel(meta: MetaFile | null, a: number | string): string {
   return `${a}${(meta?.partiel ?? []).includes(Number(a)) ? ' (en cours)' : ''}`
+}
+
+/**
+ * Période d'une phrase : « en 2025 », ou « depuis le 1er janvier 2026 » pour l'année en cours. Dans une phrase,
+ * « en 2026 (en cours) » se lisait comme une restriction toujours en vigueur (05/10) ; yearLabel reste pour les axes et
+ * les colonnes, où il désigne l'année.
+ */
+export function periodeAnnee(meta: MetaFile | null, a: number | string): string {
+  return (meta?.partiel ?? []).includes(Number(a)) ? `depuis le 1er janvier ${a}` : `en ${a}`
 }
 
 // --- Séries mensuelles d'un paramètre --------------------------------------------------------
@@ -205,11 +225,14 @@ export interface SeriesIndexEntry {
   nd: number
 }
 
-/** series/dept/<dd>.json : séries mensuelles par réseau pour quelques paramètres phares. */
-export interface SeriesDeptFile {
-  mois: string[]
-  params: string[]
-  reseaux: Record<string, Record<string, { n: number[]; nd: number[]; nq: number[]; max: (number | null)[] }>>
+/**
+ * series/reseaux/<année>/<dd>.json : séries mensuelles des réseaux d'un département sur un millésime
+ * (pipeline build_series_reseaux) : paramètres au-dessus de leur limite, et paramètres quantifiés des pesticides, de
+ * l'azote et des PFAS. Un mois = [mois 1-12, analyses, dépassements, maximum] ; les mois sans analyse sont omis.
+ */
+export interface SeriesReseauxFile {
+  annee: number
+  reseaux: Record<string, Record<string, [number, number, number, number | null][]>>
 }
 
 // --- SISPEA (services d'eau potable) ---------------------------------------------------------
@@ -231,6 +254,8 @@ export interface SispeaYear {
   cchim: SispeaStat
   patrim: SispeaStat
   impayes: SispeaStat
+  /** part de l'eau mise en distribution perdue, sur les volumes déclarés (%), national seulement (build_sispea.py) */
+  pertes_vol?: number | null
 }
 export interface SispeaDeptYear extends SispeaYear {
   part_pop_delegation: number | null
@@ -267,8 +292,22 @@ export interface SispeaService {
   ind?: Record<string, number>
   annee_communes?: number
   communes?: string[]
+  /** aucune déclaration à la SISPEA : nom, collectivité, mode, exploitant et statut viennent de la composition
+   * communale de `annee_communes` (build_sispea.fiches_services) */
+  sans_declaration?: boolean
 }
 export type SispeaServicesFile = Record<string, SispeaService>
+/**
+ * Vue communale de /carte (sispea/communes/<année>.json, pipeline/robinet/build_sispea.py) : service de chaque
+ * commune — celui de sispea/dept — et, par service, ses valeurs dans l'ordre de `colonnes` (nom, entité, mode « r »
+ * ou « d », prix, rendement, renouvellement, protection, consommation, pertes).
+ */
+export interface SispeaCommunesFile {
+  annee: string
+  colonnes: string[]
+  services: Record<string, (string | number | null)[]>
+  communes: Record<string, string>
+}
 
 // --- Amont du robinet : BNPE, BNV-D, ADES ------------------------------------------------------
 export interface AmontBnpeYear {
@@ -370,6 +409,19 @@ export function deptOfInsee(insee: string): string {
   return insee.startsWith('97') || insee.startsWith('98') ? insee.slice(0, 3) : insee.slice(0, 2)
 }
 
+/**
+ * Commune d'un arrondissement municipal de Paris, Marseille ou Lyon ; tout autre code est rendu tel quel. Les
+ * contours des cartes dessinent les arrondissements par-dessus leur commune, mais le contrôle sanitaire, les avis de
+ * l'ARS et la SISPEA ne connaissent que la commune (75056, 13055, 69123) : sans ce rattachement, Paris paraissait
+ * « sans prélèvement » et un clic ouvrait une fiche vide (vérification du 24/09).
+ */
+export function communeDeRattachement(insee: string): string {
+  if (/^751(0[1-9]|1\d|20)$/.test(insee)) return '75056'
+  if (/^132(0[1-9]|1[0-6])$/.test(insee)) return '13055'
+  if (/^6938[1-9]$/.test(insee)) return '69123'
+  return insee
+}
+
 // --- Avis sanitaires de l'ARS (conclusions des prélèvements) ----------------------------------
 export type AvisCat = 'interdiction' | 'ebullition' | 'sensibles'
 export const AVIS_CODE: Record<AvisCat, number> = { sensibles: 1, ebullition: 2, interdiction: 3 }
@@ -400,6 +452,10 @@ export interface AvisDeptFile extends LectureAvis {
   textes: Record<string, { t: string; c: AvisCat; l: boolean; k: string[] }>
   /** par commune : [date du prélèvement, id de formulation, réseau], du plus récent au plus ancien */
   communes: Record<string, [string, number, string][]>
+  /** par année, date d'arrêt des données : le prélèvement le plus récent, tous réseaux (absente d'un fichier antérieur au 25/09) */
+  arret?: Record<string, string>
+  /** par année, dernier prélèvement conclu de chaque réseau porteur d'un avis du fichier (absent d'un fichier antérieur au 25/09) */
+  derniers?: Record<string, Record<string, string>>
 }
 type AvisCompte = { plv: number; reseaux: number; communes: number }
 export interface AvisNationalFile extends LectureAvis {
@@ -407,6 +463,8 @@ export interface AvisNationalFile extends LectureAvis {
   annees: Record<string, Partial<Record<AvisCat | 'local', AvisCompte>> & { communes_toutes?: number }>
   causes: Record<string, Partial<Record<AvisCat, Record<string, number>>>>
   depts: Record<string, Record<string, Partial<Record<AvisCat | 'toutes', number>>>>
+  /** par année, date d'arrêt des données (absente d'un fichier antérieur au 25/09) */
+  arret?: Record<string, string>
 }
 
 // --- Substances sans limite ni référence (horsgrille.json) -------------------------------------
@@ -508,3 +566,6 @@ export interface RessourceFile {
     n_zre: number
   }
 }
+
+/** Surtitre d'un bloc bilan : « Bilan 2025 », ou « Bilan depuis le 1er janvier 2026 » pour l'année en cours (2026-10-06). */
+export const bilanDe = (annee: string | number, partiel: boolean) => (partiel ? `Bilan depuis le 1er janvier ${annee}` : `Bilan ${annee}`)

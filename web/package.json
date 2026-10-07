@@ -9,15 +9,17 @@
     "build": "tsc -b && node scripts/verifier-donnees.mjs && node scripts/generate-sitemap.mjs && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b",
-    "postbuild": "node -e \"require('fs').copyFileSync('dist/index.html','dist/404.html')\"",
-    "deploy": "npm run build && gh-pages -d dist -t -r https://github.com/aurelien032-glitch/meteo-du-robinet.git",
+    "postbuild": "node scripts/pages-statiques.mjs && npm run prerendu",
+    "deploy": "npm run build && node scripts/publier.mjs",
+    "publier": "node scripts/publier.mjs",
     "test": "vitest run",
     "scenes:export": "node scripts/export-scenes.mjs",
-    "review": "node scripts/review-pages.mjs"
+    "review": "node scripts/review-pages.mjs",
+    "prerendu": "vite build -c vite.prerendu.config.ts && node .prerendu/prerendu-fiches.js"
   },
   "dependencies": {
     "echarts": "^6.0.0",
-    "maplibre-gl": "^5.6.0",
+    "maplibre-gl": "^6.13.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0"
@@ -30,7 +32,6 @@
     "@vitejs/plugin-react": "^5.0.0",
     "axe-core": "^4.13.0",
     "cross-env": "^10.1.0",
-    "gh-pages": "^6.3.0",
     "jsdom": "^29.1.1",
     "playwright": "^1.62.1",
     "typescript": "^5.9.0",
