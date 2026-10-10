@@ -1,0 +1,1 @@
+import{a,j as r,N as t}from"./index-DSm70VtP.js";import{g as o}from"./sujetsFrance-BeiO4zWy.js";import"./maplibre-DLPXrIP-.js";function u(){const{pathname:e,search:s}=a();return r.jsx(t,{to:o(e,s)??"/france",replace:!0})}export{u as default};

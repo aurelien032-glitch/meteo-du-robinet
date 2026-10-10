@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E" />
+    <meta name="description" content="Qualité de l'eau du robinet, prix et fuites des services d'eau, commune par commune, à partir des données publiques françaises." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Météo du robinet · l'eau potable en France, de la ressource au robinet" />
+    <meta property="og:description" content="Qualité de l'eau du robinet, prix et fuites des services d'eau, commune par commune, à partir des données publiques françaises." />
+    <meta property="og:url" content="https://meteodurobinet.fr/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte des départements de France et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try { localStorage.removeItem('palette') } catch (e) {}
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Météo du robinet · l'eau potable en France, de la ressource au robinet</title>
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="module" crossorigin src="/assets/index-DSm70VtP.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/maplibre-DLPXrIP-.js">
+    <link rel="stylesheet" crossorigin href="/assets/maplibre-RZO-t2LB.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-jcnpwgk6.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Quelle eau coule à votre robinet ?</h1>
+<p class="lead">La fiche de chaque commune donne la note de l’eau de l’année et les derniers contrôles de chaque réseau qui la dessert, les avis de l’agence régionale de santé, la sécheresse du jour, le prix et le service de l’eau, puis le détail de toutes les analyses.</p>
+<p><a href="/#recherche">Rechercher une commune par son nom ou son code postal</a></p>
+<h2>L’eau en France</h2>
+<h3>Les avis de l’ARS</h3>
+<p>D’après les conclusions des analyses publiées par l’ARS. Pour toute consigne en vigueur dans une commune, la mairie et l’ARS font foi.</p>
+<p><a href="/france/?sujet=avis">La carte des avis de l’ARS</a></p>
+<h3>Bilan depuis le 1er janvier 2026</h3>
+<p>22 797 réseaux · notes calculées par le site</p>
+<p><strong>76,9 % des réseaux ont la note A</strong></p>
+<ul>
+<li>A bonne qualité* : 76,9 % (17 537 réseaux)</li>
+<li>B qualité convenable* : 1,5 % (350 réseaux)</li>
+<li>C qualité insuffisante* : 11,9 % (2 709 réseaux)</li>
+<li>D mauvaise qualité* : 9,7 % (2 201 réseaux)</li>
+</ul>
+<p class="cap">* Libellés de l’indicateur de l’ARS. La synthèse annuelle de l’ARS, jointe à la facture d’eau, fait foi et peut différer.</p>
+<p><a href="/france/">La France, département par département</a></p>
+<h2>Comprendre</h2>
+<ul>
+<li><a href="/france/?sujet=pfas">PFAS et TFA</a> · La limite de qualité porte sur la somme de 20 PFAS ; le TFA n’a pas de limite propre.</li>
+<li><a href="/france/?sujet=pesticides">Pesticides</a> · Substances actives et métabolites recherchés, limites de qualité et durée des dépassements.</li>
+<li><a href="/france/?sujet=nitrates">Nitrates</a> · Concentration maximale de l’année, comparée à la limite de qualité de 50 mg/L.</li>
+<li><a href="/france/?sujet=bacteries">Bactéries</a> · Bactéries témoins d’une contamination fécale, prélèvements non conformes et consignes d’ébullition.</li>
+<li><a href="/france/?sujet=plomb">Plomb et canalisations</a> · Plomb, cuivre et nickel mesurés au robinet ; ils dépendent des canalisations intérieures.</li>
+<li><a href="/france/?sujet=avis">Avis de l’ARS</a> · Restrictions de consommation, consignes d’ébullition et recommandations publiées par l’ARS.</li>
+</ul>
+<h2><a href="/france/#secheresse">Autour de l’eau du robinet</a></h2>
+<p>D’où vient l’eau, le niveau des nappes et les restrictions en cas de sécheresse. Ces informations donnent le contexte ; elles ne jugent pas la qualité de l’eau du robinet.</p>
+<ul>
+<li><a href="/france/#secheresse">Sécheresse</a> · Les restrictions d’usage de l’eau décidées par le préfet, aujourd’hui et depuis 2012.</li>
+<li><a href="/france/#nappes">Nappes</a> · Le niveau des nappes chaque mois, comparé aux mêmes mois des années passées.</li>
+<li><a href="/france/#pression">Prélèvements et pression</a> · L’eau prélevée pour le robinet, les zones en manque d’eau, les fuites et la protection des captages.</li>
+<li><a href="/france/#services">Services d’eau et prix</a> · Le prix de l’eau, les fuites des réseaux, le renouvellement des tuyaux et le mode de gestion.</li>
+<li><a href="/france/#amont">Amont du robinet</a> · L’eau prélevée, l’état des nappes et des rivières, les ventes de pesticides.</li>
+</ul>
+<p>Les notes A, B, C et D sont calculées par le site avec la méthode de l’ARS, à partir des analyses publiques. La note officielle de chaque réseau est sur la synthèse de l’ARS jointe à la facture d’eau ; elle fait foi et peut différer. Le site n’est pas une publication officielle. <a href="/methode/#classe-ars">Méthode</a> · <a href="/methode/#mentions">Mentions légales</a></p>
+</main></div>
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

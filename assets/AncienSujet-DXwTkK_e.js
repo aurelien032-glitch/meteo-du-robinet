@@ -1,0 +1,1 @@
+import{a as r,j as c,N as i}from"./index-DSm70VtP.js";import{d as m}from"./sujetsFrance-BeiO4zWy.js";import"./maplibre-DLPXrIP-.js";function f(){const{pathname:s,search:n,hash:o}=r(),e=new URLSearchParams(n),t=m(s);t&&t!=="toutes"&&e.set("sujet",t);const a=e.toString();return c.jsx(i,{to:{pathname:"/france",search:a?`?${a}`:"",hash:o},replace:!0})}export{f as default};

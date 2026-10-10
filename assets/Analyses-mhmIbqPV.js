@@ -1,0 +1,1 @@
+import{i as e,a as t,j as o,N as n}from"./index-DSm70VtP.js";import"./maplibre-DLPXrIP-.js";function m(){const{code:a=""}=e(),{search:s}=t();return o.jsx(n,{to:{pathname:`/commune/${a}`,search:s,hash:"#analyses"},replace:!0})}export{m as default};
