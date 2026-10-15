@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E" />
+    <meta name="description" content="Méthode de calcul, note A à D, lexique, sources des données et mentions légales du site Météo du robinet." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Comprendre · Météo du robinet" />
+    <meta property="og:description" content="Méthode de calcul, note A à D, lexique, sources des données et mentions légales du site Météo du robinet." />
+    <meta property="og:url" content="https://meteodurobinet.fr/methode/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte des départements de France et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix, la feuille de style
+         suit le réglage du système (lib/theme.ts, useTheme). */
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Comprendre · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="module" crossorigin src="/assets/index-CeY8C9Sc.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-fHzJ4IZY.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/methode/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Comprendre</h1>
+<p>Méthode de calcul, version du 14 octobre 2026.</p>
+<h2>La note de A à D</h2>
+<p>Depuis 2023, l’ARS joint chaque année à la facture d’eau une synthèse qui attribue à l’eau du réseau une note de A à D. Le site calcule cette note pour chaque réseau selon les mêmes principes. La synthèse de l’ARS fait foi. Sous la note, un sous-indice par famille de paramètres donne la note de chaque famille ; celle du réseau est la plus défavorable.</p>
+<ul>
+<li><strong>A · Bonne qualité.</strong> Aucun dépassement des limites de qualité retenu par la note dans l’année.</li>
+<li><strong>B · Qualité convenable.</strong> Dépassements limités, 30 jours cumulés au plus dans l’année, ou rares contaminations bactériologiques.</li>
+<li><strong>C · Qualité insuffisante.</strong> Dépassements de plus de 30 jours, contamination bactériologique marquée, ou eau déconseillée par l’ARS aux publics sensibles.</li>
+<li><strong>D · Mauvaise qualité.</strong> Restriction de consommation prononcée par l’ARS, ou contaminations bactériologiques fréquentes.</li>
+</ul>
+<p class="cap">Note calculée par le site selon les principes de l’indicateur global de l’ARS, sans les paramètres liés aux canalisations ni aux réactifs de traitement ; une famille sans analyse dans une année close reprend la note de sa dernière année analysée, cinq ans au plus. La synthèse annuelle de l’ARS, jointe à la facture d’eau, fait foi.</p>
+<p class="cap">Notes calculées par le site selon les principes de l’indicateur global de l’ARS (note d’information de la direction générale de la santé du 19 juillet 2019).</p>
+<p>Le réseau qui dessert un logement figure sur la facture d’eau ; la mairie peut aussi l’indiquer.</p>
+<p>La fiche ne renseigne pas sur l’eau au robinet d’un logement, qui dépend aussi des canalisations privées. Pour toute consigne sanitaire, la mairie et l’ARS font foi.</p>
+<h2>Sources des données</h2>
+<ul>
+<li><strong>Contrôle sanitaire de l’eau distribuée (SISE-Eaux)</strong> · chaque analyse réglementaire, par prélèvement, réseau et commune · ministère chargé de la Santé, via data.gouv.fr et Hub’Eau</li>
+<li><strong>SISPEA</strong> · prix, rendement, renouvellement, mode de gestion, composition communale des services · Office français de la biodiversité</li>
+<li><strong>BNPE</strong> · volumes prélevés pour l’eau potable, par ouvrage · OFB, via Hub’Eau</li>
+<li><strong>BNV-D</strong> · ventes de substances phytopharmaceutiques, par département du distributeur · OFB, via Hub’Eau</li>
+<li><strong>ADES</strong> · nitrates et pesticides dans les eaux souterraines · BRGM, via Hub’Eau</li>
+<li><strong>Naïades</strong> · nitrates et pesticides dans les rivières · agences de l’eau, via Hub’Eau</li>
+<li><strong>VigiEau</strong> · restrictions sécheresse en vigueur · ministère de la Transition écologique, en direct</li>
+<li><strong>Donnée Sécheresse (ex-Propluvia)</strong> · historique des arrêtés de restriction et de leurs niveaux par zone · ministère de la Transition écologique, via data.gouv.fr</li>
+<li><strong>Zones de répartition des eaux</strong> · zones de déficit structurel entre ressource et besoins · Sandre, services de l’État</li>
+<li><strong>Piézométrie</strong> · niveau des nappes, mesures journalières des piézomètres · BRGM, via Hub’Eau</li>
+<li><strong>Codes postaux</strong> · correspondance entre codes postaux et communes, pour la recherche · La Poste, via data.gouv.fr</li>
+<li><strong>Contours administratifs</strong> · départements et communes · Etalab, IGN</li>
+</ul>
+<h2>Historique des changements</h2>
+<ul>
+<li><strong>14 octobre 2026</strong> · Durée d’un dépassement : pour l’année en cours, elle s’arrête au prélèvement le plus récent publié (31 juillet 2026) et non plus au 31 décembre, de sorte que les jours non observés ne comptent plus dans les 30 jours. En 2026, 38 réseaux passent de « plus de 30 jours » à « 30 jours au plus » pour les pesticides, et 65 réseaux de la note C à la note B ; les années closes ne changent pas.</li>
+<li><strong>14 octobre 2026</strong> · Bactériologie : un réseau dont tous les prélèvements des cinq années proviennent d’un réseau de distribution situé en amont est noté d’après la grille de l’ARS sur ces prélèvements, et non plus d’après le taux de 95 % appliqué aux autres familles (53, 40, 30 et 7 réseaux en 2023, 2024, 2025 et 2026 ; 5, 3, 1 et 1 notes changées). Sur huit synthèses de l’ARS lues où les deux règles différaient, la grille retrouve la note bactériologique dans six cas.</li>
+<li><strong>14 octobre 2026</strong> · Restriction de l’ARS portant sur un paramètre écarté de la note (plomb, chlorure de vinyle) : elle classe le réseau en D lorsque sa conclusion cite ce paramètre et qu’il dépasse sa limite dans l’année, et non plus lorsqu’elle cite une autre cause de la famille, la turbidité par exemple (1, 3, 1 et 0 notes changées en 2023, 2024, 2025 et 2026). Les cinq synthèses de l’ARS lues notent ces réseaux A ; le site en note désormais deux A et trois C, une restriction pour la turbidité valant C depuis le 11 octobre.</li>
+<li><strong>14 octobre 2026</strong> · Pesticides : un réseau dont les seules analyses de la famille portent sur des métabolites non pertinents est désormais conforme, et non plus sans analyse ; il ne reprend plus la note d’une année antérieure (321 couples réseau-année de 2023 à 2026, 20 notes changées en 2024 et 12 en 2025, toutes en A). Contrôles de chaque mois : les prélèvements non conformes sous dérogation préfectorale ne sont plus comptés, comme dans les totaux annuels. Part des réseaux non conformes aux pesticides de l’amont : calculée sur les mêmes réseaux que la note. Consommation par habitant : les déclarations de plus de 1 000 litres par habitant et par jour sont écartées.</li>
+<li><strong>14 octobre 2026</strong> · Services d’eau : les chiffres d’un département portent sur les services qui y desservent au moins une commune, pondérés par la population de ces communes ; les Hauts-de-Seine, la Seine-Saint-Denis et le Val-de-Marne, dont la SISPEA range les services sous Paris, ont désormais les leurs. Les prix inférieurs à 0,20 € ou supérieurs à 15 € le m³ sont écartés comme invraisemblables.</li>
+<li><strong>12 octobre 2026</strong> · Bactériologie : les prélèvements de 2021 et 2022 entrent dans le cumul des derniers prélèvements, cinq ans au plus, comme dans les synthèses de l’ARS ; ceux d’un autre réseau de distribution situé en amont ne sont plus comptés. Comparaison aux mêmes 282 synthèses de l’ARS de 2025 : accord de 95 % sur 183 réseaux tirés au hasard, contre 93 %.</li>
+<li><strong>12 octobre 2026</strong> · Renouvellement des canalisations : la durée nécessaire pour renouveler l’ensemble du réseau se déduit du taux de la France pondéré par la longueur des réseaux (158 ans en 2024), et non plus de la médiane des services (455 ans). Les taux supérieurs à 20 % par an et les longueurs supérieures à 1 000 mètres de réseau par habitant desservi sont écartés comme invraisemblables.</li>
+<li><strong>11 octobre 2026</strong> · Turbidité hors de la note, comme dans l’indicateur de l’ARS ; un avis de l’ARS qui la cite vaut C. Elle reste comptée dans la conformité. Comparaison à 282 synthèses de l’ARS de 2025 : accord de 93 % sur 183 réseaux tirés au hasard.</li>
+<li><strong>7 octobre 2026</strong> · Avis de l’ARS : restrictions de consommation et consignes d’ébullition comptées à part. Cartes des parts de réseaux aux couleurs des notes, en quatre paliers (10, 25 et 50 %).</li>
+<li><strong>5 octobre 2026</strong> · Bactériologie notée selon la grille publiée par l’ARS, sur les derniers prélèvements. PFAS : un dépassement compte lorsqu’il est observé au moins deux jours dans l’année. Métabolites non pertinents écartés de la note selon l’Anses (ESA-métolachlore et diméthénamide ESA depuis 2022, AMPA depuis 2025), total des pesticides compris. Comparaison à 198 synthèses de l’ARS de 2025 : accord de 84 % sur la note.</li>
+<li><strong>4 octobre 2026</strong> · Matériaux des canalisations et réactifs de traitement écartés de la note. Limites de la directive 2020/2184 appliquées depuis 2023. Sixième famille, les autres limites de qualité.</li>
+<li><strong>3 octobre 2026</strong> · Note A à D de chaque réseau, calculée selon l’indicateur annuel de l’ARS.</li>
+</ul>
+<h2>Réutilisation et citation</h2>
+<p>Licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Forme de citation : Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé, « titre de la page », adresse de la page.</p>
+<p><a href="/">Accueil</a> · <a href="/france/">La France, département par département</a></p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

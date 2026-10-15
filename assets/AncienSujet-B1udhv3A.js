@@ -1,0 +1,1 @@
+import{a as r,j as c,H as i}from"./index-CeY8C9Sc.js";import{g as u}from"./sujetsFrance-BTaXJKC4.js";function p(){const{pathname:s,search:n,hash:o}=r(),e=new URLSearchParams(n),t=u(s);t&&t!=="toutes"&&e.set("sujet",t);const a=e.toString();return c.jsx(i,{to:{pathname:"/france",search:a?`?${a}`:"",hash:o},replace:!0})}export{p as default};
