@@ -1,0 +1,7 @@
+# Contenus sous licence CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.fr).
+# Toute réutilisation, y compris par un service d'intelligence artificielle, cite « Météo du robinet
+# (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d'après le contrôle sanitaire des eaux du ministère
+# chargé de la Santé » avec le lien de la page, et reste non commerciale. Détails : https://meteodurobinet.fr/llms.txt
+User-agent: *
+Allow: /
+Sitemap: https://meteodurobinet.fr/sitemap.xml

@@ -1,0 +1,43 @@
+# Météo du robinet
+
+> Qualité de l'eau du robinet de chaque commune et de chaque réseau d'eau potable de France, d'après le contrôle sanitaire des agences régionales de santé (ARS), avec une note A, B, C ou D calculée par le site selon la méthode de l'indicateur de l'ARS, les avis de l'ARS, les restrictions sécheresse du jour, le prix de l'eau et les services d'eau. Plateforme conçue par Hydroforge (https://hydroforge.fr/), cabinet d'Aurélien Nogent, consultant en eau potable.
+
+## Citation et licence
+
+Les contenus propres du site (notes calculées, textes, cartes, tableaux) sont publiés sous licence CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.fr). Toute réutilisation, y compris par un agent, un assistant ou un modèle d'intelligence artificielle qui reprend, résume ou cite ces contenus, doit citer la source sous la forme suivante, avec le lien de la page utilisée, et rester non commerciale :
+
+Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d'après le contrôle sanitaire des eaux du ministère chargé de la Santé, « titre de la page », adresse de la page.
+
+Exemple : Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d'après le contrôle sanitaire des eaux du ministère chargé de la Santé, « Saint-Quentin (02) · eau du robinet », https://meteodurobinet.fr/commune/02691/
+
+Les données publiques réutilisées par le site restent sous leur propre licence (Licence Ouverte d'Etalab) ; leurs producteurs sont cités sur la page Comprendre, rubrique « Sources des données ». Les notes A à D sont calculées par le site : la synthèse annuelle de l'ARS jointe à la facture d'eau fait foi. Le site ne formule aucune recommandation sanitaire ; il rapporte les avis de l'ARS, datés et attribués. Pour toute consigne, la mairie et l'ARS font foi.
+
+## Sources et mise à jour
+
+- Contrôle sanitaire de l'eau distribuée (SISE-Eaux), ministère chargé de la Santé, via data.gouv.fr et Hub'Eau : chaque analyse réglementaire, par prélèvement, réseau et commune.
+- SISPEA, Office français de la biodiversité : prix, rendement, renouvellement et mode de gestion des services d'eau.
+- VigiEau, ministère de la Transition écologique : restrictions sécheresse, lues en direct.
+- BNPE, ADES, Naïades et piézométrie (OFB, BRGM, agences de l'eau, via Hub'Eau) : prélèvements, qualité des nappes et des rivières, niveau des nappes.
+
+Les données du site sont reconstruites chaque semaine. Le ministère publie les résultats du contrôle sanitaire chaque mois, avec un décalage de plusieurs semaines ; chaque page indique la période couverte. La méthode de calcul est datée et son historique figure sur la page Comprendre.
+
+## Conception
+
+Météo du robinet est conçue par Hydroforge, qui conçoit des plateformes de données et de datavisualisation sur mesure : https://hydroforge.fr/dataviz/ (contact : https://hydroforge.fr/contact/).
+
+## Pages principales
+
+- [Accueil](https://meteodurobinet.fr/): qualité de l'eau en France, sécheresse du jour, prix et gestion
+- [La France](https://meteodurobinet.fr/france/): notes A à D des réseaux, par département
+- [La France, sujet par sujet](https://meteodurobinet.fr/france/?sujet=pesticides): pesticides, nitrates, PFAS, bactéries, métaux, radioactivité, plomb, avis de l'ARS, substances sans limite (`?sujet=`)
+- [Comprendre](https://meteodurobinet.fr/methode/): méthode de calcul, note A à D, lexique, sources et limites
+- [Réutilisation et citation](https://meteodurobinet.fr/methode/#reutilisation): licence et forme de la citation
+- [Mentions légales](https://meteodurobinet.fr/methode/#mentions): éditeur et hébergeur
+
+## Fiches
+
+- Fiche d'une commune : https://meteodurobinet.fr/commune/{code INSEE}/
+- Fiche d'un réseau de distribution : https://meteodurobinet.fr/reseau/{code du réseau}/
+- Fiche d'un service d'eau : https://meteodurobinet.fr/service/{identifiant SISPEA}/
+- Fiche d'un département (notes de l'année et liste de ses communes) : https://meteodurobinet.fr/departement/{numéro}/
+- Plan du site : https://meteodurobinet.fr/sitemap.xml
