@@ -1,0 +1,1 @@
+import{a,j as r,H as t}from"./index-CeY8C9Sc.js";import{h as o}from"./sujetsFrance-BTaXJKC4.js";function u(){const{pathname:e,search:s}=a();return r.jsx(t,{to:o(e,s)??"/france",replace:!0})}export{u as default};
