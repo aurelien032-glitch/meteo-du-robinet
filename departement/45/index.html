@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Loiret (45) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Loiret · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Loiret (45) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/45/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Loiret · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loiret · eau du robinet","url":"https://meteodurobinet.fr/departement/45/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Loiret","item":"https://meteodurobinet.fr/departement/45/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/45/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Loiret</h1>
+<p class="meta">Département 45</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>30 sur 198 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 161 réseaux</li>
+<li>B qualité convenable* : 7 réseaux</li>
+<li>C qualité insuffisante* : 27 réseaux</li>
+<li>D mauvaise qualité* : 3 réseaux</li>
+</ul>
+<p>Pesticides 25, nitrates 9.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>23 réseaux visés sur 198</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>132 prélèvements</strong> évalués en septembre 2026 ; 1 797 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 0 jour, alerte renforcée 27 jours, crise 44 jours</li>
+<li>2025 : vigilance 0 jour, alerte 0 jour, alerte renforcée 0 jour, crise 173 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 0 jour, alerte renforcée 0 jour, crise 199 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,41</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 76 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>161 services d’eau</strong> desservent au moins une commune du département ; 102 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 232 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/045000340/">ARDON</a> · 045000340 · note A · 1 commune</li>
+<li><a href="/reseau/045000341/">ARTENAY</a> · 045000341 · note A · 1 commune</li>
+<li><a href="/reseau/045000342/">ASCHERES LE MARCHE</a> · 045000342 · note A · 1 commune</li>
+<li><a href="/reseau/045001986/">ATTRAY</a> · 045001986 · note A · 1 commune</li>
+<li><a href="/reseau/045000343/">AUDEVILLE (ABA)</a> · 045000343 · sans note · 1 commune</li>
+<li><a href="/reseau/045000580/">AUGERVILLE LA RIVIERE</a> · 045000580 · note A · 1 commune</li>
+<li><a href="/reseau/045000344/">AULNAY LA RIVIERE</a> · 045000344 · note C · 1 commune</li>
+<li><a href="/reseau/045000345/">AUTRUY SUR JUINE</a> · 045000345 · note A · 1 commune</li>
+<li><a href="/reseau/045000347/">AUTRY LE CHATEL</a> · 045000347 · note A · 1 commune</li>
+<li><a href="/reseau/045000348/">AUXY BOURG</a> · 045000348 · note C · 1 commune</li>
+<li><a href="/reseau/045000349/">AUXY GONDREVILLE</a> · 045000349 · note A · 1 commune</li>
+<li><a href="/reseau/045000350/">BACCON</a> · 045000350 · note C · 1 commune</li>
+<li><a href="/reseau/045000352/">BATILLY EN GATINAIS</a> · 045000352 · note A · 1 commune</li>
+<li><a href="/reseau/045000628/">BATILLY-DAMMARIE-FAVERELLES-THOU</a> · 045000628 · note C · 4 communes</li>
+<li><a href="/reseau/045000568/">BAULE - MESSAS</a> · 045000568 · note A · 2 communes</li>
+<li><a href="/reseau/045000353/">BAZOCHES LES GALLERANDES - IZY -CROTTES EN PITHIVERAIS</a> · 045000353 · note A · 2 communes</li>
+<li><a href="/reseau/045000355/">BEAUGENCY</a> · 045000355 · note A · 1 commune</li>
+<li><a href="/reseau/045000358/">BEAULIEU / LOIRE</a> · 045000358 · note B · 1 commune</li>
+<li><a href="/reseau/045000359/">BEAUNE LA ROLANDE</a> · 045000359 · note A · 1 commune</li>
+<li><a href="/reseau/045000569/">BELLEGARDE - QUIERS SUR BEZONDE</a> · 045000569 · note A · 2 communes</li>
+<li><a href="/reseau/045000590/">BOESSES-ECHILLEUSES-GRANGERMONT</a> · 045000590 · note A · 3 communes</li>
+<li><a href="/reseau/045000585/">BOIGNY-SUR-BIONNE</a> · 045000585 · note A · 1 commune</li>
+<li><a href="/reseau/045000572/">BOISMORAND - LANGESSE - LES CHOUX</a> · 045000572 · note A · 3 communes</li>
+<li><a href="/reseau/045000362/">BONNEE</a> · 045000362 · note C · 1 commune</li>
+<li><a href="/reseau/045000573/">BONNY SUR LOIRE - OUSSON SUR LOIRE</a> · 045000573 · note A · 2 communes</li>
+<li><a href="/reseau/045000364/">BOUGY LEZ NEUVILLE (ABA)</a> · 045000364 · sans note · 1 commune</li>
+<li><a href="/reseau/045000574/">BOUILLY - BOUZONVILLE AUX BOIS (ABA)</a> · 045000574 · sans note · 2 communes</li>
+<li><a href="/reseau/045000365/">BOULAY-LES-BARRES - BRICY</a> · 045000365 · note A · 2 communes</li>
+<li><a href="/reseau/045000493/">BOUZONVILLE EN BEAUCE (ABA)</a> · 045000493 · sans note · 1 commune</li>
+<li><a href="/reseau/045000577/">BOUZY</a> · 045000577 · note A · 1 commune</li>
+<li><a href="/reseau/045000576/">BRAY-SAINT AIGNAN</a> · 045000576 · note A · 1 commune</li>
+<li><a href="/reseau/045000630/">BRETEAU-CHAMPOULET</a> · 045000630 · note A · 2 communes</li>
+<li><a href="/reseau/045000367/">BRIARE</a> · 045000367 · note A · 1 commune</li>
+<li><a href="/reseau/045000578/">BRIARRES-DIMANCHEVILLE-ORVILLE</a> · 045000578 · note A · 3 communes</li>
+<li><a href="/reseau/045000369/">BRICY (ABA)</a> · 045000369 · sans note · 1 commune</li>
+<li><a href="/reseau/045000370/">BROMEILLES</a> · 045000370 · note C · 1 commune</li>
+<li><a href="/reseau/045000372/">BUCY LE ROI</a> · 045000372 · note C · 1 commune</li>
+<li><a href="/reseau/045000373/">BUCY ST LIPHARD</a> · 045000373 · note C · 1 commune</li>
+<li><a href="/reseau/045000617/">CEPOY GIROLLES CORQUILLEROY PAUCOURT</a> · 045000617 · note A · 4 communes</li>
+<li><a href="/reseau/045000374/">CERDON</a> · 045000374 · note A · 1 commune</li>
+<li><a href="/reseau/045000575/">CERNOY-PIERREFITTE ES BOIS</a> · 045000575 · note A · 2 communes</li>
+<li><a href="/reseau/045000375/">CESARVILLE-DOSSAINVILLE (ABA)</a> · 045000375 · sans note · 1 commune</li>
+<li><a href="/reseau/045000376/">CHAINGY</a> · 045000376 · note A · 1 commune</li>
+<li><a href="/reseau/045000377/">CHAMBON LA FORET-COURCELLES</a> · 045000377 · note A · 2 communes</li>
+<li><a href="/reseau/045000633/">CHANTEAU</a> · 045000633 · note A · 1 commune</li>
+<li><a href="/reseau/045000382/">CHARMONT-EN-BEAUCE - LEOUVILLE</a> · 045000382 · note A · 2 communes</li>
+<li><a href="/reseau/045000383/">CHARSONVILLE</a> · 045000383 · note A · 1 commune</li>
+<li><a href="/reseau/045000384/">CHATEAUNEUF/LOIRE</a> · 045000384 · note A · 1 commune</li>
+<li><a href="/reseau/045000581/">CHATILLON COLIGNY-STE GENEVIEVE</a> · 045000581 · note A · 2 communes</li>
+<li><a href="/reseau/045000385/">CHATILLON LE ROI (ABA)</a> · 045000385 · sans note · 1 commune</li>
+<li><a href="/reseau/045000387/">CHATILLON/L ECARTS</a> · 045000387 · note A · 1 commune</li>
+<li><a href="/reseau/045000386/">CHATILLON/LOIRE BOURG</a> · 045000386 · note A · 1 commune</li>
+<li><a href="/reseau/045000622/">CHEVILLON/HUILLARD - VIMORY</a> · 045000622 · note A · 2 communes</li>
+<li><a href="/reseau/045000389/">CHEVILLY</a> · 045000389 · note A · 1 commune</li>
+<li><a href="/reseau/045000391/">CHILLEURS AUX BOIS</a> · 045000391 · note B · 1 commune</li>
+<li><a href="/reseau/045000392/">CLERY ST ANDRE</a> · 045000392 · note A · 1 commune</li>
+<li><a href="/reseau/045000393/">COINCES (ABA)</a> · 045000393 · sans note · 1 commune</li>
+<li><a href="/reseau/045000546/">COMMUNES FORAGE SERMAISES</a> · 045000546 · note A · 8 communes</li>
+<li><a href="/reseau/045000587/">CORBEILLES-BORDEAUX-LORCY</a> · 045000587 · note C · 3 communes</li>
+<li><a href="/reseau/045000395/">COUDRAY - LABROSSE</a> · 045000395 · note A · 1 commune</li>
+<li><a href="/reseau/045000396/">COULLONS</a> · 045000396 · note A · 1 commune</li>
+<li><a href="/reseau/045000398/">COURCELLES-LE-ROI (ABA)</a> · 045000398 · sans note · 1 commune</li>
+<li><a href="/reseau/045000399/">COURTENAY</a> · 045000399 · note A · 1 commune</li>
+<li><a href="/reseau/045000401/">CRAVANT</a> · 045000401 · note A · 1 commune</li>
+<li><a href="/reseau/045000402/">CROTTES EN PITHIVERAIS (ABA)</a> · 045000402 · sans note · 1 commune</li>
+<li><a href="/reseau/045000588/">DADONVILLE-ASCOUX BOUILLY-BOUZONVILLE</a> · 045000588 · note A · 4 communes</li>
+<li><a href="/reseau/045000404/">DAMPIERRE EN BURLY</a> · 045000404 · note A · 1 commune</li>
+<li><a href="/reseau/045000406/">DARVOY</a> · 045000406 · note A · 1 commune</li>
+<li><a href="/reseau/045000407/">DESMONT</a> · 045000407 · note D · 1 commune</li>
+<li><a href="/reseau/045000408/">DONNERY</a> · 045000408 · note A · 1 commune</li>
+<li><a href="/reseau/045000409/">DORDIVES</a> · 045000409 · note A · 1 commune</li>
+<li><a href="/reseau/045000589/">DOUCHY-MONTCORBON</a> · 045000589 · note C · 1 commune</li>
+<li><a href="/reseau/045000591/">EGRY - BARVILLE - GAUBERTIN</a> · 045000591 · note A · 3 communes</li>
+<li><a href="/reseau/045000410/">ENGENVILLE</a> · 045000410 · note A · 1 commune</li>
+<li><a href="/reseau/045001136/">EPIEDS</a> · 045001136 · note A · 1 commune</li>
+<li><a href="/reseau/045000592/">ERCEVILLE-ANDONVILLE-BOISSEAUX</a> · 045000592 · note A · 3 communes</li>
+<li><a href="/reseau/045000413/">ESCRENNES</a> · 045000413 · note A · 1 commune</li>
+<li><a href="/reseau/045000593/">ESCRIGNELLES-FEINS</a> · 045000593 · note C · 2 communes</li>
+<li><a href="/reseau/045000414/">ESTOUY (ABA)</a> · 045000414 · sans note · 1 commune</li>
+<li><a href="/reseau/045000415/">FAY AUX LOGES</a> · 045000415 · note A · 1 commune</li>
+<li><a href="/reseau/045000416/">FEROLLES</a> · 045000416 · note A · 1 commune</li>
+<li><a href="/reseau/045000417/">FERRIERES</a> · 045000417 · note A · 1 commune</li>
+<li><a href="/reseau/045000424/">FLEURY LES AUBRAIS</a> · 045000424 · note A · 1 commune</li>
+<li><a href="/reseau/045000428/">FONTENAY - NARGIS - PREFONTAINES</a> · 045000428 · note A · 3 communes</li>
+<li><a href="/reseau/045003544/">GIDY-CERCOTTES-HUETRE</a> · 045003544 · note D · 3 communes</li>
+<li><a href="/reseau/045000933/">GIEN ARRABLOY</a> · 045000933 · note A · 1 commune</li>
+<li><a href="/reseau/045000430/">GIEN BORDS DE LOIRE</a> · 045000430 · note A · 1 commune</li>
+<li><a href="/reseau/045000431/">GIEN CENTRE ET ZI</a> · 045000431 · note A · 1 commune</li>
+<li><a href="/reseau/045000434/">GIVRAINES (ABA)</a> · 045000434 · sans note · 1 commune</li>
+<li><a href="/reseau/045000435/">GONDREVILLE</a> · 045000435 · note C · 1 commune</li>
+<li><a href="/reseau/045000436/">GRENEVILLE CHATILLON-LE-ROI JOUY </a> · 045000436 · note A · 3 communes</li>
+<li><a href="/reseau/045000438/">GUIGNEVILLE (ABA)</a> · 045000438 · sans note · 1 commune</li>
+<li><a href="/reseau/045000597/">INGRANNES - SULLY LA CHAPELLE</a> · 045000597 · note A · 2 communes</li>
+<li><a href="/reseau/045000439/">INGRE MONTABUZARD</a> · 045000439 · note A · 1 commune</li>
+<li><a href="/reseau/045000888/">INGRE VILLENEUVE</a> · 045000888 · note A · 1 commune</li>
+<li><a href="/reseau/045000441/">ISDES</a> · 045000441 · note A · 1 commune</li>
+<li><a href="/reseau/045000354/">IZY (ABA)</a> · 045000354 · sans note · 1 commune</li>
+<li><a href="/reseau/045000442/">JARGEAU</a> · 045000442 · note A · 1 commune</li>
+<li><a href="/reseau/045000443/">JOUY EN PITHIVERAIS (ABA)</a> · 045000443 · sans note · 1 commune</li>
+<li><a href="/reseau/045000444/">JOUY LE POTIER</a> · 045000444 · note A · 1 commune</li>
+<li><a href="/reseau/045000445/">JURANVILLE</a> · 045000445 · note C · 1 commune</li>
+<li><a href="/reseau/045000579/">LA BUSSIERE - ADON</a> · 045000579 · note A · 2 communes</li>
+<li><a href="/reseau/045000378/">LA CHAPELLE ONZERAIN (ABA)</a> · 045000378 · note A · 1 commune</li>
+<li><a href="/reseau/045000379/">LA CHAPELLE ST MESMIN</a> · 045000379 · note A · 1 commune</li>
+<li><a href="/reseau/045000418/">LA FERTE ST AUBIN</a> · 045000418 · note A · 1 commune</li>
+<li><a href="/reseau/045000815/">LA NEUVILLE-ONDREVILLE (ABA)</a> · 045000815 · sans note · 2 communes</li>
+<li><a href="/reseau/045000371/">LABROSSE (ABA)</a> · 045000371 · sans note · 1 commune</li>
+<li><a href="/reseau/045000447/">LADON</a> · 045000447 · note A · 1 commune</li>
+<li><a href="/reseau/045000598/">LAILLY EN VAL-DRY</a> · 045000598 · note A · 2 communes</li>
+<li><a href="/reseau/045000351/">LE BARDON</a> · 045000351 · note A · 1 commune</li>
+<li><a href="/reseau/045000363/">LES BORDES</a> · 045000363 · note C · 1 commune</li>
+<li><a href="/reseau/045000449/">LIGNY LE RIBAULT</a> · 045000449 · note A · 1 commune</li>
+<li><a href="/reseau/045000451/">LION EN SULLIAS</a> · 045000451 · note A · 1 commune</li>
+<li><a href="/reseau/045000453/">LOURY (ABA)</a> · 045000453 · sans note · 1 commune</li>
+<li><a href="/reseau/045000454/">MAINVILLIERS</a> · 045000454 · note C · 1 commune</li>
+<li><a href="/reseau/045000455/">MALESHERBES</a> · 045000455 · note A · 1 commune</li>
+<li><a href="/reseau/045004063/">MANCHECOURT</a> · 045004063 · note A · 1 commune</li>
+<li><a href="/reseau/045000457/">MARCILLY EN VILLETTE</a> · 045000457 · note A · 1 commune</li>
+<li><a href="/reseau/045000600/">MARDIE - BOU</a> · 045000600 · note A · 2 communes</li>
+<li><a href="/reseau/045000602/">MAREAU - MEZIERES </a> · 045000602 · note A · 2 communes</li>
+<li><a href="/reseau/045000446/">MAREAU-AUX-BOIS - SANTEAU - LAAS</a> · 045000446 · note B · 3 communes</li>
+<li><a href="/reseau/045000601/">MAREAU-SANTEAU (ABA)</a> · 045000601 · sans note · 2 communes</li>
+<li><a href="/reseau/045003909/">MARIGNY-LES-USAGES</a> · 045003909 · note A · 1 commune</li>
+<li><a href="/reseau/045000458/">MARSAINVILLIERS</a> · 045000458 · note C · 1 commune</li>
+<li><a href="/reseau/045000459/">MENESTREAU EN VILLETTE</a> · 045000459 · note A · 1 commune</li>
+<li><a href="/reseau/045000460/">MEUNG/L ROUTE BLOIS</a> · 045000460 · note C · 1 commune</li>
+<li><a href="/reseau/045000461/">MEUNG/L Z.I.</a> · 045000461 · note A · 1 commune</li>
+<li><a href="/reseau/045000462/">MEZIERES EN GATINAIS</a> · 045000462 · note A · 1 commune</li>
+<li><a href="/reseau/045000605/">MONTARGIS-VILLEMANDEUR-AMILLY</a> · 045000605 · note B · 3 communes</li>
+<li><a href="/reseau/045000607/">MONTBOUY-LA CHAPELLE SUR AVEYRON</a> · 045000607 · note A · 2 communes</li>
+<li><a href="/reseau/045000610/">MONTEREAU-LE MOULINET SUR SOLIN</a> · 045000610 · note A · 2 communes</li>
+<li><a href="/reseau/045001987/">MONTIGNY</a> · 045001987 · note A · 1 commune</li>
+<li><a href="/reseau/045000463/">MORVILLE EN BEAUCE (ABA)</a> · 045000463 · sans note · 1 commune</li>
+<li><a href="/reseau/045000464/">NANCRAY SUR RIMARDE</a> · 045000464 · note A · 1 commune</li>
+<li><a href="/reseau/045000465/">NANGEVILLE</a> · 045000465 · note A · 1 commune</li>
+<li><a href="/reseau/045000466/">NARGIS (ABA)</a> · 045000466 · sans note · 1 commune</li>
+<li><a href="/reseau/045000615/">NESPLOY</a> · 045000615 · note A · 1 commune</li>
+<li><a href="/reseau/045000467/">NEUVILLE-BOUGY-VILLEREAU</a> · 045000467 · note B · 3 communes</li>
+<li><a href="/reseau/045000612/">NEUVY EN SULLIAS-GUILLY</a> · 045000612 · note A · 2 communes</li>
+<li><a href="/reseau/045000468/">NEVOY</a> · 045000468 · note A · 1 commune</li>
+<li><a href="/reseau/045000614/">NIBELLE</a> · 045000614 · note A · 1 commune</li>
+<li><a href="/reseau/045000470/">NOGENT/VERNISSON</a> · 045000470 · note A · 1 commune</li>
+<li><a href="/reseau/045000472/">OISON (ABA)</a> · 045000472 · sans note · 1 commune</li>
+<li><a href="/reseau/045000473/">OLIVET</a> · 045000473 · note A · 1 commune</li>
+<li><a href="/reseau/045000474/">ORLEANS-ST JEAN LE BLANC-ST PRYVÉ-ST DENIS EN VAL</a> · 045000474 · note A · 4 communes</li>
+<li><a href="/reseau/045000479/">ORMES</a> · 045000479 · note B · 1 commune</li>
+<li><a href="/reseau/045003944/">ORMES Z.I.</a> · 045003944 · note C · 1 commune</li>
+<li><a href="/reseau/045000480/">ORVEAU</a> · 045000480 · note C · 1 commune</li>
+<li><a href="/reseau/045000481/">OUTARVILLE</a> · 045000481 · note A · 1 commune</li>
+<li><a href="/reseau/045000485/">OUZOUER / TREZEE</a> · 045000485 · note A · 1 commune</li>
+<li><a href="/reseau/045003499/">OUZOUER DES CHAMPS</a> · 045003499 · note C · 1 commune</li>
+<li><a href="/reseau/045000484/">OUZOUER SUR LOIRE</a> · 045000484 · note A · 1 commune</li>
+<li><a href="/reseau/045000486/">PANNECIERES (ABA)</a> · 045000486 · sans note · 1 commune</li>
+<li><a href="/reseau/045000604/">PANNES-CHALETTE</a> · 045000604 · note A · 2 communes</li>
+<li><a href="/reseau/045000488/">PATAY-COINCES-VILLENEUVE SUR CONIE</a> · 045000488 · note A · 3 communes</li>
+<li><a href="/reseau/045000492/">PITHIVIERS LE VIEIL - GUIGNEVILLE</a> · 045000492 · note A · 2 communes</li>
+<li><a href="/reseau/045000361/">PITHIVIERS ST ELOI - BONDAROY</a> · 045000361 · note A · 2 communes</li>
+<li><a href="/reseau/045001865/">PITHIVIERS ST ELOI (ABA)</a> · 045001865 · sans note · 1 commune</li>
+<li><a href="/reseau/045000491/">PITHIVIERS VILLE - BOUZONVILLE</a> · 045000491 · note A · 2 communes</li>
+<li><a href="/reseau/045000494/">POILLY LEZ GIEN</a> · 045000494 · note A · 1 commune</li>
+<li><a href="/reseau/045000496/">PREFONTAINES (ABA)</a> · 045000496 · sans note · 1 commune</li>
+<li><a href="/reseau/045000497/">PRESSIGNY LES PINS</a> · 045000497 · note A · 1 commune</li>
+<li><a href="/reseau/045000498/">PUISEAUX-LA NEUVILLE-ONDREVILLE</a> · 045000498 · note C · 3 communes</li>
+<li><a href="/reseau/045004062/">RAMOULU</a> · 045004062 · note A · 1 commune</li>
+<li><a href="/reseau/045000586/">RESEAU CHECY ECHELETTE - COMBLEUX</a> · 045000586 · note A · 2 communes</li>
+<li><a href="/reseau/045000584/">RESEAU CHECY GRAINLOUP</a> · 045000584 · note A · 1 commune</li>
+<li><a href="/reseau/045001288/">RESEAU PAUCOURT (ABA)</a> · 045001288 · sans note · 1 commune</li>
+<li><a href="/reseau/045000500/">ROUVRAY STE CROIX</a> · 045000500 · note A · 1 commune</li>
+<li><a href="/reseau/045001844/">RUAN - LION EN BEAUCE</a> · 045001844 · note A · 2 communes</li>
+<li><a href="/reseau/045000504/">SAINT AY</a> · 045000504 · note A · 1 commune</li>
+<li><a href="/reseau/045000513/">SAINT DENIS EN VAL</a> · 045000513 · sans note · 1 commune</li>
+<li><a href="/reseau/045000516/">SAINT GONDON</a> · 045000516 · note A · 1 commune</li>
+<li><a href="/reseau/045001825/">SAINT JEAN DE LA RUELLE</a> · 045001825 · note A · 1 commune</li>
+<li><a href="/reseau/045000515/">SAINT-FLORENT</a> · 045000515 · note A · 1 commune</li>
+<li><a href="/reseau/045000531/">SANDILLON</a> · 045000531 · note A · 1 commune</li>
+<li><a href="/reseau/045003570/">SARAN</a> · 045003570 · note A · 1 commune</li>
+<li><a href="/reseau/045000623/">SCEAUX DU GATINAIS - COURTEMPIERRE</a> · 045000623 · note D · 2 communes</li>
+<li><a href="/reseau/045000537/">SEICHEBRIERES</a> · 045000537 · note A · 1 commune</li>
+<li><a href="/reseau/045000538/">SEMOY</a> · 045000538 · note A · 1 commune</li>
+<li><a href="/reseau/045000539/">SENNELY</a> · 045000539 · note A · 1 commune</li>
+<li><a href="/reseau/045000540/">SERMAISES (ABA)</a> · 045000540 · sans note · 1 commune</li>
+<li><a href="/reseau/045000456/">SIAEP MANCHECOURT-RAMOULU (ABA)</a> · 045000456 · sans note · 2 communes</li>
+<li><a href="/reseau/045000626/">SIGLOY - OUVROUER LES CHAMPS</a> · 045000626 · note A · 2 communes</li>
+<li><a href="/reseau/045000543/">SOUGY</a> · 045000543 · note A · 1 commune</li>
+<li><a href="/reseau/045000503/">ST AIGNAN LE JAILLARD</a> · 045000503 · note A · 1 commune</li>
+<li><a href="/reseau/045000505/">ST BENOIT/LOIRE</a> · 045000505 · note A · 1 commune</li>
+<li><a href="/reseau/045000618/">ST BRISSON-ST MARTIN SUR OCRE</a> · 045000618 · note A · 2 communes</li>
+<li><a href="/reseau/045000511/">ST CYR EN VAL</a> · 045000511 · note A · 1 commune</li>
+<li><a href="/reseau/045000512/">ST DENIS DE L'HOTEL</a> · 045000512 · note A · 1 commune</li>
+<li><a href="/reseau/045000514/">ST FIRMIN SUR LOIRE</a> · 045000514 · note A · 1 commune</li>
+<li><a href="/reseau/045000517/">ST HILAIRE ST MESMIN</a> · 045000517 · note A · 1 commune</li>
+<li><a href="/reseau/045000519/">ST JEAN DE BRAYE </a> · 045000519 · note A · 1 commune</li>
+<li><a href="/reseau/045000525/">ST JEAN LE BLANC(ABA)</a> · 045000525 · sans note · 1 commune</li>
+<li><a href="/reseau/045000526/">ST LYE LA FORET</a> · 045000526 · note A · 1 commune</li>
+<li><a href="/reseau/045000619/">ST MARTIN - GERMIGNY</a> · 045000619 · note A · 2 communes</li>
+<li><a href="/reseau/045000621/">ST MAURICE/FESSARD - VILLEMOUTIERS</a> · 045000621 · note A · 2 communes</li>
+<li><a href="/reseau/045000528/">ST PERAVY LA COLOMBE - TOURNOISIS - LA CHAPELLE ONZERAIN </a> · 045000528 · note C · 3 communes</li>
+<li><a href="/reseau/045000530/">ST PRYVE ST MESMIN(ABA)</a> · 045000530 · sans note · 1 commune</li>
+<li><a href="/reseau/045000544/">SULLY SUR LOIRE-ST PERE SUR LOIRE</a> · 045000544 · note A · 2 communes</li>
+<li><a href="/reseau/045000627/">SURY AUX BOIS-CHATENOY-COMBREUX</a> · 045000627 · note A · 3 communes</li>
+<li><a href="/reseau/045000583/">SYNDICAT DES EAUX CHATEAU-RENARD</a> · 045000583 · note C · 6 communes</li>
+<li><a href="/reseau/045003375/">SYNDICAT DES EAUX CLÉRY ET BETZ</a> · 045003375 · note A · 19 communes</li>
+<li><a href="/reseau/045000567/">SYNDICAT DES EAUX D'AUVILLIERS</a> · 045000567 · note A · 5 communes</li>
+<li><a href="/reseau/045000616/">SYNDICAT DES EAUX D'OUSSOY</a> · 045000616 · note A · 5 communes</li>
+<li><a href="/reseau/045000571/">SYNDICAT DES EAUX DE BOISCOMMUN</a> · 045000571 · note A · 6 communes</li>
+<li><a href="/reseau/045000599/">SYNDICAT DES EAUX DE LORRIS</a> · 045000599 · note A · 4 communes</li>
+<li><a href="/reseau/045000603/">SYNDICAT DES EAUX DE MIGNERES</a> · 045000603 · note C · 5 communes</li>
+<li><a href="/reseau/045000608/">SYNDICAT DES EAUX DE MONTCRESSON</a> · 045000608 · note A · 5 communes</li>
+<li><a href="/reseau/045000620/">SYNDICAT DES EAUX DE ST MAURICE</a> · 045000620 · note A · 4 communes</li>
+<li><a href="/reseau/045000594/">SYNDICAT DES EAUX HUISSEAU GEMIGNY</a> · 045000594 · note A · 5 communes</li>
+<li><a href="/reseau/045000545/">TAVERS</a> · 045000545 · note A · 1 commune</li>
+<li><a href="/reseau/045000547/">TIGY</a> · 045000547 · note A · 1 commune</li>
+<li><a href="/reseau/045000629/">TIVERNON - CHAUSSY - OISON</a> · 045000629 · note A · 3 communes</li>
+<li><a href="/reseau/045000548/">TOURNOISIS(ABA)</a> · 045000548 · sans note · 1 commune</li>
+<li><a href="/reseau/045000549/">TRAINOU - LOURY</a> · 045000549 · note A · 2 communes</li>
+<li><a href="/reseau/045000550/">TREILLES EN GATINAIS</a> · 045000550 · note C · 1 commune</li>
+<li><a href="/reseau/045000551/">TRIGUERES</a> · 045000551 · note C · 1 commune</li>
+<li><a href="/reseau/045000552/">TRINAY</a> · 045000552 · note B · 1 commune</li>
+<li><a href="/reseau/045000553/">VANNES SUR COSSON</a> · 045000553 · note A · 1 commune</li>
+<li><a href="/reseau/045000631/">VARENNES-CHANGY</a> · 045000631 · note C · 1 commune</li>
+<li><a href="/reseau/045000632/">VENNECY - REBRECHIEN</a> · 045000632 · note A · 2 communes</li>
+<li><a href="/reseau/045000555/">VIENNE EN VAL</a> · 045000555 · note A · 1 commune</li>
+<li><a href="/reseau/045000556/">VIGLAIN</a> · 045000556 · note A · 1 commune</li>
+<li><a href="/reseau/045000557/">VILLAMBLAIN</a> · 045000557 · note A · 1 commune</li>
+<li><a href="/reseau/045000558/">VILLEMURLIN</a> · 045000558 · note A · 1 commune</li>
+<li><a href="/reseau/045000559/">VILLENEUVE SUR CONIE (ABA)</a> · 045000559 · sans note · 1 commune</li>
+<li><a href="/reseau/045000560/">VILLEREAU (ABA)</a> · 045000560 · sans note · 1 commune</li>
+<li><a href="/reseau/045000562/">VILLORCEAU</a> · 045000562 · note A · 1 commune</li>
+<li><a href="/reseau/045000561/">VILLORCEAU (CRAVANT) </a> · 045000561 · note A · 1 commune</li>
+<li><a href="/reseau/045000564/">VITRY AUX LOGES</a> · 045000564 · note A · 1 commune</li>
+<li><a href="/reseau/045000634/">VRIGNY - COURCY AUX LOGES</a> · 045000634 · note A · 2 communes</li>
+<li><a href="/reseau/045000565/">YEVRE GIVRAINES BOYNES ESTOUY</a> · 045000565 · note A · 4 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/45001/">Adon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45002/">Aillant-sur-Milleron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45004/">Amilly</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45005/">Andonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45006/">Ardon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45008/">Artenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45009/">Aschères-le-Marché</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45010/">Ascoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45011/">Attray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45012/">Audeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45013/">Augerville-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45014/">Aulnay-la-Rivière</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45015/">Autruy-sur-Juine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45016/">Autry-le-Châtel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45017/">Auvilliers-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45018/">Auxy</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/45019/">Baccon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45021/">Barville-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45022/">Batilly-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45023/">Batilly-en-Puisaye</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45024/">Baule</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45025/">Bazoches-les-Gallerandes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45026/">Bazoches-sur-le-Betz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45027/">Beauchamps-sur-Huillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45028/">Beaugency</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45029/">Beaulieu-sur-Loire</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45030/">Beaune-la-Rolande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45031/">Bellegarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45033/">Boësses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45034/">Boigny-sur-Bionne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45035/">Boiscommun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45036/">Boismorand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45037/">Boisseaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45038/">Bondaroy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45039/">Bonnée</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45040/">Bonny-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45041/">Bordeaux-en-Gâtinais</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45043/">Bou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45044/">Bougy-lez-Neuville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45045/">Bouilly-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45046/">Boulay-les-Barres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45047/">Bouzonville-aux-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45049/">Bouzy-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45050/">Boynes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45051/">Bray-Saint-Aignan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45052/">Breteau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45053/">Briare</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45054/">Briarres-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45055/">Bricy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45056/">Bromeilles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45058/">Bucy-le-Roi</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45059/">Bucy-Saint-Liphard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45061/">Cepoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45062/">Cercottes</a> · 1 réseau, noté D</li>
+<li><a href="/commune/45063/">Cerdon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45064/">Cernoy-en-Berry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45065/">Césarville-Dossainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45066/">Chailly-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45067/">Chaingy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45068/">Châlette-sur-Loing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45069/">Chambon-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45070/">Champoulet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45072/">Chanteau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45073/">Chantecoq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45078/">Chapelon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45080/">Charmont-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45081/">Charsonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45083/">Château-Renard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45082/">Châteauneuf-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45084/">Châtenoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45085/">Châtillon-Coligny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45086/">Châtillon-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45087/">Châtillon-sur-Loire</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45088/">Chaussy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45089/">Chécy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45091/">Chevannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45092/">Chevillon-sur-Huillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45093/">Chevilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45094/">Chevry-sous-le-Bignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45095/">Chilleurs-aux-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45097/">Chuelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45098/">Cléry-Saint-André</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45099/">Coinces</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45100/">Combleux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45101/">Combreux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45102/">Conflans-sur-Loing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45103/">Corbeilles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45104/">Corquilleroy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45105/">Cortrat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45107/">Coudroy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45108/">Coullons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45109/">Coulmiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45110/">Courcelles-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45111/">Courcy-aux-Loges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45113/">Courtemaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45114/">Courtempierre</a> · 1 réseau, noté D</li>
+<li><a href="/commune/45115/">Courtenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45116/">Cravant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45118/">Crottes-en-Pithiverais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45119/">Dadonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45120/">Dammarie-en-Puisaye</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45121/">Dammarie-sur-Loing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45122/">Dampierre-en-Burly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45123/">Darvoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45124/">Desmonts</a> · 1 réseau, noté D</li>
+<li><a href="/commune/45125/">Dimancheville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45126/">Donnery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45127/">Dordives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45129/">Douchy-Montcorbon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45130/">Dry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45131/">Échilleuses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45132/">Égry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45133/">Engenville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45134/">Épieds-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45135/">Erceville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45136/">Ervauville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45137/">Escrennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45138/">Escrignelles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45139/">Estouy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45141/">Faverelles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45142/">Fay-aux-Loges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45143/">Feins-en-Gâtinais</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45144/">Férolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45145/">Ferrières-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45147/">Fleury-les-Aubrais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45148/">Fontenay-sur-Loing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45149/">Foucherolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45150/">Fréville-du-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45151/">Gaubertin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45152/">Gémigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45153/">Germigny-des-Prés</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45154/">Gidy</a> · 1 réseau, noté D</li>
+<li><a href="/commune/45155/">Gien</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/45156/">Girolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45157/">Givraines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45158/">Gondreville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45159/">Grangermont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45160/">Greneville-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45161/">Griselles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45162/">Guigneville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45164/">Guilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45165/">Gy-les-Nonains</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45166/">Huêtre</a> · 1 réseau, noté D</li>
+<li><a href="/commune/45167/">Huisseau-sur-Mauves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45168/">Ingrannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45169/">Ingré</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45170/">Intville-la-Guétard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45171/">Isdes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45173/">Jargeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45174/">Jouy-en-Pithiverais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45175/">Jouy-le-Potier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45176/">Juranville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45060/">La Bussière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45074/">La Chapelle-Onzerain</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/45075/">La Chapelle-Saint-Mesmin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45076/">La Chapelle-Saint-Sépulcre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45077/">La Chapelle-sur-Aveyron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45112/">La Cour-Marigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45146/">La Ferté-Saint-Aubin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45225/">La Neuville-sur-Essonne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45306/">La Selle-en-Hermoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45307/">La Selle-sur-le-Bied</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45177/">Laas</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45178/">Ladon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45179/">Lailly-en-Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45180/">Langesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45020/">Le Bardon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45032/">Le Bignon-Mirabeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45079/">Le Charme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45191/">Le Malesherbois</a> · 6 réseaux : 2 notés C, 4 notés A</li>
+<li><a href="/commune/45218/">Le Moulinet-sur-Solin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45181/">Léouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45042/">Les Bordes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45096/">Les Choux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45182/">Ligny-le-Ribault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45183/">Lion-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45184/">Lion-en-Sullias</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45185/">Lombreuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45186/">Lorcy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45187/">Lorris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45188/">Loury</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45189/">Louzouer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45193/">Marcilly-en-Villette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45194/">Mardié</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45195/">Mareau-aux-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45196/">Mareau-aux-Prés</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45197/">Marigny-les-Usages</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45198/">Marsainvilliers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45199/">Melleroy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45200/">Ménestreau-en-Villette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45201/">Mérinville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45202/">Messas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45203/">Meung-sur-Loire</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/45205/">Mézières-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45204/">Mézières-lez-Cléry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45206/">Mignères</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45207/">Mignerette</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45208/">Montargis</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45209/">Montbarrois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45210/">Montbouy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45212/">Montcresson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45213/">Montereau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45214/">Montigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45215/">Montliard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45216/">Mormant-sur-Vernisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45217/">Morville-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45219/">Moulon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45220/">Nancray-sur-Rimarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45222/">Nargis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45223/">Nesploy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45224/">Neuville-aux-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45226/">Neuvy-en-Sullias</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45227/">Nevoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45228/">Nibelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45229/">Nogent-sur-Vernisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45230/">Noyers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45231/">Oison</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45232/">Olivet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45233/">Ondreville-sur-Essonne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45234/">Orléans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45235/">Ormes</a> · 2 réseaux : 1 noté C, 1 noté B</li>
+<li><a href="/commune/45237/">Orville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45238/">Ousson-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45239/">Oussoy-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45240/">Outarville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45241/">Ouvrouer-les-Champs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45242/">Ouzouer-des-Champs</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45243/">Ouzouer-sous-Bellegarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45244/">Ouzouer-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45245/">Ouzouer-sur-Trézée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45246/">Pannecières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45247/">Pannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45248/">Patay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45249/">Paucourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45250/">Pers-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45251/">Pierrefitte-ès-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45252/">Pithiviers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45253/">Pithiviers-le-Vieil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45254/">Poilly-lez-Gien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45255/">Préfontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45256/">Presnoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45257/">Pressigny-les-Pins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45258/">Puiseaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45259/">Quiers-sur-Bezonde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45260/">Ramoulu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45261/">Rebréchien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45262/">Rouvray-Sainte-Croix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45263/">Rouvres-Saint-Jean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45264/">Rozières-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45265/">Rozoy-le-Vieil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45266/">Ruan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45268/">Saint-Aignan-le-Jaillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45269/">Saint-Ay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45270/">Saint-Benoît-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45271/">Saint-Brisson-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45272/">Saint-Cyr-en-Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45273/">Saint-Denis-de-l'Hôtel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45274/">Saint-Denis-en-Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45275/">Saint-Firmin-des-Bois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45276/">Saint-Firmin-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45277/">Saint-Florent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45279/">Saint-Germain-des-Prés</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45280/">Saint-Gondon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45281/">Saint-Hilaire-les-Andrésis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45282/">Saint-Hilaire-Saint-Mesmin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45283/">Saint-Hilaire-sur-Puiseaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45284/">Saint-Jean-de-Braye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45285/">Saint-Jean-de-la-Ruelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45286/">Saint-Jean-le-Blanc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45288/">Saint-Loup-des-Vignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45289/">Saint-Lyé-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45290/">Saint-Martin-d'Abbat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45291/">Saint-Martin-sur-Ocre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45292/">Saint-Maurice-sur-Aveyron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45293/">Saint-Maurice-sur-Fessard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45294/">Saint-Michel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45296/">Saint-Péravy-la-Colombe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45297/">Saint-Père-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45298/">Saint-Pryvé-Saint-Mesmin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45299/">Saint-Sigismond</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45278/">Sainte-Geneviève-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45300/">Sandillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45301/">Santeau</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45302/">Saran</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45303/">Sceaux-du-Gâtinais</a> · 1 réseau, noté D</li>
+<li><a href="/commune/45305/">Seichebrières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45308/">Semoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45309/">Sennely</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45310/">Sermaises</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45311/">Sigloy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45312/">Solterre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45313/">Sougy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45314/">Sully-la-Chapelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45315/">Sully-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45316/">Sury-aux-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45317/">Tavers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45320/">Thignonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45321/">Thimory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45322/">Thorailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45323/">Thou</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45324/">Tigy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45325/">Tivernon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45326/">Tournoisis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45327/">Traînou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45328/">Treilles-en-Gâtinais</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45329/">Triguères</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45330/">Trinay</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45331/">Vannes-sur-Cosson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45332/">Varennes-Changy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45333/">Vennecy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45334/">Vieilles-Maisons-sur-Joudry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45335/">Vienne-en-Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45336/">Viglain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45337/">Villamblain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45338/">Villemandeur</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45339/">Villemoutiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45340/">Villemurlin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45341/">Villeneuve-sur-Conie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45342/">Villereau</a> · 1 réseau, noté B</li>
+<li><a href="/commune/45343/">Villevoques</a> · 1 réseau, noté C</li>
+<li><a href="/commune/45344/">Villorceau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/45345/">Vimory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45346/">Vitry-aux-Loges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45347/">Vrigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/45348/">Yèvre-la-Ville</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Loiret · eau du robinet », https://meteodurobinet.fr/departement/45/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

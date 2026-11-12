@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Vendée (85) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Vendée · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Vendée (85) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/85/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Vendée · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Vendée · eau du robinet","url":"https://meteodurobinet.fr/departement/85/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Vendée","item":"https://meteodurobinet.fr/departement/85/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/85/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Vendée</h1>
+<p class="meta">Département 85</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>1 sur 57 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 48 réseaux</li>
+<li>B qualité convenable* : 8 réseaux</li>
+<li>C qualité insuffisante* : 0 réseau</li>
+<li>D mauvaise qualité* : 1 réseau</li>
+</ul>
+<p>Les notes C et D tiennent à la bactériologie (1 réseau, dont 1 noté D).</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>128 prélèvements</strong> évalués en septembre 2026 ; 1 114 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 24 jours, alerte renforcée 35 jours, crise 0 jour</li>
+<li>2025 : vigilance 0 jour, alerte 15 jours, alerte renforcée 7 jours, crise 120 jours</li>
+<li>2026 en cours : vigilance 32 jours, alerte 0 jour, alerte renforcée 10 jours, crise 159 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,42</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 2 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>2 services d’eau</strong> desservent au moins une commune du département ; 1 est en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 60 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/085001215/">ABA_AUBIGNY</a> · 085001215 · sans note · 1 commune</li>
+<li><a href="/reseau/085000195/">ABA_MORTAGNE SUR SEVRE</a> · 085000195 · sans note · 1 commune</li>
+<li><a href="/reseau/085001047/">ABA_ST HILAIRE DE RIEZ DEMOISELLES</a> · 085001047 · sans note · 1 commune</li>
+<li><a href="/reseau/085000111/">BEAUREPAIRE ET BAZOGES</a> · 085000111 · note A · 2 communes</li>
+<li><a href="/reseau/085000166/">FONTENAY LE COMTE</a> · 085000166 · note A · 1 commune</li>
+<li><a href="/reseau/085000090/">HAUT BOCAGE</a> · 085000090 · note A · 7 communes</li>
+<li><a href="/reseau/085000024/">ILE D'YEU</a> · 085000024 · note A · 1 commune</li>
+<li><a href="/reseau/085000019/">ILE DE NOIRMOUTIER</a> · 085000019 · note A · 4 communes</li>
+<li><a href="/reseau/085001160/">LA CHAPELLE HERMIER</a> · 085001160 · note A · 2 communes</li>
+<li><a href="/reseau/085000201/">LA ROCHE SUR YON</a> · 085000201 · note B · 1 commune</li>
+<li><a href="/reseau/085003725/">LES EPESSES</a> · 085003725 · note A · 1 commune</li>
+<li><a href="/reseau/085001033/">LES SABLES D'OLONNE</a> · 085001033 · note A · 1 commune</li>
+<li><a href="/reseau/085000214/">MARAIS BRETON EST</a> · 085000214 · note A · 4 communes</li>
+<li><a href="/reseau/085000173/">MOUILLERON LE CAPTIF</a> · 085000173 · note A · 1 commune</li>
+<li><a href="/reseau/085001043/">NALLIERS</a> · 085001043 · note A · 14 communes</li>
+<li><a href="/reseau/085003839/">NOTRE DAME DE RIEZ</a> · 085003839 · note A · 1 commune</li>
+<li><a href="/reseau/085000063/">OLONNES ET TALMONDAIS EST</a> · 085000063 · note A · 8 communes</li>
+<li><a href="/reseau/085000157/">PAYS DE MONTAIGU</a> · 085000157 · note B · 1 commune</li>
+<li><a href="/reseau/085001030/">PAYS DE MONTS</a> · 085001030 · note A · 3 communes</li>
+<li><a href="/reseau/085003627/">PEAULT</a> · 085003627 · note A · 1 commune</li>
+<li><a href="/reseau/085000181/">PLAINE ET GRAON CHOLETIERE</a> · 085000181 · note A · 3 communes</li>
+<li><a href="/reseau/085001026/">RESERVOIR D'APREMONT</a> · 085001026 · note A · 12 communes</li>
+<li><a href="/reseau/085001029/">RESERVOIR DE BELLEVILLE</a> · 085001029 · note B · 5 communes</li>
+<li><a href="/reseau/085000135/">RESERVOIR DE LA BALINGUE</a> · 085000135 · note A · 39 communes</li>
+<li><a href="/reseau/085000805/">RESERVOIR DE LA BRUFFIERE</a> · 085000805 · note A · 18 communes</li>
+<li><a href="/reseau/085000030/">RESERVOIR DE LA CHOLETIERE</a> · 085000030 · note A · 14 communes</li>
+<li><a href="/reseau/085000458/">RESERVOIR DE LA LEUE</a> · 085000458 · note A · 4 communes</li>
+<li><a href="/reseau/085000056/">RESERVOIR DE LA NATHALINIERE</a> · 085000056 · note A · 16 communes</li>
+<li><a href="/reseau/085000422/">RESERVOIR DE LA ROUSSELIERE</a> · 085000422 · note A · 6 communes</li>
+<li><a href="/reseau/085000040/">RESERVOIR DE SOULLANS</a> · 085000040 · note A · 3 communes</li>
+<li><a href="/reseau/085000045/">RESERVOIR DE ST GERVAIS</a> · 085000045 · note A · 6 communes</li>
+<li><a href="/reseau/085000450/">RESERVOIR DE ST VINCENT SUR GRAON</a> · 085000450 · note A · 10 communes</li>
+<li><a href="/reseau/085000186/">RESERVOIR DE TREIZE VENTS</a> · 085000186 · note A · 14 communes</li>
+<li><a href="/reseau/085000432/">RESERVOIR DU  BOIS DE L'EPAUD</a> · 085000432 · note A · 9 communes</li>
+<li><a href="/reseau/085000062/">RESERVOIR DU CHAIGNEAU</a> · 085000062 · note A · 8 communes</li>
+<li><a href="/reseau/085000176/">RESERVOIR DU FOUR</a> · 085000176 · note A · 11 communes</li>
+<li><a href="/reseau/085000456/">RESERVOIR DU FUITEAU</a> · 085000456 · note A · 3 communes</li>
+<li><a href="/reseau/085000075/">RESERVOIR DU MARCHAIS</a> · 085000075 · note A · 1 commune</li>
+<li><a href="/reseau/085000076/">RESERVOIR DU PLESSIS FOUBERT</a> · 085000076 · note B · 2 communes</li>
+<li><a href="/reseau/085000419/">RESERVOIR DU TALLUD</a> · 085000419 · note A · 6 communes</li>
+<li><a href="/reseau/085000108/">RESERVOIR LA JONCHERE</a> · 085000108 · note A · 2 communes</li>
+<li><a href="/reseau/085000088/">RESERVOIR PUY LAMBERT</a> · 085000088 · note D · 2 communes</li>
+<li><a href="/reseau/085000462/">RESERVOIR ST MARS DES PRES</a> · 085000462 · note A · 3 communes</li>
+<li><a href="/reseau/085000101/">RESERVOIRS FRETIERE BEAULIEU</a> · 085000101 · note B · 15 communes</li>
+<li><a href="/reseau/085000079/">ROCHEREAU OUEST</a> · 085000079 · note B · 8 communes</li>
+<li><a href="/reseau/085000405/">ROCHESERVIERE-ST PHILBERT</a> · 085000405 · note A · 2 communes</li>
+<li><a href="/reseau/085003840/">SAINT HILAIRE DE RIEZ EST</a> · 085003840 · note A · 1 commune</li>
+<li><a href="/reseau/085001031/">SAINT LAURENT ET MORTAGNE</a> · 085001031 · note A · 2 communes</li>
+<li><a href="/reseau/085000070/">SAINT MARS LA REORTHE</a> · 085000070 · note B · 1 commune</li>
+<li><a href="/reseau/085002620/">SAINT MARTIN DES NOYERS</a> · 085002620 · note A · 1 commune</li>
+<li><a href="/reseau/085002621/">SAINTE CECILE</a> · 085002621 · note B · 2 communes</li>
+<li><a href="/reseau/085002624/">SAINTE HERMINE</a> · 085002624 · note A · 1 commune</li>
+<li><a href="/reseau/085003807/">ST JEAN DE MONTS LITTORAL</a> · 085003807 · note A · 1 commune</li>
+<li><a href="/reseau/085000042/">ST JEAN DE MONTS RESERVOIR</a> · 085000042 · note A · 2 communes</li>
+<li><a href="/reseau/085002632/">ST SULPICE ET ANTIGNY</a> · 085002632 · note A · 4 communes</li>
+<li><a href="/reseau/085002631/">ST VALERIEN LA CHAPELLE</a> · 085002631 · note A · 2 communes</li>
+<li><a href="/reseau/085001032/">TALMONT BOURG ET SUD</a> · 085001032 · note A · 1 commune</li>
+<li><a href="/reseau/085003824/">TARDIERE</a> · 085003824 · note A · 3 communes</li>
+<li><a href="/reseau/085000064/">VAIRE-LITTORAL OLONNE</a> · 085000064 · note A · 3 communes</li>
+<li><a href="/reseau/085000175/">VENANSAULT NORD</a> · 085000175 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/85003/">Aizenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85004/">Angles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85005/">Antigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85006/">Apremont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85008/">Aubigny-Les Clouzeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85009/">Auchay-sur-Vendée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85010/">Avrillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85011/">Barbâtre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85013/">Bazoges-en-Paillers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85014/">Bazoges-en-Pareds</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85015/">Beaufou</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/85016/">Beaulieu-sous-la-Roche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85017/">Beaurepaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85018/">Beauvoir-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85019/">Bellevigny</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85020/">Benet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85023/">Bessay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85024/">Bois-de-Céné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85028/">Bouillé-Courdault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85029/">Bouin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85033/">Bourneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85034/">Bournezeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85243/">Brem-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85035/">Bretignolles-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85041/">Cezais</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/85042/">Chaillé-les-Marais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85047/">Challans</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85049/">Champagné-les-Marais</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85051/">Chantonnay</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/85302/">Chanverrie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85058/">Chasnais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85061/">Château-Guibert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85062/">Châteauneuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85064/">Chauché</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85065/">Chavagnes-en-Paillers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85066/">Chavagnes-les-Redoux</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85067/">Cheffois</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85070/">Coëx</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85071/">Commequiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85073/">Corpe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85076/">Cugand-la-Bernardière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85077/">Curzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85078/">Damvix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85080/">Doix lès Fontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85081/">Dompierre-sur-Yon</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/85084/">Essarts-en-Bocage</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85086/">Falleron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85087/">Faymoreau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85092/">Fontenay-le-Comte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85093/">Fougeré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85094/">Foussais-Payré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85095/">Froidfond</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85100/">Givrand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85102/">Grand'Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85103/">Grosbreuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85104/">Grues</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85114/">Jard-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85001/">L'Aiguillon-la-Presqu'île</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85002/">L'Aiguillon-sur-Vie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85083/">L'Épine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85108/">L'Herbergement</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85110/">L'Hermenault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85111/">L'Île-d'Elle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85112/">L'Île-d'Olonne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85113/">L'Île-d'Yeu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85167/">L'Orbrie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85012/">La Barre-de-Monts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85021/">La Bernardière</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/85025/">La Boissière-de-Montaigu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85026/">La Boissière-des-Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85036/">La Bretonnière-la-Claye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85039/">La Bruffière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85040/">La Caillère-Saint-Hilaire</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85045/">La Chaize-Giraud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85046/">La Chaize-le-Vicomte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85054/">La Chapelle-Hermier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85055/">La Chapelle-Palluau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85056/">La Chapelle-Thémer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85059/">La Châtaigneraie</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85072/">La Copechagnière</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85074/">La Couture</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85089/">La Ferrière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85096/">La Garnache</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85097/">La Gaubretière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85098/">La Genétouze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85106/">La Guérinière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85115/">La Jaudonnière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85116/">La Jonchère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85140/">La Meilleraie-Tillay</a> · 2 réseaux : 2 notés B</li>
+<li><a href="/commune/85142/">La Merlatière</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85186/">La Rabatelière</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85188/">La Réorthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85191/">La Roche-sur-Yon</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85286/">La Taillée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85294/">La Tranche-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85117/">Lairoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85118/">Landeronde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85120/">Landevieille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85022/">Le Bernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85031/">Le Boupère</a> · 2 réseaux : 1 noté D, 1 noté B</li>
+<li><a href="/commune/85050/">Le Champ-Saint-Père</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85088/">Le Fenouiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85099/">Le Girouard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85101/">Le Givre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85105/">Le Gué-de-Velluire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85121/">Le Langon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85139/">Le Mazeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85172/">Le Perrier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85178/">Le Poiré-sur-Vie</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85285/">Le Tablier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85152/">Les Achards</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85038/">Les Brouzils</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85082/">Les Epesses</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85109/">Les Herbiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85119/">Les Landes-Genusson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85129/">Les Lucs-sur-Boulogne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85131/">Les Magnils-Reigniers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85175/">Les Pineaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85194/">Les Sables-d'Olonne</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/85177/">Les Velluire-sur-Vendée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85123/">Liez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85125/">Loge-Fougereuse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85126/">Longèves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85127/">Longeville-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85128/">Luçon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85130/">Maché</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85132/">Maillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85133/">Maillezais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85134/">Mallièvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85135/">Mareuil-sur-Lay-Dissais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85136/">Marillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85137/">Marsais-Sainte-Radégonde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85138/">Martinet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85141/">Menomblet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85143/">Mervent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85144/">Mesnard-la-Barotière</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85145/">Monsireigne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85146/">Montaigu-Vendée</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/85147/">Montournais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85148/">Montreuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85197/">Montréverd</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85149/">Moreilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85151/">Mortagne-sur-Sèvre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85153/">Mouchamps</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/85155/">Mouilleron-le-Captif</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85154/">Mouilleron-Saint-Germain</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/85156/">Moutiers-les-Mauxfaits</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85157/">Moutiers-sur-le-Lay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85158/">Mouzeuil-Saint-Martin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85159/">Nalliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85160/">Nesmy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85161/">Nieul-le-Dolent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85163/">Noirmoutier-en-l'Île</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85164/">Notre-Dame-de-Monts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85189/">Notre-Dame-de-Riez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85169/">Palluau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85171/">Péault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85174/">Petosse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85176/">Pissotte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85179/">Poiroux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85181/">Pouillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85182/">Pouzauges</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/85184/">Puy-de-Serre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85185/">Puyravault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85187/">Réaumur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85213/">Rives de l'Yon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85162/">Rives-d'Autise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85292/">Rives-du-Fougerais</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/85190/">Rocheservière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85192/">Rochetrejoux</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85193/">Rosnay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85196/">Saint-André-Goule-d'Oie</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85198/">Saint-Aubin-des-Ormeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85199/">Saint-Aubin-la-Plaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85200/">Saint-Avaugourd-des-Landes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85201/">Saint-Benoist-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85204/">Saint-Christophe-du-Ligneron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85205/">Saint-Cyr-des-Gâts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85206/">Saint-Cyr-en-Talmondais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85207/">Saint-Denis-du-Payré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85208/">Saint-Denis-la-Chevasse</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85209/">Saint-Étienne-de-Brillouet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85210/">Saint-Étienne-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85215/">Saint-Fulgent</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85218/">Saint-Georges-de-Pointindoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85220/">Saint-Germain-de-Prinçay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85221/">Saint-Gervais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85222/">Saint-Gilles-Croix-de-Vie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85226/">Saint-Hilaire-de-Riez</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85229/">Saint-Hilaire-de-Voust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85227/">Saint-Hilaire-des-Loges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85231/">Saint-Hilaire-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85232/">Saint-Hilaire-le-Vouhis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85223/">Saint-Jean-d'Hermine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85233/">Saint-Jean-de-Beugné</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/85234/">Saint-Jean-de-Monts</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/85235/">Saint-Juire-Champgillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85236/">Saint-Julien-des-Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85237/">Saint-Laurent-de-la-Salle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85238/">Saint-Laurent-sur-Sèvre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85239/">Saint-Maixent-sur-Vie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85240/">Saint-Malô-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85242/">Saint-Mars-la-Réorthe</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85244/">Saint-Martin-de-Fraigneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85245/">Saint-Martin-des-Fontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85246/">Saint-Martin-des-Noyers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85247/">Saint-Martin-des-Tilleuls</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85248/">Saint-Martin-Lars-en-Sainte-Hermine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85250/">Saint-Mathurin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85251/">Saint-Maurice-des-Noues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85252/">Saint-Maurice-le-Girard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85254/">Saint-Mesmin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85255/">Saint-Michel-en-l'Herm</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85256/">Saint-Michel-le-Cloucq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85259/">Saint-Paul-en-Pareds</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85260/">Saint-Paul-Mont-Penit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85262/">Saint-Philbert-de-Bouaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85264/">Saint-Pierre-du-Chemin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85265/">Saint-Pierre-le-Vieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85266/">Saint-Prouant</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85268/">Saint-Révérend</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85269/">Saint-Sigismond</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85271/">Saint-Sulpice-en-Pareds</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/85273/">Saint-Urbain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85274/">Saint-Valérien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85276/">Saint-Vincent-Sterlanges</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85277/">Saint-Vincent-sur-Graon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85278/">Saint-Vincent-sur-Jard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85202/">Sainte-Cécile</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85211/">Sainte-Flaive-des-Loups</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85214/">Sainte-Foy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85216/">Sainte-Gemme-la-Plaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85261/">Sainte-Pexine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85267/">Sainte-Radégonde-des-Noyers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85280/">Sallertaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85281/">Sérigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85090/">Sèvremont</a> · 1 réseau, noté D</li>
+<li><a href="/commune/85282/">Sigournais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85284/">Soullans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85287/">Tallud-Sainte-Gemme</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85288/">Talmont-Saint-Hilaire</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85289/">Terval</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85290/">Thiré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85291/">Thorigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85293/">Tiffauges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85295/">Treize-Septiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85296/">Treize-Vents</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85297/">Triaize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85298/">Vairé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85300/">Venansault</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/85301/">Vendrennes</a> · 1 réseau, noté B</li>
+<li><a href="/commune/85303/">Vix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85304/">Vouillé-les-Marais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85305/">Vouvant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/85306/">Xanton-Chassenon</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Vendée · eau du robinet », https://meteodurobinet.fr/departement/85/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

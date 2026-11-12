@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Bouches-du-Rhône (13) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Bouches-du-Rhône · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Bouches-du-Rhône (13) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/13/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Bouches-du-Rhône · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Bouches-du-Rhône · eau du robinet","url":"https://meteodurobinet.fr/departement/13/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Bouches-du-Rhône","item":"https://meteodurobinet.fr/departement/13/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/13/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Bouches-du-Rhône</h1>
+<p class="meta">Département 13</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>4 sur 150 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 143 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 4 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Autres limites de qualité 2, PFAS 2.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>Aucun réseau visé</strong></p>
+<p>depuis le 1er janvier 2026.</p>
+<h3>Prélèvements</h3>
+<p><strong>279 prélèvements</strong> évalués en septembre 2026 ; 2 442 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 13 jours, alerte renforcée 38 jours, crise 54 jours</li>
+<li>2025 : vigilance 141 jours, alerte 9 jours, alerte renforcée 25 jours, crise 79 jours</li>
+<li>2026 en cours : vigilance 22 jours, alerte 17 jours, alerte renforcée 91 jours, crise 0 jour</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,10</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 41 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>47 services d’eau</strong> desservent au moins une commune du département ; 16 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 151 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/013006505/">AEROPORT</a> · 013006505 · note A · 1 commune</li>
+<li><a href="/reseau/013000618/">AIX-COUTERON</a> · 013000618 · note A · 1 commune</li>
+<li><a href="/reseau/013000510/">AIX-EN-PROVENCE CENTRE</a> · 013000510 · note A · 1 commune</li>
+<li><a href="/reseau/013000508/">AIX-EN-PROVENCE NORD</a> · 013000508 · note A · 1 commune</li>
+<li><a href="/reseau/013000509/">AIX-EN-PROVENCE SUD</a> · 013000509 · note A · 1 commune</li>
+<li><a href="/reseau/013000617/">AIX-MERINDOLE</a> · 013000617 · note A · 1 commune</li>
+<li><a href="/reseau/013000199/">ALLEINS</a> · 013000199 · note A · 1 commune</li>
+<li><a href="/reseau/013000515/">ARLES MAS-THIBERT</a> · 013000515 · note A · 1 commune</li>
+<li><a href="/reseau/013000514/">ARLES VILLE</a> · 013000514 · note A · 1 commune</li>
+<li><a href="/reseau/013000011/">AUBAGNE</a> · 013000011 · note A · 2 communes</li>
+<li><a href="/reseau/013000349/">AUREILLE</a> · 013000349 · note A · 1 commune</li>
+<li><a href="/reseau/013000025/">AURIOL</a> · 013000025 · note A · 1 commune</li>
+<li><a href="/reseau/013000353/">BARBENTANE</a> · 013000353 · note A · 1 commune</li>
+<li><a href="/reseau/013000366/">BEAURECUEIL</a> · 013000366 · note A · 1 commune</li>
+<li><a href="/reseau/013000028/">BERRE</a> · 013000028 · note A · 1 commune</li>
+<li><a href="/reseau/013000151/">BOUC-BEL-AIR VILLE</a> · 013000151 · note A · 1 commune</li>
+<li><a href="/reseau/013000380/">BOULBON ROQUE D'ACIER</a> · 013000380 · note A · 1 commune</li>
+<li><a href="/reseau/013000379/">BOULBON VILLE</a> · 013000379 · note A · 1 commune</li>
+<li><a href="/reseau/013000305/">C.E.S LES GARRIGUES</a> · 013000305 · note A · 1 commune</li>
+<li><a href="/reseau/013004650/">CABRE D'OR GOLF RESIDENCE</a> · 013004650 · note A · 1 commune</li>
+<li><a href="/reseau/013000387/">CABRIES</a> · 013000387 · note A · 1 commune</li>
+<li><a href="/reseau/013001026/">CABRIES LOT LES VERGERS-PARC CLUB ARBOIS</a> · 013001026 · note A · 1 commune</li>
+<li><a href="/reseau/013000874/">CABRIES MARIE MAURON</a> · 013000874 · note A · 1 commune</li>
+<li><a href="/reseau/013002391/">CADARACHE</a> · 013002391 · note B · 1 commune</li>
+<li><a href="/reseau/013000388/">CALAS</a> · 013000388 · note A · 1 commune</li>
+<li><a href="/reseau/013000074/">CARNOUX</a> · 013000074 · note A · 1 commune</li>
+<li><a href="/reseau/013000068/">CASSIS</a> · 013000068 · note A · 1 commune</li>
+<li><a href="/reseau/013000214/">CHARLEVAL</a> · 013000214 · note A · 1 commune</li>
+<li><a href="/reseau/013005933/">CHATEAU LACOSTE</a> · 013005933 · note A · 1 commune</li>
+<li><a href="/reseau/013000218/">CHATEAUNEUF-LE-ROUGE</a> · 013000218 · note A · 1 commune</li>
+<li><a href="/reseau/013000038/">CHATEAUNEUF-LES-MARTIGUES</a> · 013000038 · note A · 1 commune</li>
+<li><a href="/reseau/013000395/">CHATEAURENARD</a> · 013000395 · note A · 1 commune</li>
+<li><a href="/reseau/013000220/">CORNILLON-CONFOUX</a> · 013000220 · note A · 1 commune</li>
+<li><a href="/reseau/013000227/">CUGES-LES-PINS EST</a> · 013000227 · note A · 1 commune</li>
+<li><a href="/reseau/013000226/">CUGES-LES-PINS OUEST</a> · 013000226 · note A · 1 commune</li>
+<li><a href="/reseau/013000402/">EGUILLES</a> · 013000402 · note A · 1 commune</li>
+<li><a href="/reseau/013000065/">EX SIVOM DURANCE-ALPILLES</a> · 013000065 · note A · 6 communes</li>
+<li><a href="/reseau/013005963/">EYGALIERES</a> · 013005963 · note A · 1 commune</li>
+<li><a href="/reseau/013000405/">EYGUIERES</a> · 013000405 · note A · 1 commune</li>
+<li><a href="/reseau/013000411/">EYRAGUES</a> · 013000411 · note A · 1 commune</li>
+<li><a href="/reseau/013000420/">FONTVIEILLE</a> · 013000420 · note A · 1 commune</li>
+<li><a href="/reseau/013000416/">FOS-SUR-MER</a> · 013000416 · note C · 1 commune</li>
+<li><a href="/reseau/013000232/">FUVEAU</a> · 013000232 · note A · 1 commune</li>
+<li><a href="/reseau/013000429/">GARDANNE EST</a> · 013000429 · note A · 1 commune</li>
+<li><a href="/reseau/013000428/">GARDANNE OUEST</a> · 013000428 · note A · 1 commune</li>
+<li><a href="/reseau/013000877/">GARE TGV</a> · 013000877 · note A · 1 commune</li>
+<li><a href="/reseau/013000194/">GEMENOS Z.I</a> · 013000194 · note A · 1 commune</li>
+<li><a href="/reseau/013000191/">GEMENOS-VILLE</a> · 013000191 · note A · 1 commune</li>
+<li><a href="/reseau/013006751/">GPMM RESEAU ZIL</a> · 013006751 · note A · 1 commune</li>
+<li><a href="/reseau/013006573/">GRAND PORT MARITIME MARSEILLE EST SEM 11</a> · 013006573 · note A · 1 commune</li>
+<li><a href="/reseau/013006613/">GRAND PORT MARITIME MARSEILLE EST SEM 2</a> · 013006613 · note A · 1 commune</li>
+<li><a href="/reseau/013006614/">GRAND PORT MARITIME MARSEILLE EST SEM 3</a> · 013006614 · note A · 1 commune</li>
+<li><a href="/reseau/013006615/">GRAND PORT MARITIME MARSEILLE EST SEM 4</a> · 013006615 · note A · 1 commune</li>
+<li><a href="/reseau/013006616/">GRAND PORT MARITIME MARSEILLE EST SEM 5</a> · 013006616 · note A · 1 commune</li>
+<li><a href="/reseau/013006619/">GRAND PORT MARITIME MARSEILLE EST SEM 8</a> · 013006619 · note A · 1 commune</li>
+<li><a href="/reseau/013006620/">GRAND PORT MARITIME MARSEILLE EST SEM 8B</a> · 013006620 · note A · 1 commune</li>
+<li><a href="/reseau/013006621/">GRAND PORT MARITIME MARSEILLE EST SEM 9</a> · 013006621 · note A · 1 commune</li>
+<li><a href="/reseau/013006623/">GRAND PORT MARITIME MARSEILLE SEM 10 N</a> · 013006623 · note A · 1 commune</li>
+<li><a href="/reseau/013006622/">GRAND PORT MARITIME MARSEILLE SEM 10 SUD</a> · 013006622 · note A · 1 commune</li>
+<li><a href="/reseau/013006624/">GRAND PORT MARITIME MARSEILLE SEM 13</a> · 013006624 · note A · 1 commune</li>
+<li><a href="/reseau/013006618/">GRAND PORT MARITIME MARSEILLE ST CAS.N </a> · 013006618 · note A · 1 commune</li>
+<li><a href="/reseau/013006617/">GRAND PORT MARITIME MARSEILLE ST CAS.SUD</a> · 013006617 · note A · 1 commune</li>
+<li><a href="/reseau/013000239/">GRANS</a> · 013000239 · note A · 1 commune</li>
+<li><a href="/reseau/013000448/">ISTRES</a> · 013000448 · note A · 1 commune</li>
+<li><a href="/reseau/013000447/">ISTRES-ENTRESSEN</a> · 013000447 · note A · 1 commune</li>
+<li><a href="/reseau/013000502/">JOUQUES</a> · 013000502 · note A · 1 commune</li>
+<li><a href="/reseau/013000202/">LA BARBEN</a> · 013000202 · note A · 1 commune</li>
+<li><a href="/reseau/013000057/">LA CIOTAT-CEYRESTE</a> · 013000057 · note A · 2 communes</li>
+<li><a href="/reseau/013000175/">LA FARE-LES-OLIVIERS</a> · 013000175 · note A · 1 commune</li>
+<li><a href="/reseau/013000318/">LA ROQUE D'ANTHERON</a> · 013000318 · note A · 1 commune</li>
+<li><a href="/reseau/013001025/">LA ROQUE-D'ANTHERON BARCOT</a> · 013001025 · note A · 1 commune</li>
+<li><a href="/reseau/013000491/">LAMANON</a> · 013000491 · note A · 1 commune</li>
+<li><a href="/reseau/013000246/">LAMBESC</a> · 013000246 · note A · 1 commune</li>
+<li><a href="/reseau/013000250/">LANCON-DE-PROVENCE</a> · 013000250 · note A · 1 commune</li>
+<li><a href="/reseau/013000726/">LANCON-DE-PROVENCE BAISSES</a> · 013000726 · note A · 1 commune</li>
+<li><a href="/reseau/013000357/">LES BAUX-DE-PROVENCE</a> · 013000357 · note A · 1 commune</li>
+<li><a href="/reseau/013000046/">LES PENNES-MIRABEAU VILLE</a> · 013000046 · note A · 1 commune</li>
+<li><a href="/reseau/013000500/">MALLEMORT</a> · 013000500 · note A · 1 commune</li>
+<li><a href="/reseau/013000041/">MARIGNANE GIGNAC COTE BLEUE</a> · 013000041 · note A · 7 communes</li>
+<li><a href="/reseau/013000577/">MARSEILLE SAINTE-MARTHE</a> · 013000577 · note A · 1 commune</li>
+<li><a href="/reseau/013000521/">MARSEILLE ST BARNABE</a> · 013000521 · note A · 1 commune</li>
+<li><a href="/reseau/013000519/">MARSEILLE VALLON D'OL</a> · 013000519 · note A · 3 communes</li>
+<li><a href="/reseau/013000042/">MARTIGUES COTE BLEUE</a> · 013000042 · note A · 1 commune</li>
+<li><a href="/reseau/013000524/">MARTIGUES VILLE</a> · 013000524 · note A · 1 commune</li>
+<li><a href="/reseau/013000466/">MAS-BLANC-DES-ALPILLES</a> · 013000466 · note A · 1 commune</li>
+<li><a href="/reseau/013000480/">MAUSSANE</a> · 013000480 · note A · 1 commune</li>
+<li><a href="/reseau/013000899/">MAUSSANE FONTAINES</a> · 013000899 · sans note · 1 commune</li>
+<li><a href="/reseau/013000257/">MEYRARGUES</a> · 013000257 · note A · 1 commune</li>
+<li><a href="/reseau/013000507/">MEYREUIL</a> · 013000507 · note A · 1 commune</li>
+<li><a href="/reseau/013000449/">MIRAMAS</a> · 013000449 · note A · 1 commune</li>
+<li><a href="/reseau/013000484/">MOURIES</a> · 013000484 · note A · 1 commune</li>
+<li><a href="/reseau/013000488/">ORGON</a> · 013000488 · note A · 1 commune</li>
+<li><a href="/reseau/013000362/">PARADOU</a> · 013000362 · note A · 1 commune</li>
+<li><a href="/reseau/013005926/">PARC DES SPORTS</a> · 013005926 · note A · 1 commune</li>
+<li><a href="/reseau/013000208/">PELISSANNE-NORD_AURONS</a> · 013000208 · note A · 2 communes</li>
+<li><a href="/reseau/013000207/">PELISSANNE-SUD</a> · 013000207 · note A · 1 commune</li>
+<li><a href="/reseau/013005883/">PENNES MIRABEAU CADENEAUX</a> · 013005883 · note A · 1 commune</li>
+<li><a href="/reseau/013000267/">PEYNIER CHEF-LIEU</a> · 013000267 · note A · 1 commune</li>
+<li><a href="/reseau/013000266/">PEYNIER LES MICHELS</a> · 013000266 · note A · 1 commune</li>
+<li><a href="/reseau/013000273/">PEYROLLES</a> · 013000273 · note A · 1 commune</li>
+<li><a href="/reseau/013000517/">PLAN-DE-CUQUES</a> · 013000517 · note A · 1 commune</li>
+<li><a href="/reseau/013000461/">PORT-DE-BOUC</a> · 013000461 · note A · 1 commune</li>
+<li><a href="/reseau/013000457/">PORT-SAINT-LOUIS-DU-RHONE</a> · 013000457 · note A · 1 commune</li>
+<li><a href="/reseau/013000295/">PUY-STE-REPARADE LES ARNAJONS</a> · 013000295 · note A · 1 commune</li>
+<li><a href="/reseau/013000296/">PUY-STE-REPARADE LES DURANDS</a> · 013000296 · note A · 1 commune</li>
+<li><a href="/reseau/013000297/">PUY-STE-REPARADE SAINT CANADET</a> · 013000297 · note A · 1 commune</li>
+<li><a href="/reseau/013000294/">PUY-STE-REPARADE VILLE</a> · 013000294 · note A · 1 commune</li>
+<li><a href="/reseau/013000279/">PUYLOUBIER</a> · 013000279 · note A · 1 commune</li>
+<li><a href="/reseau/013000174/">RESEAU COUDOUX</a> · 013000174 · note A · 1 commune</li>
+<li><a href="/reseau/013001457/">RESEAU GRAND PORT MARITIME DE MARSEILLE - RESEAU ZIF</a> · 013001457 · note C · 1 commune</li>
+<li><a href="/reseau/013000168/">RESEAU VENTABREN</a> · 013000168 · note A · 1 commune</li>
+<li><a href="/reseau/013000106/">ROGNAC LES BARJAQUETS</a> · 013000106 · note A · 1 commune</li>
+<li><a href="/reseau/013000031/">ROGNAC VILLE</a> · 013000031 · note A · 1 commune</li>
+<li><a href="/reseau/013000304/">ROGNES</a> · 013000304 · note A · 1 commune</li>
+<li><a href="/reseau/013000382/">ROGNONAS</a> · 013000382 · note A · 1 commune</li>
+<li><a href="/reseau/013000071/">ROQUEFORT-LA-BEDOULE</a> · 013000071 · note A · 1 commune</li>
+<li><a href="/reseau/013000525/">ROQUEVAIRE</a> · 013000525 · note A · 1 commune</li>
+<li><a href="/reseau/013000325/">ROUSSET</a> · 013000325 · note A · 1 commune</li>
+<li><a href="/reseau/013000436/">S.I GRAVESON-MAILLANE</a> · 013000436 · note A · 2 communes</li>
+<li><a href="/reseau/013006551/">S.I. DU BASSIN MINIER OUEST_CT2</a> · 013006551 · note A · 2 communes</li>
+<li><a href="/reseau/013006552/">S.I. DU BASSIN MINIER OUEST_CT4</a> · 013006552 · note A · 3 communes</li>
+<li><a href="/reseau/013000372/">S.I.DU BASSIN MINIER EST</a> · 013000372 · note C · 3 communes</li>
+<li><a href="/reseau/013000330/">SAINT-ANTONIN-SUR-BAYON</a> · 013000330 · note A · 1 commune</li>
+<li><a href="/reseau/013000583/">SAINT-CANNAT</a> · 013000583 · note A · 1 commune</li>
+<li><a href="/reseau/013000623/">SAINT-CANNAT ZONE ARTISANALE</a> · 013000623 · note B · 1 commune</li>
+<li><a href="/reseau/013000333/">SAINT-CHAMAS</a> · 013000333 · note A · 1 commune</li>
+<li><a href="/reseau/013000501/">SAINT-ESTEVE-JANSON</a> · 013000501 · note A · 1 commune</li>
+<li><a href="/reseau/013000470/">SAINT-ETIENNE-DU-GRES</a> · 013000470 · note A · 1 commune</li>
+<li><a href="/reseau/013000505/">SAINT-MARC-JAUMEGARDE</a> · 013000505 · note A · 1 commune</li>
+<li><a href="/reseau/013000512/">SAINT-MARTIN-DE-CRAU</a> · 013000512 · note A · 1 commune</li>
+<li><a href="/reseau/013000635/">SAINT-MARTIN-DE-CRAU MAS PAYAN</a> · 013000635 · note A · 1 commune</li>
+<li><a href="/reseau/013000522/">SAINT-MITRE-LES-REMPARTS</a> · 013000522 · note A · 1 commune</li>
+<li><a href="/reseau/013000503/">SAINT-PAUL-LEZ-DURANCE</a> · 013000503 · note A · 2 communes</li>
+<li><a href="/reseau/013001020/">SAINT-PAUL-LEZ-DURANCE ZONE INDUSTRIELLE</a> · 013001020 · note B · 1 commune</li>
+<li><a href="/reseau/013000474/">SAINT-REMY-DE-PROVENCE VILLE</a> · 013000474 · note A · 1 commune</li>
+<li><a href="/reseau/013000516/">SAINTES-MARIES-DE-LA-MER</a> · 013000516 · note C · 1 commune</li>
+<li><a href="/reseau/013000630/">SALON LA CRAU</a> · 013000630 · note A · 1 commune</li>
+<li><a href="/reseau/013000511/">SALON-DE-PROVENCE</a> · 013000511 · note A · 1 commune</li>
+<li><a href="/reseau/013000498/">SENAS</a> · 013000498 · note A · 2 communes</li>
+<li><a href="/reseau/013000158/">SIMIANE-COLLONGUE VILLE</a> · 013000158 · note A · 1 commune</li>
+<li><a href="/reseau/013000424/">TARASCON</a> · 013000424 · note A · 2 communes</li>
+<li><a href="/reseau/013000506/">THOLONET</a> · 013000506 · note A · 1 commune</li>
+<li><a href="/reseau/013000523/">TRETS</a> · 013000523 · note A · 1 commune</li>
+<li><a href="/reseau/013001040/">UDI GOLF DE PONT ROYAL</a> · 013001040 · note A · 1 commune</li>
+<li><a href="/reseau/013000337/">VAUVENARGUES</a> · 013000337 · note A · 1 commune</li>
+<li><a href="/reseau/013000187/">VELAUX BASTIDE BERTIN</a> · 013000187 · note A · 1 commune</li>
+<li><a href="/reseau/013000183/">VELAUX-VILLE</a> · 013000183 · note A · 1 commune</li>
+<li><a href="/reseau/013000504/">VENELLES</a> · 013000504 · note A · 1 commune</li>
+<li><a href="/reseau/013000344/">VERNEGUES</a> · 013000344 · note A · 1 commune</li>
+<li><a href="/reseau/013000032/">VITROLLES</a> · 013000032 · note A · 1 commune</li>
+<li><a href="/reseau/013004653/">ZAC ST CHARLES HAMEAU CHATEAU ARC</a> · 013004653 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/13001/">Aix-en-Provence</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/13002/">Allauch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13003/">Alleins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13004/">Arles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13005/">Aubagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13006/">Aureille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13007/">Auriol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13008/">Aurons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13010/">Barbentane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13012/">Beaurecueil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13013/">Belcodène</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13014/">Berre-l'Étang</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13015/">Bouc-Bel-Air</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13017/">Boulbon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13018/">Cabannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13019/">Cabriès</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/13020/">Cadolive</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13119/">Carnoux-en-Provence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13021/">Carry-le-Rouet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13022/">Cassis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13023/">Ceyreste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13024/">Charleval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13025/">Châteauneuf-le-Rouge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13026/">Châteauneuf-les-Martigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13027/">Châteaurenard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13029/">Cornillon-Confoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13118/">Coudoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13030/">Cuges-les-Pins</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13032/">Éguilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13033/">Ensuès-la-Redonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13034/">Eygalières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13035/">Eyguières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13036/">Eyragues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13038/">Fontvieille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13039/">Fos-sur-Mer</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/13040/">Fuveau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13041/">Gardanne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13042/">Gémenos</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13043/">Gignac-la-Nerthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13044/">Grans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13045/">Graveson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13046/">Gréasque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13047/">Istres</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13048/">Jouques</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13009/">La Barben</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13016/">La Bouilladisse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/13028/">La Ciotat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13031/">La Destrousse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/13037/">La Fare-les-Oliviers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13070/">La Penne-sur-Huveaune</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13084/">La Roque-d'Anthéron</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13049/">Lamanon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13050/">Lambesc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13051/">Lançon-Provence</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13080/">Le Puy-Sainte-Réparade</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/13088/">Le Rove</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13109/">Le Tholonet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13011/">Les Baux-de-Provence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13071/">Les Pennes-Mirabeau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13052/">Maillane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13053/">Mallemort</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13054/">Marignane</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13055/">Marseille</a> · 16 réseaux : 16 notés A</li>
+<li><a href="/commune/13056/">Martigues</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/13057/">Mas-Blanc-des-Alpilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13058/">Maussane-les-Alpilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13059/">Meyrargues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13060/">Meyreuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13062/">Mimet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13063/">Miramas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13064/">Mollégès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13065/">Mouriès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13066/">Noves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13067/">Orgon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13068/">Paradou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13069/">Pélissanne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13072/">Peynier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13073/">Peypin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/13074/">Peyrolles-en-Provence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13076/">Plan-d'Orgon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13075/">Plan-de-Cuques</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13077/">Port-de-Bouc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13078/">Port-Saint-Louis-du-Rhône</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13079/">Puyloubier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13081/">Rognac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13082/">Rognes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13083/">Rognonas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13085/">Roquefort-la-Bédoule</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13086/">Roquevaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13087/">Rousset</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13089/">Saint-Andiol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13090/">Saint-Antonin-sur-Bayon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13091/">Saint-Cannat</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/13092/">Saint-Chamas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13093/">Saint-Estève-Janson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13094/">Saint-Étienne-du-Grès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13095/">Saint-Marc-Jaumegarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13097/">Saint-Martin-de-Crau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13098/">Saint-Mitre-les-Remparts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13099/">Saint-Paul-lès-Durance</a> · 3 réseaux : 2 notés B, 1 noté A</li>
+<li><a href="/commune/13061/">Saint-Pierre-de-Mézoargues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13100/">Saint-Rémy-de-Provence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13101/">Saint-Savournin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13102/">Saint-Victoret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13096/">Saintes-Maries-de-la-Mer</a> · 1 réseau, noté C</li>
+<li><a href="/commune/13103/">Salon-de-Provence</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13104/">Sausset-les-Pins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13105/">Sénas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13106/">Septèmes-les-Vallons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13107/">Simiane-Collongue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13108/">Tarascon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13110/">Trets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13111/">Vauvenargues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13112/">Velaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13113/">Venelles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/13114/">Ventabren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13115/">Vernègues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13116/">Verquières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/13117/">Vitrolles</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Bouches-du-Rhône · eau du robinet », https://meteodurobinet.fr/departement/13/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

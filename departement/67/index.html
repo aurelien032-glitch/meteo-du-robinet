@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Bas-Rhin (67) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Bas-Rhin · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Bas-Rhin (67) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/67/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Bas-Rhin · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Bas-Rhin · eau du robinet","url":"https://meteodurobinet.fr/departement/67/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Bas-Rhin","item":"https://meteodurobinet.fr/departement/67/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/67/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Bas-Rhin</h1>
+<p class="meta">Département 67</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>28 sur 220 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 185 réseaux</li>
+<li>B qualité convenable* : 7 réseaux</li>
+<li>C qualité insuffisante* : 19 réseaux</li>
+<li>D mauvaise qualité* : 9 réseaux</li>
+</ul>
+<p>Bactériologie 15 (9 D), pesticides 12.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>5 réseaux visés sur 220</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>332 prélèvements</strong> évalués en septembre 2026 ; 2 423 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : vigilance 40 jours, alerte 32 jours, alerte renforcée 32 jours, crise 0 jour</li>
+<li>2026 en cours : vigilance 9 jours, alerte 0 jour, alerte renforcée 22 jours, crise 107 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,49</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 62 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>69 services d’eau</strong> desservent au moins une commune du département ; 65 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 223 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/067001347/">ABA -SDEA-SECTEUR DE HAEGEN</a> · 067001347 · sans note · 1 commune</li>
+<li><a href="/reseau/067001863/">ABA CAH - OBERHOFFEN-SUR-MODER</a> · 067001863 · note C · 1 commune</li>
+<li><a href="/reseau/067001322/">ABA SDEA - SECTEUR DE GERTWILLER</a> · 067001322 · note A · 1 commune</li>
+<li><a href="/reseau/067001384/">ABA SDEA SECTEUR DE ROSENWILLER</a> · 067001384 · note A · 1 commune</li>
+<li><a href="/reseau/067001413/">ABA WISSEMBOURG WEILER - C782</a> · 067001413 · sans note · 1 commune</li>
+<li><a href="/reseau/067001860/">CAH - BISCHWILLER - ROHRWILLER - REGIE</a> · 067001860 · note A · 2 communes</li>
+<li><a href="/reseau/067001861/">CAH - DISTRIBUTION - REGIE</a> · 067001861 · note C · 4 communes</li>
+<li><a href="/reseau/067001823/">CASC - SECTEUR DE SARRALBE</a> · 067001823 · note A · 2 communes</li>
+<li><a href="/reseau/067001904/">CCPSO - BERNARDSWILLER</a> · 067001904 · note A · 1 commune</li>
+<li><a href="/reseau/067001902/">CCPSO - OBERNAI ZONE BASSE</a> · 067001902 · note A · 5 communes</li>
+<li><a href="/reseau/067001903/">CCPSO - OBERNAI ZONES HTE ET MOYENNE</a> · 067001903 · note A · 1 commune</li>
+<li><a href="/reseau/067001336/">DAMBACH - NEUNHOFFEN</a> · 067001336 · note A · 1 commune</li>
+<li><a href="/reseau/067001341/">ERCKARTSWILLER</a> · 067001341 · note A · 1 commune</li>
+<li><a href="/reseau/067005048/">EUROMETROPOLE - SECT. KOCHERSBERG-CENTRE</a> · 067005048 · note A · 1 commune</li>
+<li><a href="/reseau/067004993/">EUROMETROPOLE - SECTEUR ILL ANDLAU 1</a> · 067004993 · note A · 2 communes</li>
+<li><a href="/reseau/067006151/">EUROMETROPOLE - SECTEUR ILL ANDLAU 2</a> · 067006151 · note A · 2 communes</li>
+<li><a href="/reseau/067004992/">EUROMETROPOLE - SECTEUR LA WANTZENAU</a> · 067004992 · note A · 1 commune</li>
+<li><a href="/reseau/067004990/">EUROMETROPOLE - SECTEUR STRASBOURG-NORD</a> · 067004990 · note A · 6 communes</li>
+<li><a href="/reseau/067004991/">EUROMETROPOLE - SECTEUR STRASBOURG-SUD</a> · 067004991 · note C · 9 communes</li>
+<li><a href="/reseau/067001945/">EUROMETROPOLE DE STRASBOURG - REGIE</a> · 067001945 · note A · 10 communes</li>
+<li><a href="/reseau/067001853/">HAUTE MODER - EICHEL SUPERIEURE</a> · 067001853 · note A · 5 communes</li>
+<li><a href="/reseau/067001834/">HAUTE MODER - LICHTENBERG</a> · 067001834 · note A · 1 commune</li>
+<li><a href="/reseau/067001837/">HAUTE MODER - MELCH</a> · 067001837 · note A · 1 commune</li>
+<li><a href="/reseau/067001835/">HAUTE MODER - REIPERTSWILLER</a> · 067001835 · note A · 1 commune</li>
+<li><a href="/reseau/067001836/">HAUTE MODER - WIMMENAU</a> · 067001836 · note A · 2 communes</li>
+<li><a href="/reseau/067001838/">HAUTE MODER - WINGEN SUR MODER</a> · 067001838 · note A · 2 communes</li>
+<li><a href="/reseau/067001373/">OBERBRONN</a> · 067001373 · note A · 1 commune</li>
+<li><a href="/reseau/067006130/">OBERHAUSBERGEN EUROMETROPOLE DE STRASBOURG-REGIE</a> · 067006130 · note B · 1 commune</li>
+<li><a href="/reseau/067001857/">RIMSDORF</a> · 067001857 · note A · 1 commune</li>
+<li><a href="/reseau/067001892/">SDE DE BERTHELMING (MOSELLE)</a> · 067001892 · note A · 2 communes</li>
+<li><a href="/reseau/067001856/">SDE DE DRULINGEN ET ENVIRONS</a> · 067001856 · note A · 22 communes</li>
+<li><a href="/reseau/067001842/">SDE DE LAUTERBOURG</a> · 067001842 · note A · 15 communes</li>
+<li><a href="/reseau/067001825/">SDE DE RAHLING</a> · 067001825 · note A · 1 commune</li>
+<li><a href="/reseau/067001849/">SDE DE REICHSHOFFEN</a> · 067001849 · note A · 6 communes</li>
+<li><a href="/reseau/067001859/">SDE DU CANTON DE SELTZ</a> · 067001859 · note C · 10 communes</li>
+<li><a href="/reseau/067001852/">SDE OFFWILLER ET ENVIRONS</a> · 067001852 · note A · 9 communes</li>
+<li><a href="/reseau/067001332/">SDE RIEDSELTZ - CLEEBOURG</a> · 067001332 · note A · 1 commune</li>
+<li><a href="/reseau/067001386/">SDE RIEDSELTZ - SECTEUR DE ROTT</a> · 067001386 · note C · 1 commune</li>
+<li><a href="/reseau/067001333/">SDE RIEDSELTZ -SECTEUR CLIMBACH</a> · 067001333 · note A · 1 commune</li>
+<li><a href="/reseau/067001840/">SDE RIEDSELTZ : SECTEUR HUNSPACH</a> · 067001840 · note B · 3 communes</li>
+<li><a href="/reseau/067001839/">SDE RIEDSELTZ : SECTEUR RIEDSELTZ</a> · 067001839 · note A · 3 communes</li>
+<li><a href="/reseau/067001843/">SDE SOULTZ - SOUS - FORETS NORD</a> · 067001843 · note A · 6 communes</li>
+<li><a href="/reseau/067001844/">SDE SOULTZ - SOUS - FORETS SUD</a> · 067001844 · note A · 3 communes</li>
+<li><a href="/reseau/067001875/">SDE WINTERSBOURG EST</a> · 067001875 · note C · 4 communes</li>
+<li><a href="/reseau/067001846/">SDEA - SECTEUR  DE LAMPERTSLOCH</a> · 067001846 · note A · 1 commune</li>
+<li><a href="/reseau/067001424/">SDEA - SECTEUR  DE SOMMERAU - BIRKENWALD</a> · 067001424 · note D · 1 commune</li>
+<li><a href="/reseau/067001938/">SDEA - SECTEUR ARTOLSHEIM</a> · 067001938 · note A · 5 communes</li>
+<li><a href="/reseau/067001936/">SDEA - SECTEUR BALDENHEIM-MUSSIG</a> · 067001936 · note A · 2 communes</li>
+<li><a href="/reseau/067001871/">SDEA - SECTEUR BEINHEIM-KESSELDORF</a> · 067001871 · note A · 2 communes</li>
+<li><a href="/reseau/067001911/">SDEA - SECTEUR BENFELD</a> · 067001911 · note A · 2 communes</li>
+<li><a href="/reseau/067001330/">SDEA - SECTEUR DE BRUMATH</a> · 067001330 · note C · 1 commune</li>
+<li><a href="/reseau/067001335/">SDEA - SECTEUR DE DALHUNDEN</a> · 067001335 · note A · 1 commune</li>
+<li><a href="/reseau/067001344/">SDEA - SECTEUR DE GAMBSHEIM</a> · 067001344 · note A · 1 commune</li>
+<li><a href="/reseau/067001848/">SDEA - SECTEUR DE GOERSDORF - FROESCH.</a> · 067001848 · note A · 2 communes</li>
+<li><a href="/reseau/067001891/">SDEA - SECTEUR DE KILSTETT</a> · 067001891 · note A · 1 commune</li>
+<li><a href="/reseau/067001910/">SDEA - SECTEUR DE LA LACHTER</a> · 067001910 · note B · 3 communes</li>
+<li><a href="/reseau/067001858/">SDEA - SECTEUR DE LA MODER</a> · 067001858 · note A · 7 communes</li>
+<li><a href="/reseau/067001890/">SDEA - SECTEUR DE LA SOUFFEL</a> · 067001890 · note A · 3 communes</li>
+<li><a href="/reseau/067001865/">SDEA - SECTEUR DE ROHRWILLER</a> · 067001865 · sans note · 1 commune</li>
+<li><a href="/reseau/067001845/">SDEA - SECTEUR DE WOERTH</a> · 067001845 · note A · 16 communes</li>
+<li><a href="/reseau/067001935/">SDEA - SECTEUR DU RIED</a> · 067001935 · note A · 4 communes</li>
+<li><a href="/reseau/067001932/">SDEA - SECTEUR EBERSHEIM-EBERMUNSTER</a> · 067001932 · note A · 2 communes</li>
+<li><a href="/reseau/067001907/">SDEA - SECTEUR ERSTEIN-NORD</a> · 067001907 · note A · 4 communes</li>
+<li><a href="/reseau/067001908/">SDEA - SECTEUR ERSTEIN-SUD</a> · 067001908 · note A · 8 communes</li>
+<li><a href="/reseau/067001869/">SDEA - SECTEUR FORT-LOUIS</a> · 067001869 · note A · 1 commune</li>
+<li><a href="/reseau/067003992/">SDEA - SECTEUR GRIESHEIM-PRES-MOLSHEIM</a> · 067003992 · note C · 1 commune</li>
+<li><a href="/reseau/067001349/">SDEA - SECTEUR HEILIGENSTEIN</a> · 067001349 · note A · 1 commune</li>
+<li><a href="/reseau/067001886/">SDEA - SECTEUR HERRLISHEIM-OFFENDORF</a> · 067001886 · note A · 2 communes</li>
+<li><a href="/reseau/067001933/">SDEA - SECTEUR HILSENHEIM</a> · 067001933 · note A · 3 communes</li>
+<li><a href="/reseau/067001906/">SDEA - SECTEUR ICHTRATZHEIM</a> · 067001906 · note A · 1 commune</li>
+<li><a href="/reseau/067001888/">SDEA - SECTEUR KOCHERSBERG-CENTRE</a> · 067001888 · note A · 10 communes</li>
+<li><a href="/reseau/067001887/">SDEA - SECTEUR KOCHERSBERG-EST</a> · 067001887 · note A · 9 communes</li>
+<li><a href="/reseau/067001889/">SDEA - SECTEUR KOCHERSBERG-OUEST</a> · 067001889 · note A · 9 communes</li>
+<li><a href="/reseau/067001912/">SDEA - SECTEUR KOGENHEIM</a> · 067001912 · note A · 2 communes</li>
+<li><a href="/reseau/067001939/">SDEA - SECTEUR MARCKOLSHEIM</a> · 067001939 · note A · 6 communes</li>
+<li><a href="/reseau/067001360/">SDEA - SECTEUR MITTELBERGHEIM</a> · 067001360 · note A · 1 commune</li>
+<li><a href="/reseau/067001870/">SDEA - SECTEUR NEUHAEUSEL</a> · 067001870 · note A · 1 commune</li>
+<li><a href="/reseau/067001868/">SDEA - SECTEUR ROESCHWOOG ET ENVIRONS</a> · 067001868 · note A · 6 communes</li>
+<li><a href="/reseau/067001382/">SDEA - SECTEUR ROMANSWILLER</a> · 067001382 · note A · 1 commune</li>
+<li><a href="/reseau/067001913/">SDEA - SECTEUR ROSSFELD</a> · 067001913 · note A · 3 communes</li>
+<li><a href="/reseau/067001905/">SDEA - SECTEUR SAINT-NABOR</a> · 067001905 · note C · 1 commune</li>
+<li><a href="/reseau/067001937/">SDEA - SECTEUR SCHOENAU-SAASENHEIM</a> · 067001937 · note A · 2 communes</li>
+<li><a href="/reseau/067001872/">SDEA - SECTEUR SOUFFLENHEIM-NORD</a> · 067001872 · note A · 3 communes</li>
+<li><a href="/reseau/067001873/">SDEA - SECTEUR SOUFFLENHEIM-SUD</a> · 067001873 · note B · 3 communes</li>
+<li><a href="/reseau/067001909/">SDEA - SECTEUR STOTZHEIM</a> · 067001909 · note A · 7 communes</li>
+<li><a href="/reseau/067001934/">SDEA - SECTEUR SUNDHOUSE-WITTISHEIM</a> · 067001934 · note A · 2 communes</li>
+<li><a href="/reseau/067001418/">SDEA - SECTEUR VILLE D'ERSTEIN</a> · 067001418 · note A · 1 commune</li>
+<li><a href="/reseau/067001944/">SDEA - SECTEUR-JOHANNISTHAL</a> · 067001944 · note A · 1 commune</li>
+<li><a href="/reseau/067001880/">SDEA -SECTEUR-REINHARDSMUNSTER</a> · 067001880 · note B · 4 communes</li>
+<li><a href="/reseau/067001885/">SDEA SECTEUR DE LA BASSE ZORN</a> · 067001885 · note C · 6 communes</li>
+<li><a href="/reseau/067001387/">SDEA SECTEUR DE RUSS-VILLAGE</a> · 067001387 · note A · 1 commune</li>
+<li><a href="/reseau/067001388/">SDEA SECTEUR DE SCHWARTZBACH-RUSS</a> · 067001388 · note D · 1 commune</li>
+<li><a href="/reseau/067001389/">SDEA SECTEUR DE STEINBACH-RUSS</a> · 067001389 · note A · 1 commune</li>
+<li><a href="/reseau/067001877/">SDEA-SAVERNE-MARMOUTIE SECTEUR SUD</a> · 067001877 · note B · 12 communes</li>
+<li><a href="/reseau/067001926/">SDEA-SECTEUR ALBÉ</a> · 067001926 · note A · 1 commune</li>
+<li><a href="/reseau/067005412/">SDEA-SECTEUR BEAU-SITE-FOUCHY</a> · 067005412 · note A · 1 commune</li>
+<li><a href="/reseau/067001325/">SDEA-SECTEUR BOERSCH</a> · 067001325 · note A · 1 commune</li>
+<li><a href="/reseau/067001925/">SDEA-SECTEUR BREITENAU</a> · 067001925 · note A · 1 commune</li>
+<li><a href="/reseau/067001329/">SDEA-SECTEUR BREITENBACH</a> · 067001329 · note A · 1 commune</li>
+<li><a href="/reseau/067001931/">SDEA-SECTEUR CHATENOIS-SCHERWILLER</a> · 067001931 · note A · 2 communes</li>
+<li><a href="/reseau/067001375/">SDEA-SECTEUR D'OBERSTEINBACH</a> · 067001375 · note A · 1 commune</li>
+<li><a href="/reseau/067001676/">SDEA-SECTEUR D'OERMINGEN EST</a> · 067001676 · note A · 1 commune</li>
+<li><a href="/reseau/067001822/">SDEA-SECTEUR D'OERMINGEN OUEST</a> · 067001822 · note A · 1 commune</li>
+<li><a href="/reseau/067001314/">SDEA-SECTEUR DE ANDLAU-EST</a> · 067001314 · note A · 1 commune</li>
+<li><a href="/reseau/067001313/">SDEA-SECTEUR DE ANDLAU-OUEST</a> · 067001313 · note A · 1 commune</li>
+<li><a href="/reseau/067001320/">SDEA-SECTEUR DE BAREMBACH</a> · 067001320 · note A · 1 commune</li>
+<li><a href="/reseau/067001321/">SDEA-SECTEUR DE BARR</a> · 067001321 · note A · 1 commune</li>
+<li><a href="/reseau/067001315/">SDEA-SECTEUR DE BELLEFOSSE</a> · 067001315 · note A · 1 commune</li>
+<li><a href="/reseau/067001316/">SDEA-SECTEUR DE BELMONT</a> · 067001316 · note A · 1 commune</li>
+<li><a href="/reseau/067001920/">SDEA-SECTEUR DE BERNARDVILLE</a> · 067001920 · note C · 1 commune</li>
+<li><a href="/reseau/067001323/">SDEA-SECTEUR DE BISCHOFFSHEIM</a> · 067001323 · note A · 1 commune</li>
+<li><a href="/reseau/067001324/">SDEA-SECTEUR DE BLANCHERUPT</a> · 067001324 · note A · 1 commune</li>
+<li><a href="/reseau/067001917/">SDEA-SECTEUR DE BLIENSCHWILLER</a> · 067001917 · note A · 1 commune</li>
+<li><a href="/reseau/067001326/">SDEA-SECTEUR DE BOURG-BRUCHE</a> · 067001326 · note D · 1 commune</li>
+<li><a href="/reseau/067001334/">SDEA-SECTEUR DE COLROY LA ROCHE</a> · 067001334 · note A · 1 commune</li>
+<li><a href="/reseau/067001914/">SDEA-SECTEUR DE DAMBACH LA VILLE</a> · 067001914 · note A · 2 communes</li>
+<li><a href="/reseau/067001829/">SDEA-SECTEUR DE DIEMER. EST</a> · 067001829 · note A · 3 communes</li>
+<li><a href="/reseau/067001826/">SDEA-SECTEUR DE DIEMER. OUEST</a> · 067001826 · note A · 6 communes</li>
+<li><a href="/reseau/067001358/">SDEA-SECTEUR DE DISTELDORF</a> · 067001358 · note A · 1 commune</li>
+<li><a href="/reseau/067001338/">SDEA-SECTEUR DE DOMFESSEL</a> · 067001338 · note A · 1 commune</li>
+<li><a href="/reseau/067001339/">SDEA-SECTEUR DE DRACHENBRONN</a> · 067001339 · note A · 1 commune</li>
+<li><a href="/reseau/067001915/">SDEA-SECTEUR DE EPFIG</a> · 067001915 · note A · 1 commune</li>
+<li><a href="/reseau/067001317/">SDEA-SECTEUR DE FOUDAY</a> · 067001317 · note A · 1 commune</li>
+<li><a href="/reseau/067001318/">SDEA-SECTEUR DE FREUDENECK</a> · 067001318 · note A · 1 commune</li>
+<li><a href="/reseau/067001403/">SDEA-SECTEUR DE FREUDENECK</a> · 067001403 · note A · 1 commune</li>
+<li><a href="/reseau/067001345/">SDEA-SECTEUR DE GRENDELBRUCH</a> · 067001345 · note A · 1 commune</li>
+<li><a href="/reseau/067001884/">SDEA-SECTEUR DE HOCHFELDEN -MOMMENHEIM</a> · 067001884 · note C · 45 communes</li>
+<li><a href="/reseau/067005042/">SDEA-SECTEUR DE HOCHFELDEN-WEITBRUCH</a> · 067005042 · note A · 4 communes</li>
+<li><a href="/reseau/067001353/">SDEA-SECTEUR DE IMSTHAL</a> · 067001353 · note A · 1 commune</li>
+<li><a href="/reseau/067001415/">SDEA-SECTEUR DE INGWILLER</a> · 067001415 · note A · 1 commune</li>
+<li><a href="/reseau/067001916/">SDEA-SECTEUR DE ITTERSWILLER</a> · 067001916 · note A · 1 commune</li>
+<li><a href="/reseau/067001930/">SDEA-SECTEUR DE KINTZHEIM</a> · 067001930 · note A · 1 commune</li>
+<li><a href="/reseau/067001354/">SDEA-SECTEUR DE KOHLTHALERHOF</a> · 067001354 · note D · 1 commune</li>
+<li><a href="/reseau/067001331/">SDEA-SECTEUR DE KRAUTWILLER</a> · 067001331 · note C · 1 commune</li>
+<li><a href="/reseau/067001900/">SDEA-SECTEUR DE LA BROQUE-SCHIRMECK</a> · 067001900 · note A · 2 communes</li>
+<li><a href="/reseau/067001352/">SDEA-SECTEUR DE LA PETITE PIERRE</a> · 067001352 · note A · 1 commune</li>
+<li><a href="/reseau/067001928/">SDEA-SECTEUR DE LA VANCELLE</a> · 067001928 · note A · 1 commune</li>
+<li><a href="/reseau/067001405/">SDEA-SECTEUR DE LAMPERTSECK</a> · 067001405 · note A · 1 commune</li>
+<li><a href="/reseau/067001351/">SDEA-SECTEUR DE LANGENSOULTZBACH</a> · 067001351 · note A · 1 commune</li>
+<li><a href="/reseau/067001355/">SDEA-SECTEUR DE LEMBACH</a> · 067001355 · note A · 1 commune</li>
+<li><a href="/reseau/067001420/">SDEA-SECTEUR DE LOBSANN</a> · 067001420 · note A · 1 commune</li>
+<li><a href="/reseau/067001359/">SDEA-SECTEUR DE LUTZELHOUSE</a> · 067001359 · note A · 1 commune</li>
+<li><a href="/reseau/067001356/">SDEA-SECTEUR DE MATTSTALL</a> · 067001356 · note A · 1 commune</li>
+<li><a href="/reseau/067005749/">SDEA-SECTEUR DE MERCK./PECHEL/KUTZ.</a> · 067005749 · note A · 2 communes</li>
+<li><a href="/reseau/067001362/">SDEA-SECTEUR DE MUHLBACH-SUR-BRUCHE</a> · 067001362 · note D · 1 commune</li>
+<li><a href="/reseau/067001363/">SDEA-SECTEUR DE NATZWILLER</a> · 067001363 · note A · 1 commune</li>
+<li><a href="/reseau/067001365/">SDEA-SECTEUR DE NEUVILLER-LA-ROCHE</a> · 067001365 · note A · 1 commune</li>
+<li><a href="/reseau/067001371/">SDEA-SECTEUR DE NIEDERSTEINBACH</a> · 067001371 · note D · 1 commune</li>
+<li><a href="/reseau/067001918/">SDEA-SECTEUR DE NOTHALTEN</a> · 067001918 · note A · 1 commune</li>
+<li><a href="/reseau/067001377/">SDEA-SECTEUR DE OTTROTT</a> · 067001377 · note A · 1 commune</li>
+<li><a href="/reseau/067001357/">SDEA-SECTEUR DE PFAFFENBRONN</a> · 067001357 · note A · 1 commune</li>
+<li><a href="/reseau/067001379/">SDEA-SECTEUR DE PLAINE</a> · 067001379 · note A · 1 commune</li>
+<li><a href="/reseau/067003306/">SDEA-SECTEUR DE PONT DES BAS PLAINE</a> · 067003306 · note A · 1 commune</li>
+<li><a href="/reseau/067001380/">SDEA-SECTEUR DE RANRUPT</a> · 067001380 · note A · 1 commune</li>
+<li><a href="/reseau/067001919/">SDEA-SECTEUR DE REICHSFELD</a> · 067001919 · note A · 1 commune</li>
+<li><a href="/reseau/067001383/">SDEA-SECTEUR DE ROSHEIM</a> · 067001383 · note A · 1 commune</li>
+<li><a href="/reseau/067001385/">SDEA-SECTEUR DE ROTHAU</a> · 067001385 · note A · 1 commune</li>
+<li><a href="/reseau/067001390/">SDEA-SECTEUR DE SAALES</a> · 067001390 · note A · 1 commune</li>
+<li><a href="/reseau/067001391/">SDEA-SECTEUR DE SAINT BLAISE LA ROCHE</a> · 067001391 · note A · 1 commune</li>
+<li><a href="/reseau/067001855/">SDEA-SECTEUR DE SARRE-UNION ET ENVIRONS</a> · 067001855 · note A · 4 communes</li>
+<li><a href="/reseau/067001393/">SDEA-SECTEUR DE SARREWERDEN</a> · 067001393 · note A · 1 commune</li>
+<li><a href="/reseau/067001396/">SDEA-SECTEUR DE SELESTAT</a> · 067001396 · note A · 1 commune</li>
+<li><a href="/reseau/067001397/">SDEA-SECTEUR DE SOLBACH</a> · 067001397 · note A · 1 commune</li>
+<li><a href="/reseau/067001416/">SDEA-SECTEUR DE SPARSBACH</a> · 067001416 · note A · 1 commune</li>
+<li><a href="/reseau/067001381/">SDEA-SECTEUR DE STAMPOUMONT RANRUPT</a> · 067001381 · note A · 1 commune</li>
+<li><a href="/reseau/067001401/">SDEA-SECTEUR DE URMATT</a> · 067001401 · note A · 1 commune</li>
+<li><a href="/reseau/067001924/">SDEA-SECTEUR DE VILLÉ</a> · 067001924 · note A · 4 communes</li>
+<li><a href="/reseau/067001319/">SDEA-SECTEUR DE WALDERSBACH</a> · 067001319 · note A · 1 commune</li>
+<li><a href="/reseau/067001402/">SDEA-SECTEUR DE WANGENBOURG-ENGENTHAL</a> · 067001402 · note C · 1 commune</li>
+<li><a href="/reseau/067001417/">SDEA-SECTEUR DE WEINBOURG</a> · 067001417 · note A · 1 commune</li>
+<li><a href="/reseau/067001406/">SDEA-SECTEUR DE WEITERSWILLER</a> · 067001406 · note A · 1 commune</li>
+<li><a href="/reseau/067001372/">SDEA-SECTEUR DE WENGELSBACH</a> · 067001372 · note A · 1 commune</li>
+<li><a href="/reseau/067001407/">SDEA-SECTEUR DE WESTHOFFEN</a> · 067001407 · note C · 1 commune</li>
+<li><a href="/reseau/067001408/">SDEA-SECTEUR DE WILDERSBACH</a> · 067001408 · note A · 1 commune</li>
+<li><a href="/reseau/067001404/">SDEA-SECTEUR DE WINDSBOURG</a> · 067001404 · note D · 1 commune</li>
+<li><a href="/reseau/067001409/">SDEA-SECTEUR DE WINDSTEIN</a> · 067001409 · note A · 1 commune</li>
+<li><a href="/reseau/067001410/">SDEA-SECTEUR DE WINGEN</a> · 067001410 · note A · 1 commune</li>
+<li><a href="/reseau/067001411/">SDEA-SECTEUR DE WISCHES</a> · 067001411 · note A · 1 commune</li>
+<li><a href="/reseau/067001422/">SDEA-SECTEUR DIEFFENBACH/ VAL</a> · 067001422 · note A · 1 commune</li>
+<li><a href="/reseau/067005410/">SDEA-SECTEUR DOSSENHEIM/ZINEL-NEUMUEHELE</a> · 067005410 · note D · 1 commune</li>
+<li><a href="/reseau/067001941/">SDEA-SECTEUR DOSSENHEIM/ZINS- HOLDERTHAL</a> · 067001941 · note A · 1 commune</li>
+<li><a href="/reseau/067001922/">SDEA-SECTEUR DU CLIMONT</a> · 067001922 · note A · 1 commune</li>
+<li><a href="/reseau/067001350/">SDEA-SECTEUR DU HOHWALD</a> · 067001350 · note A · 1 commune</li>
+<li><a href="/reseau/067001893/">SDEA-SECTEUR DU KRONTHAL</a> · 067001893 · note A · 12 communes</li>
+<li><a href="/reseau/067001342/">SDEA-SECTEUR FOUCHY</a> · 067001342 · note A · 1 commune</li>
+<li><a href="/reseau/067001395/">SDEA-SECTEUR GOUTRANGOUTTE SAULXURES</a> · 067001395 · note A · 1 commune</li>
+<li><a href="/reseau/067001897/">SDEA-SECTEUR GRANDFONTAINE-DONON</a> · 067001897 · note A · 2 communes</li>
+<li><a href="/reseau/067001378/">SDEA-SECTEUR KLINGENTHAL-OTTROTT</a> · 067001378 · note A · 1 commune</li>
+<li><a href="/reseau/067004019/">SDEA-SECTEUR LES QUELLES</a> · 067004019 · note A · 1 commune</li>
+<li><a href="/reseau/067001921/">SDEA-SECTEUR MAISONSGOUTTE</a> · 067001921 · note A · 2 communes</li>
+<li><a href="/reseau/067001361/">SDEA-SECTEUR MOLLKIRCH</a> · 067001361 · note A · 1 commune</li>
+<li><a href="/reseau/067001423/">SDEA-SECTEUR NEUBOIS</a> · 067001423 · note A · 1 commune</li>
+<li><a href="/reseau/067001346/">SDEA-SECTEUR NEUENMATTEN-GRENDELBRUCH</a> · 067001346 · note A · 1 commune</li>
+<li><a href="/reseau/067001364/">SDEA-SECTEUR NEUVE-EGLISE</a> · 067001364 · note A · 1 commune</li>
+<li><a href="/reseau/067001368/">SDEA-SECTEUR NIEDERBRONN BASSE ZONE</a> · 067001368 · note A · 1 commune</li>
+<li><a href="/reseau/067001369/">SDEA-SECTEUR NIEDERBRONN BREITENWASEN</a> · 067001369 · note D · 1 commune</li>
+<li><a href="/reseau/067001367/">SDEA-SECTEUR NIEDERBRONN HAUTE ZONE</a> · 067001367 · note A · 1 commune</li>
+<li><a href="/reseau/067001343/">SDEA-SECTEUR NOIRCEUX (FOUCHY)</a> · 067001343 · note A · 1 commune</li>
+<li><a href="/reseau/067001376/">SDEA-SECTEUR ORSCHWILLER</a> · 067001376 · note A · 1 commune</li>
+<li><a href="/reseau/067001392/">SDEA-SECTEUR SAINT-MARTIN</a> · 067001392 · note A · 1 commune</li>
+<li><a href="/reseau/067001394/">SDEA-SECTEUR SAULXURES</a> · 067001394 · note A · 1 commune</li>
+<li><a href="/reseau/067001876/">SDEA-SECTEUR SAVERNE - MARMOUTIER NORD</a> · 067001876 · note B · 21 communes</li>
+<li><a href="/reseau/067003759/">SDEA-SECTEUR SCHRANN&amp;SAULOCH</a> · 067003759 · note A · 1 commune</li>
+<li><a href="/reseau/067001927/">SDEA-SECTEUR ST.PIERRE BOIS-THANVILLE</a> · 067001927 · note A · 2 communes</li>
+<li><a href="/reseau/067001398/">SDEA-SECTEUR STEIGE</a> · 067001398 · note A · 1 commune</li>
+<li><a href="/reseau/067001923/">SDEA-SECTEUR URBEIS-LALAYE</a> · 067001923 · note A · 2 communes</li>
+<li><a href="/reseau/067001929/">SDEA-SECTEUR VANCELLE-HURST</a> · 067001929 · note A · 2 communes</li>
+<li><a href="/reseau/067001898/">SDEA-SECTEUR-CLAQUETTE ALBET</a> · 067001898 · note A · 1 commune</li>
+<li><a href="/reseau/067001327/">SECTEUR BOUXWILLER</a> · 067001327 · note C · 1 commune</li>
+<li><a href="/reseau/067001328/">SECTEUR GRIESBACH-LE-BASTBERG</a> · 067001328 · note C · 1 commune</li>
+<li><a href="/reseau/067001348/">SECTEUR HEILIGENBERG - COM COM MOLSHEIM MUTZIG</a> · 067001348 · note A · 1 commune</li>
+<li><a href="/reseau/067006132/">SECTEUR LINGOLSHEIM - EUROMETROPOLE STRASBOURG-REGIE</a> · 067006132 · note A · 1 commune</li>
+<li><a href="/reseau/067001895/">SECTEUR MOLSHEIM-MUTZIG COM COM MOLSHEIM-MUTZIG</a> · 067001895 · note A · 12 communes</li>
+<li><a href="/reseau/067001370/">SECTEUR NIEDERHASLACH - COM COM MOLSHEIM-MUTZIG</a> · 067001370 · note A · 1 commune</li>
+<li><a href="/reseau/067001374/">SECTEUR OBERHASLACH - COM COM MOLSHEIM-MUTZIG</a> · 067001374 · note C · 1 commune</li>
+<li><a href="/reseau/067001841/">SECTEUR SCHAFBUSCH - GEISBERG</a> · 067001841 · note A · 2 communes</li>
+<li><a href="/reseau/067001399/">SECTEUR STILL - COM COM MOLSHEIM-MUTZIG</a> · 067001399 · note A · 1 commune</li>
+<li><a href="/reseau/067001894/">SECTEUR STRASBOURG-SUD - COM COM MOLSHEIM MUTZIG</a> · 067001894 · note C · 3 communes</li>
+<li><a href="/reseau/067004833/">SECTEUR THALACKER - COM COM MOLSHEIM-MUTZIG</a> · 067004833 · note A · 1 commune</li>
+<li><a href="/reseau/067001854/">SMDE VALLEE DE LA ROSE</a> · 067001854 · note A · 2 communes</li>
+<li><a href="/reseau/067001337/">WINECKERTHAL</a> · 067001337 · note A · 1 commune</li>
+<li><a href="/reseau/067001412/">WISSEMBOURG - ALTENSTADT</a> · 067001412 · note A · 1 commune</li>
+<li><a href="/reseau/067001426/">ZINSWILLER</a> · 067001426 · note A · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/67001/">Achenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67002/">Adamswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67003/">Albé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67005/">Alteckendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67006/">Altenheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67008/">Altorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67009/">Altwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67010/">Andlau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67011/">Artolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67012/">Aschbach</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67013/">Asswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67016/">Avolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67017/">Baerendorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67018/">Balbronn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67019/">Baldenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67020/">Barembach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67021/">Barr</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67022/">Bassemberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67023/">Batzendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67025/">Beinheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67026/">Bellefosse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67027/">Belmont</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67028/">Benfeld</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67029/">Berg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67030/">Bergbieten</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67031/">Bernardswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67032/">Bernardvillé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67033/">Bernolsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67034/">Berstett</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67035/">Berstheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67339/">Betschdorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67036/">Bettwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67037/">Biblisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67038/">Bietlenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67039/">Bilwisheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67040/">Bindernheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67043/">Bischheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67044/">Bischholtz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67045/">Bischoffsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67046/">Bischwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67047/">Bissert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67048/">Bitschhoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67049/">Blaesheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67050/">Blancherupt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67051/">Blienschwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67052/">Bœrsch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67053/">Bœsenbiesen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67054/">Bolsenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67055/">Boofzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67056/">Bootzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67057/">Bosselshausen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67058/">Bossendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67059/">Bourg-Bruche</a> · 1 réseau, noté D</li>
+<li><a href="/commune/67060/">Bourgheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67061/">Bouxwiller</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/67062/">Breitenau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67063/">Breitenbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67065/">Breuschwickersheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67067/">Brumath</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67069/">Buhl</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67070/">Burbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67071/">Bust</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67068/">Buswiller</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67072/">Butten</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67073/">Châtenois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67074/">Cleebourg</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/67075/">Climbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67076/">Colroy-la-Roche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67077/">Cosswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67078/">Crastatt</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67079/">Crœttwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67080/">Dachstein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67081/">Dahlenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67082/">Dalhunden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67083/">Dambach</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67084/">Dambach-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67085/">Dangolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67086/">Daubensand</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67087/">Dauendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67088/">Dehlingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67089/">Dettwiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67090/">Diebolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67091/">Diedendorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67092/">Dieffenbach-au-Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67093/">Dieffenbach-lès-Wœrth</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67094/">Dieffenthal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67095/">Diemeringen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67096/">Dimbsthal</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67097/">Dingsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67098/">Dinsheim-sur-Bruche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67099/">Domfessel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67100/">Donnenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67101/">Dorlisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67102/">Dossenheim-Kochersberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67103/">Dossenheim-sur-Zinsel</a> · 3 réseaux : 1 noté D, 1 noté B, 1 noté A</li>
+<li><a href="/commune/67104/">Drachenbronn-Birlenbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67105/">Drulingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67106/">Drusenheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67107/">Duntzenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67108/">Duppigheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67109/">Durningen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67110/">Durrenbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67111/">Durstel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67112/">Duttlenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67113/">Eberbach-Seltz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67115/">Ebersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67116/">Ebersmunster</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67117/">Eckartswiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67118/">Eckbolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67119/">Eckwersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67120/">Eichhoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67121/">Elsenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67123/">Engwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67124/">Entzheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67125/">Epfig</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67126/">Erckartswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67127/">Ergersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67128/">Ernolsheim-Bruche</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67129/">Ernolsheim-lès-Saverne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67130/">Erstein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67131/">Eschau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67132/">Eschbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67133/">Eschbourg</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67134/">Eschwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67135/">Ettendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67136/">Eywiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67137/">Fegersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67138/">Fessenheim-le-Bas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67139/">Flexbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67140/">Forstfeld</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67141/">Forstheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67142/">Fort-Louis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67143/">Fouchy</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/67144/">Fouday</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67145/">Friedolsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67146/">Friesenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67147/">Frœschwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67148/">Frohmuhl</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67149/">Furchhausen</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67150/">Furdenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67151/">Gambsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67152/">Geispolsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67153/">Geiswiller-Zœbersdorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67154/">Gerstheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67155/">Gertwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67156/">Geudertheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67159/">Gœrlingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67160/">Gœrsdorf</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67161/">Gottenhouse</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67162/">Gottesheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67163/">Gougenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67164/">Goxwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67165/">Grandfontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67166/">Grassendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67167/">Grendelbruch</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67168/">Gresswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67169/">Gries</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67172/">Griesheim-près-Molsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67173/">Griesheim-sur-Souffel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67174/">Gumbrechtshoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67176/">Gundershoffen</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67178/">Gungwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67177/">Gunstett</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67179/">Haegen</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67180/">Haguenau</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67181/">Handschuheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67182/">Hangenbieten</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67183/">Harskirchen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67184/">Hatten</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67185/">Hattmatt</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67186/">Hegeney</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67187/">Heidolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67188/">Heiligenberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67189/">Heiligenstein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67190/">Hengwiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67191/">Herbitzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67192/">Herbsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67194/">Herrlisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67195/">Hessenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67196/">Hilsenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67197/">Hindisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67198/">Hinsbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67199/">Hinsingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67200/">Hipsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67201/">Hirschland</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67202/">Hochfelden</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67203/">Hochstett</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67204/">Hœnheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67205/">Hœrdt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67206/">Hoffen</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/67208/">Hohengœft</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67209/">Hohfrankenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67212/">Holtzheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67213/">Hunspach</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67214/">Hurtigheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67215/">Huttendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67216/">Huttenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67217/">Ichtratzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67218/">Illkirch-Graffenstaden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67220/">Ingenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67221/">Ingolsheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67222/">Ingwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67223/">Innenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67225/">Issenhausen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67226/">Ittenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67227/">Itterswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67229/">Jetterswiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67230/">Kaltenhouse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67231/">Kauffenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67232/">Keffenach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67233/">Kertzfeld</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67234/">Keskastel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67235/">Kesseldorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67236/">Kienheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67237/">Kilstett</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67238/">Kindwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67239/">Kintzheim</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67240/">Kirchheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67241/">Kirrberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67242/">Kirrwiller</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67244/">Kleingœft</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67245/">Knœrsheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67246/">Kogenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67247/">Kolbsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67248/">Krautergersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67249/">Krautwiller</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67250/">Kriegsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67252/">Kurtzenhouse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67253/">Kuttolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67254/">Kutzenhausen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67066/">La Broque</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/67371/">La Petite-Pierre</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/67505/">La Vancelle</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67519/">La Wantzenau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67255/">Lalaye</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67256/">Lampertheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67257/">Lampertsloch</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67258/">Landersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67259/">Langensoultzbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67260/">Laubach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67261/">Lauterbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67210/">Le Hohwald</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67263/">Lembach</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/67264/">Leutenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67265/">Lichtenberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67266/">Limersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67267/">Lingolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67268/">Lipsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67269/">Littenheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67270/">Lixhausen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67271/">Lobsann</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67272/">Lochwiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67273/">Lohr</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67274/">Lorentzen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67275/">Lupstein</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67276/">Lutzelhouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67277/">Mackenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67278/">Mackwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67279/">Maennolsheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67280/">Maisonsgoutte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67281/">Marckolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67282/">Marlenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67283/">Marmoutier</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67285/">Matzenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67286/">Meistratzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67287/">Melsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67288/">Memmelshoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67289/">Menchhoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67290/">Merkwiller-Pechelbronn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67291/">Mertzwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67292/">Mietesheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67293/">Minversheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67295/">Mittelbergheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67296/">Mittelhausbergen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67298/">Mittelschaeffolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67299/">Mollkirch</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67300/">Molsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67301/">Mommenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67302/">Monswiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67303/">Morsbronn-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67304/">Morschwiller</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67305/">Mothern</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67306/">Muhlbach-sur-Bruche</a> · 1 réseau, noté D</li>
+<li><a href="/commune/67307/">Mulhausen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67308/">Munchhausen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67309/">Mundolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67310/">Mussig</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67311/">Muttersholtz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67312/">Mutzenhouse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67313/">Mutzig</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67314/">Natzwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67315/">Neewiller-près-Lauterbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67317/">Neubois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67228/">Neugartheim-Ittlenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67319/">Neuhaeusel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67320/">Neuve-Église</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67321/">Neuviller-la-Roche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67322/">Neuwiller-lès-Saverne</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/67324/">Niederbronn-les-Bains</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/67325/">Niederhaslach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67326/">Niederhausbergen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67327/">Niederlauterbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67328/">Niedermodern</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67329/">Niedernai</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67330/">Niederrœdern</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67331/">Niederschaeffolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67333/">Niedersoultzbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67334/">Niedersteinbach</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/67335/">Nordheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67336/">Nordhouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67337/">Nothalten</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67338/">Obenheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67340/">Oberbronn</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67341/">Oberdorf-Spachbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67342/">Oberhaslach</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/67343/">Oberhausbergen</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67344/">Oberhoffen-lès-Wissembourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67345/">Oberhoffen-sur-Moder</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67346/">Oberlauterbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67347/">Obermodern-Zutzendorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67348/">Obernai</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67349/">Oberrœdern</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67350/">Oberschaeffolsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67352/">Obersoultzbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67353/">Obersteinbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67354/">Odratzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67355/">Oermingen</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67356/">Offendorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67358/">Offwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67359/">Ohlungen</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/67360/">Ohnenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67361/">Olwisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67362/">Orschwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67363/">Osthoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67364/">Osthouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67365/">Ostwald</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67366/">Ottersthal</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67367/">Otterswiller</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67368/">Ottrott</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67369/">Ottwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67370/">Petersbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67373/">Pfalzweyer</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67375/">Pfulgriesheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67377/">Plaine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67378/">Plobsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67379/">Preuschdorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67380/">Printzheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67381/">Puberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67382/">Quatzenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67383/">Rangen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67384/">Ranrupt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67385/">Ratzwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67387/">Reichsfeld</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67388/">Reichshoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67389/">Reichstett</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67391/">Reinhardsmunster</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67392/">Reipertswiller</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67394/">Retschwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67395/">Reutenbourg</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67396/">Rexingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67397/">Rhinau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67398/">Richtolsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67400/">Riedseltz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67401/">Rimsdorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67403/">Ringendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67404/">Rittershoffen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67405/">Rœschwoog</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67406/">Rohr</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67407/">Rohrwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67408/">Romanswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67409/">Roppenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67410/">Rosenwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67411/">Rosheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67412/">Rossfeld</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67413/">Rosteig</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67414/">Rothau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67415/">Rothbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67416/">Rott</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67417/">Rottelsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67418/">Rountzenheim-Auenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67420/">Russ</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/67421/">Saales</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67422/">Saasenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67423/">Saessolsheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67424/">Saint-Blaise-la-Roche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67425/">Saint-Jean-Saverne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67426/">Saint-Martin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67427/">Saint-Maurice</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67428/">Saint-Nabor</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67429/">Saint-Pierre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67430/">Saint-Pierre-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67432/">Salmbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67433/">Sand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67434/">Sarre-Union</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67435/">Sarrewerden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67436/">Saulxures</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67437/">Saverne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67438/">Schaeffersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67440/">Schaffhouse-près-Seltz</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67441/">Schalkendorf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67442/">Scharrachbergheim-Irmstett</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67443/">Scheibenhard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67444/">Scherlenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67445/">Scherwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67446/">Schillersdorf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67447/">Schiltigheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67448/">Schirmeck</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67449/">Schirrhein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67450/">Schirrhoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67451/">Schleithal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67452/">Schnersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67453/">Schœnau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67454/">Schœnbourg</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67455/">Schœnenbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67456/">Schopperten</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67458/">Schweighouse-sur-Moder</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67459/">Schwenheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67460/">Schwindratzheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67461/">Schwobsheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67351/">Seebach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67462/">Sélestat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67463/">Seltz</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67464/">Sermersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67465/">Sessenheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67466/">Siegen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67467/">Siewiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67470/">Solbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67004/">Sommerau</a> · 2 réseaux : 1 noté D, 1 noté B</li>
+<li><a href="/commune/67471/">Souffelweyersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67472/">Soufflenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67473/">Soultz-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67474/">Soultz-sous-Forêts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67475/">Sparsbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67476/">Stattmatten</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67477/">Steige</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67478/">Steinbourg</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67479/">Steinseltz</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67480/">Still</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67481/">Stotzheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67482/">Strasbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67483/">Struth</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67484/">Stundwiller</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67485/">Stutzheim-Offenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67486/">Sundhouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67487/">Surbourg</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67488/">Thal-Drulingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67489/">Thal-Marmoutier</a> · 2 réseaux : 2 notés B</li>
+<li><a href="/commune/67490/">Thanvillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67491/">Tieffenbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67492/">Traenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67493/">Triembach-au-Val</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67494/">Trimbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67495/">Truchtersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67497/">Uhlwiller</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67498/">Uhrwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67499/">Urbeis</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67500/">Urmatt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67501/">Uttenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67502/">Uttenhoffen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67503/">Uttwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67372/">Val-de-Moder</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/67504/">Valff</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67506/">Vendenheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67507/">Villé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67508/">Vœllerdingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67509/">Volksberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67510/">Wahlenheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67511/">Walbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67513/">Waldersbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67514/">Waldhambach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67515/">Waldolwisheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67516/">Waltenheim-sur-Zorn</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67517/">Wangen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67122/">Wangenbourg-Engenthal</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/67520/">Wasselonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67521/">Weinbourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67522/">Weislingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67523/">Weitbruch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67524/">Weiterswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67525/">Westhoffen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67526/">Westhouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67527/">Westhouse-Marmoutier</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67528/">Weyer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67529/">Weyersheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67530/">Wickersheim-Wilshausen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67531/">Wildersbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67532/">Willgottheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67534/">Wilwisheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67535/">Wimmenau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67536/">Windstein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67537/">Wingen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67538/">Wingen-sur-Moder</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67539/">Wingersheim les Quatre Bans</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67540/">Wintershouse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67541/">Wintzenbach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67542/">Wintzenheim-Kochersberg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67543/">Wisches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67544/">Wissembourg</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/67545/">Witternheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67546/">Wittersheim</a> · 1 réseau, noté C</li>
+<li><a href="/commune/67547/">Wittisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67548/">Wiwersheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67550/">Wœrth</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67551/">Wolfisheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67552/">Wolfskirchen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67553/">Wolschheim</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67554/">Wolxheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67555/">Zehnacker</a> · 1 réseau, noté B</li>
+<li><a href="/commune/67556/">Zeinheim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67557/">Zellwiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67558/">Zinswiller</a> · 1 réseau, noté A</li>
+<li><a href="/commune/67559/">Zittersheim</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Bas-Rhin · eau du robinet », https://meteodurobinet.fr/departement/67/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

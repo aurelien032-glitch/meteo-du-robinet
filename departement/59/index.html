@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Nord (59) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Nord · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Nord (59) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/59/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Nord · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Nord · eau du robinet","url":"https://meteodurobinet.fr/departement/59/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Nord","item":"https://meteodurobinet.fr/departement/59/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/59/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Nord</h1>
+<p class="meta">Département 59</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>95 sur 166 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 62 réseaux</li>
+<li>B qualité convenable* : 9 réseaux</li>
+<li>C qualité insuffisante* : 94 réseaux</li>
+<li>D mauvaise qualité* : 1 réseau</li>
+</ul>
+<p>Pesticides 93, nitrates 4.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>48 réseaux visés sur 166</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>188 prélèvements</strong> évalués en septembre 2026 ; 2 513 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : vigilance 102 jours, alerte 67 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2026 en cours : vigilance 48 jours, alerte 16 jours, alerte renforcée 21 jours, crise 78 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,55</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 19 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>22 services d’eau</strong> desservent au moins une commune du département ; 5 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 174 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/059000506/">ABO FLERS EN ESCREBIEUX</a> · 059000506 · sans note · 1 commune</li>
+<li><a href="/reseau/059003663/">ABO SIN LE NOBLE</a> · 059003663 · sans note · 2 communes</li>
+<li><a href="/reseau/059000724/">ANNOEULLIN</a> · 059000724 · sans note · 4 communes</li>
+<li><a href="/reseau/059000608/">ANZIN</a> · 059000608 · note A · 4 communes</li>
+<li><a href="/reseau/059002112/">ARLEUX</a> · 059002112 · note C · 4 communes</li>
+<li><a href="/reseau/059000721/">ARMENTIERES</a> · 059000721 · note C · 8 communes</li>
+<li><a href="/reseau/059000638/">ASSEVENT</a> · 059000638 · note A · 1 commune</li>
+<li><a href="/reseau/059000422/">AUBERCHICOURT</a> · 059000422 · note A · 4 communes</li>
+<li><a href="/reseau/059000424/">AUBIGNY AU BAC</a> · 059000424 · note C · 2 communes</li>
+<li><a href="/reseau/059000507/">AUBY</a> · 059000507 · note C · 1 commune</li>
+<li><a href="/reseau/059000427/">AUCHY LES ORCHIES</a> · 059000427 · note C · 3 communes</li>
+<li><a href="/reseau/059000560/">AULNOY</a> · 059000560 · note C · 9 communes</li>
+<li><a href="/reseau/059000434/">AVESNES LE SEC</a> · 059000434 · note C · 1 commune</li>
+<li><a href="/reseau/059002659/">AVESNES LES AUBERT</a> · 059002659 · note C · 2 communes</li>
+<li><a href="/reseau/059000653/">AVESNES SUR HELPE</a> · 059000653 · note C · 17 communes</li>
+<li><a href="/reseau/059000435/">AWOINGT</a> · 059000435 · note A · 2 communes</li>
+<li><a href="/reseau/059000581/">BAISIEUX</a> · 059000581 · note C · 5 communes</li>
+<li><a href="/reseau/059003693/">BAIVES</a> · 059003693 · note A · 4 communes</li>
+<li><a href="/reseau/059000443/">BANTEUX</a> · 059000443 · note C · 3 communes</li>
+<li><a href="/reseau/059000442/">BAVAY LA LONGUEVILLE</a> · 059000442 · note C · 2 communes</li>
+<li><a href="/reseau/059000590/">BERTRY</a> · 059000590 · note A · 2 communes</li>
+<li><a href="/reseau/059000446/">BEVILLERS</a> · 059000446 · note A · 1 commune</li>
+<li><a href="/reseau/059000450/">BLECOURT</a> · 059000450 · note A · 1 commune</li>
+<li><a href="/reseau/059003642/">BOUCHAIN SUD OUEST</a> · 059003642 · note C · 1 commune</li>
+<li><a href="/reseau/059000452/">BOUSIES</a> · 059000452 · note A · 1 commune</li>
+<li><a href="/reseau/059000453/">BOUSSIERES EN CAMBRESIS</a> · 059000453 · note C · 1 commune</li>
+<li><a href="/reseau/059000678/">BROUCKERQUE</a> · 059000678 · note C · 6 communes</li>
+<li><a href="/reseau/059000626/">BRUAY SUR ESCAUT</a> · 059000626 · note A · 1 commune</li>
+<li><a href="/reseau/059000454/">BUGNICOURT</a> · 059000454 · note C · 2 communes</li>
+<li><a href="/reseau/059000455/">BUSIGNY</a> · 059000455 · note A · 1 commune</li>
+<li><a href="/reseau/059000701/">BUSIGNY GARE</a> · 059000701 · sans note · 1 commune</li>
+<li><a href="/reseau/059000618/">CAMBRAI</a> · 059000618 · note C · 1 commune</li>
+<li><a href="/reseau/059000456/">CANTAING ESCAUT</a> · 059000456 · note A · 1 commune</li>
+<li><a href="/reseau/059000505/">CAPPELLE EN PEVELE</a> · 059000505 · note C · 22 communes</li>
+<li><a href="/reseau/059000462/">CATTENIERES</a> · 059000462 · note C · 1 commune</li>
+<li><a href="/reseau/059000463/">CAUDRY</a> · 059000463 · note C · 1 commune</li>
+<li><a href="/reseau/059000466/">CLARY</a> · 059000466 · note C · 1 commune</li>
+<li><a href="/reseau/059000552/">COMINES</a> · 059000552 · note A · 5 communes</li>
+<li><a href="/reseau/059000468/">CONDE SUR L'ESCAUT</a> · 059000468 · note C · 5 communes</li>
+<li><a href="/reseau/059003641/">CREVECOEUR OUEST</a> · 059003641 · sans note · 1 commune</li>
+<li><a href="/reseau/059000470/">CROIX CALUYAU</a> · 059000470 · note C · 2 communes</li>
+<li><a href="/reseau/059000476/">CUINCY</a> · 059000476 · note C · 4 communes</li>
+<li><a href="/reseau/059004381/">CUVE AUBERGE DU COUCOU</a> · 059004381 · note D · 1 commune</li>
+<li><a href="/reseau/059000471/">CUVILLERS</a> · 059000471 · note C · 3 communes</li>
+<li><a href="/reseau/059003662/">DECHY</a> · 059003662 · note C · 2 communes</li>
+<li><a href="/reseau/059000594/">DENAIN</a> · 059000594 · note C · 1 commune</li>
+<li><a href="/reseau/059000475/">DOUAI</a> · 059000475 · note C · 4 communes</li>
+<li><a href="/reseau/059000592/">DOUCHY LES MINES</a> · 059000592 · note C · 10 communes</li>
+<li><a href="/reseau/059000677/">DUNKERQUE</a> · 059000677 · note C · 23 communes</li>
+<li><a href="/reseau/059000481/">EBBLINGHEM</a> · 059000481 · note C · 72 communes</li>
+<li><a href="/reseau/059000700/">ELINCOURT</a> · 059000700 · note C · 1 commune</li>
+<li><a href="/reseau/059000485/">ENGLEFONTAINE</a> · 059000485 · note B · 3 communes</li>
+<li><a href="/reseau/059000458/">ERCHIN</a> · 059000458 · note C · 11 communes</li>
+<li><a href="/reseau/059000486/">ERRE</a> · 059000486 · note C · 8 communes</li>
+<li><a href="/reseau/059000487/">ESCAUDAIN</a> · 059000487 · note C · 5 communes</li>
+<li><a href="/reseau/059000489/">ESCAUDOEUVRES</a> · 059000489 · note C · 3 communes</li>
+<li><a href="/reseau/059000719/">ESTRUN</a> · 059000719 · note C · 13 communes</li>
+<li><a href="/reseau/059003692/">ETROEUNGT</a> · 059003692 · note C · 5 communes</li>
+<li><a href="/reseau/059000502/">FERRIERE LA GRANDE</a> · 059000502 · note C · 6 communes</li>
+<li><a href="/reseau/059000504/">FERRIERE LA PETITE</a> · 059000504 · note A · 16 communes</li>
+<li><a href="/reseau/059000510/">FLESQUIERES</a> · 059000510 · sans note · 1 commune</li>
+<li><a href="/reseau/059000541/">FONTAINE AU BOIS</a> · 059000541 · sans note · 3 communes</li>
+<li><a href="/reseau/059000511/">FONTAINE AU PIRE</a> · 059000511 · note A · 1 commune</li>
+<li><a href="/reseau/059000513/">FONTAINE NOTRE DAME</a> · 059000513 · note C · 2 communes</li>
+<li><a href="/reseau/059000500/">FOURMIES</a> · 059000500 · note C · 1 commune</li>
+<li><a href="/reseau/059000517/">GHISSIGNIES</a> · 059000517 · note A · 4 communes</li>
+<li><a href="/reseau/059000519/">GLAGEON</a> · 059000519 · note A · 6 communes</li>
+<li><a href="/reseau/059000440/">GOMMEGNIES</a> · 059000440 · note A · 21 communes</li>
+<li><a href="/reseau/059000665/">GONDECOURT</a> · 059000665 · note C · 4 communes</li>
+<li><a href="/reseau/059000521/">GONNELIEU</a> · 059000521 · note C · 2 communes</li>
+<li><a href="/reseau/059000523/">GOUZEAUCOURT</a> · 059000523 · note B · 1 commune</li>
+<li><a href="/reseau/059000635/">HALLUIN</a> · 059000635 · note A · 5 communes</li>
+<li><a href="/reseau/059000528/">HASNON</a> · 059000528 · note A · 2 communes</li>
+<li><a href="/reseau/059000986/">HASPRES</a> · 059000986 · note C · 1 commune</li>
+<li><a href="/reseau/059000550/">HAUTMONT SUD</a> · 059000550 · note B · 2 communes</li>
+<li><a href="/reseau/059000530/">HAYNECOURT</a> · 059000530 · note A · 1 commune</li>
+<li><a href="/reseau/059000417/">HAZEBROUCK</a> · 059000417 · note A · 1 commune</li>
+<li><a href="/reseau/059000414/">HEM</a> · 059000414 · note C · 9 communes</li>
+<li><a href="/reseau/059000657/">HERLIES</a> · 059000657 · note C · 12 communes</li>
+<li><a href="/reseau/059000533/">HONNECHY</a> · 059000533 · note C · 2 communes</li>
+<li><a href="/reseau/059000722/">HOUPLIN ANCOISNE</a> · 059000722 · note A · 3 communes</li>
+<li><a href="/reseau/059000534/">INCHY</a> · 059000534 · note C · 2 communes</li>
+<li><a href="/reseau/059000615/">JENLAIN</a> · 059000615 · note C · 6 communes</li>
+<li><a href="/reseau/059000536/">JEUMONT</a> · 059000536 · note C · 3 communes</li>
+<li><a href="/reseau/059000444/">LA BASSEE</a> · 059000444 · note C · 1 commune</li>
+<li><a href="/reseau/059000658/">LA GORGUE</a> · 059000658 · note A · 11 communes</li>
+<li><a href="/reseau/059000526/">LA GROISE</a> · 059000526 · note A · 7 communes</li>
+<li><a href="/reseau/059004195/">LAMBERSART</a> · 059004195 · note C · 6 communes</li>
+<li><a href="/reseau/059004648/">LANDAS</a> · 059004648 · note A · 6 communes</li>
+<li><a href="/reseau/059000540/">LANDRECIES</a> · 059000540 · note A · 4 communes</li>
+<li><a href="/reseau/059000460/">LE CATEAU CAMBRESIS</a> · 059000460 · note C · 2 communes</li>
+<li><a href="/reseau/059000613/">LE QUESNOY</a> · 059000613 · note C · 1 commune</li>
+<li><a href="/reseau/059004647/">LECELLES</a> · 059004647 · note A · 5 communes</li>
+<li><a href="/reseau/059000728/">LECLUSE</a> · 059000728 · note C · 3 communes</li>
+<li><a href="/reseau/059000639/">LES RUES DES VIGNES</a> · 059000639 · note C · 1 commune</li>
+<li><a href="/reseau/059000948/">LESQUIN</a> · 059000948 · note A · 4 communes</li>
+<li><a href="/reseau/059000543/">LIGNY EN CAMBRESIS</a> · 059000543 · note C · 1 commune</li>
+<li><a href="/reseau/059000545/">LILLE</a> · 059000545 · note A · 1 commune</li>
+<li><a href="/reseau/059001299/">LOCQUIGNOL</a> · 059001299 · note A · 12 communes</li>
+<li><a href="/reseau/059004194/">LOOS</a> · 059004194 · note C · 14 communes</li>
+<li><a href="/reseau/059000555/">MALINCOURT</a> · 059000555 · note C · 1 commune</li>
+<li><a href="/reseau/059002111/">MARCHIENNES</a> · 059002111 · note C · 8 communes</li>
+<li><a href="/reseau/059000557/">MARCOING</a> · 059000557 · note A · 1 commune</li>
+<li><a href="/reseau/059000558/">MARETZ</a> · 059000558 · note C · 1 commune</li>
+<li><a href="/reseau/059003623/">MARLY</a> · 059003623 · note C · 2 communes</li>
+<li><a href="/reseau/059000564/">MARQUETTE EN OSTREVANT</a> · 059000564 · note B · 1 commune</li>
+<li><a href="/reseau/059000642/">MASNIERES</a> · 059000642 · note C · 8 communes</li>
+<li><a href="/reseau/059000567/">MASNY</a> · 059000567 · note A · 4 communes</li>
+<li><a href="/reseau/059000439/">MAUBEUGE SUD</a> · 059000439 · note C · 11 communes</li>
+<li><a href="/reseau/059000570/">MAULDE</a> · 059000570 · note C · 8 communes</li>
+<li><a href="/reseau/059000572/">MILLONFOSSE</a> · 059000572 · note A · 12 communes</li>
+<li><a href="/reseau/059000574/">MOEUVRES</a> · 059000574 · note C · 3 communes</li>
+<li><a href="/reseau/059003806/">MONCHEAUX</a> · 059003806 · note B · 5 communes</li>
+<li><a href="/reseau/059000589/">MONTIGNY EN CAMBRESIS</a> · 059000589 · sans note · 1 commune</li>
+<li><a href="/reseau/059000418/">MORBECQUE</a> · 059000418 · note A · 2 communes</li>
+<li><a href="/reseau/059000490/">MORENCHIES</a> · 059000490 · note A · 1 commune</li>
+<li><a href="/reseau/059000591/">NEUVILLE EN AVESNOIS</a> · 059000591 · note A · 7 communes</li>
+<li><a href="/reseau/059000619/">NEUVILLE SAINT REMY</a> · 059000619 · note C · 1 commune</li>
+<li><a href="/reseau/059000593/">NEUVILLE SUR ESCAUT</a> · 059000593 · note C · 1 commune</li>
+<li><a href="/reseau/059000595/">NEUVILLY</a> · 059000595 · note C · 1 commune</li>
+<li><a href="/reseau/059000598/">ORCHIES</a> · 059000598 · note C · 1 commune</li>
+<li><a href="/reseau/059000577/">OSTRICOURT</a> · 059000577 · note C · 2 communes</li>
+<li><a href="/reseau/059000602/">PECQUENCOURT</a> · 059000602 · note A · 5 communes</li>
+<li><a href="/reseau/059001296/">PERONNE EN MELANTOIS</a> · 059001296 · note C · 2 communes</li>
+<li><a href="/reseau/059000606/">PETITE FORET</a> · 059000606 · note A · 3 communes</li>
+<li><a href="/reseau/059000583/">PHALEMPIN</a> · 059000583 · note A · 2 communes</li>
+<li><a href="/reseau/059000611/">POIX DU NORD</a> · 059000611 · note B · 1 commune</li>
+<li><a href="/reseau/059000584/">PONT A MARCQ</a> · 059000584 · note C · 2 communes</li>
+<li><a href="/reseau/059000525/">PRISCHES</a> · 059000525 · note A · 8 communes</li>
+<li><a href="/reseau/059000617/">PROVILLE</a> · 059000617 · note C · 2 communes</li>
+<li><a href="/reseau/059000622/">QUIEVRECHAIN</a> · 059000622 · note C · 2 communes</li>
+<li><a href="/reseau/059002661/">QUIÉVY</a> · 059002661 · note A · 2 communes</li>
+<li><a href="/reseau/059000620/">RAILLENCOURT</a> · 059000620 · note C · 1 commune</li>
+<li><a href="/reseau/059000625/">RAISMES SABATIER</a> · 059000625 · note A · 1 commune</li>
+<li><a href="/reseau/059000985/">REUMONT</a> · 059000985 · note C · 1 commune</li>
+<li><a href="/reseau/059000630/">RIBECOURT LA TOUR</a> · 059000630 · note C · 2 communes</li>
+<li><a href="/reseau/059000632/">ROEULX</a> · 059000632 · note B · 3 communes</li>
+<li><a href="/reseau/059000636/">ROUBAIX</a> · 059000636 · note A · 5 communes</li>
+<li><a href="/reseau/059000641/">RUMILLY EN CAMBRESIS</a> · 059000641 · note A · 1 commune</li>
+<li><a href="/reseau/059000643/">SAILLY LEZ CAMBRAI</a> · 059000643 · note C · 1 commune</li>
+<li><a href="/reseau/059000644/">SAINGHIN EN WEPPES</a> · 059000644 · note A · 1 commune</li>
+<li><a href="/reseau/059000645/">SAINT AMAND LES EAUX</a> · 059000645 · note A · 1 commune</li>
+<li><a href="/reseau/059000647/">SAINT AUBERT</a> · 059000647 · note A · 1 commune</li>
+<li><a href="/reseau/059000650/">SAINT BENIN</a> · 059000650 · note B · 1 commune</li>
+<li><a href="/reseau/059002660/">SAINT HILAIRE LEZ CAMBRAI</a> · 059002660 · note A · 1 commune</li>
+<li><a href="/reseau/059000655/">SAINT SOUPLET</a> · 059000655 · note B · 1 commune</li>
+<li><a href="/reseau/059000656/">SAINT VAAST EN CAMBRESIS</a> · 059000656 · note C · 1 commune</li>
+<li><a href="/reseau/059000659/">SANCOURT</a> · 059000659 · note A · 1 commune</li>
+<li><a href="/reseau/059000662/">SAULZOIR</a> · 059000662 · note A · 3 communes</li>
+<li><a href="/reseau/059000708/">SELVIGNY</a> · 059000708 · note C · 1 commune</li>
+<li><a href="/reseau/059000670/">SOLESMES</a> · 059000670 · note C · 2 communes</li>
+<li><a href="/reseau/059000661/">SOLRE LE CHATEAU</a> · 059000661 · note A · 14 communes</li>
+<li><a href="/reseau/059000672/">SOMAIN</a> · 059000672 · note A · 1 commune</li>
+<li><a href="/reseau/059000419/">STEENBECQUE</a> · 059000419 · note A · 2 communes</li>
+<li><a href="/reseau/059000673/">TAISNIERES THIERACHE</a> · 059000673 · note C · 5 communes</li>
+<li><a href="/reseau/059000692/">THIVENCELLE</a> · 059000692 · note A · 2 communes</li>
+<li><a href="/reseau/059000681/">TROISVILLES</a> · 059000681 · note A · 1 commune</li>
+<li><a href="/reseau/059003661/">USINE RENAULT</a> · 059003661 · note A · 2 communes</li>
+<li><a href="/reseau/059000609/">VALENCIENNES CENTRE</a> · 059000609 · note C · 1 commune</li>
+<li><a href="/reseau/059003624/">VALENCIENNES LE VIGNOBLE</a> · 059003624 · note C · 1 commune</li>
+<li><a href="/reseau/059000685/">VENDEGIES SUR ECAILLON</a> · 059000685 · note C · 11 communes</li>
+<li><a href="/reseau/059001294/">VENDEVILLE</a> · 059001294 · note A · 1 commune</li>
+<li><a href="/reseau/059000687/">VERLINGHEM</a> · 059000687 · note C · 4 communes</li>
+<li><a href="/reseau/059000691/">VICQ</a> · 059000691 · note A · 4 communes</li>
+<li><a href="/reseau/059000696/">VIESLY</a> · 059000696 · note A · 2 communes</li>
+<li><a href="/reseau/059000448/">VIEUX RENG</a> · 059000448 · note C · 7 communes</li>
+<li><a href="/reseau/059000585/">VILLENEUVE D'ASCQ</a> · 059000585 · note C · 13 communes</li>
+<li><a href="/reseau/059000702/">VILLERS EN CAUCHIES</a> · 059000702 · note A · 1 commune</li>
+<li><a href="/reseau/059000703/">VILLERS GUISLAIN</a> · 059000703 · note C · 1 commune</li>
+<li><a href="/reseau/059000704/">VILLERS OUTREAUX</a> · 059000704 · note C · 3 communes</li>
+<li><a href="/reseau/059000579/">WAHAGNIES</a> · 059000579 · note C · 5 communes</li>
+<li><a href="/reseau/059000706/">WALINCOURT</a> · 059000706 · note C · 2 communes</li>
+<li><a href="/reseau/059000575/">WALLERS</a> · 059000575 · note A · 5 communes</li>
+<li><a href="/reseau/059000715/">WASNES AU BAC</a> · 059000715 · note C · 8 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/59001/">Abancourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59002/">Abscon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59003/">Aibes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59004/">Aix-en-Pévèle</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59005/">Allennes-les-Marais</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59007/">Anhiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59008/">Aniche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59010/">Anneux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59011/">Annœullin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59012/">Anor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59013/">Anstaing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59014/">Anzin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59015/">Arleux</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59016/">Armbouts-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59017/">Armentières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59018/">Arnèke</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59019/">Artres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59021/">Assevent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59022/">Attiches</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59023/">Aubencheul-au-Bac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59024/">Auberchicourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59025/">Aubers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59026/">Aubigny-au-Bac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59027/">Aubry-du-Hainaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59028/">Auby</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59029/">Auchy-lez-Orchies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59031/">Audignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59032/">Aulnoy-lez-Valenciennes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59033/">Aulnoye-Aymeries</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59034/">Avelin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59035/">Avesnelles</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59038/">Avesnes-le-Sec</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59037/">Avesnes-les-Aubert</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59036/">Avesnes-sur-Helpe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59039/">Awoingt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59041/">Bachant</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59042/">Bachy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59043/">Bailleul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59044/">Baisieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59045/">Baives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59046/">Bambecque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59047/">Banteux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59048/">Bantigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59049/">Bantouzelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59050/">Bas-Lieu</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59052/">Bauvin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59053/">Bavay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59054/">Bavinchove</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59055/">Bazuel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59056/">Beaucamps-Ligny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59057/">Beaudignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59058/">Beaufort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59059/">Beaumont-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59060/">Beaurain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59061/">Beaurepaire-sur-Sambre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59062/">Beaurieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59063/">Beauvois-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59064/">Bellaing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59065/">Bellignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59066/">Bérelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59067/">Bergues</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59068/">Berlaimont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59069/">Bermerain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59070/">Bermeries</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/59071/">Bersée</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59072/">Bersillies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59073/">Berthen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59074/">Bertry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59075/">Béthencourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59076/">Bettignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59077/">Bettrechies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59078/">Beugnies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59079/">Beuvrages</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59080/">Beuvry-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59081/">Bévillers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59082/">Bierne</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59083/">Bissezeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59084/">Blaringhem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59085/">Blécourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59086/">Boeschepe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59087/">Boëseghem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59088/">Bois-Grenier</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59089/">Bollezeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59090/">Bondues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59091/">Borre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59092/">Bouchain</a> · 4 réseaux : 3 notés C, 1 noté B</li>
+<li><a href="/commune/59093/">Boulogne-sur-Helpe</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59094/">Bourbourg</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59096/">Bourghelles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59097/">Boursies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59098/">Bousbecque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59099/">Bousies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59100/">Bousignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59101/">Bousignies-sur-Roc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59102/">Boussières-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59103/">Boussières-sur-Sambre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59104/">Boussois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59105/">Bouvignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59106/">Bouvines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59107/">Bray-Dunes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59108/">Briastre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59109/">Brillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59110/">Brouckerque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59111/">Broxeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59112/">Bruay-sur-l'Escaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59113/">Bruille-lez-Marchiennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59114/">Bruille-Saint-Amand</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59115/">Brunémont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59116/">Bry</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59117/">Bugnicourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59118/">Busigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59119/">Buysscheure</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59120/">Caëstre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59121/">Cagnoncles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59122/">Cambrai</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59123/">Camphin-en-Carembault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59124/">Camphin-en-Pévèle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59125/">Cantaing-sur-Escaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59126/">Cantin</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59127/">Capelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59128/">Capinghem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59130/">Cappelle-Brouck</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59129/">Cappelle-en-Pévèle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59131/">Cappelle-la-Grande</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59132/">Carnières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59133/">Carnin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59134/">Cartignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59135/">Cassel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59137/">Catillon-sur-Sambre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59138/">Cattenières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59139/">Caudry</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59140/">Caullery</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59141/">Cauroir</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59142/">Cerfontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59144/">Château-l'Abbaye</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59145/">Chemy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59146/">Chéreng</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59147/">Choisies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59148/">Clairfayts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59149/">Clary</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59150/">Cobrieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59151/">Colleret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59152/">Comines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59153/">Condé-sur-l'Escaut</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59155/">Coudekerque-Branche</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59156/">Courchelettes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59157/">Cousolre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59158/">Coutiches</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59159/">Craywick</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59160/">Crespin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59161/">Crèvecœur-sur-l'Escaut</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59162/">Crochte</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59163/">Croix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59164/">Croix-Caluyau</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59165/">Cuincy</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59166/">Curgies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59167/">Cuvillers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59168/">Cysoing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59169/">Damousies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59170/">Dechy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59171/">Dehéries</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59172/">Denain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59173/">Deûlémont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59174/">Dimechaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59175/">Dimont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59176/">Doignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59177/">Dompierre-sur-Helpe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59670/">Don</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59178/">Douai</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59179/">Douchy-les-Mines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59181/">Dourlers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59182/">Drincham</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59183/">Dunkerque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59184/">Ebblinghem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59185/">Écaillon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/59186/">Eccles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59187/">Éclaibes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59188/">Écuélin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59189/">Eecke</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59190/">Élesmes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59191/">Élincourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59192/">Émerchicourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59193/">Emmerin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59194/">Englefontaine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59195/">Englos</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59196/">Ennetières-en-Weppes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59197/">Ennevelin</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59198/">Eppe-Sauvage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59199/">Erchin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59200/">Eringhem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59201/">Erquinghem-le-Sec</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59202/">Erquinghem-Lys</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59203/">Erre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59204/">Escarmain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59205/">Escaudain</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59206/">Escaudœuvres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59207/">Escautpont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59208/">Escobecques</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59209/">Esnes</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59210/">Esquelbecq</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59211/">Esquerchin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59212/">Estaires</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59213/">Estourmel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59214/">Estrées</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59215/">Estreux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59219/">Estrun</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59216/">Eswars</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59217/">Eth</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59218/">Étrœungt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59220/">Faches-Thumesnil</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59221/">Famars</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59222/">Faumont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59224/">Féchain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59225/">Feignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59226/">Felleries</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59227/">Fenain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59228/">Férin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59229/">Féron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59230/">Ferrière-la-Grande</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59231/">Ferrière-la-Petite</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59233/">Flaumont-Waudrechies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59234/">Flers-en-Escrebieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59236/">Flesquières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59237/">Flêtre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59238/">Flines-lès-Mortagne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59239/">Flines-lez-Raches</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59240/">Floursies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59241/">Floyon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59242/">Fontaine-au-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59243/">Fontaine-au-Pire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59244/">Fontaine-Notre-Dame</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59246/">Forest-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59247/">Forest-sur-Marque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59249/">Fourmies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59250/">Fournes-en-Weppes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59251/">Frasnoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59252/">Frelinghien</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59253/">Fresnes-sur-Escaut</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59254/">Fressain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59255/">Fressies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59256/">Fretin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59257/">Fromelles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59258/">Genech</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59259/">Ghissignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59260/">Ghyvelde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59261/">Glageon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59262/">Godewaersvelde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59263/">Gœulzin</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59264/">Gognies-Chaussée</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59265/">Gommegnies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59266/">Gondecourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59267/">Gonnelieu</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59269/">Gouzeaucourt</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59270/">Grand-Fayt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59272/">Grand-Fort-Philippe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59271/">Grande-Synthe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59273/">Gravelines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59275/">Gruson</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59276/">Guesnain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59277/">Gussignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59278/">Hallennes-lez-Haubourdin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59279/">Halluin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59280/">Hamel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59281/">Hantay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59282/">Hardifort</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59283/">Hargnies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59284/">Hasnon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59285/">Haspres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59286/">Haubourdin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59287/">Haucourt-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59288/">Haulchin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59289/">Haussy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59290/">Haut-Lieu</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59291/">Hautmont</a> · 2 réseaux : 1 noté C, 1 noté B</li>
+<li><a href="/commune/59292/">Haveluy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59293/">Haverskerque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59294/">Haynecourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59295/">Hazebrouck</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59296/">Hecq</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59297/">Hélesmes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59299/">Hem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59300/">Hem-Lenglet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59301/">Hergnies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59302/">Hérin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59303/">Herlies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59304/">Herrin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59305/">Herzeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59306/">Hestrud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59307/">Holque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59310/">Hon-Hergies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59308/">Hondeghem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59309/">Hondschoote</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59311/">Honnechy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59312/">Honnecourt-sur-Escaut</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59313/">Hordain</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59314/">Hornaing</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59315/">Houdain-lez-Bavay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59316/">Houplin-Ancoisne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59317/">Houplines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59318/">Houtkerque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59319/">Hoymille</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59320/">Illies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59321/">Inchy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59322/">Iwuy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59323/">Jenlain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59324/">Jeumont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59325/">Jolimetz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59326/">Killem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59006/">L'Orée de Mormal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59051/">La Bassée</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59143/">La Chapelle-d'Armentières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59232/">La Flamengrie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59268/">La Gorgue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59274/">La Groise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59357/">La Longueville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59368/">La Madeleine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59427/">La Neuville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59564/">La Sentinelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59327/">Lallaing</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/59328/">Lambersart</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59329/">Lambres-lez-Douai</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59330/">Landas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59331/">Landrecies</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/59332/">Lannoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59333/">Larouillies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59334/">Lauwin-Planque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59136/">Le Cateau-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59180/">Le Doulieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59223/">Le Favril</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59371/">Le Maisnil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59481/">Le Quesnoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59335/">Lecelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59336/">Lécluse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59337/">Lederzeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59338/">Ledringhem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59339/">Leers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59340/">Leffrinckoucke</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59517/">Les Rues-des-Vignes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59341/">Lesdain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59343/">Lesquin</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59344/">Leval</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59345/">Lewarde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59342/">Lez-Fontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59346/">Lezennes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59347/">Liessies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59348/">Lieu-Saint-Amand</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59349/">Ligny-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59350/">Lille</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/59351/">Limont-Fontaine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59352/">Linselles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59353/">Locquignol</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/59354/">Loffre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59356/">Lompret</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59358/">Looberghe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59359/">Loon-Plage</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59360/">Loos</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59361/">Lourches</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59363/">Louvignies-Quesnoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59364/">Louvil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59365/">Louvroil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59366/">Lynde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59367/">Lys-lez-Lannoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59369/">Maing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59370/">Mairieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59372/">Malincourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59374/">Marbaix</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59375/">Marchiennes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59377/">Marcoing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59378/">Marcq-en-Barœul</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59379/">Marcq-en-Ostrevent</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59381/">Maresches</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59382/">Maretz</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59383/">Marly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59384/">Maroilles</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59385/">Marpent</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59387/">Marquette-en-Ostrevant</a> · 2 réseaux : 1 noté C, 1 noté B</li>
+<li><a href="/commune/59386/">Marquette-lez-Lille</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59388/">Marquillies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59389/">Masnières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59390/">Masny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59391/">Mastaing</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59392/">Maubeuge</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59393/">Maulde</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59394/">Maurois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59395/">Mazinghien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59396/">Mecquignies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59397/">Merckeghem</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59398/">Mérignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59399/">Merris</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59400/">Merville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59401/">Méteren</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59402/">Millam</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59403/">Millonfosse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59405/">Mœuvres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59406/">Monceau-Saint-Waast</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59407/">Monchaux-sur-Écaillon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59408/">Moncheaux</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59409/">Monchecourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59410/">Mons-en-Barœul</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59411/">Mons-en-Pévèle</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59412/">Montay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59413/">Montigny-en-Cambrésis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59414/">Montigny-en-Ostrevent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59415/">Montrécourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59416/">Morbecque</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/59418/">Mortagne-du-Nord</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59419/">Mouchin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59420/">Moustier-en-Fagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59421/">Mouvaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59422/">Naves</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59423/">Neuf-Berquin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59424/">Neuf-Mesnil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59425/">Neuville-en-Avesnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59426/">Neuville-en-Ferrain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59428/">Neuville-Saint-Rémy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59429/">Neuville-sur-Escaut</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59430/">Neuvilly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59431/">Nieppe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59432/">Niergnies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59433/">Nieurlet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59434/">Nivelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59435/">Nomain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59436/">Noordpeene</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59437/">Noyelles-lès-Seclin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59438/">Noyelles-sur-Escaut</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59439/">Noyelles-sur-Sambre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59440/">Noyelles-sur-Selle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59441/">Obies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59442/">Obrechies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59443/">Ochtezeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59444/">Odomez</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59445/">Ohain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59446/">Oisy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59447/">Onnaing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59448/">Oost-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59449/">Orchies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59450/">Ors</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59451/">Orsinval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59452/">Ostricourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59453/">Oudezeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59454/">Oxelaëre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59455/">Paillencourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59456/">Pecquencourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59457/">Pérenchies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59458/">Péronne-en-Mélantois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59461/">Petit-Fayt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59459/">Petite-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59462/">Phalempin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59463/">Pitgam</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59464/">Poix-du-Nord</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59465/">Pommereuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59466/">Pont-à-Marcq</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59467/">Pont-sur-Sambre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59468/">Potelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59469/">Pradelles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59470/">Prémesques</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59471/">Préseau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59472/">Preux-au-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59473/">Preux-au-Sart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59474/">Prisches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59475/">Prouvy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59476/">Proville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59477/">Provin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59478/">Quaëdypre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59479/">Quarouble</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59480/">Quérénaing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59482/">Quesnoy-sur-Deûle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59483/">Quiévelon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59484/">Quiévrechain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59485/">Quiévy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59486/">Râches</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59487/">Radinghem-en-Weppes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59488/">Raillencourt-Sainte-Olle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59489/">Raimbeaucourt</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59490/">Rainsars</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59491/">Raismes</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/59492/">Ramillies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59493/">Ramousies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59494/">Raucourt-au-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59495/">Recquignies</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59496/">Rejet-de-Beaulieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59497/">Renescure</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59498/">Reumont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59499/">Rexpoëde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59500/">Ribécourt-la-Tour</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59501/">Rieulay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59502/">Rieux-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59503/">Robersart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59504/">Rœulx</a> · 2 réseaux : 1 noté C, 1 noté B</li>
+<li><a href="/commune/59505/">Rombies-et-Marchipont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59506/">Romeries</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59507/">Ronchin</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59508/">Roncq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59509/">Roost-Warendin</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59511/">Rosult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59512/">Roubaix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59513/">Roucourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59514/">Rousies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59515/">Rouvignies</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59516/">Rubrouck</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59518/">Ruesnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59519/">Rumegies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59520/">Rumilly-en-Cambrésis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59521/">Sailly-lez-Cambrai</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59522/">Sailly-lez-Lannoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59523/">Sainghin-en-Mélantois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59524/">Sainghin-en-Weppes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59525/">Sains-du-Nord</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59526/">Saint-Amand-les-Eaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59527/">Saint-André-lez-Lille</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59528/">Saint-Aubert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59529/">Saint-Aubin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59530/">Saint-Aybert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59531/">Saint-Benin</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59532/">Saint-Georges-sur-l'Aa</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59533/">Saint-Hilaire-lez-Cambrai</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59534/">Saint-Hilaire-sur-Helpe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59535/">Saint-Jans-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59537/">Saint-Martin-sur-Écaillon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59538/">Saint-Momelin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59539/">Saint-Pierre-Brouck</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59541/">Saint-Python</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59542/">Saint-Remy-Chaussée</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59543/">Saint-Remy-du-Nord</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59544/">Saint-Saulve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59545/">Saint-Souplet</a> · 1 réseau, noté B</li>
+<li><a href="/commune/59546/">Saint-Sylvestre-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59547/">Saint-Vaast-en-Cambrésis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59548/">Saint-Waast</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59536/">Sainte-Marie-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59549/">Salesches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59550/">Salomé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59551/">Saméon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59552/">Sancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59553/">Santes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59554/">Sars-et-Rosières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59555/">Sars-Poteries</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59556/">Sassegnies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59557/">Saultain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59558/">Saulzoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59559/">Sebourg</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59560/">Seclin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59562/">Sémeries</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59563/">Semousies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59565/">Sepmeries</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59566/">Sequedin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59567/">Séranvillers-Forenville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59568/">Sercus</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59569/">Sin-le-Noble</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59570/">Socx</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59571/">Solesmes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59572/">Solre-le-Château</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59573/">Solrinnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59574/">Somain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59575/">Sommaing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59576/">Spycker</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59577/">Staple</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59578/">Steenbecque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59579/">Steene</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59580/">Steenvoorde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59581/">Steenwerck</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59582/">Strazeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59583/">Taisnières-en-Thiérache</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59584/">Taisnières-sur-Hon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59585/">Templemars</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59586/">Templeuve-en-Pévèle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59587/">Terdeghem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59588/">Téteghem-Coudekerque-Village</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59589/">Thiant</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59590/">Thiennes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59591/">Thivencelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59592/">Thumeries</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59593/">Thun-l'Évêque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59594/">Thun-Saint-Amand</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59595/">Thun-Saint-Martin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59597/">Tilloy-lez-Cambrai</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59596/">Tilloy-lez-Marchiennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59598/">Toufflers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59599/">Tourcoing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59600/">Tourmignies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59601/">Trélon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59602/">Tressin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59603/">Trith-Saint-Léger</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59604/">Troisvilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59605/">Uxem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59606/">Valenciennes</a> · 4 réseaux : 3 notés C, 1 noté A</li>
+<li><a href="/commune/59607/">Vendegies-au-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59608/">Vendegies-sur-Écaillon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59609/">Vendeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59610/">Verchain-Maugré</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59611/">Verlinghem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59612/">Vertain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59613/">Vicq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59614/">Viesly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59615/">Vieux-Berquin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59616/">Vieux-Condé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59617/">Vieux-Mesnil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59618/">Vieux-Reng</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59009/">Villeneuve-d'Ascq</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59619/">Villereau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/59620/">Villers-au-Tertre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59622/">Villers-en-Cauchies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59623/">Villers-Guislain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59624/">Villers-Outréaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59625/">Villers-Plouich</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59626/">Villers-Pol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59627/">Villers-Sire-Nicole</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59628/">Volckerinckhove</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59629/">Vred</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59630/">Wahagnies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59631/">Walincourt-Selvigny</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/59632/">Wallers</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59633/">Wallers-en-Fagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59634/">Wallon-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59635/">Wambaix</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59636/">Wambrechies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59637/">Wandignies-Hamage</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59638/">Wannehain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59639/">Wargnies-le-Grand</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59640/">Wargnies-le-Petit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59641/">Warhem</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59642/">Warlaing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59643/">Warneton</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59645/">Wasnes-au-Bac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59646/">Wasquehal</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59647/">Watten</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59648/">Wattignies</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/59649/">Wattignies-la-Victoire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59650/">Wattrelos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59651/">Wavrechain-sous-Denain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59652/">Wavrechain-sous-Faulx</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59653/">Wavrin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59654/">Waziers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59655/">Wemaers-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59656/">Wervicq-Sud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59657/">West-Cappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59658/">Wicres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59659/">Wignehies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59660/">Willems</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59661/">Willies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/59662/">Winnezeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59663/">Wormhout</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59664/">Wulverdinghe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59665/">Wylder</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59666/">Zegerscappel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59667/">Zermezeele</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59668/">Zuydcoote</a> · 1 réseau, noté C</li>
+<li><a href="/commune/59669/">Zuytpeene</a> · 1 réseau, noté C</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Nord · eau du robinet », https://meteodurobinet.fr/departement/59/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

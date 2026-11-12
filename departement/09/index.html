@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Ariège (09) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Ariège · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Ariège (09) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/09/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Ariège · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Ariège · eau du robinet","url":"https://meteodurobinet.fr/departement/09/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Ariège","item":"https://meteodurobinet.fr/departement/09/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/09/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Ariège</h1>
+<p class="meta">Département 09</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>96 sur 422 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 326 réseaux</li>
+<li>B qualité convenable* : 0 réseau</li>
+<li>C qualité insuffisante* : 12 réseaux</li>
+<li>D mauvaise qualité* : 84 réseaux</li>
+</ul>
+<p>Bactériologie 86 (75 D), autres limites de qualité 8.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>75 réseaux visés sur 422</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>231 prélèvements</strong> évalués en septembre 2026 ; 1 840 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 22 jours, alerte 0 jour, alerte renforcée 28 jours, crise 67 jours</li>
+<li>2025 : vigilance 16 jours, alerte 16 jours, alerte renforcée 14 jours, crise 106 jours</li>
+<li>2026 en cours : vigilance 7 jours, alerte 0 jour, alerte renforcée 7 jours, crise 125 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,87</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 4 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>13 services d’eau</strong> desservent au moins une commune du département ; 13 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 478 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/009005494/">3 EME BAZERQUE ( PRODUCTION UV)</a> · 009005494 · note A · 1 commune</li>
+<li><a href="/reseau/009000837/">AIGUES-JUNTES</a> · 009000837 · note D · 1 commune</li>
+<li><a href="/reseau/009000910/">ALAS (BALAGUERES)</a> · 009000910 · note A · 1 commune</li>
+<li><a href="/reseau/009000839/">ALBIES BAS</a> · 009000839 · note A · 1 commune</li>
+<li><a href="/reseau/009003261/">ALBIES VILLAGE HAUT</a> · 009003261 · note A · 1 commune</li>
+<li><a href="/reseau/009000840/">ALEU VILLAGE ESPOETS HOUT JULIANE</a> · 009000840 · note A · 1 commune</li>
+<li><a href="/reseau/009001451/">ALLIAT USSAT TARASCON SABART</a> · 009001451 · note A · 3 communes</li>
+<li><a href="/reseau/009000854/">ALLIERES</a> · 009000854 · note A · 1 commune</li>
+<li><a href="/reseau/009000862/">ALZEN</a> · 009000862 · note C · 2 communes</li>
+<li><a href="/reseau/009001130/">AMPLAING</a> · 009001130 · note A · 1 commune</li>
+<li><a href="/reseau/009001980/">AMPRIELS</a> · 009001980 · note D · 1 commune</li>
+<li><a href="/reseau/009004992/">ANDEBU</a> · 009004992 · note A · 1 commune</li>
+<li><a href="/reseau/009001314/">ANGLADE</a> · 009001314 · sans note · 1 commune</li>
+<li><a href="/reseau/009001018/">ANGOULS</a> · 009001018 · note A · 1 commune</li>
+<li><a href="/reseau/009001188/">ANILAC ARRIOU ROUME</a> · 009001188 · sans note · 1 commune</li>
+<li><a href="/reseau/009001265/">ANOS COUME BIN</a> · 009001265 · sans note · 1 commune</li>
+<li><a href="/reseau/009000863/">ANTRAS</a> · 009000863 · note A · 1 commune</li>
+<li><a href="/reseau/009001276/">ANTRAS ST PAUL DE JARRAT</a> · 009001276 · note A · 1 commune</li>
+<li><a href="/reseau/009000864/">APPY</a> · 009000864 · note A · 1 commune</li>
+<li><a href="/reseau/009001082/">ARABAUX/GUDAS/L'HERM/ROQUEFORT</a> · 009001082 · note D · 6 communes</li>
+<li><a href="/reseau/009001041/">ARAUX</a> · 009001041 · note A · 1 commune</li>
+<li><a href="/reseau/009000873/">ARET</a> · 009000873 · note A · 1 commune</li>
+<li><a href="/reseau/009000866/">ARGEIN</a> · 009000866 · note D · 1 commune</li>
+<li><a href="/reseau/009000867/">ARIGNAC</a> · 009000867 · note A · 1 commune</li>
+<li><a href="/reseau/009000869/">ARNAVE  FRANQUE</a> · 009000869 · note A · 1 commune</li>
+<li><a href="/reseau/009001134/">ARQUIZAT NORGEAT ET BAYCHON</a> · 009001134 · note A · 1 commune</li>
+<li><a href="/reseau/009000871/">ARRIEN EN BETHMALE, VILLARGEIN</a> · 009000871 · note C · 1 commune</li>
+<li><a href="/reseau/009001802/">ARROUS</a> · 009001802 · note A · 1 commune</li>
+<li><a href="/reseau/009000874/">ARROUT</a> · 009000874 · note A · 1 commune</li>
+<li><a href="/reseau/009004973/">ARROUT COLONIE HAUT</a> · 009004973 · note A · 1 commune</li>
+<li><a href="/reseau/009000888/">ARTIES</a> · 009000888 · note A · 1 commune</li>
+<li><a href="/reseau/009000889/">ARTIGUE</a> · 009000889 · note A · 1 commune</li>
+<li><a href="/reseau/009002402/">ARTIGUENARD HT ET BS</a> · 009002402 · note A · 1 commune</li>
+<li><a href="/reseau/009000875/">ARTIGUES</a> · 009000875 · note A · 1 commune</li>
+<li><a href="/reseau/009000876/">ASCOU GOULOURS L'EYCHERQUE</a> · 009000876 · note A · 1 commune</li>
+<li><a href="/reseau/009000877/">ASCOU PAILHERES</a> · 009000877 · sans note · 1 commune</li>
+<li><a href="/reseau/009001025/">ASTIEN </a> · 009001025 · note A · 1 commune</li>
+<li><a href="/reseau/009000879/">ASTON</a> · 009000879 · note A · 1 commune</li>
+<li><a href="/reseau/009000917/">ATIELS</a> · 009000917 · note D · 1 commune</li>
+<li><a href="/reseau/009000882/">AUCAZEIN</a> · 009000882 · note A · 1 commune</li>
+<li><a href="/reseau/009003191/">AUDRESSEIN/SALSEIN</a> · 009003191 · note A · 2 communes</li>
+<li><a href="/reseau/009000884/">AUGIREIN</a> · 009000884 · note A · 1 commune</li>
+<li><a href="/reseau/009000962/">AULIGNAC</a> · 009000962 · note A · 1 commune</li>
+<li><a href="/reseau/009000885/">AULOS</a> · 009000885 · note A · 1 commune</li>
+<li><a href="/reseau/009000886/">AULUS</a> · 009000886 · note A · 1 commune</li>
+<li><a href="/reseau/009001301/">AUNAC COUMECAUDE CAMP-PEYRAT</a> · 009001301 · note A · 1 commune</li>
+<li><a href="/reseau/009001264/">AUTRECH</a> · 009001264 · note A · 1 commune</li>
+<li><a href="/reseau/009000896/">AUZAT CIMETIERE VICDESSOS</a> · 009000896 · note A · 2 communes</li>
+<li><a href="/reseau/009000887/">AUZAT HLM</a> · 009000887 · note A · 1 commune</li>
+<li><a href="/reseau/009000904/">AX LES BAZERQUES SAVIGNAC</a> · 009000904 · note A · 3 communes</li>
+<li><a href="/reseau/009000903/">AXIAT</a> · 009000903 · note A · 1 commune</li>
+<li><a href="/reseau/009000961/">AYER  BACHER</a> · 009000961 · note D · 1 commune</li>
+<li><a href="/reseau/009000935/">AYET SAMORTEIN</a> · 009000935 · note D · 1 commune</li>
+<li><a href="/reseau/009001011/">AZAM COUDERE CLOT CAZAUX PEYB.</a> · 009001011 · note D · 1 commune</li>
+<li><a href="/reseau/009000908/">BALACET  SAMIAC</a> · 009000908 · note A · 2 communes</li>
+<li><a href="/reseau/009000909/">BALAGUE AGERT</a> · 009000909 · note A · 1 commune</li>
+<li><a href="/reseau/009001046/">BALES ET ESQUEIN</a> · 009001046 · note D · 1 commune</li>
+<li><a href="/reseau/009001125/">BALMAYNE</a> · 009001125 · note A · 1 commune</li>
+<li><a href="/reseau/009002504/">BAOUTOURAS LE ROC MATHIEU</a> · 009002504 · note A · 1 commune</li>
+<li><a href="/reseau/009001174/">BARDIOS</a> · 009001174 · note D · 1 commune</li>
+<li><a href="/reseau/009001454/">BASSE VALLEE DE L'ARIEGE</a> · 009001454 · note A · 33 communes</li>
+<li><a href="/reseau/009000845/">BATAILLET</a> · 009000845 · note D · 1 commune</li>
+<li><a href="/reseau/009000919/">BAULOU</a> · 009000919 · sans note · 1 commune</li>
+<li><a href="/reseau/009005816/">BAULOU/VERNAJOUL</a> · 009005816 · note A · 2 communes</li>
+<li><a href="/reseau/009001449/">BEDEILHAC AYNAT</a> · 009001449 · note A · 1 commune</li>
+<li><a href="/reseau/009000925/">BELESTA LESPARROU L'AIGUILLON</a> · 009000925 · note A · 3 communes</li>
+<li><a href="/reseau/009000929/">BENAIX LES ROUSSEAUX LE BAYLE</a> · 009000929 · note D · 2 communes</li>
+<li><a href="/reseau/009001409/">BESSET COUTENS</a> · 009001409 · note A · 3 communes</li>
+<li><a href="/reseau/009000933/">BESTIAC</a> · 009000933 · note A · 1 commune</li>
+<li><a href="/reseau/009001226/">BEZIOU BAS/LASSALLE/PECH</a> · 009001226 · note A · 1 commune</li>
+<li><a href="/reseau/009005802/">BEZIOU QUARTIER HAUT</a> · 009005802 · note A · 1 commune</li>
+<li><a href="/reseau/009000954/">BIAC  ARTIGUEPLA</a> · 009000954 · note D · 1 commune</li>
+<li><a href="/reseau/009000937/">BIERT VILLAGE</a> · 009000937 · note A · 1 commune</li>
+<li><a href="/reseau/009001124/">BOATES</a> · 009001124 · note A · 1 commune</li>
+<li><a href="/reseau/009000946/">BONAC LASCOUX ORLE ESPERRIS</a> · 009000946 · note A · 2 communes</li>
+<li><a href="/reseau/009000905/">BONASCRE</a> · 009000905 · note A · 1 commune</li>
+<li><a href="/reseau/009000964/">BORDES PARTIE SUD RTE SENTEIN</a> · 009000964 · note A · 1 commune</li>
+<li><a href="/reseau/009000975/">BOUAN</a> · 009000975 · note A · 1 commune</li>
+<li><a href="/reseau/009000994/">BOURGAIL</a> · 009000994 · note A · 1 commune</li>
+<li><a href="/reseau/009000976/">BOUSSENAC VILLAGE ET GAJOL</a> · 009000976 · note D · 1 commune</li>
+<li><a href="/reseau/009000970/">BREIGNE</a> · 009000970 · note A · 1 commune</li>
+<li><a href="/reseau/009000916/">BROUZENAC</a> · 009000916 · note A · 1 commune</li>
+<li><a href="/reseau/009000944/">BROZY MOURES</a> · 009000944 · note D · 1 commune</li>
+<li><a href="/reseau/009000996/">BURRET ET URJOLS</a> · 009000996 · note D · 1 commune</li>
+<li><a href="/reseau/009000998/">BUZAN</a> · 009000998 · note A · 1 commune</li>
+<li><a href="/reseau/009005820/">BVA SECTEUR ARVIGNA</a> · 009005820 · note A · 6 communes</li>
+<li><a href="/reseau/009001374/">BVA ZONE BASSE</a> · 009001374 · sans note · 10 communes</li>
+<li><a href="/reseau/009001127/">CABOS/LA PALETADE</a> · 009001127 · note A · 1 commune</li>
+<li><a href="/reseau/009001282/">CABUS</a> · 009001282 · note D · 1 commune</li>
+<li><a href="/reseau/009000999/">CADARCET GAYET LES FAJANES</a> · 009000999 · note A · 2 communes</li>
+<li><a href="/reseau/009003053/">CAILHOL D'EN BAS LE PRINCE</a> · 009003053 · note D · 1 commune</li>
+<li><a href="/reseau/009001445/">CAMARADE</a> · 009001445 · note D · 1 commune</li>
+<li><a href="/reseau/009001001/">CAMON</a> · 009001001 · note A · 1 commune</li>
+<li><a href="/reseau/009001176/">CAMPAULEIL</a> · 009001176 · sans note · 1 commune</li>
+<li><a href="/reseau/009002088/">CAMPING - LES BORDES - SAILLENS</a> · 009002088 · note A · 1 commune</li>
+<li><a href="/reseau/009004094/">CAMPREDON</a> · 009004094 · sans note · 1 commune</li>
+<li><a href="/reseau/009001166/">CAP DE SOUR LA TRAVERSE JUAN D'ARAU</a> · 009001166 · note A · 1 commune</li>
+<li><a href="/reseau/009001436/">CAPOULET JUNAC LARAMADE</a> · 009001436 · note A · 3 communes</li>
+<li><a href="/reseau/009001305/">CAPVERT FAUP RAUFASTE MAILLICHES CASTERA</a> · 009001305 · note A · 1 commune</li>
+<li><a href="/reseau/009000987/">CAROL - ABELA</a> · 009000987 · note A · 1 commune</li>
+<li><a href="/reseau/009001203/">CAROL/TRABIET/SARTROU</a> · 009001203 · note D · 1 commune</li>
+<li><a href="/reseau/009000993/">CARTOU</a> · 009000993 · note D · 1 commune</li>
+<li><a href="/reseau/009001003/">CASTELNAU FEILLET </a> · 009001003 · note A · 1 commune</li>
+<li><a href="/reseau/009001006/">CASTILLON EN COUSERANS</a> · 009001006 · note A · 1 commune</li>
+<li><a href="/reseau/009001008/">CAUSSOU</a> · 009001008 · note A · 1 commune</li>
+<li><a href="/reseau/009001342/">CAUTIRAC</a> · 009001342 · note D · 1 commune</li>
+<li><a href="/reseau/009001009/">CAYCHAX</a> · 009001009 · note A · 1 commune</li>
+<li><a href="/reseau/009002117/">CAYCHOUNET</a> · 009002117 · note A · 1 commune</li>
+<li><a href="/reseau/009005752/">CAZALS DES FAURES</a> · 009005752 · note A · 1 commune</li>
+<li><a href="/reseau/009001010/">CAZALS-DES-BAYLES</a> · 009001010 · sans note · 1 commune</li>
+<li><a href="/reseau/009005753/">CAZALS/MALEGOUDE/STE-FOI</a> · 009005753 · note A · 3 communes</li>
+<li><a href="/reseau/009001452/">CAZENAVE</a> · 009001452 · note A · 1 commune</li>
+<li><a href="/reseau/009001014/">CELLES</a> · 009001014 · note A · 1 commune</li>
+<li><a href="/reseau/009003988/">CENTRE D'ACCUEIL PLA DE LA LAU</a> · 009003988 · sans note · 1 commune</li>
+<li><a href="/reseau/009004988/">CENTRE EQUESTRE DU MONTCALM</a> · 009004988 · note A · 1 commune</li>
+<li><a href="/reseau/009001159/">CERIES</a> · 009001159 · note A · 1 commune</li>
+<li><a href="/reseau/009001015/">CESCAU</a> · 009001015 · note A · 1 commune</li>
+<li><a href="/reseau/009000943/">COL DE BOULOGNE</a> · 009000943 · note A · 1 commune</li>
+<li><a href="/reseau/009001151/">COL DE LA LAUZE</a> · 009001151 · note A · 1 commune</li>
+<li><a href="/reseau/009001317/">COL DE ROUX</a> · 009001317 · note C · 1 commune</li>
+<li><a href="/reseau/009005583/">COL DES MARROUS/BOURREL/FIERROULET/MADRANQUE/LE COURTAL/FOUR</a> · 009005583 · note A · 2 communes</li>
+<li><a href="/reseau/009001029/">COMINAC</a> · 009001029 · note D · 1 commune</li>
+<li><a href="/reseau/009001017/">COUFLENS</a> · 009001017 · note A · 1 commune</li>
+<li><a href="/reseau/009000941/">COULAT NABIES LES FONTELLES</a> · 009000941 · note A · 1 commune</li>
+<li><a href="/reseau/009001212/">COULIA MOUREOU</a> · 009001212 · note D · 1 commune</li>
+<li><a href="/reseau/009001249/">COULZONNE</a> · 009001249 · sans note · 1 commune</li>
+<li><a href="/reseau/009000843/">COUMELARY, LA PELADE</a> · 009000843 · note D · 1 commune</li>
+<li><a href="/reseau/009001356/">COUMELEGE</a> · 009001356 · note A · 1 commune</li>
+<li><a href="/reseau/009000849/">COUMES</a> · 009000849 · note D · 1 commune</li>
+<li><a href="/reseau/009005504/">COUQUET RIEUFOURCANT</a> · 009005504 · note D · 1 commune</li>
+<li><a href="/reseau/009000842/">COUREX, PINSON, QUELEBU</a> · 009000842 · note D · 1 commune</li>
+<li><a href="/reseau/009001903/">COURRENT DE LA FRAU</a> · 009001903 · note D · 1 commune</li>
+<li><a href="/reseau/009001418/">COUSERANS  ALOS-RILLE PANIFOUS</a> · 009001418 · note D · 4 communes</li>
+<li><a href="/reseau/009005818/">COUSERANS ALOS</a> · 009005818 · note A · 27 communes</li>
+<li><a href="/reseau/009001414/">COUSERANS ALOS VERS FABAS</a> · 009001414 · sans note · 21 communes</li>
+<li><a href="/reseau/009001417/">COUSERANS ALOS VERS STE CROIX</a> · 009001417 · sans note · 9 communes</li>
+<li><a href="/reseau/009001411/">COUSERANS LA TOURASSE</a> · 009001411 · note A · 2 communes</li>
+<li><a href="/reseau/009001412/">COUSERANS LADOUX</a> · 009001412 · note A · 11 communes</li>
+<li><a href="/reseau/009001413/">COUSERANS LAS TOUASSES</a> · 009001413 · note A · 6 communes</li>
+<li><a href="/reseau/009001415/">COUSERANS RILLE</a> · 009001415 · note D · 9 communes</li>
+<li><a href="/reseau/009001421/">CRAMPAGNA LOUBIERES SAINT JEAN</a> · 009001421 · note A · 3 communes</li>
+<li><a href="/reseau/009004052/">CROQUIE</a> · 009004052 · note A · 1 commune</li>
+<li><a href="/reseau/009002734/">CUILLERE</a> · 009002734 · note D · 1 commune</li>
+<li><a href="/reseau/009004123/">DARROS</a> · 009004123 · note A · 1 commune</li>
+<li><a href="/reseau/009001423/">DOUCTOUYRE</a> · 009001423 · note A · 6 communes</li>
+<li><a href="/reseau/009001427/">DURBAN MONTSERON</a> · 009001427 · note A · 3 communes</li>
+<li><a href="/reseau/009003946/">ECARTS ARET</a> · 009003946 · note A · 1 commune</li>
+<li><a href="/reseau/009005667/">ECARTS DE PAILHES</a> · 009005667 · note A · 1 commune</li>
+<li><a href="/reseau/009003110/">ECARTS DE TOURNAC - BOUCHE</a> · 009003110 · note D · 1 commune</li>
+<li><a href="/reseau/009001431/">ECARTS EST MONTGAILHARD</a> · 009001431 · note A · 1 commune</li>
+<li><a href="/reseau/009000894/">EMPERROT HT &amp; BAS</a> · 009000894 · note D · 1 commune</li>
+<li><a href="/reseau/009005548/">ENGOMER VILLAGE</a> · 009005548 · note A · 1 commune</li>
+<li><a href="/reseau/009001027/">ERCE LA RIVIERE</a> · 009001027 · note A · 1 commune</li>
+<li><a href="/reseau/009001031/">ESCALES ESPOUEIX SERRES ANGLADURE</a> · 009001031 · note A · 1 commune</li>
+<li><a href="/reseau/009001191/">ESCAMPIS/LA MAYSOUASSE/ANILAC/ARRIOU/ROUME</a> · 009001191 · note A · 1 commune</li>
+<li><a href="/reseau/009001073/">ESCARCHEIN COL DE LA HOURQUE</a> · 009001073 · note A · 1 commune</li>
+<li><a href="/reseau/009001357/">ESCOTS</a> · 009001357 · sans note · 1 commune</li>
+<li><a href="/reseau/009001386/">ESCOTS TOURTE BINCAREDE POMARE</a> · 009001386 · note A · 1 commune</li>
+<li><a href="/reseau/009000984/">ESPIES</a> · 009000984 · sans note · 1 commune</li>
+<li><a href="/reseau/009001042/">ESPLAS DE SEROU/LARBONT</a> · 009001042 · note A · 2 communes</li>
+<li><a href="/reseau/009001287/">EYCHERVIDAL/MATET DE MAURY</a> · 009001287 · note D · 1 commune</li>
+<li><a href="/reseau/009001327/">EYLIE BAS - COUJOUNES</a> · 009001327 · note D · 1 commune</li>
+<li><a href="/reseau/009001315/">EYLIE HAUT</a> · 009001315 · note D · 1 commune</li>
+<li><a href="/reseau/009001123/">FALAT</a> · 009001123 · note A · 1 commune</li>
+<li><a href="/reseau/009000966/">FALQUET LA CABIROLE CASTILLOU PEYROUTEOU</a> · 009000966 · note A · 2 communes</li>
+<li><a href="/reseau/009001013/">FANTET BELARD CAZAUX</a> · 009001013 · note C · 1 commune</li>
+<li><a href="/reseau/009001428/">FERRIERES</a> · 009001428 · note A · 1 commune</li>
+<li><a href="/reseau/009001054/">FOIX CADIRAC</a> · 009001054 · note A · 1 commune</li>
+<li><a href="/reseau/009001053/">FOIX CENTRE VILLE</a> · 009001053 · note A · 1 commune</li>
+<li><a href="/reseau/009001055/">FOIX VIGNOBLE FLASSA LABARRE</a> · 009001055 · note A · 1 commune</li>
+<li><a href="/reseau/009000847/">FONTALE/ALIOU/LA BERNADOLE/GALAS</a> · 009000847 · note A · 1 commune</li>
+<li><a href="/reseau/009001058/">FOUGAX ET BARRINEUF</a> · 009001058 · note A · 1 commune</li>
+<li><a href="/reseau/009001152/">FRANCICOTS</a> · 009001152 · note D · 1 commune</li>
+<li><a href="/reseau/009001291/">FRAYMENE</a> · 009001291 · note D · 1 commune</li>
+<li><a href="/reseau/009001157/">FREMIS</a> · 009001157 · note A · 1 commune</li>
+<li><a href="/reseau/009001313/">FREYCHENDECH</a> · 009001313 · note A · 1 commune</li>
+<li><a href="/reseau/009002648/">FREYCHENET NALZEN LEYCHERT</a> · 009002648 · note A · 3 communes</li>
+<li><a href="/reseau/009001072/">GALEY ORCHEIN</a> · 009001072 · note A · 1 commune</li>
+<li><a href="/reseau/009001074/">GANAC</a> · 009001074 · note A · 1 commune</li>
+<li><a href="/reseau/009001075/">GARANOU</a> · 009001075 · note A · 1 commune</li>
+<li><a href="/reseau/009001035/">GARENNE</a> · 009001035 · note C · 1 commune</li>
+<li><a href="/reseau/009001237/">GARGARECH</a> · 009001237 · note A · 1 commune</li>
+<li><a href="/reseau/009001077/">GENAT</a> · 009001077 · note A · 1 commune</li>
+<li><a href="/reseau/009001078/">GESTIES NORD MAIRIE</a> · 009001078 · note A · 1 commune</li>
+<li><a href="/reseau/009001870/">GESTIES SUD LIGOUNAT/PESOU</a> · 009001870 · note A · 1 commune</li>
+<li><a href="/reseau/009001079/">GOULIER</a> · 009001079 · note A · 1 commune</li>
+<li><a href="/reseau/009005511/">GOULIER NEIGE SNACK BAR </a> · 009005511 · sans note · 1 commune</li>
+<li><a href="/reseau/009001028/">GOULOS</a> · 009001028 · note A · 1 commune</li>
+<li><a href="/reseau/009001202/">GOUTTE DE BOURILLOU LE PORT VILLAGE</a> · 009001202 · note D · 1 commune</li>
+<li><a href="/reseau/009002070/">HAMEAU D'ESPOU</a> · 009002070 · note D · 1 commune</li>
+<li><a href="/reseau/009003363/">HAMEAU DE CARLI</a> · 009003363 · note D · 1 commune</li>
+<li><a href="/reseau/009001007/">HAMEAU DE LAFITTE</a> · 009001007 · note A · 1 commune</li>
+<li><a href="/reseau/009001056/">HAMEAU DE PELAIL</a> · 009001056 · note D · 1 commune</li>
+<li><a href="/reseau/009005777/">HAMEAU DE PHILIPPOU</a> · 009005777 · note A · 1 commune</li>
+<li><a href="/reseau/009000978/">HAMEAU DE RAPHEL</a> · 009000978 · sans note · 1 commune</li>
+<li><a href="/reseau/009003787/">HAMEAU DE RILLE</a> · 009003787 · note C · 1 commune</li>
+<li><a href="/reseau/009002735/">HAMEAUX D'ESPERIS CEPS LAS CRAMBES</a> · 009002735 · note A · 1 commune</li>
+<li><a href="/reseau/009005750/">HAMEAUX DE CASTELNAU</a> · 009005750 · note A · 1 commune</li>
+<li><a href="/reseau/009005781/">HAMEAUX DE FOURMIGUERES ET MICOULEAU</a> · 009005781 · note D · 1 commune</li>
+<li><a href="/reseau/009003905/">HAMEAUX DU COL DE PORT</a> · 009003905 · note A · 2 communes</li>
+<li><a href="/reseau/009001358/">HAURAC SIGUENS SEGOUGE MAUVEZIN</a> · 009001358 · note A · 1 commune</li>
+<li><a href="/reseau/009001359/">HERMINET MATAPOUIL</a> · 009001359 · note A · 1 commune</li>
+<li><a href="/reseau/009000960/">IDREIN</a> · 009000960 · note C · 1 commune</li>
+<li><a href="/reseau/009001085/">IGNAUX</a> · 009001085 · note A · 1 commune</li>
+<li><a href="/reseau/009001087/">ILLARTEIN</a> · 009001087 · note A · 1 commune</li>
+<li><a href="/reseau/009001088/">ILLIER</a> · 009001088 · note A · 1 commune</li>
+<li><a href="/reseau/009001267/">ILLOUS</a> · 009001267 · sans note · 1 commune</li>
+<li><a href="/reseau/009000948/">IRAZEIN</a> · 009000948 · note D · 1 commune</li>
+<li><a href="/reseau/009001131/">JARNAT GARRABET</a> · 009001131 · note A · 1 commune</li>
+<li><a href="/reseau/009001320/">JOS CARRERE</a> · 009001320 · note A · 1 commune</li>
+<li><a href="/reseau/009000844/">JOURTAU</a> · 009000844 · note A · 1 commune</li>
+<li><a href="/reseau/009005544/">L'ESPINE LA PALANQUE</a> · 009005544 · note D · 1 commune</li>
+<li><a href="/reseau/009001084/">L'HOSPITALET</a> · 009001084 · note A · 1 commune</li>
+<li><a href="/reseau/009001407/">LA BARGUILLERE</a> · 009001407 · note A · 5 communes</li>
+<li><a href="/reseau/009005770/">LA BASTIDE DE BEPLAS</a> · 009005770 · note A · 1 commune</li>
+<li><a href="/reseau/009000918/">LA BASTIDE DE SEROU BAS </a> · 009000918 · note A · 1 commune</li>
+<li><a href="/reseau/009000913/">LA BASTIDE DE SEROU HAUT</a> · 009000913 · note A · 1 commune</li>
+<li><a href="/reseau/009001408/">LA BASTIDE HERS LE PEYRAT</a> · 009001408 · note A · 3 communes</li>
+<li><a href="/reseau/009005325/">LA BESSE</a> · 009005325 · note A · 1 commune</li>
+<li><a href="/reseau/009001032/">LA BOUCHE ITES</a> · 009001032 · note D · 1 commune</li>
+<li><a href="/reseau/009001030/">LA BOUCHE-BERGES</a> · 009001030 · note D · 1 commune</li>
+<li><a href="/reseau/009003274/">LA CALMETTE</a> · 009003274 · note D · 1 commune</li>
+<li><a href="/reseau/009000860/">LA CILLERE/LA CAMPAGNE</a> · 009000860 · note A · 1 commune</li>
+<li><a href="/reseau/009002928/">LA COUME</a> · 009002928 · note A · 1 commune</li>
+<li><a href="/reseau/009004058/">LA FREYTE</a> · 009004058 · note A · 1 commune</li>
+<li><a href="/reseau/009000859/">LA LAUZERE</a> · 009000859 · sans note · 1 commune</li>
+<li><a href="/reseau/009003982/">LA MOUSSE</a> · 009003982 · note A · 1 commune</li>
+<li><a href="/reseau/009001324/">LA PARADE</a> · 009001324 · note A · 1 commune</li>
+<li><a href="/reseau/009000857/">LA PAUZE ALOS VILLAGE</a> · 009000857 · note A · 1 commune</li>
+<li><a href="/reseau/009001155/">LA PEYREGADE</a> · 009001155 · note A · 1 commune</li>
+<li><a href="/reseau/009000956/">LA PUCELLE COLONIE HITTE</a> · 009000956 · note A · 1 commune</li>
+<li><a href="/reseau/009000856/">LA RIVIERE</a> · 009000856 · note D · 1 commune</li>
+<li><a href="/reseau/009000850/">LA ROUERE, COUMANIE, LAS BENES, EST</a> · 009000850 · note A · 1 commune</li>
+<li><a href="/reseau/009001168/">LA SERRE (MOULIS)</a> · 009001168 · note A · 1 commune</li>
+<li><a href="/reseau/009000846/">LA TRAPPE/LA BOURDASSE</a> · 009000846 · note A · 1 commune</li>
+<li><a href="/reseau/009001277/">LABAT ST PAUL DE JARRAT</a> · 009001277 · note A · 1 commune</li>
+<li><a href="/reseau/009001457/">LAGARDE</a> · 009001457 · sans note · 1 commune</li>
+<li><a href="/reseau/009001060/">LALIBERT COURRENT</a> · 009001060 · note A · 1 commune</li>
+<li><a href="/reseau/009001178/">LAMOUSQUERE ORGIBET</a> · 009001178 · note D · 1 commune</li>
+<li><a href="/reseau/009001089/">LAPEGE</a> · 009001089 · note A · 1 commune</li>
+<li><a href="/reseau/009001095/">LARCAT</a> · 009001095 · note A · 1 commune</li>
+<li><a href="/reseau/009001096/">LARNAT</a> · 009001096 · note A · 1 commune</li>
+<li><a href="/reseau/009001033/">LAS COSTES CRUZOS</a> · 009001033 · note D · 1 commune</li>
+<li><a href="/reseau/009001034/">LAS COSTES SUBRA</a> · 009001034 · note D · 1 commune</li>
+<li><a href="/reseau/009001234/">LAS FORGUES PEGAROLES LAS CRABARIOS</a> · 009001234 · note A · 1 commune</li>
+<li><a href="/reseau/009001323/">LASPE</a> · 009001323 · note A · 1 commune</li>
+<li><a href="/reseau/009001097/">LASSUR</a> · 009001097 · note A · 1 commune</li>
+<li><a href="/reseau/009001037/">LASTES</a> · 009001037 · note A · 1 commune</li>
+<li><a href="/reseau/009001099/">LAVELANET MONTSEC</a> · 009001099 · sans note · 1 commune</li>
+<li><a href="/reseau/009001100/">LAVELANET VILLE SARTROUS</a> · 009001100 · sans note · 1 commune</li>
+<li><a href="/reseau/009005747/">LAVELANET- PAYS D'OLMES</a> · 009005747 · note A · 5 communes</li>
+<li><a href="/reseau/009001453/">LAVELANET/HAUT CANTON MIREPOIX</a> · 009001453 · note A · 11 communes</li>
+<li><a href="/reseau/009001171/">LE BARRAIL/LA LAUZERE</a> · 009001171 · note A · 2 communes</li>
+<li><a href="/reseau/009000983/">LE BOURDALIS</a> · 009000983 · note D · 1 commune</li>
+<li><a href="/reseau/009004092/">LE BOURGET ASPA LE REY</a> · 009004092 · note A · 1 commune</li>
+<li><a href="/reseau/009001002/">LE CARLARET</a> · 009001002 · sans note · 1 commune</li>
+<li><a href="/reseau/009000928/">LE CARME</a> · 009000928 · note A · 1 commune</li>
+<li><a href="/reseau/009000841/">LE CASTET</a> · 009000841 · note A · 1 commune</li>
+<li><a href="/reseau/009003202/">LE CAZALET</a> · 009003202 · note A · 1 commune</li>
+<li><a href="/reseau/009000967/">LE FOUR (LE BOSC)</a> · 009000967 · sans note · 1 commune</li>
+<li><a href="/reseau/009002503/">LE LANET</a> · 009002503 · note D · 1 commune</li>
+<li><a href="/reseau/009001447/">LE MAS D'AZIL</a> · 009001447 · note A · 1 commune</li>
+<li><a href="/reseau/009001272/">LE MATECH LES LOUBERES</a> · 009001272 · note A · 1 commune</li>
+<li><a href="/reseau/009000922/">LE PIGNE</a> · 009000922 · note D · 1 commune</li>
+<li><a href="/reseau/009001201/">LE PLA</a> · 009001201 · note A · 1 commune</li>
+<li><a href="/reseau/009001190/">LE PLECH (OUST)</a> · 009001190 · note A · 1 commune</li>
+<li><a href="/reseau/009001325/">LE PONT</a> · 009001325 · note A · 1 commune</li>
+<li><a href="/reseau/009001065/">LE RASCLAT ARMENTIERES</a> · 009001065 · note A · 1 commune</li>
+<li><a href="/reseau/009003914/">LEGRILLOU</a> · 009003914 · note A · 1 commune</li>
+<li><a href="/reseau/009001102/">LERCOUL</a> · 009001102 · note A · 1 commune</li>
+<li><a href="/reseau/009001231/">LES ABERES</a> · 009001231 · note A · 1 commune</li>
+<li><a href="/reseau/009000982/">LES ARILS</a> · 009000982 · note D · 1 commune</li>
+<li><a href="/reseau/009000977/">LES BELS CAMP MACY </a> · 009000977 · note D · 1 commune</li>
+<li><a href="/reseau/009001322/">LES BORDES D'ALAS</a> · 009001322 · note A · 1 commune</li>
+<li><a href="/reseau/009001371/">LES BORDES DE SUC</a> · 009001371 · note A · 1 commune</li>
+<li><a href="/reseau/009001406/">LES CABANNES CH-VERDUN PECH </a> · 009001406 · note A · 3 communes</li>
+<li><a href="/reseau/009001420/">LES CABESSES</a> · 009001420 · sans note · 1 commune</li>
+<li><a href="/reseau/009000979/">LES EYCHARTS COL DEL FOUR</a> · 009000979 · note D · 1 commune</li>
+<li><a href="/reseau/009000940/">LES FONTELLES (ABA)</a> · 009000940 · sans note · 1 commune</li>
+<li><a href="/reseau/009001181/">LES FORGES D'ORLU</a> · 009001181 · sans note · 1 commune</li>
+<li><a href="/reseau/009001057/">LES MIJANES</a> · 009001057 · note D · 1 commune</li>
+<li><a href="/reseau/009003803/">LES MIJANES (UV)</a> · 009003803 · note D · 1 commune</li>
+<li><a href="/reseau/009001426/">LES MONGES LE CAROL GARRIGUES JACQUET</a> · 009001426 · sans note · 2 communes</li>
+<li><a href="/reseau/009001150/">LES MONTS D'OLMES</a> · 009001150 · note A · 1 commune</li>
+<li><a href="/reseau/009001019/">LES PALOTS SOLEILLE CAPSADES</a> · 009001019 · note A · 1 commune</li>
+<li><a href="/reseau/009001128/">LES PASTRES</a> · 009001128 · note A · 1 commune</li>
+<li><a href="/reseau/009003259/">LES RAMES</a> · 009003259 · sans note · 1 commune</li>
+<li><a href="/reseau/009003066/">LES USCLADES</a> · 009003066 · note A · 1 commune</li>
+<li><a href="/reseau/009005579/">LIOUERDE HAUT</a> · 009005579 · note D · 1 commune</li>
+<li><a href="/reseau/009001108/">LORDAT</a> · 009001108 · note A · 1 commune</li>
+<li><a href="/reseau/009000878/">LOTISSEMENT COL DE PAILHERES</a> · 009000878 · note A · 1 commune</li>
+<li><a href="/reseau/009001284/">LOUMET</a> · 009001284 · note D · 1 commune</li>
+<li><a href="/reseau/009001026/">LOUTREIN</a> · 009001026 · note A · 1 commune</li>
+<li><a href="/reseau/009001112/">LUDIES</a> · 009001112 · sans note · 1 commune</li>
+<li><a href="/reseau/009000952/">LUENTEIN</a> · 009000952 · note A · 1 commune</li>
+<li><a href="/reseau/009001113/">LUZENAC</a> · 009001113 · note A · 1 commune</li>
+<li><a href="/reseau/009003128/">MAISONS DE FRANQUE</a> · 009003128 · note A · 1 commune</li>
+<li><a href="/reseau/009000950/">MAISONS DE SAUT ECARTS DU BAS</a> · 009000950 · note D · 1 commune</li>
+<li><a href="/reseau/009001115/">MALEGOUDE</a> · 009001115 · sans note · 1 commune</li>
+<li><a href="/reseau/009001459/">MANSES MIREPOIX NORD GASCOUS</a> · 009001459 · note C · 2 communes</li>
+<li><a href="/reseau/009001153/">MAROU LA SERRE DE MAROU</a> · 009001153 · note D · 1 commune</li>
+<li><a href="/reseau/009003767/">MARTINAT ( UPEP MONTFERRIER)</a> · 009003767 · sans note · 1 commune</li>
+<li><a href="/reseau/009001118/">MASSAT ESQUEN</a> · 009001118 · note A · 1 commune</li>
+<li><a href="/reseau/009001286/">MATET DE MAURY</a> · 009001286 · sans note · 1 commune</li>
+<li><a href="/reseau/009000868/">MENAC</a> · 009000868 · note A · 1 commune</li>
+<li><a href="/reseau/009001129/">MERCUS</a> · 009001129 · note A · 1 commune</li>
+<li><a href="/reseau/009001132/">MERENS</a> · 009001132 · note D · 1 commune</li>
+<li><a href="/reseau/009001005/">MICOU</a> · 009001005 · note D · 1 commune</li>
+<li><a href="/reseau/009001136/">MIJANES VILLAGE</a> · 009001136 · note A · 1 commune</li>
+<li><a href="/reseau/009001189/">MIRAMONT (OUST)</a> · 009001189 · note A · 1 commune</li>
+<li><a href="/reseau/009001138/">MIREPOIX VILLE</a> · 009001138 · note A · 2 communes</li>
+<li><a href="/reseau/009000988/">MONGERAUD - RAJOLS</a> · 009000988 · note A · 2 communes</li>
+<li><a href="/reseau/009000973/">MONNER</a> · 009000973 · sans note · 1 commune</li>
+<li><a href="/reseau/009001141/">MONTAGAGNE</a> · 009001141 · note A · 1 commune</li>
+<li><a href="/reseau/009001142/">MONTAILLOU</a> · 009001142 · note A · 1 commune</li>
+<li><a href="/reseau/009000858/">MONTARNA</a> · 009000858 · note A · 1 commune</li>
+<li><a href="/reseau/009001144/">MONTBEL CANTERATE BAYCHERES</a> · 009001144 · note A · 1 commune</li>
+<li><a href="/reseau/009001996/">MONTBEL ECARTS LAC</a> · 009001996 · note A · 1 commune</li>
+<li><a href="/reseau/009001148/">MONTEGUT PLANTAUREL MONESPLE</a> · 009001148 · note A · 2 communes</li>
+<li><a href="/reseau/009001149/">MONTELS</a> · 009001149 · note A · 1 commune</li>
+<li><a href="/reseau/009001432/">MONTFERRIER VILLENEUVE RAISSAC RABAUTE</a> · 009001432 · sans note · 4 communes</li>
+<li><a href="/reseau/009001429/">MONTGAILHARD </a> · 009001429 · sans note · 1 commune</li>
+<li><a href="/reseau/009001160/">MONTOULIEU</a> · 009001160 · note A · 1 commune</li>
+<li><a href="/reseau/009003201/">MONTSEC</a> · 009003201 · sans note · 1 commune</li>
+<li><a href="/reseau/009001163/">MONTSEGUR</a> · 009001163 · note A · 1 commune</li>
+<li><a href="/reseau/009000932/">MORENCI SERRELONGUE</a> · 009000932 · note A · 1 commune</li>
+<li><a href="/reseau/009001316/">MORERE ESTOUEOU H</a> · 009001316 · note A · 1 commune</li>
+<li><a href="/reseau/009005602/">MOULIN-NEUF</a> · 009005602 · note A · 1 commune</li>
+<li><a href="/reseau/009001164/">MOULIS LIQUE</a> · 009001164 · note A · 1 commune</li>
+<li><a href="/reseau/009001805/">MOUNETOU</a> · 009001805 · note A · 1 commune</li>
+<li><a href="/reseau/009000891/">MOUNICOU LES RIBES ROUZAUDIS MONTMIJA LAOUJOU HOURRE RANET BAS ET HAUT</a> · 009000891 · note A · 1 commune</li>
+<li><a href="/reseau/009001319/">MOURTIS SOUEL</a> · 009001319 · note A · 1 commune</li>
+<li><a href="/reseau/009000942/">MUNDET</a> · 009000942 · sans note · 1 commune</li>
+<li><a href="/reseau/009001173/">NESCUS MERAS</a> · 009001173 · note A · 1 commune</li>
+<li><a href="/reseau/009002401/">NESTRI PERTEGUET COUDOUGNAU</a> · 009002401 · note A · 1 commune</li>
+<li><a href="/reseau/009001135/">NORRAT ET AXIAT</a> · 009001135 · note A · 1 commune</li>
+<li><a href="/reseau/009000893/">OLBIER</a> · 009000893 · note A · 1 commune</li>
+<li><a href="/reseau/009001175/">ORGEIX</a> · 009001175 · note A · 1 commune</li>
+<li><a href="/reseau/009001177/">ORGIBET AUGISTROU</a> · 009001177 · note A · 1 commune</li>
+<li><a href="/reseau/009003204/">ORGIBET D'EN HAUT HOUNTARILLE</a> · 009003204 · sans note · 1 commune</li>
+<li><a href="/reseau/009001180/">ORLU VILLAGE CAMPING LES FORGES</a> · 009001180 · note A · 1 commune</li>
+<li><a href="/reseau/009001182/">ORNOLAC HAUT</a> · 009001182 · sans note · 1 commune</li>
+<li><a href="/reseau/009001183/">ORNOLAC USSAT LES BAINS</a> · 009001183 · note A · 1 commune</li>
+<li><a href="/reseau/009005075/">ORRY SUD AX LES THERMES</a> · 009005075 · note A · 1 commune</li>
+<li><a href="/reseau/009001185/">ORUS</a> · 009001185 · note A · 1 commune</li>
+<li><a href="/reseau/009000965/">OURJOUT</a> · 009000965 · note A · 1 commune</li>
+<li><a href="/reseau/009004116/">OURTRIGOUS LES ALES</a> · 009004116 · note A · 1 commune</li>
+<li><a href="/reseau/009001192/">PALOUBARD BINCARECH FOUGUERE</a> · 009001192 · note C · 2 communes</li>
+<li><a href="/reseau/009001196/">PAMIERS</a> · 009001196 · note A · 1 commune</li>
+<li><a href="/reseau/009005507/">PANIFOUS VERS FORNEX ECARTS BASTIDE B.</a> · 009005507 · note D · 2 communes</li>
+<li><a href="/reseau/009001368/">PARES</a> · 009001368 · note A · 1 commune</li>
+<li><a href="/reseau/009001067/">PAS DEL ROC GABRE TERRE ROUGE MONDELY</a> · 009001067 · note D · 1 commune</li>
+<li><a href="/reseau/009000951/">PAUSE DE SAUT MAIS. DE DESSUS</a> · 009000951 · note A · 1 commune</li>
+<li><a href="/reseau/009005657/">PEREILLE</a> · 009005657 · sans note · 1 commune</li>
+<li><a href="/reseau/009001197/">PEREILLE BAS</a> · 009001197 · sans note · 1 commune</li>
+<li><a href="/reseau/009001200/">PERLES ET CASTELET TIGNAC</a> · 009001200 · note A · 2 communes</li>
+<li><a href="/reseau/009000907/">PETCHES</a> · 009000907 · note A · 1 commune</li>
+<li><a href="/reseau/009004997/">PEYOU/BOUGAREIT/COL D'AGNET</a> · 009004997 · note A · 2 communes</li>
+<li><a href="/reseau/009001208/">PEYREGUDE MAMELOU</a> · 009001208 · note A · 1 commune</li>
+<li><a href="/reseau/009003768/">PEYROT</a> · 009003768 · note D · 1 commune</li>
+<li><a href="/reseau/009001380/">PIECH LES ARTS D'EN BAS</a> · 009001380 · note D · 2 communes</li>
+<li><a href="/reseau/009001154/">PIGAILLOUS</a> · 009001154 · note A · 1 commune</li>
+<li><a href="/reseau/009001933/">PISSOU</a> · 009001933 · sans note · 1 commune</li>
+<li><a href="/reseau/009000995/">PLA DE RANS</a> · 009000995 · note A · 1 commune</li>
+<li><a href="/reseau/009005069/">PLA MARTY</a> · 009005069 · note A · 1 commune</li>
+<li><a href="/reseau/009004990/">PLATEAU D'UNJAT</a> · 009004990 · note A · 1 commune</li>
+<li><a href="/reseau/009000906/">PLATEAU DU SAQUET</a> · 009000906 · sans note · 1 commune</li>
+<li><a href="/reseau/009001318/">PLAYRAS/BENCARECH/BES D'ESPAGN/ANGLADE</a> · 009001318 · note A · 1 commune</li>
+<li><a href="/reseau/009001304/">PONT DE LA TAULE (SEIX)</a> · 009001304 · note A · 1 commune</li>
+<li><a href="/reseau/009001383/">PORTET POUECH</a> · 009001383 · note A · 1 commune</li>
+<li><a href="/reseau/009001229/">POUNTET DE LA PEYRE</a> · 009001229 · note A · 1 commune</li>
+<li><a href="/reseau/009002810/">POUTOU</a> · 009002810 · note A · 1 commune</li>
+<li><a href="/reseau/009001223/">PRADES</a> · 009001223 · note A · 1 commune</li>
+<li><a href="/reseau/009005748/">PRADETTES</a> · 009005748 · sans note · 1 commune</li>
+<li><a href="/reseau/009001224/">PRADIERES</a> · 009001224 · note D · 1 commune</li>
+<li><a href="/reseau/009001281/">PRAT COMMUNAL HAUT AMONT PONT</a> · 009001281 · note D · 1 commune</li>
+<li><a href="/reseau/009001288/">PRAT-COMMUNAL BAS AVAL DU PONT</a> · 009001288 · note D · 1 commune</li>
+<li><a href="/reseau/009001290/">PRATS VIEILS</a> · 009001290 · note D · 1 commune</li>
+<li><a href="/reseau/009001225/">PRAYOLS VILLAGE</a> · 009001225 · note A · 1 commune</li>
+<li><a href="/reseau/009001422/">QUERIGUT CARCANIERES LE PUCH</a> · 009001422 · note A · 3 communes</li>
+<li><a href="/reseau/009001450/">RABAT LES TROIS SEIGNEURS SURBA BANAT</a> · 009001450 · note A · 3 communes</li>
+<li><a href="/reseau/009003770/">RAMIER</a> · 009003770 · note A · 1 commune</li>
+<li><a href="/reseau/009000997/">RASPE</a> · 009000997 · note D · 1 commune</li>
+<li><a href="/reseau/009001158/">REGONIS</a> · 009001158 · note A · 1 commune</li>
+<li><a href="/reseau/009001354/">ROGALLE</a> · 009001354 · note A · 1 commune</li>
+<li><a href="/reseau/009003990/">ROQUEFIXADE SAINT MARTIN</a> · 009003990 · sans note · 1 commune</li>
+<li><a href="/reseau/009001248/">ROQUEFIXADE VILLAGE</a> · 009001248 · sans note · 1 commune</li>
+<li><a href="/reseau/009005807/">ROQUEFIXADE/PEREILLE</a> · 009005807 · note A · 2 communes</li>
+<li><a href="/reseau/009003171/">ROUECH/ILLOUS/ANOS</a> · 009003171 · note A · 1 commune</li>
+<li><a href="/reseau/009005599/">ROUMENGOUX</a> · 009005599 · note A · 1 commune</li>
+<li><a href="/reseau/009001255/">ROUZE</a> · 009001255 · note A · 1 commune</li>
+<li><a href="/reseau/009001387/">ROUZE D'EN HAUT</a> · 009001387 · note A · 1 commune</li>
+<li><a href="/reseau/009001321/">ROUZES</a> · 009001321 · note A · 1 commune</li>
+<li><a href="/reseau/009001283/">ROUZOLLE  BAS</a> · 009001283 · note D · 1 commune</li>
+<li><a href="/reseau/009001289/">ROUZOLLE HAUT</a> · 009001289 · note C · 1 commune</li>
+<li><a href="/reseau/009001179/">RUHAU</a> · 009001179 · note A · 1 commune</li>
+<li><a href="/reseau/009001437/">SAEP PAYS D'OLMES</a> · 009001437 · note A · 7 communes</li>
+<li><a href="/reseau/009001341/">SAHUC-LAYROLE</a> · 009001341 · note C · 1 commune</li>
+<li><a href="/reseau/009001257/">SAINT JEAN D'AIGUES VIVES</a> · 009001257 · sans note · 1 commune</li>
+<li><a href="/reseau/009001258/">SAINT JEAN DU CASTILLONNAIS</a> · 009001258 · note A · 1 commune</li>
+<li><a href="/reseau/009001262/">SAINT JEAN DU FALGA</a> · 009001262 · note A · 2 communes</li>
+<li><a href="/reseau/009001273/">SAINT MARTIN DE CARALP</a> · 009001273 · note A · 1 commune</li>
+<li><a href="/reseau/009001460/">SAINTE FOI</a> · 009001460 · sans note · 1 commune</li>
+<li><a href="/reseau/009001016/">SALAU</a> · 009001016 · note A · 1 commune</li>
+<li><a href="/reseau/009004043/">SALEIX</a> · 009004043 · note A · 1 commune</li>
+<li><a href="/reseau/009001279/">SALSEIN</a> · 009001279 · sans note · 1 commune</li>
+<li><a href="/reseau/009001347/">SARRADEIL</a> · 009001347 · note A · 1 commune</li>
+<li><a href="/reseau/009000945/">SARRAILLE PARRABEIL</a> · 009000945 · note A · 1 commune</li>
+<li><a href="/reseau/009005669/">SAURAT BOURGAILLE</a> · 009005669 · note D · 1 commune</li>
+<li><a href="/reseau/009001280/">SAURAT VILLAGE</a> · 009001280 · note A · 1 commune</li>
+<li><a href="/reseau/009001294/">SAVERDUN</a> · 009001294 · note A · 2 communes</li>
+<li><a href="/reseau/009005760/">SAVERDUN GAUBERT</a> · 009005760 · note A · 3 communes</li>
+<li><a href="/reseau/009005763/">SAVERDUN TELEGRAPHE</a> · 009005763 · note A · 3 communes</li>
+<li><a href="/reseau/009001367/">SEGALAS BOUSSAN SAINT-PIERRE BULEX ARDICHEIN</a> · 009001367 · note A · 1 commune</li>
+<li><a href="/reseau/009001161/">SEIGNAUX</a> · 009001161 · note A · 1 commune</li>
+<li><a href="/reseau/009001299/">SEIX/OUST/SOUEIX</a> · 009001299 · note A · 3 communes</li>
+<li><a href="/reseau/009001310/">SEM</a> · 009001310 · note A · 1 commune</li>
+<li><a href="/reseau/009001311/">SENCONAC</a> · 009001311 · note A · 2 communes</li>
+<li><a href="/reseau/009001312/">SENTEIN VILLAGE</a> · 009001312 · note A · 1 commune</li>
+<li><a href="/reseau/009001334/">SENTENAC DE SEROU ESTANIELS</a> · 009001334 · note A · 2 communes</li>
+<li><a href="/reseau/009001328/">SENTENAC/BLECHIN BOUCHE</a> · 009001328 · note A · 3 communes</li>
+<li><a href="/reseau/009000870/">SEROU ET FOND ARNAVE  BEUTES</a> · 009000870 · sans note · 1 commune</li>
+<li><a href="/reseau/009001360/">SERRE CABERE</a> · 009001360 · note D · 1 commune</li>
+<li><a href="/reseau/009001194/">SERRELONGUE (OUST)</a> · 009001194 · note A · 1 commune</li>
+<li><a href="/reseau/009001038/">SERRELONGUE ERP LE VIGNAU</a> · 009001038 · note A · 1 commune</li>
+<li><a href="/reseau/009003044/">SERRES ALLENS</a> · 009003044 · note A · 1 commune</li>
+<li><a href="/reseau/009001195/">SERRES COUMARIAU (OUST)</a> · 009001195 · note A · 1 commune</li>
+<li><a href="/reseau/009001336/">SERRES RESERVOIR CAMBIE</a> · 009001336 · sans note · 1 commune</li>
+<li><a href="/reseau/009001343/">SERRES RESERVOIR DARNAC</a> · 009001343 · sans note · 1 commune</li>
+<li><a href="/reseau/009005814/">SERRES SUR ARGET</a> · 009005814 · note D · 1 commune</li>
+<li><a href="/reseau/009001435/">SICARD LE SAU COUCHE PECHOU BARTHALE</a> · 009001435 · sans note · 1 commune</li>
+<li><a href="/reseau/009001405/">SIE ARBAS BAS SALAT LA BASTIDE</a> · 009001405 · note A · 1 commune</li>
+<li><a href="/reseau/009001345/">SIGUER</a> · 009001345 · note A · 1 commune</li>
+<li><a href="/reseau/009001348/">SINSAT</a> · 009001348 · note A · 1 commune</li>
+<li><a href="/reseau/009001443/">SMDEA ARIZE PAR LES BORDES</a> · 009001443 · note A · 23 communes</li>
+<li><a href="/reseau/009001444/">SMDEA CARBONNE LEZAT</a> · 009001444 · note A · 1 commune</li>
+<li><a href="/reseau/009005767/">SMDEA ECARTS DU MAS D'AZIL</a> · 009005767 · note A · 4 communes</li>
+<li><a href="/reseau/009003183/">SMDEA SIEURAS VERS HG</a> · 009003183 · note A · 1 commune</li>
+<li><a href="/reseau/009003243/">SMDEA SPEHA PAR CALMONT</a> · 009003243 · note A · 3 communes</li>
+<li><a href="/reseau/009005755/">SMDEA SPEHA PAR ESPERCE</a> · 009005755 · note A · 1 commune</li>
+<li><a href="/reseau/009001349/">SOR</a> · 009001349 · note A · 1 commune</li>
+<li><a href="/reseau/009001350/">SORGEAT</a> · 009001350 · note A · 1 commune</li>
+<li><a href="/reseau/009001080/">SOUDOUR  GOURBIT</a> · 009001080 · note A · 1 commune</li>
+<li><a href="/reseau/009001351/">SOUEIX SAINT SERNIN ESCARRERES</a> · 009001351 · sans note · 1 commune</li>
+<li><a href="/reseau/009001362/">SOULA ET HAMEAU DE LABAURE</a> · 009001362 · note A · 2 communes</li>
+<li><a href="/reseau/009001285/">SOULEILLAN</a> · 009001285 · note D · 1 commune</li>
+<li><a href="/reseau/009001440/">SPEHA BRIE</a> · 009001440 · note A · 7 communes</li>
+<li><a href="/reseau/009005757/">SPEHA CALMONT</a> · 009005757 · note A · 6 communes</li>
+<li><a href="/reseau/009001441/">SPEHA CANTE</a> · 009001441 · note A · 5 communes</li>
+<li><a href="/reseau/009001410/">SPEHA MAZERES</a> · 009001410 · note A · 1 commune</li>
+<li><a href="/reseau/009005673/">ST FELIX DE TOURNEGAT - LAPENNE - ECARTS GAUDIES</a> · 009005673 · note A · 3 communes</li>
+<li><a href="/reseau/009001263/">ST LARY</a> · 009001263 · note D · 1 commune</li>
+<li><a href="/reseau/009001382/">ST LIZIER BIELLE</a> · 009001382 · note A · 1 commune</li>
+<li><a href="/reseau/009001275/">ST PAUL DE JARRAT/MONTGAILHARD</a> · 009001275 · note A · 2 communes</li>
+<li><a href="/reseau/009001137/">STATION DE SKI MIJANES LATRABE</a> · 009001137 · note A · 1 commune</li>
+<li><a href="/reseau/009001385/">STILLOM BIDOUS OSSESE BOURDAX</a> · 009001385 · note A · 1 commune</li>
+<li><a href="/reseau/009001370/">SUC ET SENTENAC</a> · 009001370 · note A · 1 commune</li>
+<li><a href="/reseau/009001372/">SUZAN</a> · 009001372 · note C · 1 commune</li>
+<li><a href="/reseau/009001448/">TARASCON  BOMPAS QUIE</a> · 009001448 · note A · 3 communes</li>
+<li><a href="/reseau/009004054/">TARASCON RESERVOIR VILLE SERLES</a> · 009004054 · note A · 1 commune</li>
+<li><a href="/reseau/009000939/">TARTEIN</a> · 009000939 · note A · 1 commune</li>
+<li><a href="/reseau/009001455/">TERREFORT ZONE BASSE</a> · 009001455 · note A · 2 communes</li>
+<li><a href="/reseau/009003187/">TERREFORT ZONE HAUTE</a> · 009003187 · note D · 15 communes</li>
+<li><a href="/reseau/009001126/">TIQUET JAU</a> · 009001126 · note A · 1 commune</li>
+<li><a href="/reseau/009000872/">TOURNAC</a> · 009000872 · note A · 1 commune</li>
+<li><a href="/reseau/009005585/">TOUTOUS-LA TUTE-VILLENEUVE-NAVAILLES</a> · 009005585 · note A · 1 commune</li>
+<li><a href="/reseau/009001274/">TRESBENS</a> · 009001274 · note A · 1 commune</li>
+<li><a href="/reseau/009001376/">UCHENTEIN/LES ARS D'EN HAUT</a> · 009001376 · note D · 1 commune</li>
+<li><a href="/reseau/009001381/">UNAC</a> · 009001381 · note A · 1 commune</li>
+<li><a href="/reseau/009001458/">URS VEBRE</a> · 009001458 · note A · 2 communes</li>
+<li><a href="/reseau/009001384/">USTOU GUZET NEIGE</a> · 009001384 · note A · 1 commune</li>
+<li><a href="/reseau/009001120/">VALLEE DE LIERS</a> · 009001120 · note A · 1 commune</li>
+<li><a href="/reseau/009001389/">VARILHES</a> · 009001389 · note A · 2 communes</li>
+<li><a href="/reseau/009001390/">VAYCHIS</a> · 009001390 · note A · 1 commune</li>
+<li><a href="/reseau/009001397/">VERDUN</a> · 009001397 · note A · 1 commune</li>
+<li><a href="/reseau/009001398/">VERNAJOUL</a> · 009001398 · sans note · 1 commune</li>
+<li><a href="/reseau/009001399/">VERNAUX</a> · 009001399 · note A · 1 commune</li>
+<li><a href="/reseau/009001403/">VILLENEUVE EN COUSERANS</a> · 009001403 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/09001/">Aigues-Juntes</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09002/">Aigues-Vives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09004/">Albiès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09005/">Aleu</a> · 10 réseaux : 4 notés D, 6 notés A</li>
+<li><a href="/commune/09006/">Alliat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09007/">Allières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09008/">Alos</a> · 7 réseaux : 1 noté D, 6 notés A</li>
+<li><a href="/commune/09009/">Alzen</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/09011/">Antras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09012/">Appy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09013/">Arabaux</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09014/">Argein</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09015/">Arignac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09016/">Arnave</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09017/">Arrien-en-Bethmale</a> · 5 réseaux : 1 noté D, 1 noté C, 3 notés A</li>
+<li><a href="/commune/09018/">Arrout</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09019/">Artigat</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09020/">Artigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09021/">Artix</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09022/">Arvigna</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09023/">Ascou</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09024/">Aston</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09025/">Aucazein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09026/">Audressein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09027/">Augirein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09296/">Aulos-Sinsat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09029/">Aulus-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09030/">Auzat</a> · 10 réseaux : 1 noté D, 9 notés A</li>
+<li><a href="/commune/09032/">Ax-les-Thermes</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/09031/">Axiat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09033/">Bagert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09034/">Balacet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09035/">Balaguères</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09037/">Barjac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09044/">Baulou</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09045/">Bédeilhac-et-Aynat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09046/">Bédeille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09047/">Bélesta</a> · 4 réseaux : 2 notés D, 2 notés A</li>
+<li><a href="/commune/09048/">Belloc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09049/">Bénac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09050/">Benagues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09051/">Bénaix</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09052/">Besset</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09053/">Bestiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09054/">Betchat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09055/">Bethmale</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09056/">Bézac</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09057/">Biert</a> · 8 réseaux : 1 noté D, 7 notés A</li>
+<li><a href="/commune/09058/">Bompas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09059/">Bonac-Irazein</a> · 9 réseaux : 4 notés D, 5 notés A</li>
+<li><a href="/commune/09060/">Bonnac</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09062/">Bordes-Uchentein</a> · 9 réseaux : 3 notés D, 1 noté C, 5 notés A</li>
+<li><a href="/commune/09064/">Bouan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09065/">Boussenac</a> · 9 réseaux : 6 notés D, 3 notés A</li>
+<li><a href="/commune/09066/">Brassac</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09067/">Brie</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09068/">Burret</a> · 6 réseaux : 3 notés D, 3 notés A</li>
+<li><a href="/commune/09069/">Buzan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09071/">Cadarcet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09072/">Calzan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09073/">Camarade</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09074/">Camon</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09075/">Campagne-sur-Arize</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09076/">Canté</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09077/">Capoulet-et-Junac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09078/">Carcanières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09079/">Carla-Bayle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09080/">Carla-de-Roquefort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09082/">Castelnau-Durban</a> · 4 réseaux : 2 notés D, 2 notés A</li>
+<li><a href="/commune/09083/">Castéras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09084/">Castex</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09085/">Castillon-en-Couserans</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09086/">Caumont</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09087/">Caussou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09088/">Caychax-et-Senconac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09089/">Cazals-des-Baylès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09090/">Cazaux</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/09091/">Cazavet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09092/">Cazenave-Serres-et-Allens</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09093/">Celles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09094/">Cérizols</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09095/">Cescau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09096/">Château-Verdun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09097/">Clermont</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09098/">Contrazy</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/09099/">Cos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09100/">Couflens</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09101/">Coussa</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09102/">Coutens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09103/">Crampagna</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09104/">Dalou</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09105/">Daumazan-sur-Arize</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09106/">Dreuilhe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09107/">Dun</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09108/">Durban-sur-Arize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09109/">Durfort</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09110/">Encourtiech</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09111/">Engomer</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09113/">Ercé</a> · 10 réseaux : 5 notés D, 1 noté C, 4 notés A</li>
+<li><a href="/commune/09114/">Erp</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09115/">Esclagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09116/">Escosse</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09117/">Esplas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09118/">Esplas-de-Sérou</a> · 5 réseaux : 2 notés D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/09119/">Eycheil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09120/">Fabas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09121/">Ferrières-sur-Ariège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09122/">Foix</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09123/">Fornex</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09125/">Fougax-et-Barrineuf</a> · 7 réseaux : 5 notés D, 2 notés A</li>
+<li><a href="/commune/09126/">Freychenet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09127/">Gabre</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09128/">Gajan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09129/">Galey</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09130/">Ganac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09131/">Garanou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09132/">Gaudiès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09133/">Génat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09134/">Gestiès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09136/">Gourbit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09137/">Gudas</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09140/">Ignaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09142/">Ilhat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09141/">Illartein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09143/">Illier-et-Laramade</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09146/">Justiniac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09003/">L'Aiguillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09138/">L'Herm</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/09139/">L'Hospitalet-près-l'Andorre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09038/">La Bastide-de-Besplas</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09039/">La Bastide-de-Bousignac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09040/">La Bastide-de-Lordat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09042/">La Bastide-de-Sérou</a> · 7 réseaux : 1 noté D, 6 notés A</li>
+<li><a href="/commune/09041/">La Bastide-du-Salat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09043/">La Bastide-sur-l'Hers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09312/">La Tour-du-Crieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09147/">Labatut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09148/">Lacave</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09149/">Lacourt</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09150/">Lagarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09151/">Lanoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09152/">Lapège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09153/">Lapenne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09154/">Larbont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09155/">Larcat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09156/">Larnat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09157/">Laroque-d'Olmes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09158/">Lasserre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09159/">Lassur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09160/">Lavelanet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09063/">Le Bosc</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09081/">Le Carlaret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09124/">Le Fossat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09181/">Le Mas-d'Azil</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09229/">Le Peyrat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09230/">Le Pla</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09231/">Le Port</a> · 6 réseaux : 3 notés D, 3 notés A</li>
+<li><a href="/commune/09237/">Le Puch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09331/">Le Vernet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09161/">Léran</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09162/">Lercoul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09061/">Les Bordes-sur-Arize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09070/">Les Cabannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09145/">Les Issards</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09238/">Les Pujols</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09163/">Lescousse</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09164/">Lescure</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09165/">Lesparrou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09166/">Leychert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09167/">Lézat-sur-Lèze</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09168/">Lieurac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09169/">Limbrassac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09170/">Lissac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09171/">Lordat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09289/">Lorp-Sentaraille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09172/">Loubaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09173/">Loubens</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09174/">Loubières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09175/">Ludiès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09176/">Luzenac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09177/">Madière</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09178/">Malegoude</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09179/">Malléon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09180/">Manses</a> · 1 réseau, noté C</li>
+<li><a href="/commune/09182/">Massat</a> · 11 réseaux : 11 notés A</li>
+<li><a href="/commune/09183/">Mauvezin-de-Prat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09184/">Mauvezin-de-Sainte-Croix</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09185/">Mazères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09186/">Méras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09187/">Mercenac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09188/">Mercus-Garrabet</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09189/">Mérens-les-Vals</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09190/">Mérigon</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/09192/">Miglos</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09193/">Mijanès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09194/">Mirepoix</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/09195/">Monesple</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09196/">Montagagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09197/">Montaillou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09198/">Montardit</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09199/">Montaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09200/">Montbel</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09201/">Montégut-en-Couserans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09202/">Montégut-Plantaurel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09203/">Montels</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/09204/">Montesquieu-Avantès</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09205/">Montfa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09206/">Montferrier</a> · 14 réseaux : 3 notés D, 11 notés A</li>
+<li><a href="/commune/09207/">Montgailhard</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09208/">Montgauch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09209/">Montjoie-en-Couserans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09210/">Montoulieu</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09211/">Montségur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09212/">Montseron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09213/">Moulin-Neuf</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09214/">Moulis</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/09215/">Nalzen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09216/">Nescus</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09217/">Niaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09218/">Orgeix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09219/">Orgibet</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09220/">Orlu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09221/">Ornolac-Ussat-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09222/">Orus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09223/">Oust</a> · 9 réseaux : 1 noté C, 8 notés A</li>
+<li><a href="/commune/09224/">Pailhès</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09225/">Pamiers</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09226/">Pech</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09227/">Péreille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09228/">Perles-et-Castelet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09232/">Prades</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09233/">Pradettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09234/">Pradières</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09235/">Prat-Bonrepaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09236/">Prayols</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09239/">Quérigut</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09240/">Quié</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09241/">Rabat-les-Trois-Seigneurs</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09242/">Raissac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09243/">Régat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09244/">Rieucros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09245/">Rieux-de-Pelleport</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09246/">Rimont</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09247/">Rivèrenert</a> · 5 réseaux : 1 noté D, 4 notés A</li>
+<li><a href="/commune/09249/">Roquefixade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09250/">Roquefort-les-Cascades</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09251/">Roumengoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09252/">Rouze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09253/">Sabarat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09254/">Saint-Amadou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09256/">Saint-Bauzeil</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09258/">Saint-Félix-de-Rieutord</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09259/">Saint-Félix-de-Tournegat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09261/">Saint-Girons</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09262/">Saint-Jean-d'Aigues-Vives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09264/">Saint-Jean-de-Verges</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09263/">Saint-Jean-du-Castillonnais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09265/">Saint-Jean-du-Falga</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09266/">Saint-Julien-de-Gras-Capou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09267/">Saint-Lary</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/09268/">Saint-Lizier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09270/">Saint-Martin-d'Oydes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09269/">Saint-Martin-de-Caralp</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09271/">Saint-Michel</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09272/">Saint-Paul-de-Jarrat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09273/">Saint-Pierre-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09274/">Saint-Quentin-la-Tour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09275/">Saint-Quirc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09276/">Saint-Victor-Rouzaud</a> · 1 réseau, noté D</li>
+<li><a href="/commune/09277/">Saint-Ybars</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09257/">Sainte-Croix-Volvestre</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09260/">Sainte-Foi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09342/">Sainte-Suzanne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09279/">Salsein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09280/">Saurat</a> · 15 réseaux : 12 notés D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/09281/">Sautel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09282/">Saverdun</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/09283/">Savignac-les-Ormeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09284/">Ségura</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09285/">Seix</a> · 6 réseaux : 1 noté C, 5 notés A</li>
+<li><a href="/commune/09287/">Senconac</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/09290/">Sentein</a> · 14 réseaux : 2 notés D, 1 noté C, 11 notés A</li>
+<li><a href="/commune/09291/">Sentenac-d'Oust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09292/">Sentenac-de-Sérou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09293/">Serres-sur-Arget</a> · 3 réseaux : 2 notés D, 1 noté C</li>
+<li><a href="/commune/09294/">Sieuras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09295/">Siguer</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09297/">Sor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09298/">Sorgeat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09299/">Soueix-Rogalle</a> · 7 réseaux : 1 noté D, 6 notés A</li>
+<li><a href="/commune/09300/">Soula</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09301/">Soulan</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/09303/">Surba</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09304/">Suzan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/09305/">Tabre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09306/">Tarascon-sur-Ariège</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/09307/">Taurignan-Castet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09308/">Taurignan-Vieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09309/">Teilhet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09310/">Thouars-sur-Arize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09311/">Tignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09313/">Tourtouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09314/">Tourtrol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09315/">Trémoulet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09316/">Troye-d'Ariège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09318/">Unac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09319/">Unzent</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09320/">Urs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09321/">Ussat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09322/">Ustou</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/09334/">Val-de-Sos</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/09323/">Vals</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09324/">Varilhes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09325/">Vaychis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09326/">Vèbre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09327/">Ventenac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09328/">Verdun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09329/">Vernajoul</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/09330/">Vernaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09332/">Verniolle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09335/">Villeneuve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09336/">Villeneuve-d'Olmes</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/09338/">Villeneuve-du-Latou</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/09339/">Villeneuve-du-Paréage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09340/">Vira</a> · 1 réseau, noté A</li>
+<li><a href="/commune/09341/">Viviès</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Ariège · eau du robinet », https://meteodurobinet.fr/departement/09/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Charente (16) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Charente · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Charente (16) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/16/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Charente · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Charente · eau du robinet","url":"https://meteodurobinet.fr/departement/16/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Charente","item":"https://meteodurobinet.fr/departement/16/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/16/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Charente</h1>
+<p class="meta">Département 16</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>3 sur 77 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 74 réseaux</li>
+<li>B qualité convenable* : 0 réseau</li>
+<li>C qualité insuffisante* : 3 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 2, bactériologie 1.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>109 prélèvements</strong> évalués en septembre 2026 ; 921 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 8 jours, alerte 14 jours, alerte renforcée 17 jours, crise 53 jours</li>
+<li>2025 : vigilance 7 jours, alerte 16 jours, alerte renforcée 4 jours, crise 122 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 30 jours, alerte renforcée 23 jours, crise 138 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,24</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 29 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>30 services d’eau</strong> desservent au moins une commune du département ; 2 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 80 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/016000260/">AMBERNAC</a> · 016000260 · note A · 1 commune</li>
+<li><a href="/reseau/016003488/">AUGE</a> · 016003488 · note A · 7 communes</li>
+<li><a href="/reseau/016000631/">AUGUY</a> · 016000631 · note A · 2 communes</li>
+<li><a href="/reseau/016000264/">BARBEZIEUX</a> · 016000264 · note A · 1 commune</li>
+<li><a href="/reseau/016000318/">BIOUSSAC</a> · 016000318 · note A · 4 communes</li>
+<li><a href="/reseau/016000380/">BOUSSEUIL</a> · 016000380 · note A · 7 communes</li>
+<li><a href="/reseau/016000886/">BRIE / CHAMARANDE</a> · 016000886 · note A · 3 communes</li>
+<li><a href="/reseau/016000335/">CHABANAIS</a> · 016000335 · note A · 1 commune</li>
+<li><a href="/reseau/016000337/">CHABROU</a> · 016000337 · note A · 2 communes</li>
+<li><a href="/reseau/016000386/">CHAMPNIERS</a> · 016000386 · note A · 2 communes</li>
+<li><a href="/reseau/016000331/">CHANTALOUETTE</a> · 016000331 · note A · 1 commune</li>
+<li><a href="/reseau/016000322/">CHARME</a> · 016000322 · note A · 8 communes</li>
+<li><a href="/reseau/016000351/">CHAZELLES</a> · 016000351 · note A · 3 communes</li>
+<li><a href="/reseau/016000395/">COGNAC</a> · 016000395 · note A · 4 communes</li>
+<li><a href="/reseau/016000330/">CONFOLENTAIS</a> · 016000330 · note A · 18 communes</li>
+<li><a href="/reseau/016003491/">COURSAC-ARGENCE</a> · 016003491 · note C · 3 communes</li>
+<li><a href="/reseau/016000420/">DEVANNES</a> · 016000420 · note A · 4 communes</li>
+<li><a href="/reseau/016000348/">EDON</a> · 016000348 · note A · 7 communes</li>
+<li><a href="/reseau/016000403/">FONT DES ABIMES</a> · 016000403 · note A · 9 communes</li>
+<li><a href="/reseau/016000418/">FONT DU GOUR</a> · 016000418 · note A · 5 communes</li>
+<li><a href="/reseau/016000336/">FONT ST AUBIN</a> · 016000336 · note A · 14 communes</li>
+<li><a href="/reseau/016000379/">FONTCHAUDE</a> · 016000379 · note A · 13 communes</li>
+<li><a href="/reseau/016000415/">FONTGRIVE</a> · 016000415 · note A · 2 communes</li>
+<li><a href="/reseau/016000389/">FOSSE TIDET</a> · 016000389 · note A · 7 communes</li>
+<li><a href="/reseau/016000366/">GOURSOLLES</a> · 016000366 · note A · 1 commune</li>
+<li><a href="/reseau/016000375/">GRAND FONT</a> · 016000375 · note A · 11 communes</li>
+<li><a href="/reseau/016000365/">ILE DOMANGE</a> · 016000365 · note A · 13 communes</li>
+<li><a href="/reseau/016000388/">ILE MARTEAU</a> · 016000388 · note A · 6 communes</li>
+<li><a href="/reseau/016003894/">ILE MARTEAU SAUR</a> · 016003894 · note A · 8 communes</li>
+<li><a href="/reseau/016000285/">JARNAC</a> · 016000285 · note A · 1 commune</li>
+<li><a href="/reseau/016003492/">JURIGNAC</a> · 016003492 · note A · 3 communes</li>
+<li><a href="/reseau/016000341/">L'HERMITE</a> · 016000341 · note A · 1 commune</li>
+<li><a href="/reseau/016000277/">LA COURONNE</a> · 016000277 · note A · 2 communes</li>
+<li><a href="/reseau/016000291/">LA ROCHEFOUCAULD</a> · 016000291 · note A · 1 commune</li>
+<li><a href="/reseau/016000334/">LA SECHERE</a> · 016000334 · note A · 20 communes</li>
+<li><a href="/reseau/016000329/">LA VERGNE</a> · 016000329 · note A · 4 communes</li>
+<li><a href="/reseau/016003478/">LABROUSSE</a> · 016003478 · note A · 1 commune</li>
+<li><a href="/reseau/016000397/">LE MAINOT</a> · 016000397 · note A · 9 communes</li>
+<li><a href="/reseau/016000404/">LE TORD</a> · 016000404 · note A · 8 communes</li>
+<li><a href="/reseau/016003485/">LIGNIERES</a> · 016003485 · note A · 2 communes</li>
+<li><a href="/reseau/016000407/">LUXE</a> · 016000407 · note A · 5 communes</li>
+<li><a href="/reseau/016000916/">MAGNOUX</a> · 016000916 · note A · 1 commune</li>
+<li><a href="/reseau/016003487/">MARSAC</a> · 016003487 · note A · 2 communes</li>
+<li><a href="/reseau/016000338/">MIAULANT</a> · 016000338 · note A · 2 communes</li>
+<li><a href="/reseau/016000343/">MIRANDE</a> · 016000343 · note C · 1 commune</li>
+<li><a href="/reseau/016000286/">MONTJEAN</a> · 016000286 · note A · 1 commune</li>
+<li><a href="/reseau/016000382/">MONTMORELIEN</a> · 016000382 · note A · 23 communes</li>
+<li><a href="/reseau/016000313/">MOULIN NEUF VILLEFAGNAN</a> · 016000313 · note A · 10 communes</li>
+<li><a href="/reseau/016000359/">MOUTHIERS</a> · 016000359 · sans note · 1 commune</li>
+<li><a href="/reseau/016000320/">MOUVIERE</a> · 016000320 · note A · 19 communes</li>
+<li><a href="/reseau/016000314/">MOUVIERE ACHAT</a> · 016000314 · note A · 2 communes</li>
+<li><a href="/reseau/016003477/">MOUVIERE/ROCHE</a> · 016003477 · note A · 6 communes</li>
+<li><a href="/reseau/016000416/">NEUVILLE-CHEZ JOUBERT</a> · 016000416 · note A · 1 commune</li>
+<li><a href="/reseau/016000369/">NOUERE</a> · 016000369 · note A · 6 communes</li>
+<li><a href="/reseau/016001414/">PARZAC</a> · 016001414 · note A · 7 communes</li>
+<li><a href="/reseau/016000340/">PETIT BREUIL</a> · 016000340 · note C · 10 communes</li>
+<li><a href="/reseau/016000324/">PONT ROUX</a> · 016000324 · note A · 5 communes</li>
+<li><a href="/reseau/016000317/">POUGNE-PUYMENARD</a> · 016000317 · note A · 1 commune</li>
+<li><a href="/reseau/016000387/">PRAIRIE DE TRIAC</a> · 016000387 · note A · 8 communes</li>
+<li><a href="/reseau/016000326/">PUYREAUX</a> · 016000326 · note A · 9 communes</li>
+<li><a href="/reseau/016000373/">PUYROLLAND</a> · 016000373 · note A · 10 communes</li>
+<li><a href="/reseau/016000361/">ROMAINVILLE</a> · 016000361 · sans note · 2 communes</li>
+<li><a href="/reseau/016000346/">RONSENAC</a> · 016000346 · note A · 5 communes</li>
+<li><a href="/reseau/016000900/">ROUMAZIERES</a> · 016000900 · note A · 3 communes</li>
+<li><a href="/reseau/016000412/">SAINT CLAUD</a> · 016000412 · note A · 7 communes</li>
+<li><a href="/reseau/016003486/">SAINT PALAIS DU NE</a> · 016003486 · note A · 1 commune</li>
+<li><a href="/reseau/016000305/">SAINT YRIEIX</a> · 016000305 · note A · 3 communes</li>
+<li><a href="/reseau/016000419/">SAINTE MARIE</a> · 016000419 · note A · 1 commune</li>
+<li><a href="/reseau/016001283/">SIREUIL</a> · 016001283 · note A · 1 commune</li>
+<li><a href="/reseau/016000414/">SUAUX</a> · 016000414 · note A · 8 communes</li>
+<li><a href="/reseau/016000262/">TOUVRE</a> · 016000262 · note A · 23 communes</li>
+<li><a href="/reseau/016000328/">TRANSON</a> · 016000328 · note A · 4 communes</li>
+<li><a href="/reseau/016003484/">TRIAC</a> · 016003484 · note A · 4 communes</li>
+<li><a href="/reseau/016000360/">TURONIEN</a> · 016000360 · note A · 6 communes</li>
+<li><a href="/reseau/016000915/">VAL DE ROCHE</a> · 016000915 · note A · 5 communes</li>
+<li><a href="/reseau/016000384/">VARS</a> · 016000384 · note A · 4 communes</li>
+<li><a href="/reseau/016000321/">VERDILLE</a> · 016000321 · note A · 8 communes</li>
+<li><a href="/reseau/016000319/">VIEUX RUFFEC</a> · 016000319 · note A · 4 communes</li>
+<li><a href="/reseau/016000323/">VILLEJESUS</a> · 016000323 · note A · 1 commune</li>
+<li><a href="/reseau/016000362/">VOEUIL ET GIGET</a> · 016000362 · sans note · 3 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/16001/">Abzac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16003/">Agris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16005/">Aigre</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/16007/">Alloue</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16008/">Ambérac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16009/">Ambernac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16011/">Anais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16012/">Angeac-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16013/">Angeac-Charente</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16014/">Angeduc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16015/">Angoulême</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16016/">Ansac-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16018/">Ars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16019/">Asnières-sur-Nouère</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16020/">Aubeterre-sur-Dronne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16023/">Aunac-sur-Charente</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16024/">Aussac-Vadalle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16025/">Baignes-Sainte-Radegonde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16026/">Balzac</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/16027/">Barbezières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16028/">Barbezieux-Saint-Hilaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16029/">Bardenac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16030/">Barret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16031/">Barro</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16032/">Bassac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16034/">Bazac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16035/">Beaulieu-sur-Sonnette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16036/">Bécheresse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16204/">Bellevigne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16037/">Bellon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16038/">Benest</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16039/">Bernac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16040/">Berneuil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16041/">Bessac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16042/">Bessé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16044/">Bioussac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16045/">Birac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16047/">Blanzaguet-Saint-Cybard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16048/">Boisbreteau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16082/">Boisné-La Tude</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16049/">Bonnes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16050/">Bonneuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16053/">Bors (Canton de Charente-Sud)</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16052/">Bors (Canton de Tude-et-Lavalette)</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16055/">Bouëx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16056/">Bourg-Charente</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16057/">Bouteville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16058/">Boutiers-Saint-Trojan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16059/">Brettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16060/">Bréville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16061/">Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16062/">Brie-sous-Barbezieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16063/">Brie-sous-Chalais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16064/">Brigueuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16065/">Brillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16066/">Brossac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16067/">Bunzac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16068/">Cellefrouin</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/16069/">Cellettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16070/">Chabanais</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16071/">Chabrac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16072/">Chadurie</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16073/">Chalais</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/16074/">Challignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16076/">Champagne-Mouton</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16075/">Champagne-Vigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16077/">Champmillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16078/">Champniers</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/16079/">Chantillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16083/">Charmé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16084/">Charras</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16085/">Chasseneuil-sur-Bonnieure</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16086/">Chassenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16087/">Chassiecq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16088/">Chassors</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16089/">Châteaubernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16090/">Châteauneuf-sur-Charente</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16091/">Châtignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16093/">Chazelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16095/">Chenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16096/">Cherves-Châtelars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16099/">Chillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16100/">Chirac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16101/">Claix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16102/">Cognac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16103/">Combiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16104/">Condac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16105/">Condéon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16106/">Confolens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16046/">Coteaux-du-Blanzacais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16107/">Coulgens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16108/">Coulonges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16109/">Courbillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16110/">Courcôme</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16111/">Courgeac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16112/">Courlac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16114/">Couture</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16116/">Criteuil-la-Magdeleine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16117/">Curac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16118/">Deviat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16119/">Dignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16120/">Dirac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16121/">Douzat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16122/">Ébréon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16123/">Échallat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16124/">Écuras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16125/">Édon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16127/">Empuré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16128/">Épenède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16131/">Esse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16132/">Étagnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16133/">Étriac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16134/">Exideuil-sur-Vienne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16135/">Eymouthiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16137/">Feuillade</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16138/">Fléac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16139/">Fleurac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16141/">Fontenille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16143/">Fouquebrune</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16144/">Fouqueure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16145/">Foussignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16146/">Garat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16147/">Gardes-le-Pontaroux</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/16148/">Genac-Bignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16150/">Gensac-la-Pallue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16151/">Genté</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16152/">Gimeux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16154/">Gond-Pontouvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16158/">Grassac</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/16297/">Graves-Saint-Amant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16160/">Guimps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16161/">Guizengeard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16162/">Gurat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16163/">Hiersac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16164/">Hiesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16165/">Houlette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16167/">Jarnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16168/">Jauldes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16169/">Javrezac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16170/">Juignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16171/">Juillac-le-Coq</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16173/">Juillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16174/">Julienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16166/">L'Isle-d'Espagnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16393/">La Boixe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16081/">La Chapelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16098/">La Chèvrerie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16113/">La Couronne</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/16136/">La Faye</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16142/">La Forêt-de-Tessé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16197/">La Magdeleine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16281/">La Rochefoucauld-en-Angoumois</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16282/">La Rochette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16377/">La Tâche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16176/">Lachaise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16177/">Ladiville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16178/">Lagarde-sur-le-Né</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16180/">Laprade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16054/">Le Bouchage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16157/">Le Grand-Madieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16188/">Le Lindois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16380/">Le Tâtre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16403/">Le Vieux-Cérier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16002/">Les Adjots</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16130/">Les Essards</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16155/">Les Gours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16220/">Les Métairies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16261/">Les Pins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16183/">Lésignac-Durand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16181/">Lessac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16182/">Lesterps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16184/">Lichères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16185/">Ligné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16186/">Lignières-Ambleville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16187/">Linars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16189/">Londigny</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16190/">Longré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16191/">Lonnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16193/">Louzac-Saint-André</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16194/">Lupsault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16195/">Lussac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16196/">Luxé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16198/">Magnac-lès-Gardes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16199/">Magnac-sur-Touvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16200/">Maine-de-Boixe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16153/">Mainxe-Gondeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16203/">Mainzac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16205/">Manot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16206/">Mansle-les-Fontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16207/">Marcillac-Lanville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16208/">Mareuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16209/">Marillac-le-Franc</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16210/">Marsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16211/">Marthon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16212/">Massignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16213/">Mazerolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16215/">Médillac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16216/">Mérignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16217/">Merpins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16218/">Mesnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16221/">Mons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16222/">Montboyer</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16223/">Montbron</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16225/">Montembœuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16226/">Montignac-Charente</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/16227/">Montignac-le-Coq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16229/">Montjean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16224/">Montmérac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16230/">Montmoreau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16231/">Montrollet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16232/">Mornac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16233/">Mosnac-Saint-Simeux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16234/">Moulidars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16406/">Moulins-sur-Tardoire</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16236/">Mouthiers-sur-Boëme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16237/">Mouton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16238/">Moutonneau</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/16239/">Mouzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16240/">Nabinaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16241/">Nanclars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16242/">Nanteuil-en-Vallée</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/16243/">Nercillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16244/">Nersac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16245/">Nieuil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16246/">Nonac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16248/">Oradour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16249/">Oradour-Fanais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16250/">Orgedeuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16251/">Oriolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16252/">Orival</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16253/">Paizay-Naudouin-Embourie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16254/">Palluaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16255/">Parzac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16256/">Passirac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16258/">Pérignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16260/">Pillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16263/">Plassac-Rouffiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16264/">Pleuville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16267/">Poullignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16268/">Poursac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16269/">Pranzac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16270/">Pressignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16271/">Puymoyen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16272/">Puyréaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16273/">Raix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16275/">Ranville-Breuillaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16276/">Reignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16277/">Réparsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16279/">Rioux-Martin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16280/">Rivières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16283/">Ronsenac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16284/">Rouffiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16285/">Rougnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16286/">Rouillac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16287/">Roullet-Saint-Estèphe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16289/">Roussines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16290/">Rouzède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16291/">Ruelle-sur-Touvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16292/">Ruffec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16293/">Saint-Adjutory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16295/">Saint-Amant-de-Boixe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16298/">Saint-Amant-de-Nouère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16301/">Saint-Aulais-la-Chapelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16302/">Saint-Avit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16303/">Saint-Bonnet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16304/">Saint-Brice</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16306/">Saint-Christophe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16307/">Saint-Ciers-sur-Bonnieure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16308/">Saint-Claud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16310/">Saint-Coutant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16312/">Saint-Cybardeaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16315/">Saint-Félix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16316/">Saint-Fort-sur-le-Né</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16317/">Saint-Fraigne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16318/">Saint-Front</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16320/">Saint-Genis-d'Hiersac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16321/">Saint-Georges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16323/">Saint-Germain-de-Montbron</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16325/">Saint-Gourson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16326/">Saint-Groux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16329/">Saint-Laurent-de-Céris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16330/">Saint-Laurent-de-Cognac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16331/">Saint-Laurent-des-Combes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16334/">Saint-Martial</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16335/">Saint-Martin-du-Clocher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16336/">Saint-Mary</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16337/">Saint-Maurice-des-Lions</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16338/">Saint-Médard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16340/">Saint-Même-les-Carrières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16341/">Saint-Michel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16342/">Saint-Palais-du-Né</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16343/">Saint-Preuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16346/">Saint-Quentin-de-Chalais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16345/">Saint-Quentin-sur-Charente</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16347/">Saint-Romain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16348/">Saint-Saturnin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16350/">Saint-Séverin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16352/">Saint-Simon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16353/">Saint-Sornin</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/16355/">Saint-Sulpice-de-Cognac</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/16356/">Saint-Sulpice-de-Ruffec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16357/">Saint-Vallier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16358/">Saint-Yrieix-sur-Charente</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16349/">Sainte-Sévère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16354/">Sainte-Souline</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16359/">Salles-d'Angles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16360/">Salles-de-Barbezieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16361/">Salles-de-Villefagnan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16362/">Salles-Lavalette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16363/">Saulgond</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16364/">Sauvagnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16365/">Sauvignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16366/">Segonzac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16368/">Sers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16369/">Sigogne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16370/">Sireuil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16372/">Souffrignac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16373/">Souvigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16374/">Soyaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16375/">Suaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16378/">Taizé-Aizie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16379/">Taponnat-Fleurignac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16192/">Terres-de-Haute-Charente</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16381/">Theil-Rabier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16382/">Torsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16383/">Tourriers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16384/">Touvérac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16385/">Touvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16387/">Triac-Lautrait</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16388/">Trois-Palis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16389/">Turgon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16390/">Tusson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16175/">Val des Vignes</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/16339/">Val-d'Auge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16300/">Val-de-Bonnieure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16097/">Val-de-Cognac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/16392/">Valence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16394/">Vaux-Lavalette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16395/">Vaux-Rouillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16396/">Ventouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16397/">Verdille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16398/">Verneuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16399/">Verrières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16400/">Verteuil-sur-Charente</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16401/">Vervant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16402/">Vibrac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16404/">Vieux-Ruffec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16405/">Vignolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16408/">Villebois-Lavalette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16409/">Villefagnan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16412/">Villejoubert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16413/">Villiers-le-Roux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16414/">Villognon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16415/">Vindelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16416/">Vitrac-Saint-Vincent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16418/">Vœuil-et-Giget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16419/">Vouharte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16420/">Voulgézac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16421/">Vouthon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/16422/">Vouzan</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/16423/">Xambes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16424/">Yviers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/16425/">Yvrac-et-Malleyrand</a> · 3 réseaux : 3 notés A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Charente · eau du robinet », https://meteodurobinet.fr/departement/16/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

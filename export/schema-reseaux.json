@@ -1,0 +1,366 @@
+{
+  "$schema": "https://specs.frictionlessdata.io/schemas/table-schema.json",
+  "title": "Réseaux d’eau potable : le fichier d’un réseau, d’une commune ou d’un maître d’ouvrage",
+  "description": "Une ligne par réseau de distribution du contrôle sanitaire et par année publiée, par code de réseau puis par année. Les colonnes de libellés (de « Code du réseau » à « Identifiant du service (SISPEA) ») sont destinées à la lecture ; les dernières, de « Année du bilan » à « Début du cumul bactériologique de la note (année) », sont des codes stables d’une année à l’autre ; les quatre dernières, de « Prélèvements bactériologiques de l’année (sans réseau amont) » à « Prélèvements bactériologiques du réseau amont seul (1 = oui) », sont le bilan bactériologique de l’année, à côté de la note. Le contour publié par l’ARS n’est pas une colonne.",
+  "fields": [
+    {
+      "name": "Code du réseau",
+      "type": "string",
+      "description": "Code du réseau de distribution du contrôle sanitaire (SISE-Eaux), neuf caractères, zéros initiaux compris. Clé de la ligne.",
+      "constraints": {
+        "pattern": "^[0-9][0-9A-B][0-9A-Z][0-9]{6}$"
+      }
+    },
+    {
+      "name": "Département",
+      "type": "string",
+      "description": "Code du département du réseau (deux caractères, trois pour l’outre-mer), tel qu’il figure en tête du code du réseau.",
+      "constraints": {
+        "pattern": "^([0-9]{2}|2A|2B|97[1-6])$"
+      }
+    },
+    {
+      "name": "Nom du réseau",
+      "type": "string",
+      "description": "Nom lisible du réseau, le plus récent connu ; il s’applique à toutes les années du fichier."
+    },
+    {
+      "name": "Commune de tête ou commune unique",
+      "type": "string",
+      "description": "Commune desservie dont le nom ouvre celui du réseau, ou l’unique commune desservie. Vide quand aucune ne répond à cette règle."
+    },
+    {
+      "name": "Code INSEE de cette commune",
+      "type": "string",
+      "description": "Code INSEE de la commune de tête ou de la commune unique. Vide sans commune de tête.",
+      "constraints": {
+        "pattern": "^([0-9]{5}|2[AB][0-9]{3})$"
+      }
+    },
+    {
+      "name": "Communes desservies (nombre)",
+      "type": "integer",
+      "description": "Nombre de communes desservies par le réseau l’année du fichier. La desserte décrit le réseau ; elle ne sert à aucun jugement."
+    },
+    {
+      "name": "Codes INSEE des communes desservies",
+      "type": "string",
+      "description": "Codes INSEE des communes desservies, séparés par une espace, dans l’ordre croissant.",
+      "separator": " "
+    },
+    {
+      "name": "Maître d’ouvrage",
+      "type": "string",
+      "description": "Libellé du maître d’ouvrage (SISE-Eaux), renseigné seulement pour un maître d’ouvrage d’au moins deux réseaux. Une cellule vide ne signifie pas que le réseau n’en a pas."
+    },
+    {
+      "name": "Clé du maître d’ouvrage",
+      "type": "string",
+      "description": "Clé de la page du maître d’ouvrage : département, tiret, libellé en minuscules sans accents. Stable d’une année à l’autre.",
+      "constraints": {
+        "pattern": "^[0-9A-B]{2,3}-[a-z0-9-]+$"
+      }
+    },
+    {
+      "name": "Unité de gestion (contrôle sanitaire)",
+      "type": "string",
+      "description": "Libellé de l’unité de gestion du contrôle sanitaire."
+    },
+    {
+      "name": "Distributeur (contrôle sanitaire)",
+      "type": "string",
+      "description": "Libellé du distributeur du contrôle sanitaire (à ne pas confondre avec l’exploitant déclaré à SISPEA)."
+    },
+    {
+      "name": "Note calculée",
+      "type": "string",
+      "description": "Note de A à D calculée par le site selon la grille des synthèses de l’ARS, famille la plus défavorable du réseau. Ce n’est pas la synthèse officielle de l’ARS.",
+      "constraints": {
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      }
+    },
+    {
+      "name": "Famille reprise d’une année antérieure",
+      "type": "string",
+      "description": "Noms (séparés par « / ») des familles sans analyse dans l’année dont la note reprend la lettre de leur dernière année analysée, cinq ans au plus. Voir la colonne de codes « Familles reprises d’une année antérieure (codes) ».",
+      "separator": " / "
+    },
+    {
+      "name": "Situation : pesticides",
+      "type": "string",
+      "description": "Situation de la famille « pesticides » : bilan de l’année, texte qui suit la période (voir la colonne de codes « Code de situation : pesticides »). « pas d’analyse » : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          "conforme toute l’année",
+          "conforme depuis le 1er janvier",
+          "dépassements sur 30 jours au plus",
+          "dépassements sur plus de 30 jours",
+          "restriction de consommation",
+          "pas d’analyse"
+        ]
+      }
+    },
+    {
+      "name": "Situation : nitrates",
+      "type": "string",
+      "description": "Situation de la famille « nitrates » : bilan de l’année, texte qui suit la période (voir la colonne de codes « Code de situation : nitrates »). « pas d’analyse » : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          "maximum sous 25 mg/L",
+          "maximum de 25 à 40 mg/L",
+          "maximum de 40 à 50 mg/L",
+          "au-dessus de 50 mg/L au moins une fois",
+          "pas d’analyse"
+        ]
+      }
+    },
+    {
+      "name": "Situation : PFAS",
+      "type": "string",
+      "description": "Situation de la famille « PFAS » : bilan de l’année, texte qui suit la période (voir la colonne de codes « Code de situation : PFAS »). « pas d’analyse » : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          "conforme",
+          "au moins un dépassement constaté",
+          "restriction de consommation",
+          "pas d’analyse"
+        ]
+      }
+    },
+    {
+      "name": "Situation : bactériologie",
+      "type": "string",
+      "description": "Situation de la famille « bactériologie » : bilan de l’année, texte qui suit la période (voir la colonne de codes « Code de situation : bactériologie »). « pas d’analyse » : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          "tous les prélèvements conformes",
+          "quelques prélèvements non conformes, 5 % au plus",
+          "plus de 5 % de prélèvements non conformes",
+          "consigne d'ébullition ou restriction",
+          "pas d’analyse"
+        ]
+      }
+    },
+    {
+      "name": "Situation : métaux et minéraux",
+      "type": "string",
+      "description": "Situation de la famille « métaux et minéraux » : bilan de l’année, texte qui suit la période (voir la colonne de codes « Code de situation : métaux et minéraux »). « pas d’analyse » : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          "conforme",
+          "au moins un dépassement constaté",
+          "restriction de consommation",
+          "pas d’analyse"
+        ]
+      }
+    },
+    {
+      "name": "Situation : autres limites de qualité",
+      "type": "string",
+      "description": "Situation de la famille « autres limites de qualité » : bilan de l’année, texte qui suit la période (voir la colonne de codes « Code de situation : autres limites de qualité »). « pas d’analyse » : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          "conforme",
+          "au moins un dépassement constaté",
+          "restriction de consommation",
+          "pas d’analyse"
+        ]
+      }
+    },
+    {
+      "name": "Avis de l’ARS dans l’année",
+      "type": "string",
+      "description": "Avis le plus grave cité dans les conclusions du contrôle sanitaire de l’année, hors avis locaux. « pas d’information » : la délégation de l’ARS ne précise pas ses avis. Voir la colonne de codes « Code de l’avis de l’ARS ».",
+      "constraints": {
+        "enum": [
+          "aucun avis",
+          "eau déconseillée aux publics sensibles",
+          "consigne d’ébullition",
+          "restriction de consommation",
+          "pas d’information"
+        ]
+      }
+    },
+    {
+      "name": "Prix du service d’eau (€ le m³, au 1er janvier suivant l’exercice)",
+      "type": "number",
+      "description": "Prix du service d’eau, toutes taxes comprises, pour 120 m³ par an (SISPEA). Donné quand toutes les communes desservies relèvent du même service ; prix du service, non du réseau. Vide si plusieurs services, prix non déclaré ou écarté (hors de 0,20 à 15 € le m³).",
+      "decimalChar": ",",
+      "bareNumber": true,
+      "unit": "€/m³"
+    },
+    {
+      "name": "Exercice du prix (SISPEA)",
+      "type": "integer",
+      "description": "Exercice N du prix ; le prix est celui du 1er janvier N+1."
+    },
+    {
+      "name": "Identifiant du service (SISPEA)",
+      "type": "string",
+      "description": "Identifiant SISPEA du service d’eau dont le prix est donné."
+    },
+    {
+      "name": "Année du bilan",
+      "type": "integer",
+      "description": "Année du bilan du fichier (la même sur toutes les lignes). Code stable ; voir « Année en cours (données partielles) »."
+    },
+    {
+      "name": "Année en cours (données partielles)",
+      "type": "boolean",
+      "description": "« true » quand l’année du fichier est l’année en cours : les données s’arrêtent à la date d’arrêt de l’en-tête et le texte des situations dit « depuis le 1er janvier ». « false » pour une année close.",
+      "trueValues": [
+        "true"
+      ],
+      "falseValues": [
+        "false"
+      ]
+    },
+    {
+      "name": "Code de situation : pesticides",
+      "type": "integer",
+      "description": "Code stable de la situation de la famille « pesticides », du plus favorable au plus défavorable : 0 : conforme toute l’année ; 1 : dépassements sur 30 jours au plus ; 2 : dépassements sur plus de 30 jours ; 3 : restriction de consommation. Vide : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Code de situation : nitrates",
+      "type": "integer",
+      "description": "Code stable de la situation de la famille « nitrates », du plus favorable au plus défavorable : 0 : maximum sous 25 mg/L ; 1 : maximum de 25 à 40 mg/L ; 2 : maximum de 40 à 50 mg/L ; 3 : au-dessus de 50 mg/L au moins une fois. Vide : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Code de situation : PFAS",
+      "type": "integer",
+      "description": "Code stable de la situation de la famille « PFAS », du plus favorable au plus défavorable : 0 : conforme ; 1 : au moins un dépassement constaté ; 2 : restriction de consommation. Vide : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "name": "Code de situation : bactériologie",
+      "type": "integer",
+      "description": "Code stable de la situation de la famille « bactériologie », du plus favorable au plus défavorable : 0 : tous les prélèvements conformes ; 1 : quelques prélèvements non conformes, 5 % au plus ; 2 : plus de 5 % de prélèvements non conformes ; 3 : consigne d'ébullition ou restriction. Vide : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Code de situation : métaux et minéraux",
+      "type": "integer",
+      "description": "Code stable de la situation de la famille « métaux et minéraux », du plus favorable au plus défavorable : 0 : conforme ; 1 : au moins un dépassement constaté ; 2 : restriction de consommation. Vide : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "name": "Code de situation : autres limites de qualité",
+      "type": "integer",
+      "description": "Code stable de la situation de la famille « autres limites de qualité », du plus favorable au plus défavorable : 0 : conforme ; 1 : au moins un dépassement constaté ; 2 : restriction de consommation. Vide : aucune analyse dans l’année.",
+      "constraints": {
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "name": "Code de l’avis de l’ARS",
+      "type": "string",
+      "description": "Code de l’avis de l’ARS, stable : 0 aucun avis ; 1 eau déconseillée aux publics sensibles ; 2 consigne d’ébullition ; 3 restriction de consommation ; i pas d’information (la délégation ne précise pas ses avis). Vide sans fichier d’avis.",
+      "constraints": {
+        "enum": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "i"
+        ]
+      }
+    },
+    {
+      "name": "Familles reprises d’une année antérieure (codes)",
+      "type": "string",
+      "description": "Codes des familles reprises (pesticides, azote, pfas, microbio, metaux_mineraux, autres), séparés par une espace. Vide quand aucune.",
+      "separator": " "
+    },
+    {
+      "name": "Début du cumul bactériologique de la note (année)",
+      "type": "integer",
+      "description": "Première année des prélèvements bactériologiques sur lesquels porte la note (grille de l’ARS) : l’année du bilan seule quand elle compte assez de prélèvements, sinon les années antérieures s’y ajoutent, cinq ans au plus. Donnée pour un réseau noté B, C ou D ; vide pour un réseau noté A."
+    },
+    {
+      "name": "Prélèvements bactériologiques de l’année (sans réseau amont)",
+      "type": "integer",
+      "description": "Nombre de prélèvements bactériologiques du réseau dans l’année de la ligne seule, sans ceux d’un autre réseau de distribution situé en amont : le bilan de l’année, à côté de la note, qui peut ajouter les années précédentes (voir « Début du cumul bactériologique de la note (année) »). Vide sans prélèvement publié dans l’année. Quand la dernière colonne de ce groupe vaut 1, ce sont les prélèvements du réseau amont."
+    },
+    {
+      "name": "Prélèvements bactériologiques non conformes de l’année",
+      "type": "integer",
+      "description": "Nombre de ces prélèvements non conformes aux limites bactériologiques (E. coli, entérocoques). Vide sans prélèvement publié dans l’année."
+    },
+    {
+      "name": "Maximum d’E. coli ou d’entérocoques de l’année (n/100 mL)",
+      "type": "number",
+      "description": "Plus haut résultat d’E. coli ou d’entérocoques de ces prélèvements, à une décimale. 0 : aucun résultat de ces germes supérieur à zéro dans les données publiées. Vide sans prélèvement publié dans l’année.",
+      "decimalChar": ",",
+      "bareNumber": true,
+      "unit": "n/100 mL"
+    },
+    {
+      "name": "Prélèvements bactériologiques du réseau amont seul (1 = oui)",
+      "type": "integer",
+      "description": "1 quand tous les prélèvements du réseau dans l’année sont ceux d’un réseau de distribution situé en amont (la note les reprend alors faute d’autres) : les trois colonnes précédentes sont celles de ce réseau amont, que plusieurs réseaux peuvent partager. Vide sinon.",
+      "constraints": {
+        "enum": [
+          1
+        ]
+      }
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "Code du réseau",
+    "Année du bilan"
+  ],
+  "x-lecture": {
+    "delimiter": ";",
+    "encoding": "utf-8-sig",
+    "lineTerminator": "\r\n",
+    "decimalChar": ","
+  },
+  "x-reecriture": "Les fichiers sont fabriqués dans le navigateur à chaque téléchargement, d’après les données publiées chaque lundi : aucune version datée n’est conservée."
+}

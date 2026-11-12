@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Allier (03) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Allier · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Allier (03) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/03/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Allier · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Allier · eau du robinet","url":"https://meteodurobinet.fr/departement/03/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Allier","item":"https://meteodurobinet.fr/departement/03/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/03/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Allier</h1>
+<p class="meta">Département 03</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>14 sur 83 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 63 réseaux</li>
+<li>B qualité convenable* : 6 réseaux</li>
+<li>C qualité insuffisante* : 12 réseaux</li>
+<li>D mauvaise qualité* : 2 réseaux</li>
+</ul>
+<p>Pesticides 9, bactériologie 5.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>94 prélèvements</strong> évalués en septembre 2026 ; 754 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 12 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 26 jours, alerte 8 jours, alerte renforcée 9 jours, crise 49 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 0 jour, alerte renforcée 0 jour, crise 115 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,26</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 16 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>18 services d’eau</strong> desservent au moins une commune du département ; 16 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 83 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/003000367/">ANT.R. G. ALLIER - NORD-ALLIER</a> · 003000367 · note A · 1 commune</li>
+<li><a href="/reseau/003000639/">ANT.R.DROITE CHER - R. MINIERE</a> · 003000639 · note B · 2 communes</li>
+<li><a href="/reseau/003000368/">ANT.R.DROITE CHER-NORD-ALLIER</a> · 003000368 · note D · 1 commune</li>
+<li><a href="/reseau/003000642/">ANT.R.GAUCHE ALLIER-VAL ALLIER</a> · 003000642 · note A · 2 communes</li>
+<li><a href="/reseau/003000917/">ANT.VAL D'ALLIER-SOLOGNE BOURB</a> · 003000917 · note C · 2 communes</li>
+<li><a href="/reseau/003000643/">ANTENNE LA TEYSSONNE</a> · 003000643 · note A · 1 commune</li>
+<li><a href="/reseau/003004020/">ANTENNE R.MINIERE - RIVE GAUCHE CHER</a> · 003004020 · note A · 1 commune</li>
+<li><a href="/reseau/003001373/">ANTENNE VENDAT - VAL ALLIER</a> · 003001373 · note A · 1 commune</li>
+<li><a href="/reseau/003001374/">R. LES MOUILLERES-MONTAGNE VERTE</a> · 003001374 · note C · 3 communes</li>
+<li><a href="/reseau/003000937/">R. VAL SICHON - LA GUILLERMIE</a> · 003000937 · note A · 1 commune</li>
+<li><a href="/reseau/003000384/">R.MONTLUCON - RIVE GAUCHE CHER</a> · 003000384 · note A · 2 communes</li>
+<li><a href="/reseau/003000363/">RES. ARPHEUILLES-RONNET-TERJAT</a> · 003000363 · note A · 8 communes</li>
+<li><a href="/reseau/003000405/">RESEAU ABREST</a> · 003000405 · note A · 1 commune</li>
+<li><a href="/reseau/003000300/">RESEAU AINAY-LE-CHATEAU</a> · 003000300 · note A · 2 communes</li>
+<li><a href="/reseau/003000403/">RESEAU ARFEUILLES</a> · 003000403 · note A · 7 communes</li>
+<li><a href="/reseau/003000309/">RESEAU AUROUER - PERIASSE</a> · 003000309 · note A · 1 commune</li>
+<li><a href="/reseau/003000366/">RESEAU BAGNEUX</a> · 003000366 · note A · 17 communes</li>
+<li><a href="/reseau/003000358/">RESEAU BAS-SERVICE - VARENNES</a> · 003000358 · note A · 1 commune</li>
+<li><a href="/reseau/003000402/">RESEAU BESBRE</a> · 003000402 · note A · 15 communes</li>
+<li><a href="/reseau/003000637/">RESEAU BESBRE (AL. BESBRE)</a> · 003000637 · note A · 4 communes</li>
+<li><a href="/reseau/003000624/">RESEAU BESBRE-LOIRE</a> · 003000624 · note A · 3 communes</li>
+<li><a href="/reseau/003000302/">RESEAU BOIS-RANDENNAIS</a> · 003000302 · note A · 1 commune</li>
+<li><a href="/reseau/003000311/">RESEAU BOURG DE CHATEL</a> · 003000311 · note A · 2 communes</li>
+<li><a href="/reseau/003000331/">RESEAU BOURG DE LAVOINE</a> · 003000331 · note D · 1 commune</li>
+<li><a href="/reseau/003000336/">RESEAU BOURG LE MAYET</a> · 003000336 · note A · 1 commune</li>
+<li><a href="/reseau/003000334/">RESEAU CALVILLE</a> · 003000334 · note A · 1 commune</li>
+<li><a href="/reseau/003000318/">RESEAU CENTRE CUSSET</a> · 003000318 · note A · 1 commune</li>
+<li><a href="/reseau/003000304/">RESEAU CERILLY</a> · 003000304 · note A · 1 commune</li>
+<li><a href="/reseau/003000329/">RESEAU CHARRIER</a> · 003000329 · note A · 1 commune</li>
+<li><a href="/reseau/003000395/">RESEAU CHAZEUIL</a> · 003000395 · note A · 8 communes</li>
+<li><a href="/reseau/003000301/">RESEAU CLAUDE DECLOITRE</a> · 003000301 · note A · 3 communes</li>
+<li><a href="/reseau/003000317/">RESEAU COMMENTRY</a> · 003000317 · note A · 1 commune</li>
+<li><a href="/reseau/003000392/">RESEAU EAU ALLIER</a> · 003000392 · note B · 5 communes</li>
+<li><a href="/reseau/003000313/">RESEAU EPALLE</a> · 003000313 · note A · 1 commune</li>
+<li><a href="/reseau/003000333/">RESEAU FOYER SKI - LE FAU</a> · 003000333 · note A · 1 commune</li>
+<li><a href="/reseau/003000320/">RESEAU GANNAT  - MAZERIER</a> · 003000320 · note C · 1 commune</li>
+<li><a href="/reseau/003000321/">RESEAU GANNAT - MELANGE</a> · 003000321 · note C · 1 commune</li>
+<li><a href="/reseau/003000365/">RESEAU HAUT-CHER</a> · 003000365 · note A · 6 communes</li>
+<li><a href="/reseau/003000326/">RESEAU ISLE ET BARDAIS</a> · 003000326 · note A · 3 communes</li>
+<li><a href="/reseau/003000305/">RESEAU LA CHABANNE</a> · 003000305 · note C · 1 commune</li>
+<li><a href="/reseau/003000854/">RESEAU LA GOUTTE DU LAC</a> · 003000854 · note A · 1 commune</li>
+<li><a href="/reseau/003000374/">RESEAU LA MITTE</a> · 003000374 · note A · 12 communes</li>
+<li><a href="/reseau/003000332/">RESEAU LA NELIE</a> · 003000332 · note A · 1 commune</li>
+<li><a href="/reseau/003000353/">RESEAU LA ROUSSE (OU SUD)</a> · 003000353 · note A · 1 commune</li>
+<li><a href="/reseau/003000356/">RESEAU LA VERRERIE</a> · 003000356 · note A · 1 commune</li>
+<li><a href="/reseau/003000327/">RESEAU LAPRUGNE</a> · 003000327 · note A · 1 commune</li>
+<li><a href="/reseau/003000352/">RESEAU LE BOURG ST-CLEMENT</a> · 003000352 · note A · 1 commune</li>
+<li><a href="/reseau/003000355/">RESEAU LE BOURG ST-NICOLAS</a> · 003000355 · note A · 2 communes</li>
+<li><a href="/reseau/003001381/">RESEAU LE COIN</a> · 003001381 · note C · 2 communes</li>
+<li><a href="/reseau/003003657/">RESEAU LE VEURDRE</a> · 003003657 · note A · 10 communes</li>
+<li><a href="/reseau/003001022/">RESEAU LES BRAYARDS</a> · 003001022 · note A · 3 communes</li>
+<li><a href="/reseau/003000370/">RESEAU LES DRIVES</a> · 003000370 · note B · 5 communes</li>
+<li><a href="/reseau/003000391/">RESEAU LES MONINS</a> · 003000391 · note A · 8 communes</li>
+<li><a href="/reseau/003000396/">RESEAU LES MOTTES</a> · 003000396 · note A · 4 communes</li>
+<li><a href="/reseau/003000371/">RESEAU LES SANCIOTS</a> · 003000371 · note A · 4 communes</li>
+<li><a href="/reseau/003000401/">RESEAU LOIRE</a> · 003000401 · note A · 17 communes</li>
+<li><a href="/reseau/003000390/">RESEAU MELANGE LOIRE-ALLIER</a> · 003000390 · note C · 5 communes</li>
+<li><a href="/reseau/003000345/">RESEAU MONTLUÇON-DESERTINES</a> · 003000345 · note A · 3 communes</li>
+<li><a href="/reseau/003001012/">RESEAU MONTONCEL </a> · 003001012 · note A · 3 communes</li>
+<li><a href="/reseau/003000347/">RESEAU MOULINS</a> · 003000347 · note A · 1 commune</li>
+<li><a href="/reseau/003000483/">RESEAU N.ALLIER - REG. MINIERE</a> · 003000483 · note A · 5 communes</li>
+<li><a href="/reseau/003000350/">RESEAU NERIS LES BAINS</a> · 003000350 · note A · 1 commune</li>
+<li><a href="/reseau/003000351/">RESEAU NEUVY - MOULINS</a> · 003000351 · note A · 1 commune</li>
+<li><a href="/reseau/003000372/">RESEAU NORD RIVE DROITE CHER</a> · 003000372 · note B · 11 communes</li>
+<li><a href="/reseau/003000638/">RESEAU PRAT - COMMENTRY</a> · 003000638 · note A · 1 commune</li>
+<li><a href="/reseau/003000375/">RESEAU PRAT - REGION MINIERE</a> · 003000375 · note A · 11 communes</li>
+<li><a href="/reseau/003000382/">RESEAU PRAT - RIVE GAUCHE CHER</a> · 003000382 · note A · 22 communes</li>
+<li><a href="/reseau/003000482/">RESEAU R.G. CHER - REG.MINIERE</a> · 003000482 · note A · 1 commune</li>
+<li><a href="/reseau/003000380/">RESEAU RIVE GAUCHE ALLIER</a> · 003000380 · note A · 27 communes</li>
+<li><a href="/reseau/003000376/">RESEAU S.M.E.A. - REG. MINIERE</a> · 003000376 · note A · 13 communes</li>
+<li><a href="/reseau/003000394/">RESEAU SAINT-FELIX</a> · 003000394 · note C · 23 communes</li>
+<li><a href="/reseau/003000397/">RESEAU SAINT-POURCAIN CENTRE</a> · 003000397 · note A · 1 commune</li>
+<li><a href="/reseau/003000381/">RESEAU SAINT-VICTOR</a> · 003000381 · note A · 2 communes</li>
+<li><a href="/reseau/003000357/">RESEAU SAINT-YORRE</a> · 003000357 · note B · 1 commune</li>
+<li><a href="/reseau/003000379/">RESEAU SIOULE - REG. MINIERE</a> · 003000379 · note C · 2 communes</li>
+<li><a href="/reseau/003000385/">RESEAU SIOULE ET BOUBLE</a> · 003000385 · note C · 46 communes</li>
+<li><a href="/reseau/003000393/">RESEAU SOLOGNE NORD (AL.LOIRE)</a> · 003000393 · note A · 7 communes</li>
+<li><a href="/reseau/003003661/">RESEAU VAL ALLIER - CUSSET</a> · 003003661 · note A · 1 commune</li>
+<li><a href="/reseau/003000404/">RESEAU VALLEE DU SICHON</a> · 003000404 · note A · 11 communes</li>
+<li><a href="/reseau/003000409/">RESEAU VENDAT CHARMEIL ST-REMY</a> · 003000409 · note C · 4 communes</li>
+<li><a href="/reseau/003000322/">RESEAU VESSE - LA GUILLERMIE</a> · 003000322 · note C · 1 commune</li>
+<li><a href="/reseau/003000360/">RESEAU VICHY</a> · 003000360 · note B · 4 communes</li>
+<li><a href="/reseau/003000362/">RESEAU YZEURE</a> · 003000362 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/03001/">Abrest</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/03002/">Agonges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03003/">Ainay-le-Château</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03004/">Andelaroche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03005/">Archignat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03006/">Arfeuilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03007/">Arpheuilles-Saint-Priest</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03008/">Arronnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03009/">Aubigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03010/">Audes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03011/">Aurouër</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03012/">Autry-Issards</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03013/">Avermes</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03014/">Avrilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03015/">Bagneux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03016/">Barberier</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03017/">Barrais-Bussolles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03018/">Bayet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03019/">Beaulon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03020/">Beaune-d'Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03021/">Bègues</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/03022/">Bellenaves</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03023/">Bellerive-sur-Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03024/">Bert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03025/">Bessay-sur-Allier</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03026/">Besson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03027/">Bézenet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03028/">Billezois</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03029/">Billy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03030/">Biozat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03031/">Bizeneuille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03032/">Blomard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03033/">Bost</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03034/">Boucé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03036/">Bourbon-l'Archambault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03037/">Braize</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03038/">Bransat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03039/">Bresnay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03040/">Bressolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03043/">Broût-Vernet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03044/">Brugheas</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/03045/">Busset</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03046/">Buxières-les-Mines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03048/">Cérilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03049/">Cesset</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03051/">Chambérat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03052/">Chamblet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03053/">Chantelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03054/">Chapeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03058/">Chappes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03059/">Chareil-Cintrat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03060/">Charmeil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03061/">Charmes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03062/">Charroux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03063/">Chassenard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03064/">Château-sur-Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03065/">Châtel-de-Neuvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03066/">Châtel-Montagne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03067/">Châtelperron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03068/">Châtelus</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03069/">Châtillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03070/">Chavenon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03071/">Chavroches</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03072/">Chazemais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03073/">Chemilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03074/">Chevagnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03075/">Chezelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03076/">Chézy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03077/">Chirat-l'Église</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03078/">Chouvigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03079/">Cindré</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03080/">Cognat-Lyonne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03081/">Colombier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03082/">Commentry</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03083/">Contigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03084/">Cosne-d'Allier</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/03085/">Coulandon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03086/">Coulanges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03087/">Couleuvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03088/">Courçais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03089/">Coutansouze</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03090/">Couzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03091/">Créchy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03092/">Cressanges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03093/">Creuzier-le-Neuf</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/03094/">Creuzier-le-Vieux</a> · 3 réseaux : 2 notés C, 1 noté B</li>
+<li><a href="/commune/03095/">Cusset</a> · 4 réseaux : 1 noté B, 3 notés A</li>
+<li><a href="/commune/03096/">Deneuille-lès-Chantelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03097/">Deneuille-les-Mines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03098/">Désertines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03099/">Deux-Chaises</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03100/">Diou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03101/">Domérat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/03102/">Dompierre-sur-Besbre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03104/">Doyet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03105/">Droiturier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03106/">Durdat-Larequille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03107/">Ébreuil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03108/">Échassières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03109/">Escurolles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03110/">Espinasse-Vozelle</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/03111/">Estivareilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03112/">Étroussat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03113/">Ferrières-sur-Sichon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03115/">Fleuriel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03116/">Fourilles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03117/">Franchesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03118/">Gannat</a> · 4 réseaux : 3 notés C, 1 noté A</li>
+<li><a href="/commune/03119/">Gannay-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03120/">Garnat-sur-Engièvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03121/">Gennetines</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03122/">Gipcy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03124/">Gouise</a> · 2 réseaux : 1 noté C, 1 noté B</li>
+<li><a href="/commune/03158/">Haut-Bocage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03126/">Hauterive</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03127/">Hérisson</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03128/">Huriel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03129/">Hyds</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03130/">Isle-et-Bardais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03131/">Isserpent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03132/">Jaligny-sur-Besbre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03133/">Jenzat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03047/">La Celle</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03050/">La Chabanne</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/03055/">La Chapelaude</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03056/">La Chapelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03057/">La Chapelle-aux-Chasses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03114/">La Ferté-Hauterive</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03125/">La Guillermie</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/03206/">La Petite-Marche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03134/">Laféline</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03135/">Lalizolle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03136/">Lamaids</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03137/">Langy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03138/">Lapalisse</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03139/">Laprugne</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/03140/">Lavault-Sainte-Anne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03141/">Lavoine</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/03035/">Le Bouchaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03041/">Le Brethon</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03042/">Le Breuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03103/">Le Donjon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03164/">Le Mayet-d'École</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03165/">Le Mayet-de-Montagne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03183/">Le Montet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03208/">Le Pin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03281/">Le Theil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03306/">Le Vernet</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/03309/">Le Veurdre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03313/">Le Vilhain</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03142/">Lenax</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03143/">Lételon</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03144/">Liernolles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03145/">Lignerolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03146/">Limoise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03147/">Loddes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03148/">Loriges</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03149/">Louchy-Montfand</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03150/">Louroux-Bourbonnais</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03151/">Louroux-de-Beaune</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03152/">Louroux-de-Bouble</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/03154/">Luneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03155/">Lurcy-Lévis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03156/">Lusigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03157/">Magnet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03159/">Malicorne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03160/">Marcenat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03161/">Marcillat-en-Combraille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03162/">Marigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03163/">Mariol</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03166/">Mazerier</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03167/">Mazirat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03168/">Meaulne-Vitray</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03169/">Meillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03170/">Meillers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03171/">Mercy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03172/">Mesples</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03173/">Molinet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03174/">Molles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03175/">Monestier</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03176/">Monétay-sur-Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03177/">Monétay-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03179/">Montaigu-le-Blin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03178/">Montaiguët-en-Forez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03180/">Montbeugny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03181/">Montcombroux-les-Mines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03182/">Monteignet-sur-l'Andelot</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03184/">Montilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03185/">Montluçon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03186/">Montmarault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03187/">Montoldre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03188/">Montord</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03189/">Montvicq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03190/">Moulins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03191/">Murat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03192/">Nades</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03193/">Nassigny</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/03194/">Naves</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03195/">Néris-les-Bains</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03196/">Neuilly-en-Donjon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03197/">Neuilly-le-Réal</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03198/">Neure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03200/">Neuvy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03201/">Nizerolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03202/">Noyant-d'Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03203/">Paray-le-Frésil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03204/">Paray-sous-Briailles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03205/">Périgny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03207/">Pierrefitte-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03209/">Poëzat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03210/">Pouzy-Mésangy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03211/">Prémilhat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03212/">Quinssaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03213/">Reugny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03214/">Rocles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03215/">Rongères</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03216/">Ronnet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03217/">Saint-Angel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03218/">Saint-Aubin-le-Monial</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03219/">Saint-Bonnet-de-Four</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03220/">Saint-Bonnet-de-Rochefort</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03221/">Saint-Bonnet-Tronçais</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/03222/">Saint-Caprais</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03223/">Saint-Christophe-en-Bourbonnais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03224/">Saint-Clément</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/03225/">Saint-Désiré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03226/">Saint-Didier-en-Donjon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03227/">Saint-Didier-la-Forêt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03228/">Saint-Éloy-d'Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03229/">Saint-Ennemond</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/03230/">Saint-Étienne-de-Vicq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03231/">Saint-Fargeol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03232/">Saint-Félix</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03233/">Saint-Genest</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03234/">Saint-Gérand-de-Vaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03235/">Saint-Gérand-le-Puy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03237/">Saint-Germain-de-Salles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03236/">Saint-Germain-des-Fossés</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/03238/">Saint-Hilaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03239/">Saint-Léger-sur-Vouzance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03240/">Saint-Léon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03241/">Saint-Léopardin-d'Augy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03242/">Saint-Loup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03244/">Saint-Marcel-en-Marcillat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03243/">Saint-Marcel-en-Murat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03245/">Saint-Martin-des-Lais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03246/">Saint-Martinien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03247/">Saint-Menoux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03248/">Saint-Nicolas-des-Biefs</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03249/">Saint-Palais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03250/">Saint-Pierre-Laval</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03251/">Saint-Plaisir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03252/">Saint-Pont</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03253/">Saint-Pourçain-sur-Besbre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03254/">Saint-Pourçain-sur-Sioule</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03255/">Saint-Priest-d'Andelot</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/03256/">Saint-Priest-en-Murat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03257/">Saint-Prix</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/03258/">Saint-Rémy-en-Rollat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03259/">Saint-Sauvier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03260/">Saint-Sornin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03262/">Saint-Victor</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/03263/">Saint-Voir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03264/">Saint-Yorre</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03261/">Sainte-Thérence</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03265/">Saligny-sur-Roudon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03266/">Sanssat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03267/">Saulcet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03268/">Saulzet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03269/">Sauvagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03270/">Sazeret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03271/">Serbannes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03272/">Servilly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03273/">Seuillet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03274/">Sorbier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03275/">Souvigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03276/">Sussat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03277/">Target</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03278/">Taxat-Senat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03279/">Teillet-Argenty</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03280/">Terjat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03282/">Theneuille</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/03283/">Thiel-sur-Acolin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03284/">Thionne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03285/">Tortezais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03286/">Toulon-sur-Allier</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03287/">Treban</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03288/">Treignat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03289/">Treteau</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03290/">Trévol</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/03291/">Trézelles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03292/">Tronget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03293/">Urçay</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03294/">Ussel-d'Allier</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03295/">Valignat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03296/">Valigny</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03297/">Vallon-en-Sully</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03298/">Varennes-sur-Allier</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/03299/">Varennes-sur-Tèche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03300/">Vaumas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03301/">Vaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/03302/">Veauce</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03303/">Venas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03304/">Vendat</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03305/">Verneix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03307/">Verneuil-en-Bourbonnais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03308/">Vernusse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03310/">Vichy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/03311/">Vicq</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03312/">Vieure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03314/">Villebret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03315/">Villefranche-d'Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03316/">Villeneuve-sur-Allier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03317/">Viplaix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03319/">Voussac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/03320/">Ygrande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/03321/">Yzeure</a> · 3 réseaux : 1 noté C, 1 noté B, 1 noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Allier · eau du robinet », https://meteodurobinet.fr/departement/03/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

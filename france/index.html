@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Fiche de la France : les réseaux d’eau potable comptés par note A à D, par année depuis 2023, les familles de paramètres en cause, l’avis de l’ARS, la sécheresse du jour et le prix du service d’eau." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="La France · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Fiche de la France : les réseaux d’eau potable comptés par note A à D, par année depuis 2023, les familles de paramètres en cause, l’avis de l’ARS, la sécheresse du jour et le prix du service d’eau." />
+    <meta property="og:url" content="https://meteodurobinet.fr/france/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>La France · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"La France · eau du robinet","url":"https://meteodurobinet.fr/france/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/france/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>La France</h1>
+<p class="lead">Fiche de la France : les réseaux d’eau potable comptés par note A à D, par année depuis 2023, les familles de paramètres en cause, l’avis de l’ARS, la sécheresse du jour et le prix du service d’eau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>4 913 sur 22 825 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 17 493 réseaux</li>
+<li>B qualité convenable* : 419 réseaux</li>
+<li>C qualité insuffisante* : 2 723 réseaux</li>
+<li>D mauvaise qualité* : 2 190 réseaux</li>
+</ul>
+<p>Bactériologie 3 026 (2 128 D), pesticides 1 638.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes comptent des réseaux, jamais des communes.</p>
+<h3>Avis</h3>
+<p>439 réseaux d’eau ont fait l’objet d’une restriction de consommation de l’ARS, et 45 d’une consigne d’ébullition.</p>
+<p class="cap">Conclusions de l’ARS depuis le 1er janvier 2026, données arrêtées au 30 septembre 2026.</p>
+<p class="cap">Dans 31 départements, l’ARS ne précise pas ses avis ; l’absence d’avis n’y signifie pas qu’il n’y en a pas eu.</p>
+<h3>Prélèvements</h3>
+<p>94,6 % des 19 942 prélèvements de septembre 2026 sont conformes aux limites de qualité.</p>
+<h3>Sécheresse (arrosage)</h3>
+<p>Zones de sécheresse du 12 novembre 2026 : 23,1 % de la surface de la France métropolitaine en crise, 19,9 % en alerte renforcée.</p>
+<h3>Coût</h3>
+<p>Prix moyen : 2,56 € le m³ au 1er janvier 2026 (exercice 2025). Moyenne pondérée par les habitants desservis, non par les abonnés ; la médiane des 4 760 services est de 2,54 €.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les départements</h3>
+<ul>
+<li><a href="/departement/01/">Ain</a> · 01</li>
+<li><a href="/departement/02/">Aisne</a> · 02</li>
+<li><a href="/departement/03/">Allier</a> · 03</li>
+<li><a href="/departement/04/">Alpes-de-Haute-Provence</a> · 04</li>
+<li><a href="/departement/06/">Alpes-Maritimes</a> · 06</li>
+<li><a href="/departement/07/">Ardèche</a> · 07</li>
+<li><a href="/departement/08/">Ardennes</a> · 08</li>
+<li><a href="/departement/09/">Ariège</a> · 09</li>
+<li><a href="/departement/10/">Aube</a> · 10</li>
+<li><a href="/departement/11/">Aude</a> · 11</li>
+<li><a href="/departement/12/">Aveyron</a> · 12</li>
+<li><a href="/departement/67/">Bas-Rhin</a> · 67</li>
+<li><a href="/departement/13/">Bouches-du-Rhône</a> · 13</li>
+<li><a href="/departement/14/">Calvados</a> · 14</li>
+<li><a href="/departement/15/">Cantal</a> · 15</li>
+<li><a href="/departement/16/">Charente</a> · 16</li>
+<li><a href="/departement/17/">Charente-Maritime</a> · 17</li>
+<li><a href="/departement/18/">Cher</a> · 18</li>
+<li><a href="/departement/19/">Corrèze</a> · 19</li>
+<li><a href="/departement/2A/">Corse-du-Sud</a> · 2A</li>
+<li><a href="/departement/21/">Côte-d’Or</a> · 21</li>
+<li><a href="/departement/22/">Côtes-d’Armor</a> · 22</li>
+<li><a href="/departement/23/">Creuse</a> · 23</li>
+<li><a href="/departement/79/">Deux-Sèvres</a> · 79</li>
+<li><a href="/departement/24/">Dordogne</a> · 24</li>
+<li><a href="/departement/25/">Doubs</a> · 25</li>
+<li><a href="/departement/26/">Drôme</a> · 26</li>
+<li><a href="/departement/91/">Essonne</a> · 91</li>
+<li><a href="/departement/27/">Eure</a> · 27</li>
+<li><a href="/departement/28/">Eure-et-Loir</a> · 28</li>
+<li><a href="/departement/29/">Finistère</a> · 29</li>
+<li><a href="/departement/30/">Gard</a> · 30</li>
+<li><a href="/departement/32/">Gers</a> · 32</li>
+<li><a href="/departement/33/">Gironde</a> · 33</li>
+<li><a href="/departement/971/">Guadeloupe</a> · 971</li>
+<li><a href="/departement/973/">Guyane</a> · 973</li>
+<li><a href="/departement/68/">Haut-Rhin</a> · 68</li>
+<li><a href="/departement/2B/">Haute-Corse</a> · 2B</li>
+<li><a href="/departement/31/">Haute-Garonne</a> · 31</li>
+<li><a href="/departement/43/">Haute-Loire</a> · 43</li>
+<li><a href="/departement/52/">Haute-Marne</a> · 52</li>
+<li><a href="/departement/70/">Haute-Saône</a> · 70</li>
+<li><a href="/departement/74/">Haute-Savoie</a> · 74</li>
+<li><a href="/departement/87/">Haute-Vienne</a> · 87</li>
+<li><a href="/departement/05/">Hautes-Alpes</a> · 05</li>
+<li><a href="/departement/65/">Hautes-Pyrénées</a> · 65</li>
+<li><a href="/departement/92/">Hauts-de-Seine</a> · 92</li>
+<li><a href="/departement/34/">Hérault</a> · 34</li>
+<li><a href="/departement/35/">Ille-et-Vilaine</a> · 35</li>
+<li><a href="/departement/36/">Indre</a> · 36</li>
+<li><a href="/departement/37/">Indre-et-Loire</a> · 37</li>
+<li><a href="/departement/38/">Isère</a> · 38</li>
+<li><a href="/departement/39/">Jura</a> · 39</li>
+<li><a href="/departement/974/">La Réunion</a> · 974</li>
+<li><a href="/departement/40/">Landes</a> · 40</li>
+<li><a href="/departement/41/">Loir-et-Cher</a> · 41</li>
+<li><a href="/departement/42/">Loire</a> · 42</li>
+<li><a href="/departement/44/">Loire-Atlantique</a> · 44</li>
+<li><a href="/departement/45/">Loiret</a> · 45</li>
+<li><a href="/departement/46/">Lot</a> · 46</li>
+<li><a href="/departement/47/">Lot-et-Garonne</a> · 47</li>
+<li><a href="/departement/48/">Lozère</a> · 48</li>
+<li><a href="/departement/49/">Maine-et-Loire</a> · 49</li>
+<li><a href="/departement/50/">Manche</a> · 50</li>
+<li><a href="/departement/51/">Marne</a> · 51</li>
+<li><a href="/departement/972/">Martinique</a> · 972</li>
+<li><a href="/departement/53/">Mayenne</a> · 53</li>
+<li><a href="/departement/976/">Mayotte</a> · 976</li>
+<li><a href="/departement/54/">Meurthe-et-Moselle</a> · 54</li>
+<li><a href="/departement/55/">Meuse</a> · 55</li>
+<li><a href="/departement/56/">Morbihan</a> · 56</li>
+<li><a href="/departement/57/">Moselle</a> · 57</li>
+<li><a href="/departement/58/">Nièvre</a> · 58</li>
+<li><a href="/departement/59/">Nord</a> · 59</li>
+<li><a href="/departement/60/">Oise</a> · 60</li>
+<li><a href="/departement/61/">Orne</a> · 61</li>
+<li><a href="/departement/75/">Paris</a> · 75</li>
+<li><a href="/departement/62/">Pas-de-Calais</a> · 62</li>
+<li><a href="/departement/63/">Puy-de-Dôme</a> · 63</li>
+<li><a href="/departement/64/">Pyrénées-Atlantiques</a> · 64</li>
+<li><a href="/departement/66/">Pyrénées-Orientales</a> · 66</li>
+<li><a href="/departement/69/">Rhône</a> · 69</li>
+<li><a href="/departement/71/">Saône-et-Loire</a> · 71</li>
+<li><a href="/departement/72/">Sarthe</a> · 72</li>
+<li><a href="/departement/73/">Savoie</a> · 73</li>
+<li><a href="/departement/77/">Seine-et-Marne</a> · 77</li>
+<li><a href="/departement/76/">Seine-Maritime</a> · 76</li>
+<li><a href="/departement/93/">Seine-Saint-Denis</a> · 93</li>
+<li><a href="/departement/80/">Somme</a> · 80</li>
+<li><a href="/departement/81/">Tarn</a> · 81</li>
+<li><a href="/departement/82/">Tarn-et-Garonne</a> · 82</li>
+<li><a href="/departement/90/">Territoire de Belfort</a> · 90</li>
+<li><a href="/departement/95/">Val-d’Oise</a> · 95</li>
+<li><a href="/departement/94/">Val-de-Marne</a> · 94</li>
+<li><a href="/departement/83/">Var</a> · 83</li>
+<li><a href="/departement/84/">Vaucluse</a> · 84</li>
+<li><a href="/departement/85/">Vendée</a> · 85</li>
+<li><a href="/departement/86/">Vienne</a> · 86</li>
+<li><a href="/departement/88/">Vosges</a> · 88</li>
+<li><a href="/departement/89/">Yonne</a> · 89</li>
+<li><a href="/departement/78/">Yvelines</a> · 78</li>
+</ul>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « La France · eau du robinet », https://meteodurobinet.fr/france/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Lozère (48) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Lozère · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Lozère (48) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/48/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Lozère · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Lozère · eau du robinet","url":"https://meteodurobinet.fr/departement/48/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Lozère","item":"https://meteodurobinet.fr/departement/48/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/48/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Lozère</h1>
+<p class="meta">Département 48</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>239 sur 579 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 337 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 33 réseaux</li>
+<li>D mauvaise qualité* : 206 réseaux</li>
+</ul>
+<p>Bactériologie 232 (206 D), métaux et minéraux 6.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>249 prélèvements</strong> évalués en septembre 2026 ; 1 755 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 73 jours, alerte 41 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 21 jours, alerte 21 jours, alerte renforcée 71 jours, crise 35 jours</li>
+<li>2026 en cours : vigilance 7 jours, alerte 14 jours, alerte renforcée 14 jours, crise 111 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,08</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 47 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>117 services d’eau</strong> desservent au moins une commune du département ; 107 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 590 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/048000111/">ALBARET SAINTE MARIE</a> · 048000111 · note A · 1 commune</li>
+<li><a href="/reseau/048000930/">ALBUGES</a> · 048000930 · note D · 1 commune</li>
+<li><a href="/reseau/048000680/">ALLENC</a> · 048000680 · note D · 1 commune</li>
+<li><a href="/reseau/048000872/">ALTIER</a> · 048000872 · note A · 1 commune</li>
+<li><a href="/reseau/048001630/">ALZONS</a> · 048001630 · note D · 1 commune</li>
+<li><a href="/reseau/048000957/">AMOURETTES</a> · 048000957 · note A · 1 commune</li>
+<li><a href="/reseau/048001287/">ANGLARDS</a> · 048001287 · note A · 1 commune</li>
+<li><a href="/reseau/048000881/">ANTRENAS</a> · 048000881 · note A · 1 commune</li>
+<li><a href="/reseau/048001108/">APCHER</a> · 048001108 · note C · 1 commune</li>
+<li><a href="/reseau/048001307/">ARCOMIE</a> · 048001307 · note A · 1 commune</li>
+<li><a href="/reseau/048000091/">ARTIGUES</a> · 048000091 · note A · 1 commune</li>
+<li><a href="/reseau/048000681/">ARZALIER</a> · 048000681 · note A · 1 commune</li>
+<li><a href="/reseau/048000914/">ARZENC DE RANDON</a> · 048000914 · note A · 1 commune</li>
+<li><a href="/reseau/048001547/">ASPRES</a> · 048001547 · note D · 1 commune</li>
+<li><a href="/reseau/048002712/">ATELIER RELAIS</a> · 048002712 · note D · 1 commune</li>
+<li><a href="/reseau/048001524/">AUBIGEYRES</a> · 048001524 · note C · 1 commune</li>
+<li><a href="/reseau/048000698/">AUMONT-CHAZE-JAVOLS</a> · 048000698 · note A · 1 commune</li>
+<li><a href="/reseau/048001409/">AURIAC</a> · 048001409 · note D · 1 commune</li>
+<li><a href="/reseau/048000127/">AUROUX</a> · 048000127 · note A · 1 commune</li>
+<li><a href="/reseau/048000148/">AUXILLAC</a> · 048000148 · note A · 1 commune</li>
+<li><a href="/reseau/048000753/">AUZENC</a> · 048000753 · note A · 1 commune</li>
+<li><a href="/reseau/048003559/">BADAROUX</a> · 048003559 · note A · 1 commune</li>
+<li><a href="/reseau/048000433/">BAGNOLS LES BAINS</a> · 048000433 · note A · 1 commune</li>
+<li><a href="/reseau/048001393/">BALAZUEGNES</a> · 048001393 · note D · 1 commune</li>
+<li><a href="/reseau/048000007/">BALSIEGES</a> · 048000007 · note A · 1 commune</li>
+<li><a href="/reseau/048001333/">BANASSAC</a> · 048001333 · note A · 2 communes</li>
+<li><a href="/reseau/048001387/">BARAQUE DES BOUVIERS</a> · 048001387 · note A · 1 commune</li>
+<li><a href="/reseau/048000528/">BARJAC</a> · 048000528 · note A · 1 commune</li>
+<li><a href="/reseau/048003738/">BARRE DES CEVENNES</a> · 048003738 · note A · 1 commune</li>
+<li><a href="/reseau/048001182/">BASSURELS</a> · 048001182 · note D · 1 commune</li>
+<li><a href="/reseau/048000982/">BECUS</a> · 048000982 · note A · 1 commune</li>
+<li><a href="/reseau/048006815/">BELVEZET</a> · 048006815 · note A · 1 commune</li>
+<li><a href="/reseau/048000874/">BERGOGNON</a> · 048000874 · note D · 1 commune</li>
+<li><a href="/reseau/048000806/">BES</a> · 048000806 · note D · 1 commune</li>
+<li><a href="/reseau/048000471/">BESSET</a> · 048000471 · note D · 1 commune</li>
+<li><a href="/reseau/048005295/">BIGOSE</a> · 048005295 · note D · 1 commune</li>
+<li><a href="/reseau/048001121/">BLAVIGNAC</a> · 048001121 · note D · 1 commune</li>
+<li><a href="/reseau/048000830/">BONNECHARE</a> · 048000830 · note A · 1 commune</li>
+<li><a href="/reseau/048003037/">BOUDOUX - AVT SEPTEMBRE 2024</a> · 048003037 · sans note · 1 commune</li>
+<li><a href="/reseau/048001221/">BOUTANS HAUT ET BAS</a> · 048001221 · note A · 1 commune</li>
+<li><a href="/reseau/048001152/">BRAJON</a> · 048001152 · note A · 1 commune</li>
+<li><a href="/reseau/048000010/">BRAMONAS</a> · 048000010 · note A · 1 commune</li>
+<li><a href="/reseau/048003503/">BRASSAC</a> · 048003503 · note A · 1 commune</li>
+<li><a href="/reseau/048000911/">BRENOUX</a> · 048000911 · note A · 1 commune</li>
+<li><a href="/reseau/048001244/">BRUGERE</a> · 048001244 · note D · 1 commune</li>
+<li><a href="/reseau/048005097/">BRUGERS SECHEYROUX</a> · 048005097 · note A · 1 commune</li>
+<li><a href="/reseau/048004114/">CABANELLE</a> · 048004114 · note A · 1 commune</li>
+<li><a href="/reseau/048003485/">CABRILLAC</a> · 048003485 · note A · 2 communes</li>
+<li><a href="/reseau/048001663/">CAMPIS</a> · 048001663 · note D · 1 commune</li>
+<li><a href="/reseau/048001113/">CANILHAC</a> · 048001113 · note C · 1 commune</li>
+<li><a href="/reseau/048000128/">CASSAGNAS</a> · 048000128 · note D · 1 commune</li>
+<li><a href="/reseau/048001079/">CASTAGNOLS</a> · 048001079 · note D · 1 commune</li>
+<li><a href="/reseau/048000061/">CASTANET</a> · 048000061 · note D · 1 commune</li>
+<li><a href="/reseau/048000068/">CASTANET</a> · 048000068 · note A · 1 commune</li>
+<li><a href="/reseau/048000295/">CAUSSE DU SAUVETERRE</a> · 048000295 · note A · 8 communes</li>
+<li><a href="/reseau/048000516/">CAUSSE MEJEAN</a> · 048000516 · note A · 11 communes</li>
+<li><a href="/reseau/048000352/">CHABALIER</a> · 048000352 · note A · 1 commune</li>
+<li><a href="/reseau/048004075/">CHABANETTES-REDON</a> · 048004075 · note D · 1 commune</li>
+<li><a href="/reseau/048000375/">CHABANNES</a> · 048000375 · note A · 1 commune</li>
+<li><a href="/reseau/048001149/">CHABANNES</a> · 048001149 · note D · 1 commune</li>
+<li><a href="/reseau/048002916/">CHABRIERES</a> · 048002916 · note A · 1 commune</li>
+<li><a href="/reseau/048001000/">CHADENET</a> · 048001000 · note C · 2 communes</li>
+<li><a href="/reseau/048000635/">CHALDECOSTE</a> · 048000635 · note D · 1 commune</li>
+<li><a href="/reseau/048001170/">CHALHAC RN106</a> · 048001170 · note D · 1 commune</li>
+<li><a href="/reseau/048000014/">CHAMBON LE CHATEAU</a> · 048000014 · note A · 1 commune</li>
+<li><a href="/reseau/048003385/">CHAMPAGNAC</a> · 048003385 · note D · 1 commune</li>
+<li><a href="/reseau/048000943/">CHAMPLONG</a> · 048000943 · note A · 1 commune</li>
+<li><a href="/reseau/048001247/">CHAMS</a> · 048001247 · note D · 1 commune</li>
+<li><a href="/reseau/048001344/">CHANAC</a> · 048001344 · note A · 1 commune</li>
+<li><a href="/reseau/048001601/">CHANIAUX</a> · 048001601 · note A · 1 commune</li>
+<li><a href="/reseau/048000637/">CHANTEGRENOUILLE</a> · 048000637 · note A · 1 commune</li>
+<li><a href="/reseau/048001528/">CHAPCHINIES</a> · 048001528 · note A · 1 commune</li>
+<li><a href="/reseau/048000802/">CHAPEAUROUX</a> · 048000802 · note A · 1 commune</li>
+<li><a href="/reseau/048002970/">CHAREYLASSE</a> · 048002970 · note A · 1 commune</li>
+<li><a href="/reseau/048007595/">CHASSAGNES</a> · 048007595 · note A · 1 commune</li>
+<li><a href="/reseau/048000346/">CHASSERADES</a> · 048000346 · note A · 1 commune</li>
+<li><a href="/reseau/048000301/">CHATEAUNEUF DE RANDON</a> · 048000301 · note A · 1 commune</li>
+<li><a href="/reseau/048006382/">CHAUDEYRAC</a> · 048006382 · note A · 1 commune</li>
+<li><a href="/reseau/048000776/">CHAULHAC</a> · 048000776 · note A · 1 commune</li>
+<li><a href="/reseau/048001195/">CHAULHAC</a> · 048001195 · note D · 1 commune</li>
+<li><a href="/reseau/048001060/">CHAUVETS</a> · 048001060 · note A · 1 commune</li>
+<li><a href="/reseau/048000421/">CHAZEAUX</a> · 048000421 · note A · 1 commune</li>
+<li><a href="/reseau/048001128/">CHEYLARD L'EVEQUE</a> · 048001128 · note D · 1 commune</li>
+<li><a href="/reseau/048003450/">CHEYROUX</a> · 048003450 · note A · 1 commune</li>
+<li><a href="/reseau/048000033/">CHINCHAZES</a> · 048000033 · note A · 1 commune</li>
+<li><a href="/reseau/048000763/">CHIRAC BAS</a> · 048000763 · note A · 1 commune</li>
+<li><a href="/reseau/048002755/">CHIRAC HAUT</a> · 048002755 · note A · 1 commune</li>
+<li><a href="/reseau/048000974/">CIVEYRAC</a> · 048000974 · note A · 1 commune</li>
+<li><a href="/reseau/048005399/">CLUJANS</a> · 048005399 · note D · 1 commune</li>
+<li><a href="/reseau/048001349/">COCURES</a> · 048001349 · note A · 1 commune</li>
+<li><a href="/reseau/048003015/">COLAS</a> · 048003015 · note D · 1 commune</li>
+<li><a href="/reseau/048002314/">COMBETTES</a> · 048002314 · note D · 2 communes</li>
+<li><a href="/reseau/048002670/">COMBETTES PLANES</a> · 048002670 · note D · 1 commune</li>
+<li><a href="/reseau/048000873/">COMBRET</a> · 048000873 · note A · 1 commune</li>
+<li><a href="/reseau/048001472/">COMBRET</a> · 048001472 · note A · 1 commune</li>
+<li><a href="/reseau/048001505/">CONTRANDES</a> · 048001505 · note D · 1 commune</li>
+<li><a href="/reseau/048002969/">CONZES</a> · 048002969 · note D · 1 commune</li>
+<li><a href="/reseau/048000919/">COSTEBOULES</a> · 048000919 · note D · 1 commune</li>
+<li><a href="/reseau/048000072/">COSTEILLADES</a> · 048000072 · note A · 1 commune</li>
+<li><a href="/reseau/048007608/">COUFFINET-LE CHER</a> · 048007608 · note A · 1 commune</li>
+<li><a href="/reseau/048000704/">COUFFOURS</a> · 048000704 · note A · 1 commune</li>
+<li><a href="/reseau/048000918/">COUFFOURS</a> · 048000918 · note D · 1 commune</li>
+<li><a href="/reseau/048003893/">COUGOUSSAC</a> · 048003893 · note A · 1 commune</li>
+<li><a href="/reseau/048002061/">COULAGNES</a> · 048002061 · note D · 1 commune</li>
+<li><a href="/reseau/048001437/">COULAGNES HAUTES</a> · 048001437 · note D · 1 commune</li>
+<li><a href="/reseau/048001386/">COURBETTES</a> · 048001386 · note D · 1 commune</li>
+<li><a href="/reseau/048000134/">CROZES BAS</a> · 048000134 · note D · 1 commune</li>
+<li><a href="/reseau/048000133/">CROZES HAUT</a> · 048000133 · note D · 1 commune</li>
+<li><a href="/reseau/048001564/">CUBIERES</a> · 048001564 · note A · 1 commune</li>
+<li><a href="/reseau/048000406/">CUBIERETTES</a> · 048000406 · note A · 1 commune</li>
+<li><a href="/reseau/048000042/">CULTURES</a> · 048000042 · note A · 1 commune</li>
+<li><a href="/reseau/048000132/">CURRIERES</a> · 048000132 · note A · 1 commune</li>
+<li><a href="/reseau/048000756/">DIEGES</a> · 048000756 · note C · 1 commune</li>
+<li><a href="/reseau/048001219/">ECHALOUPPES</a> · 048001219 · note D · 1 commune</li>
+<li><a href="/reseau/048000047/">ESCLANEDES</a> · 048000047 · note A · 1 commune</li>
+<li><a href="/reseau/048001069/">ESPERE</a> · 048001069 · note D · 1 commune</li>
+<li><a href="/reseau/048000817/">ESPINOUSE</a> · 048000817 · note D · 1 commune</li>
+<li><a href="/reseau/048001688/">ESPOUZOLLES</a> · 048001688 · note A · 1 commune</li>
+<li><a href="/reseau/048001605/">ESPRADELS</a> · 048001605 · note A · 1 commune</li>
+<li><a href="/reseau/048001012/">ESTABLES</a> · 048001012 · note D · 1 commune</li>
+<li><a href="/reseau/048000883/">FABREGES</a> · 048000883 · note D · 1 commune</li>
+<li><a href="/reseau/048000762/">FABREGES-ALTEYRAC</a> · 048000762 · note A · 1 commune</li>
+<li><a href="/reseau/048005394/">FABREGUES</a> · 048005394 · note D · 1 commune</li>
+<li><a href="/reseau/048001028/">FAU DE PEYRE</a> · 048001028 · note D · 1 commune</li>
+<li><a href="/reseau/048000455/">FAUX</a> · 048000455 · note C · 1 commune</li>
+<li><a href="/reseau/048001680/">FAYET</a> · 048001680 · note A · 1 commune</li>
+<li><a href="/reseau/048000596/">FER A CHEVAL</a> · 048000596 · note D · 1 commune</li>
+<li><a href="/reseau/048000023/">FERLUC</a> · 048000023 · note C · 1 commune</li>
+<li><a href="/reseau/048000504/">FERLUGUET</a> · 048000504 · note A · 1 commune</li>
+<li><a href="/reseau/048001292/">FERLUGUET</a> · 048001292 · note D · 1 commune</li>
+<li><a href="/reseau/048001439/">FERME SALTEL</a> · 048001439 · note D · 1 commune</li>
+<li><a href="/reseau/048001107/">FERMUS</a> · 048001107 · note A · 1 commune</li>
+<li><a href="/reseau/048000089/">FERRIERES</a> · 048000089 · note D · 1 commune</li>
+<li><a href="/reseau/048003280/">FERRUSSAC</a> · 048003280 · note D · 1 commune</li>
+<li><a href="/reseau/048001310/">FEYBESSE HAUTE ET BASSE</a> · 048001310 · note A · 1 commune</li>
+<li><a href="/reseau/048001080/">FIGEROLLES</a> · 048001080 · note D · 1 commune</li>
+<li><a href="/reseau/048000942/">FINIELS</a> · 048000942 · note A · 1 commune</li>
+<li><a href="/reseau/048001163/">FINIEROLS</a> · 048001163 · note D · 1 commune</li>
+<li><a href="/reseau/048001821/">FINIOLS</a> · 048001821 · note A · 1 commune</li>
+<li><a href="/reseau/048001351/">FLORAC FONT BERNARD</a> · 048001351 · note A · 2 communes</li>
+<li><a href="/reseau/048001815/">FLORAC SOURCE DU PECHER</a> · 048001815 · note A · 1 commune</li>
+<li><a href="/reseau/048001148/">FONTANS</a> · 048001148 · note D · 1 commune</li>
+<li><a href="/reseau/048000556/">FOURNELS</a> · 048000556 · note D · 1 commune</li>
+<li><a href="/reseau/048001422/">FOURNENS</a> · 048001422 · note D · 1 commune</li>
+<li><a href="/reseau/048000709/">FRAISSINET</a> · 048000709 · note A · 1 commune</li>
+<li><a href="/reseau/048000964/">FRAISSINET</a> · 048000964 · note A · 1 commune</li>
+<li><a href="/reseau/048001068/">FRAISSINET</a> · 048001068 · note D · 1 commune</li>
+<li><a href="/reseau/048000410/">FRAISSINET DE FOURQUES</a> · 048000410 · note A · 1 commune</li>
+<li><a href="/reseau/048005287/">FRAISSINET DE LOZERE</a> · 048005287 · note A · 1 commune</li>
+<li><a href="/reseau/048001218/">FRAISSINOUX</a> · 048001218 · note A · 1 commune</li>
+<li><a href="/reseau/048001714/">FRAISSINOUX</a> · 048001714 · note A · 1 commune</li>
+<li><a href="/reseau/048001411/">FREISSINET</a> · 048001411 · sans note · 1 commune</li>
+<li><a href="/reseau/048000559/">FROMAGERES</a> · 048000559 · note A · 1 commune</li>
+<li><a href="/reseau/048001135/">GABRIAS</a> · 048001135 · note A · 1 commune</li>
+<li><a href="/reseau/048000333/">GATUZIERES</a> · 048000333 · note A · 1 commune</li>
+<li><a href="/reseau/048000260/">GELY</a> · 048000260 · note A · 1 commune</li>
+<li><a href="/reseau/048000981/">GENESTUEJOLS</a> · 048000981 · note D · 1 commune</li>
+<li><a href="/reseau/048001004/">GOURGONS</a> · 048001004 · note A · 1 commune</li>
+<li><a href="/reseau/048003052/">GRANDRIEU BRENAC</a> · 048003052 · note D · 1 commune</li>
+<li><a href="/reseau/048000169/">GRANDRIEU MARTINAC</a> · 048000169 · note D · 1 commune</li>
+<li><a href="/reseau/048000828/">GRANDVALS</a> · 048000828 · note A · 1 commune</li>
+<li><a href="/reseau/048001286/">GRANDVIALA</a> · 048001286 · note D · 1 commune</li>
+<li><a href="/reseau/048000039/">GRAZIERES-MENOUX</a> · 048000039 · note D · 1 commune</li>
+<li><a href="/reseau/048001585/">GREZES</a> · 048001585 · note A · 1 commune</li>
+<li><a href="/reseau/048000945/">GRIZAC</a> · 048000945 · note A · 1 commune</li>
+<li><a href="/reseau/048002782/">GROSFAU</a> · 048002782 · note C · 1 commune</li>
+<li><a href="/reseau/048001687/">HERBOUZE</a> · 048001687 · note C · 1 commune</li>
+<li><a href="/reseau/048000450/">ISPAGNAC</a> · 048000450 · note A · 1 commune</li>
+<li><a href="/reseau/048000242/">JALCRESTE</a> · 048000242 · note A · 1 commune</li>
+<li><a href="/reseau/048001535/">JAVOLS</a> · 048001535 · note A · 1 commune</li>
+<li><a href="/reseau/048000332/">JONTANELS</a> · 048000332 · note A · 1 commune</li>
+<li><a href="/reseau/048000956/">JULIANGES</a> · 048000956 · note D · 1 commune</li>
+<li><a href="/reseau/048000686/">L'ALTARET</a> · 048000686 · note A · 1 commune</li>
+<li><a href="/reseau/048000305/">L'ARGENTIERE</a> · 048000305 · note A · 1 commune</li>
+<li><a href="/reseau/048000351/">L'ESTAMPE-DAUFAGE</a> · 048000351 · note A · 1 commune</li>
+<li><a href="/reseau/048000339/">L'ESTIVAL</a> · 048000339 · note A · 1 commune</li>
+<li><a href="/reseau/048001701/">L'ESTIVALET</a> · 048001701 · note D · 1 commune</li>
+<li><a href="/reseau/048002971/">L'HABITARELLE</a> · 048002971 · sans note · 1 commune</li>
+<li><a href="/reseau/048001428/">L'HERM</a> · 048001428 · note A · 1 commune</li>
+<li><a href="/reseau/048001631/">L'HERMET</a> · 048001631 · note D · 1 commune</li>
+<li><a href="/reseau/048001396/">L'HERMET-SAINT JULIEN HAUT</a> · 048001396 · note D · 1 commune</li>
+<li><a href="/reseau/048001190/">L'HOSPITALET</a> · 048001190 · note D · 3 communes</li>
+<li><a href="/reseau/048000388/">LA BASTIDE</a> · 048000388 · note A · 1 commune</li>
+<li><a href="/reseau/048000314/">LA BASTIDE PUYLAURENT</a> · 048000314 · note A · 1 commune</li>
+<li><a href="/reseau/048000864/">LA BEYSSIERE</a> · 048000864 · note D · 1 commune</li>
+<li><a href="/reseau/048001651/">LA BORIE</a> · 048001651 · note D · 1 commune</li>
+<li><a href="/reseau/048000334/">LA BRAGOUSE</a> · 048000334 · note D · 1 commune</li>
+<li><a href="/reseau/048000145/">LA CANOURGUE</a> · 048000145 · note A · 1 commune</li>
+<li><a href="/reseau/048000497/">LA CAZE</a> · 048000497 · note D · 1 commune</li>
+<li><a href="/reseau/048000988/">LA CHALDETTE</a> · 048000988 · note C · 1 commune</li>
+<li><a href="/reseau/048001542/">LA CHAZE</a> · 048001542 · note D · 1 commune</li>
+<li><a href="/reseau/048003711/">LA COLOMBECHE</a> · 048003711 · note A · 1 commune</li>
+<li><a href="/reseau/048005110/">LA CROZE</a> · 048005110 · note A · 2 communes</li>
+<li><a href="/reseau/048000920/">LA FAGE</a> · 048000920 · note D · 1 commune</li>
+<li><a href="/reseau/048003383/">LA FAGE</a> · 048003383 · note A · 1 commune</li>
+<li><a href="/reseau/048001285/">LA FAGE MONTIVERNOUX</a> · 048001285 · note A · 1 commune</li>
+<li><a href="/reseau/048005328/">LA FAGE SAINT JULIEN</a> · 048005328 · note A · 1 commune</li>
+<li><a href="/reseau/048003930/">LA FAGETTE</a> · 048003930 · note A · 1 commune</li>
+<li><a href="/reseau/048000468/">LA FALGOUSE</a> · 048000468 · note D · 1 commune</li>
+<li><a href="/reseau/048001634/">LA FARE</a> · 048001634 · note D · 1 commune</li>
+<li><a href="/reseau/048000462/">LA FORET</a> · 048000462 · note D · 1 commune</li>
+<li><a href="/reseau/048000109/">LA GARDE</a> · 048000109 · note A · 1 commune</li>
+<li><a href="/reseau/048000131/">LA GARE</a> · 048000131 · note D · 1 commune</li>
+<li><a href="/reseau/048000302/">LA GLAIZOLLE</a> · 048000302 · note D · 1 commune</li>
+<li><a href="/reseau/048001649/">LA GRANDVILLE</a> · 048001649 · note D · 1 commune</li>
+<li><a href="/reseau/048001059/">LA LICHERE</a> · 048001059 · note D · 1 commune</li>
+<li><a href="/reseau/048003368/">LA MALENE</a> · 048003368 · note A · 1 commune</li>
+<li><a href="/reseau/048003149/">LA MALIGE</a> · 048003149 · note A · 1 commune</li>
+<li><a href="/reseau/048001632/">LA MOLETTE</a> · 048001632 · note D · 1 commune</li>
+<li><a href="/reseau/048000816/">LA PANOUSE</a> · 048000816 · note A · 1 commune</li>
+<li><a href="/reseau/048000640/">LA PONGE</a> · 048000640 · note A · 1 commune</li>
+<li><a href="/reseau/048000341/">LA ROCHE</a> · 048000341 · note A · 1 commune</li>
+<li><a href="/reseau/048001374/">LA ROCHE</a> · 048001374 · note D · 1 commune</li>
+<li><a href="/reseau/048001436/">LA ROCHE</a> · 048001436 · note A · 1 commune</li>
+<li><a href="/reseau/048000349/">LA ROCHETTE HERALS</a> · 048000349 · sans note · 1 commune</li>
+<li><a href="/reseau/048003987/">LA ROQUETTE</a> · 048003987 · note D · 1 commune</li>
+<li><a href="/reseau/048000875/">LA ROUVIERE</a> · 048000875 · note A · 1 commune</li>
+<li><a href="/reseau/048001051/">LA ROUVIERE</a> · 048001051 · note A · 2 communes</li>
+<li><a href="/reseau/048003157/">LA ROUVIERE</a> · 048003157 · note A · 1 commune</li>
+<li><a href="/reseau/048000340/">LA ROUZEIRE</a> · 048000340 · note A · 1 commune</li>
+<li><a href="/reseau/048001647/">LA SALLE PRUNET</a> · 048001647 · note A · 1 commune</li>
+<li><a href="/reseau/048001123/">LA VAISSIERE NOIRE</a> · 048001123 · note D · 1 commune</li>
+<li><a href="/reseau/048001911/">LA VALETTE</a> · 048001911 · note A · 1 commune</li>
+<li><a href="/reseau/048001291/">LA VEDRINE</a> · 048001291 · note D · 1 commune</li>
+<li><a href="/reseau/048001510/">LA VEDRINELLE</a> · 048001510 · note D · 1 commune</li>
+<li><a href="/reseau/048000016/">LA VILLEDIEU</a> · 048000016 · note D · 1 commune</li>
+<li><a href="/reseau/048000220/">LACHAMP</a> · 048000220 · note D · 1 commune</li>
+<li><a href="/reseau/048001803/">LANGOGNE CHAMBLAZAIRE</a> · 048001803 · note A · 1 commune</li>
+<li><a href="/reseau/048001596/">LANGOGNE CREMADES</a> · 048001596 · note A · 1 commune</li>
+<li><a href="/reseau/048007159/">LANGOGNE LES LOMBARDS - LA CLAMOUSE</a> · 048007159 · note A · 6 communes</li>
+<li><a href="/reseau/048001151/">LANUEJOLS</a> · 048001151 · note A · 1 commune</li>
+<li><a href="/reseau/048001507/">LASFONDS</a> · 048001507 · note D · 1 commune</li>
+<li><a href="/reseau/048001129/">LAUBARNES</a> · 048001129 · note A · 1 commune</li>
+<li><a href="/reseau/048001003/">LAUBERT</a> · 048001003 · note A · 2 communes</li>
+<li><a href="/reseau/048000464/">LAUSSELENQ</a> · 048000464 · note D · 1 commune</li>
+<li><a href="/reseau/048001216/">LE BEGONAL</a> · 048001216 · note A · 1 commune</li>
+<li><a href="/reseau/048001602/">LE BERTAIL</a> · 048001602 · note A · 1 commune</li>
+<li><a href="/reseau/048000685/">LE BEYRAC</a> · 048000685 · note A · 1 commune</li>
+<li><a href="/reseau/048000905/">LE BORN</a> · 048000905 · note A · 1 commune</li>
+<li><a href="/reseau/048000088/">LE BOSC</a> · 048000088 · note A · 1 commune</li>
+<li><a href="/reseau/048001573/">LE BOUCHET</a> · 048001573 · note A · 1 commune</li>
+<li><a href="/reseau/048000252/">LE BOUSQUET</a> · 048000252 · note A · 1 commune</li>
+<li><a href="/reseau/048003083/">LE BOY</a> · 048003083 · note A · 1 commune</li>
+<li><a href="/reseau/048000469/">LE BROUILLET</a> · 048000469 · note D · 1 commune</li>
+<li><a href="/reseau/048001674/">LE BRUEL</a> · 048001674 · note A · 1 commune</li>
+<li><a href="/reseau/048007663/">LE BUISSON</a> · 048007663 · note A · 1 commune</li>
+<li><a href="/reseau/048001546/">LE CHASTEL NOUVEL</a> · 048001546 · note A · 1 commune</li>
+<li><a href="/reseau/048001268/">LE CIRQUE DES BAUMES</a> · 048001268 · note A · 1 commune</li>
+<li><a href="/reseau/048000055/">LE COLLET DE DEZE</a> · 048000055 · note A · 1 commune</li>
+<li><a href="/reseau/048000642/">LE CONCHES</a> · 048000642 · note D · 1 commune</li>
+<li><a href="/reseau/048000424/">LE CROS</a> · 048000424 · note D · 1 commune</li>
+<li><a href="/reseau/048002968/">LE CROS</a> · 048002968 · note D · 1 commune</li>
+<li><a href="/reseau/048002746/">LE CROUZET</a> · 048002746 · note C · 1 commune</li>
+<li><a href="/reseau/048000259/">LE CROUZET CHAFFOL</a> · 048000259 · note A · 1 commune</li>
+<li><a href="/reseau/048000550/">LE CROUZET,LE MONT</a> · 048000550 · note A · 1 commune</li>
+<li><a href="/reseau/048001600/">LE FRAISSE</a> · 048001600 · note A · 1 commune</li>
+<li><a href="/reseau/048000684/">LE GENDRIC</a> · 048000684 · note D · 1 commune</li>
+<li><a href="/reseau/048002317/">LE GIBERTES</a> · 048002317 · note C · 1 commune</li>
+<li><a href="/reseau/048000915/">LE GIRALDES</a> · 048000915 · note A · 1 commune</li>
+<li><a href="/reseau/048001915/">LE GOLF</a> · 048001915 · note A · 1 commune</li>
+<li><a href="/reseau/048000913/">LE LAC</a> · 048000913 · note C · 1 commune</li>
+<li><a href="/reseau/048000963/">LE LICONES</a> · 048000963 · note D · 1 commune</li>
+<li><a href="/reseau/048000712/">LE MALZIEU FORAIN</a> · 048000712 · note A · 1 commune</li>
+<li><a href="/reseau/048003830/">LE MALZIEU VILLE</a> · 048003830 · note A · 1 commune</li>
+<li><a href="/reseau/048000031/">LE MARLET</a> · 048000031 · note A · 1 commune</li>
+<li><a href="/reseau/048000439/">LE MARTINET</a> · 048000439 · note A · 1 commune</li>
+<li><a href="/reseau/048000348/">LE MAS</a> · 048000348 · note A · 1 commune</li>
+<li><a href="/reseau/048005409/">LE MAS</a> · 048005409 · note D · 1 commune</li>
+<li><a href="/reseau/048001184/">LE MASILLOU</a> · 048001184 · note D · 1 commune</li>
+<li><a href="/reseau/048005357/">LE MASSEGROS ALLUVIONS TARN</a> · 048005357 · note B · 5 communes</li>
+<li><a href="/reseau/048001738/">LE MASSEGROS CAYRAC</a> · 048001738 · note A · 4 communes</li>
+<li><a href="/reseau/048000683/">LE MAZAS</a> · 048000683 · note A · 1 commune</li>
+<li><a href="/reseau/048000750/">LE MAZEL</a> · 048000750 · note A · 1 commune</li>
+<li><a href="/reseau/048004992/">LE MAZEL</a> · 048004992 · note A · 1 commune</li>
+<li><a href="/reseau/048001454/">LE MAZEL - BAS DU BLEYMARD</a> · 048001454 · note A · 1 commune</li>
+<li><a href="/reseau/048001488/">LE MAZEL ROZADE</a> · 048001488 · note D · 1 commune</li>
+<li><a href="/reseau/048000225/">LE MAZET</a> · 048000225 · note D · 1 commune</li>
+<li><a href="/reseau/048001672/">LE MONASTIER</a> · 048001672 · note A · 2 communes</li>
+<li><a href="/reseau/048000916/">LE MONT</a> · 048000916 · note D · 1 commune</li>
+<li><a href="/reseau/048000917/">LE MONTEIL</a> · 048000917 · note C · 1 commune</li>
+<li><a href="/reseau/048001724/">LE NOZIER</a> · 048001724 · note A · 1 commune</li>
+<li><a href="/reseau/048001492/">LE PENDEDIS - AVANT 2024</a> · 048001492 · sans note · 2 communes</li>
+<li><a href="/reseau/048000370/">LE POMPIDOU</a> · 048000370 · note C · 1 commune</li>
+<li><a href="/reseau/048000940/">LE PONT DE MONTVERT</a> · 048000940 · note A · 1 commune</li>
+<li><a href="/reseau/048001288/">LE POUGET</a> · 048001288 · note C · 1 commune</li>
+<li><a href="/reseau/048001890/">LE PUECH</a> · 048001890 · note A · 1 commune</li>
+<li><a href="/reseau/048001629/">LE RIEU</a> · 048001629 · note A · 1 commune</li>
+<li><a href="/reseau/048001220/">LE ROC</a> · 048001220 · note A · 1 commune</li>
+<li><a href="/reseau/048000029/">LE ROUGET</a> · 048000029 · note A · 1 commune</li>
+<li><a href="/reseau/048003392/">LE ROURE</a> · 048003392 · note D · 1 commune</li>
+<li><a href="/reseau/048005522/">LE ROUVE</a> · 048005522 · note D · 1 commune</li>
+<li><a href="/reseau/048001789/">LE ROUVE BAS</a> · 048001789 · note C · 1 commune</li>
+<li><a href="/reseau/048001372/">LE ROUVE HAUT</a> · 048001372 · note D · 1 commune</li>
+<li><a href="/reseau/048001124/">LE ROUVEYRET BAS</a> · 048001124 · note A · 1 commune</li>
+<li><a href="/reseau/048002292/">LE ROUVEYRET HAUT</a> · 048002292 · note A · 1 commune</li>
+<li><a href="/reseau/048000415/">LE ROZIER</a> · 048000415 · note D · 1 commune</li>
+<li><a href="/reseau/048003700/">LE SALSON</a> · 048003700 · note D · 1 commune</li>
+<li><a href="/reseau/048005586/">LE SAUVAGE</a> · 048005586 · sans note · 1 commune</li>
+<li><a href="/reseau/048003935/">LE SERRE</a> · 048003935 · sans note · 1 commune</li>
+<li><a href="/reseau/048001493/">LE SERRE DE LA CAN</a> · 048001493 · note A · 1 commune</li>
+<li><a href="/reseau/048000496/">LE TRUEL</a> · 048000496 · note C · 1 commune</li>
+<li><a href="/reseau/048003690/">LE VALADOU</a> · 048003690 · note D · 1 commune</li>
+<li><a href="/reseau/048001294/">LE VEDRINEL</a> · 048001294 · note D · 1 commune</li>
+<li><a href="/reseau/048000710/">LE VERNET</a> · 048000710 · note A · 1 commune</li>
+<li><a href="/reseau/048001487/">LE VERNET</a> · 048001487 · note D · 1 commune</li>
+<li><a href="/reseau/048000411/">LE VIALA</a> · 048000411 · note A · 1 commune</li>
+<li><a href="/reseau/048000818/">LE VIALA</a> · 048000818 · note A · 1 commune</li>
+<li><a href="/reseau/048000643/">LE VIALAS HAUT ET BAS</a> · 048000643 · note D · 1 commune</li>
+<li><a href="/reseau/048001345/">LE VILLARD</a> · 048001345 · note A · 1 commune</li>
+<li><a href="/reseau/048000534/">LE VILLARET</a> · 048000534 · note A · 1 commune</li>
+<li><a href="/reseau/048000687/">LE VILLARET</a> · 048000687 · note A · 1 commune</li>
+<li><a href="/reseau/048002748/">LE VILLARET</a> · 048002748 · note D · 1 commune</li>
+<li><a href="/reseau/048000662/">LENTONDRE</a> · 048000662 · note D · 1 commune</li>
+<li><a href="/reseau/048001204/">LES ABLATAS</a> · 048001204 · note D · 1 commune</li>
+<li><a href="/reseau/048001293/">LES ALLATIEUX</a> · 048001293 · note D · 1 commune</li>
+<li><a href="/reseau/048001566/">LES ALPIERS</a> · 048001566 · note D · 1 commune</li>
+<li><a href="/reseau/048000387/">LES ANDES</a> · 048000387 · note D · 1 commune</li>
+<li><a href="/reseau/048000859/">LES AYDONS</a> · 048000859 · note A · 1 commune</li>
+<li><a href="/reseau/048001375/">LES AYRES</a> · 048001375 · note D · 1 commune</li>
+<li><a href="/reseau/048003289/">LES AYRES</a> · 048003289 · note C · 1 commune</li>
+<li><a href="/reseau/048000860/">LES BALMELLES</a> · 048000860 · note D · 1 commune</li>
+<li><a href="/reseau/048006385/">LES BASTIDES AVT NOV 2025</a> · 048006385 · sans note · 1 commune</li>
+<li><a href="/reseau/048004977/">LES BEAUMES</a> · 048004977 · note A · 1 commune</li>
+<li><a href="/reseau/048006368/">LES BESSONS</a> · 048006368 · note A · 2 communes</li>
+<li><a href="/reseau/048001234/">LES BIASSES</a> · 048001234 · note D · 1 commune</li>
+<li><a href="/reseau/048000423/">LES BONDONS</a> · 048000423 · note D · 1 commune</li>
+<li><a href="/reseau/048001328/">LES BORIES</a> · 048001328 · note A · 1 commune</li>
+<li><a href="/reseau/048005524/">LES BORIES</a> · 048005524 · note C · 1 commune</li>
+<li><a href="/reseau/048000463/">LES CALMETTES</a> · 048000463 · note D · 1 commune</li>
+<li><a href="/reseau/048001794/">LES CALQUIERES</a> · 048001794 · note A · 1 commune</li>
+<li><a href="/reseau/048002910/">LES CAYRES</a> · 048002910 · note A · 1 commune</li>
+<li><a href="/reseau/048001650/">LES CHAZES</a> · 048001650 · note D · 1 commune</li>
+<li><a href="/reseau/048001897/">LES CHAZES</a> · 048001897 · note A · 1 commune</li>
+<li><a href="/reseau/048003355/">LES CHOISINETS</a> · 048003355 · note A · 2 communes</li>
+<li><a href="/reseau/048000906/">LES COMBES</a> · 048000906 · note A · 1 commune</li>
+<li><a href="/reseau/048002296/">LES COMBES</a> · 048002296 · note D · 1 commune</li>
+<li><a href="/reseau/048000511/">LES DOUZES</a> · 048000511 · note A · 1 commune</li>
+<li><a href="/reseau/048000705/">LES DUCS</a> · 048000705 · note A · 1 commune</li>
+<li><a href="/reseau/048000038/">LES FAUX</a> · 048000038 · note A · 1 commune</li>
+<li><a href="/reseau/048007656/">LES FELINES</a> · 048007656 · note A · 1 commune</li>
+<li><a href="/reseau/048000659/">LES FONTS</a> · 048000659 · note D · 1 commune</li>
+<li><a href="/reseau/048003520/">LES FOSSES</a> · 048003520 · note A · 1 commune</li>
+<li><a href="/reseau/048001290/">LES FOURNETS</a> · 048001290 · note C · 1 commune</li>
+<li><a href="/reseau/048001289/">LES FOURS</a> · 048001289 · note D · 1 commune</li>
+<li><a href="/reseau/048004543/">LES FOUZES</a> · 048004543 · note D · 1 commune</li>
+<li><a href="/reseau/048000401/">LES HERMAUX</a> · 048000401 · note D · 2 communes</li>
+<li><a href="/reseau/048001429/">LES HUTTES</a> · 048001429 · note D · 1 commune</li>
+<li><a href="/reseau/048000749/">LES LAUBIES</a> · 048000749 · note A · 1 commune</li>
+<li><a href="/reseau/048001662/">LES OUBRETS</a> · 048001662 · note A · 1 commune</li>
+<li><a href="/reseau/048002738/">LES PRADINES</a> · 048002738 · note A · 1 commune</li>
+<li><a href="/reseau/048003668/">LES QUATRE CHEMINS</a> · 048003668 · note D · 1 commune</li>
+<li><a href="/reseau/048002094/">LES ROUSSES</a> · 048002094 · note D · 1 commune</li>
+<li><a href="/reseau/048001414/">LES SAGNES</a> · 048001414 · note D · 1 commune</li>
+<li><a href="/reseau/048000399/">LES SALCES</a> · 048000399 · note D · 1 commune</li>
+<li><a href="/reseau/048000861/">LES SALCES</a> · 048000861 · note A · 1 commune</li>
+<li><a href="/reseau/048001315/">LES SALCES</a> · 048001315 · note A · 1 commune</li>
+<li><a href="/reseau/048000376/">LES SALELLES</a> · 048000376 · note A · 1 commune</li>
+<li><a href="/reseau/048000682/">LES SALELLES</a> · 048000682 · note D · 1 commune</li>
+<li><a href="/reseau/048000205/">LES SALESSES</a> · 048000205 · note A · 1 commune</li>
+<li><a href="/reseau/048001027/">LES SALHENS</a> · 048001027 · note A · 1 commune</li>
+<li><a href="/reseau/048000250/">LES VANELS</a> · 048000250 · note A · 1 commune</li>
+<li><a href="/reseau/048005345/">LES VERNEDES</a> · 048005345 · note D · 1 commune</li>
+<li><a href="/reseau/048006732/">LES VIOLLES</a> · 048006732 · note A · 1 commune</li>
+<li><a href="/reseau/048005364/">LEZINIER</a> · 048005364 · note A · 1 commune</li>
+<li><a href="/reseau/048000026/">LIMBERTES</a> · 048000026 · note A · 1 commune</li>
+<li><a href="/reseau/048001016/">LIMOUSIS</a> · 048001016 · note A · 1 commune</li>
+<li><a href="/reseau/048003302/">LIMOUZE</a> · 048003302 · note A · 1 commune</li>
+<li><a href="/reseau/048005434/">LOTISSEMENT CHADENEDO</a> · 048005434 · note A · 1 commune</li>
+<li><a href="/reseau/048000146/">LOTISSEMENT LES BOIS</a> · 048000146 · note A · 1 commune</li>
+<li><a href="/reseau/048000167/">LOUBEYRAC</a> · 048000167 · note D · 1 commune</li>
+<li><a href="/reseau/048001572/">LOZERET</a> · 048001572 · note D · 1 commune</li>
+<li><a href="/reseau/048000425/">LOZERETTE</a> · 048000425 · note D · 1 commune</li>
+<li><a href="/reseau/048001410/">LOZERETTE</a> · 048001410 · sans note · 1 commune</li>
+<li><a href="/reseau/048001599/">LUC</a> · 048001599 · note A · 1 commune</li>
+<li><a href="/reseau/048001295/">LUXAL</a> · 048001295 · note D · 1 commune</li>
+<li><a href="/reseau/048000135/">MAGISTAVOLS</a> · 048000135 · note D · 1 commune</li>
+<li><a href="/reseau/048001948/">MAIRIE, ECOLE</a> · 048001948 · note A · 1 commune</li>
+<li><a href="/reseau/048000912/">MALAVAL</a> · 048000912 · note A · 1 commune</li>
+<li><a href="/reseau/048000422/">MALBOSC</a> · 048000422 · note C · 1 commune</li>
+<li><a href="/reseau/048001473/">MALBOUSQUET</a> · 048001473 · note A · 1 commune</li>
+<li><a href="/reseau/048000318/">MALBOUZON</a> · 048000318 · note A · 1 commune</li>
+<li><a href="/reseau/048001114/">MALVEZY</a> · 048001114 · note A · 1 commune</li>
+<li><a href="/reseau/048000589/">MARCHASTEL</a> · 048000589 · note A · 1 commune</li>
+<li><a href="/reseau/048000003/">MARVEJOLS</a> · 048000003 · note A · 2 communes</li>
+<li><a href="/reseau/048004069/">MAS DE LA BARQUE</a> · 048004069 · note A · 1 commune</li>
+<li><a href="/reseau/048000104/">MASES</a> · 048000104 · note A · 1 commune</li>
+<li><a href="/reseau/048003925/">MASMEJEAN</a> · 048003925 · note A · 1 commune</li>
+<li><a href="/reseau/048004119/">MASMIN</a> · 048004119 · note A · 1 commune</li>
+<li><a href="/reseau/048007564/">MASSEGUIN</a> · 048007564 · note C · 1 commune</li>
+<li><a href="/reseau/048001203/">MASSEVAQUES</a> · 048001203 · note A · 1 commune</li>
+<li><a href="/reseau/048002103/">MAZEIRAC</a> · 048002103 · note A · 1 commune</li>
+<li><a href="/reseau/048001120/">MAZEYRAC</a> · 048001120 · note A · 2 communes</li>
+<li><a href="/reseau/048000529/">MEJANTEL</a> · 048000529 · note A · 1 commune</li>
+<li><a href="/reseau/048000271/">MENDE RIVE DROITE QUARTIER HAUT</a> · 048000271 · note A · 1 commune</li>
+<li><a href="/reseau/048003256/">MENDE RIVE GAUCHE QUARTIER BAS</a> · 048003256 · note A · 1 commune</li>
+<li><a href="/reseau/048001660/">MEYRUEIS</a> · 048001660 · note C · 1 commune</li>
+<li><a href="/reseau/048000706/">MIALANES</a> · 048000706 · note D · 1 commune</li>
+<li><a href="/reseau/048000707/">MIALANETTES</a> · 048000707 · note D · 1 commune</li>
+<li><a href="/reseau/048001395/">MIJAVOLS</a> · 048001395 · note A · 1 commune</li>
+<li><a href="/reseau/048000350/">MIRANDOL</a> · 048000350 · note A · 1 commune</li>
+<li><a href="/reseau/048001619/">MOISSAC VALLEE FRANCAISE</a> · 048001619 · note A · 1 commune</li>
+<li><a href="/reseau/048001106/">MOLIERES</a> · 048001106 · note D · 1 commune</li>
+<li><a href="/reseau/048001171/">MOLINES</a> · 048001171 · note D · 1 commune</li>
+<li><a href="/reseau/048001453/">MONT LOZERE</a> · 048001453 · note A · 2 communes</li>
+<li><a href="/reseau/048001405/">MONT VALDON</a> · 048001405 · note C · 1 commune</li>
+<li><a href="/reseau/048001475/">MONTAGUT</a> · 048001475 · note A · 1 commune</li>
+<li><a href="/reseau/048000204/">MONTBEL</a> · 048000204 · note A · 1 commune</li>
+<li><a href="/reseau/048001260/">MONTBRUN</a> · 048001260 · note A · 1 commune</li>
+<li><a href="/reseau/048001205/">MONTCAMP</a> · 048001205 · note D · 1 commune</li>
+<li><a href="/reseau/048000702/">MONTCHABRIER</a> · 048000702 · note C · 1 commune</li>
+<li><a href="/reseau/048000808/">MONTCHAMP</a> · 048000808 · note A · 1 commune</li>
+<li><a href="/reseau/048007668/">MONTFERRAND</a> · 048007668 · note A · 1 commune</li>
+<li><a href="/reseau/048000593/">MONTGROUSSET</a> · 048000593 · note D · 1 commune</li>
+<li><a href="/reseau/048000661/">MONTIALOUX</a> · 048000661 · note A · 1 commune</li>
+<li><a href="/reseau/048000572/">MONTRODAT</a> · 048000572 · note A · 3 communes</li>
+<li><a href="/reseau/048005441/">MORANGIES</a> · 048005441 · note A · 1 commune</li>
+<li><a href="/reseau/048000633/">MURET</a> · 048000633 · note C · 1 commune</li>
+<li><a href="/reseau/048000597/">NASBINALS</a> · 048000597 · note A · 1 commune</li>
+<li><a href="/reseau/048000980/">NOALHAC</a> · 048000980 · note A · 1 commune</li>
+<li><a href="/reseau/048000461/">NOGARDEL</a> · 048000461 · note D · 1 commune</li>
+<li><a href="/reseau/048001075/">NOJARET</a> · 048001075 · note A · 1 commune</li>
+<li><a href="/reseau/048000090/">NOZIERES</a> · 048000090 · note A · 1 commune</li>
+<li><a href="/reseau/048001324/">NOZIERES</a> · 048001324 · note D · 1 commune</li>
+<li><a href="/reseau/048006740/">NOZIERES</a> · 048006740 · note A · 1 commune</li>
+<li><a href="/reseau/048000108/">ORFEUILLE</a> · 048000108 · note A · 1 commune</li>
+<li><a href="/reseau/048000110/">ORFEUILLETTE</a> · 048000110 · note A · 1 commune</li>
+<li><a href="/reseau/048001412/">OULTET</a> · 048001412 · note D · 1 commune</li>
+<li><a href="/reseau/048000075/">PALHERES</a> · 048000075 · note C · 1 commune</li>
+<li><a href="/reseau/048005096/">PALHERS</a> · 048005096 · note A · 1 commune</li>
+<li><a href="/reseau/048000754/">PAULHAC</a> · 048000754 · note D · 1 commune</li>
+<li><a href="/reseau/048000566/">PEJAS BOULDOIRE</a> · 048000566 · note A · 1 commune</li>
+<li><a href="/reseau/048001465/">PELOUSE</a> · 048001465 · note A · 1 commune</li>
+<li><a href="/reseau/048000644/">PENENS</a> · 048000644 · note D · 1 commune</li>
+<li><a href="/reseau/048006390/">PIED DE BORNE</a> · 048006390 · note D · 1 commune</li>
+<li><a href="/reseau/048000533/">PIERREFICHE</a> · 048000533 · note A · 1 commune</li>
+<li><a href="/reseau/048001540/">PIERREFICHE</a> · 048001540 · note D · 1 commune</li>
+<li><a href="/reseau/048002973/">PIGEYRE</a> · 048002973 · note D · 1 commune</li>
+<li><a href="/reseau/048001104/">PIGEYRES BASSES</a> · 048001104 · note A · 1 commune</li>
+<li><a href="/reseau/048001077/">POLIMIES</a> · 048001077 · note A · 1 commune</li>
+<li><a href="/reseau/048001570/">POMARET</a> · 048001570 · note A · 1 commune</li>
+<li><a href="/reseau/048000044/">POMIERS</a> · 048000044 · note A · 1 commune</li>
+<li><a href="/reseau/048003561/">PONTARCHAT</a> · 048003561 · note A · 1 commune</li>
+<li><a href="/reseau/048007623/">POUGET</a> · 048007623 · note C · 1 commune</li>
+<li><a href="/reseau/048001275/">POUGNADOIRES</a> · 048001275 · note A · 1 commune</li>
+<li><a href="/reseau/048002747/">POURCARES</a> · 048002747 · note D · 1 commune</li>
+<li><a href="/reseau/048000066/">POURCHARESSES</a> · 048000066 · note A · 1 commune</li>
+<li><a href="/reseau/048007161/">PRADES</a> · 048007161 · note A · 1 commune</li>
+<li><a href="/reseau/048000760/">PRATBINALS</a> · 048000760 · note A · 1 commune</li>
+<li><a href="/reseau/048003566/">PRE VIALA</a> · 048003566 · note A · 1 commune</li>
+<li><a href="/reseau/048003728/">PRENTIGARDE - AVANT 2024</a> · 048003728 · sans note · 1 commune</li>
+<li><a href="/reseau/048001626/">PREVENCHERES</a> · 048001626 · note A · 1 commune</li>
+<li><a href="/reseau/048001161/">PRINSUEJOLS</a> · 048001161 · note D · 1 commune</li>
+<li><a href="/reseau/048001173/">PRUNEYROLLES</a> · 048001173 · note D · 1 commune</li>
+<li><a href="/reseau/048001105/">PRUNIERES</a> · 048001105 · note A · 1 commune</li>
+<li><a href="/reseau/048005518/">PRUNIERETTES</a> · 048005518 · note D · 1 commune</li>
+<li><a href="/reseau/048001193/">PUECH DEL MONT</a> · 048001193 · note A · 1 commune</li>
+<li><a href="/reseau/048001397/">PUYCHAUZIER</a> · 048001397 · note D · 1 commune</li>
+<li><a href="/reseau/048003001/">PUYLAURENT</a> · 048003001 · note D · 1 commune</li>
+<li><a href="/reseau/048001679/">QUEZAC</a> · 048001679 · note A · 1 commune</li>
+<li><a href="/reseau/048000532/">RASPAILLAC</a> · 048000532 · note B · 1 commune</li>
+<li><a href="/reseau/048001314/">RECOULES D'AUBRAC</a> · 048001314 · note A · 1 commune</li>
+<li><a href="/reseau/048001309/">RECOULES DE FUMAS</a> · 048001309 · note A · 1 commune</li>
+<li><a href="/reseau/048000151/">REILLES-MONTJEZIEU</a> · 048000151 · note A · 1 commune</li>
+<li><a href="/reseau/048001098/">RIBENNES</a> · 048001098 · note B · 1 commune</li>
+<li><a href="/reseau/048005495/">RIEUTORT DE RANDON CENTRE</a> · 048005495 · note A · 1 commune</li>
+<li><a href="/reseau/048003879/">RIEUTORT DE RANDON ECARTS</a> · 048003879 · note A · 1 commune</li>
+<li><a href="/reseau/048001711/">RIMEIZE</a> · 048001711 · note A · 1 commune</li>
+<li><a href="/reseau/048002975/">ROCHETTES HAUTES</a> · 048002975 · note D · 1 commune</li>
+<li><a href="/reseau/048003339/">ROCLES</a> · 048003339 · note A · 1 commune</li>
+<li><a href="/reseau/048001617/">RODET</a> · 048001617 · note A · 1 commune</li>
+<li><a href="/reseau/048001962/">ROUDILS</a> · 048001962 · note A · 1 commune</li>
+<li><a href="/reseau/048000660/">ROUFFIAC</a> · 048000660 · note A · 1 commune</li>
+<li><a href="/reseau/048001201/">ROUSSES</a> · 048001201 · note A · 1 commune</li>
+<li><a href="/reseau/048000105/">ROUVEYRETTE</a> · 048000105 · note D · 1 commune</li>
+<li><a href="/reseau/048002834/">RU DE FONTBELLE</a> · 048002834 · note A · 2 communes</li>
+<li><a href="/reseau/048000426/">RUAS</a> · 048000426 · note A · 1 commune</li>
+<li><a href="/reseau/048000618/">RUNES</a> · 048000618 · note D · 1 commune</li>
+<li><a href="/reseau/048001130/">SAGNEROUSSE</a> · 048001130 · note D · 1 commune</li>
+<li><a href="/reseau/048000022/">SAINT ALBAN SUR LIMAGNOLE</a> · 048000022 · note A · 1 commune</li>
+<li><a href="/reseau/048001008/">SAINT AMANS</a> · 048001008 · note D · 1 commune</li>
+<li><a href="/reseau/048001381/">SAINT ANDRE CAPCEZE</a> · 048001381 · note A · 1 commune</li>
+<li><a href="/reseau/048001371/">SAINT ANDRE DE LANCIZE</a> · 048001371 · note D · 1 commune</li>
+<li><a href="/reseau/048000658/">SAINT BAUZILE</a> · 048000658 · note D · 1 commune</li>
+<li><a href="/reseau/048000795/">SAINT BONNET LAVAL</a> · 048000795 · note A · 1 commune</li>
+<li><a href="/reseau/048001686/">SAINT CHELY D'APCHER</a> · 048001686 · note A · 1 commune</li>
+<li><a href="/reseau/048001274/">SAINT CHELY DU TARN</a> · 048001274 · note A · 1 commune</li>
+<li><a href="/reseau/048001385/">SAINT DENIS EN MARGERIDE</a> · 048001385 · note C · 1 commune</li>
+<li><a href="/reseau/048001169/">SAINT ETIENNE DU VALDONNEZ</a> · 048001169 · note A · 1 commune</li>
+<li><a href="/reseau/048000436/">SAINT ETIENNE VALLEE FRANCAISE</a> · 048000436 · note A · 1 commune</li>
+<li><a href="/reseau/048001427/">SAINT FLOUR DE MERCOIRE</a> · 048001427 · note A · 1 commune</li>
+<li><a href="/reseau/048000417/">SAINT GAL</a> · 048000417 · note A · 1 commune</li>
+<li><a href="/reseau/048001486/">SAINT GERMAIN DE CALBERTE</a> · 048001486 · note D · 1 commune</li>
+<li><a href="/reseau/048001471/">SAINT GERMAIN DU TEIL</a> · 048001471 · note A · 2 communes</li>
+<li><a href="/reseau/048005109/">SAINT HILAIRE DE LAVIT</a> · 048005109 · note A · 1 commune</li>
+<li><a href="/reseau/048006737/">SAINT JEAN DE CHAZORNE</a> · 048006737 · note A · 1 commune</li>
+<li><a href="/reseau/048003007/">SAINT JEAN DU BLEYMARD</a> · 048003007 · note A · 1 commune</li>
+<li><a href="/reseau/048001047/">SAINT JEAN LA FOUILLOUSE</a> · 048001047 · note A · 1 commune</li>
+<li><a href="/reseau/048000459/">SAINT JUERY</a> · 048000459 · note A · 3 communes</li>
+<li><a href="/reseau/048000419/">SAINT JULIEN DES POINTS</a> · 048000419 · note A · 1 commune</li>
+<li><a href="/reseau/048001408/">SAINT JULIEN DU TOURNEL</a> · 048001408 · note D · 1 commune</li>
+<li><a href="/reseau/048006439/">SAINT LAURENT DE TREVES</a> · 048006439 · note A · 1 commune</li>
+<li><a href="/reseau/048000509/">SAINT LAURENT DE VEYRES</a> · 048000509 · note D · 1 commune</li>
+<li><a href="/reseau/048000638/">SAINT LAURENT DU MURET</a> · 048000638 · note A · 1 commune</li>
+<li><a href="/reseau/048001070/">SAINT LEGER DE PEYRE</a> · 048001070 · note A · 1 commune</li>
+<li><a href="/reseau/048000740/">SAINT LEGER DU MALZIEU</a> · 048000740 · note A · 1 commune</li>
+<li><a href="/reseau/048007550/">SAINT MARTIN</a> · 048007550 · note D · 1 commune</li>
+<li><a href="/reseau/048005099/">SAINT MARTIN DE BOUBAUX</a> · 048005099 · note D · 2 communes</li>
+<li><a href="/reseau/048000679/">SAINT MARTIN DE LANSUSCLE</a> · 048000679 · note A · 1 commune</li>
+<li><a href="/reseau/048000932/">SAINT MAURICE DE VENTALON</a> · 048000932 · note D · 2 communes</li>
+<li><a href="/reseau/048005166/">SAINT MICHEL DE DEZE</a> · 048005166 · note A · 1 commune</li>
+<li><a href="/reseau/048000284/">SAINT PAUL LE FROID</a> · 048000284 · note D · 2 communes</li>
+<li><a href="/reseau/048000467/">SAINT PIERRE DE NOGARET</a> · 048000467 · note D · 1 commune</li>
+<li><a href="/reseau/048000240/">SAINT PRIVAT DE VALLONGUE</a> · 048000240 · note C · 1 commune</li>
+<li><a href="/reseau/048000962/">SAINT PRIVAT DU FAU</a> · 048000962 · note D · 1 commune</li>
+<li><a href="/reseau/048001616/">SAINT ROMAN DE TOUSQUE</a> · 048001616 · note A · 1 commune</li>
+<li><a href="/reseau/048000978/">SAINT SATURNIN</a> · 048000978 · note A · 1 commune</li>
+<li><a href="/reseau/048000258/">SAINT SAUVEUR DE GINESTOUX</a> · 048000258 · note A · 1 commune</li>
+<li><a href="/reseau/048001520/">SAINT SAUVEUR DE PEYRE</a> · 048001520 · note C · 1 commune</li>
+<li><a href="/reseau/048001243/">SAINT SYMPHORIEN</a> · 048001243 · note D · 1 commune</li>
+<li><a href="/reseau/048001504/">SAINTE COLOMBE DE PEYRE</a> · 048001504 · note A · 1 commune</li>
+<li><a href="/reseau/048000103/">SAINTE CROIX VALLEE FRANCAISE</a> · 048000103 · note D · 1 commune</li>
+<li><a href="/reseau/048001270/">SAINTE ENIMIE</a> · 048001270 · note A · 1 commune</li>
+<li><a href="/reseau/048000506/">SAINTE EULALIE</a> · 048000506 · note D · 1 commune</li>
+<li><a href="/reseau/048001404/">SAINTE HELENE</a> · 048001404 · note A · 1 commune</li>
+<li><a href="/reseau/048001388/">SALACRUX</a> · 048001388 · note A · 1 commune</li>
+<li><a href="/reseau/048001013/">SALESSES HAUTES</a> · 048001013 · note A · 1 commune</li>
+<li><a href="/reseau/048000253/">SALGAS RACOULES</a> · 048000253 · note A · 1 commune</li>
+<li><a href="/reseau/048002745/">SALVINSAC</a> · 048002745 · note D · 1 commune</li>
+<li><a href="/reseau/048001689/">SARROUL</a> · 048001689 · note A · 1 commune</li>
+<li><a href="/reseau/048000106/">SEGALIERES</a> · 048000106 · note D · 1 commune</li>
+<li><a href="/reseau/048001541/">SERRE</a> · 048001541 · note D · 1 commune</li>
+<li><a href="/reseau/048004253/">SERRET</a> · 048004253 · note A · 1 commune</li>
+<li><a href="/reseau/048000499/">SERVERETTE NORD</a> · 048000499 · note A · 1 commune</li>
+<li><a href="/reseau/048001062/">SERVIERES</a> · 048001062 · note A · 1 commune</li>
+<li><a href="/reseau/048001451/">SERVIES</a> · 048001451 · note D · 1 commune</li>
+<li><a href="/reseau/048000634/">SINIERES</a> · 048000634 · note D · 1 commune</li>
+<li><a href="/reseau/048001652/">SISTRES</a> · 048001652 · note D · 1 commune</li>
+<li><a href="/reseau/048001078/">SOLEYROLS</a> · 048001078 · note D · 1 commune</li>
+<li><a href="/reseau/048000254/">SOLPERIERES</a> · 048000254 · sans note · 1 commune</li>
+<li><a href="/reseau/048001164/">SOULAGES</a> · 048001164 · note D · 1 commune</li>
+<li><a href="/reseau/048000745/">SOULATGES</a> · 048000745 · note A · 1 commune</li>
+<li><a href="/reseau/048000888/">TARBES</a> · 048000888 · note A · 1 commune</li>
+<li><a href="/reseau/048001352/">TARDONENCHE</a> · 048001352 · note A · 1 commune</li>
+<li><a href="/reseau/048002989/">TARTARONNE</a> · 048002989 · note C · 1 commune</li>
+<li><a href="/reseau/048000636/">TAUPINET</a> · 048000636 · note D · 1 commune</li>
+<li><a href="/reseau/048001233/">TEMELAC</a> · 048001233 · note D · 1 commune</li>
+<li><a href="/reseau/048003168/">TERMES</a> · 048003168 · note A · 2 communes</li>
+<li><a href="/reseau/048004030/">TERRE BLEUE</a> · 048004030 · note A · 1 commune</li>
+<li><a href="/reseau/048001491/">THONAS</a> · 048001491 · note D · 1 commune</li>
+<li><a href="/reseau/048000308/">THORT</a> · 048000308 · note A · 1 commune</li>
+<li><a href="/reseau/048001474/">TIEULET</a> · 048001474 · note A · 1 commune</li>
+<li><a href="/reseau/048000056/">TOUNINOU</a> · 048000056 · note A · 1 commune</li>
+<li><a href="/reseau/048001413/">TOURNEL</a> · 048001413 · note D · 1 commune</li>
+<li><a href="/reseau/048000129/">TOURON</a> · 048000129 · note D · 1 commune</li>
+<li><a href="/reseau/048001235/">TRABASSAC</a> · 048001235 · note D · 1 commune</li>
+<li><a href="/reseau/048000325/">TRELANS</a> · 048000325 · note D · 1 commune</li>
+<li><a href="/reseau/048001569/">TREYMES</a> · 048001569 · note D · 1 commune</li>
+<li><a href="/reseau/048001162/">USANGES</a> · 048001162 · note D · 1 commune</li>
+<li><a href="/reseau/048001736/">VALESCURE</a> · 048001736 · note A · 1 commune</li>
+<li><a href="/reseau/048001373/">VALMALE</a> · 048001373 · note D · 1 commune</li>
+<li><a href="/reseau/048001172/">VARAZOUX</a> · 048001172 · note D · 1 commune</li>
+<li><a href="/reseau/048000972/">VAREILLES</a> · 048000972 · note A · 1 commune</li>
+<li><a href="/reseau/048001031/">VAREILLES</a> · 048001031 · note A · 1 commune</li>
+<li><a href="/reseau/048001154/">VAREILLES</a> · 048001154 · note A · 1 commune</li>
+<li><a href="/reseau/048000251/">VEBRON</a> · 048000251 · note A · 1 commune</li>
+<li><a href="/reseau/048001394/">VENTAJOLS</a> · 048001394 · note D · 1 commune</li>
+<li><a href="/reseau/048001743/">VERNAGUES</a> · 048001743 · note A · 1 commune</li>
+<li><a href="/reseau/048000224/">VERNETS</a> · 048000224 · note D · 1 commune</li>
+<li><a href="/reseau/048001250/">VERRIERES</a> · 048001250 · note D · 1 commune</li>
+<li><a href="/reseau/048001115/">VERTEILHAC</a> · 048001115 · note D · 1 commune</li>
+<li><a href="/reseau/048000531/">VIALA BAS</a> · 048000531 · note A · 1 commune</li>
+<li><a href="/reseau/048000530/">VIALA HAUT</a> · 048000530 · note A · 1 commune</li>
+<li><a href="/reseau/048001076/">VIALAS</a> · 048001076 · note A · 1 commune</li>
+<li><a href="/reseau/048001382/">VIELVIC</a> · 048001382 · note A · 1 commune</li>
+<li><a href="/reseau/048003336/">VIEUX FRAISSE</a> · 048003336 · note A · 1 commune</li>
+<li><a href="/reseau/048000966/">VILLARD</a> · 048000966 · note D · 1 commune</li>
+<li><a href="/reseau/048005417/">VILLEFORT - POUGET</a> · 048005417 · note A · 1 commune</li>
+<li><a href="/reseau/048003936/">VILLEFORT - SEDARIES</a> · 048003936 · note A · 1 commune</li>
+<li><a href="/reseau/048000553/">VILLENEUVE</a> · 048000553 · note D · 1 commune</li>
+<li><a href="/reseau/048001509/">VILLEROUSSET</a> · 048001509 · note A · 1 commune</li>
+<li><a href="/reseau/048001568/">VILLES BASSES</a> · 048001568 · note D · 1 commune</li>
+<li><a href="/reseau/048001567/">VILLES HAUTES</a> · 048001567 · note D · 1 commune</li>
+<li><a href="/reseau/048000207/">VILLESOULE</a> · 048000207 · note A · 1 commune</li>
+<li><a href="/reseau/048000641/">VIMBOUCHES</a> · 048000641 · note A · 1 commune</li>
+<li><a href="/reseau/048000571/">VIMENET</a> · 048000571 · note A · 1 commune</li>
+<li><a href="/reseau/048001440/">VITROLETTES</a> · 048001440 · note A · 1 commune</li>
+<li><a href="/reseau/048001155/">VITROLLES</a> · 048001155 · note A · 1 commune</li>
+<li><a href="/reseau/048001981/">VITROLLES</a> · 048001981 · note D · 1 commune</li>
+<li><a href="/reseau/048004243/">VOLMANIERES-REGOURDEL</a> · 048004243 · note A · 1 commune</li>
+<li><a href="/reseau/048000453/">VOLTULORGUE</a> · 048000453 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/48001/">Albaret-le-Comtal</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/48002/">Albaret-Sainte-Marie</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/48003/">Allenc</a> · 8 réseaux : 3 notés D, 5 notés A</li>
+<li><a href="/commune/48004/">Altier</a> · 9 réseaux : 5 notés D, 4 notés A</li>
+<li><a href="/commune/48005/">Antrenas</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48007/">Arzenc-d'Apcher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48008/">Arzenc-de-Randon</a> · 8 réseaux : 5 notés D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/48010/">Auroux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48013/">Badaroux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48016/">Balsièges</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48017/">Banassac-Canilhac</a> · 7 réseaux : 1 noté D, 2 notés C, 4 notés A</li>
+<li><a href="/commune/48018/">Barjac</a> · 7 réseaux : 1 noté B, 6 notés A</li>
+<li><a href="/commune/48019/">Barre-des-Cévennes</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/48020/">Bassurels</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/48050/">Bédouès-Cocurès</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48038/">Bel-Air-Val-d'Ance</a> · 6 réseaux : 5 notés D, 1 noté A</li>
+<li><a href="/commune/48026/">Blavignac</a> · 6 réseaux : 2 notés D, 4 notés A</li>
+<li><a href="/commune/48099/">Bourgs sur Colagne</a> · 8 réseaux : 8 notés A</li>
+<li><a href="/commune/48030/">Brenoux</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/48031/">Brion</a> · 1 réseau, noté C</li>
+<li><a href="/commune/48166/">Cans et Cévennes</a> · 12 réseaux : 6 notés D, 6 notés A</li>
+<li><a href="/commune/48036/">Cassagnas</a> · 7 réseaux : 6 notés D, 1 noté A</li>
+<li><a href="/commune/48037/">Chadenet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/48039/">Chanac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48041/">Chastanier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48042/">Chastel-Nouvel</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48043/">Châteauneuf-de-Randon</a> · 5 réseaux : 3 notés D, 2 notés A</li>
+<li><a href="/commune/48044/">Chauchailles</a> · 6 réseaux : 1 noté D, 5 notés A</li>
+<li><a href="/commune/48045/">Chaudeyrac</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/48046/">Chaulhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48048/">Cheylard-l'Évêque</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/48053/">Cubières</a> · 9 réseaux : 5 notés D, 4 notés A</li>
+<li><a href="/commune/48054/">Cubiérettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48055/">Cultures</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48056/">Esclanèdes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48061/">Florac Trois Rivières</a> · 12 réseaux : 6 notés D, 6 notés A</li>
+<li><a href="/commune/48063/">Fontans</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/48064/">Fournels</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/48065/">Fraissinet-de-Fourques</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48067/">Gabriac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48068/">Gabrias</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48069/">Gatuzières</a> · 5 réseaux : 1 noté D, 4 notés A</li>
+<li><a href="/commune/48146/">Gorges du Tarn Causses</a> · 9 réseaux : 9 notés A</li>
+<li><a href="/commune/48070/">Grandrieu</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/48071/">Grandvals</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48072/">Grèzes</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48074/">Hures-la-Parade</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48075/">Ispagnac</a> · 6 réseaux : 1 noté C, 5 notés A</li>
+<li><a href="/commune/48077/">Julianges</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/48021/">La Bastide-Puylaurent</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/48034/">La Canourgue</a> · 8 réseaux : 1 noté B, 7 notés A</li>
+<li><a href="/commune/48058/">La Fage-Montivernoux</a> · 11 réseaux : 7 notés D, 2 notés C, 2 notés A</li>
+<li><a href="/commune/48059/">La Fage-Saint-Julien</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/48088/">La Malène</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/48108/">La Panouse</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/48191/">La Tieule</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/48126/">Lachamp-Ribennes</a> · 8 réseaux : 4 notés D, 1 noté B, 3 notés A</li>
+<li><a href="/commune/48079/">Lajo</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48080/">Langogne</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48081/">Lanuéjols</a> · 9 réseaux : 2 notés C, 7 notés A</li>
+<li><a href="/commune/48082/">Laubert</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48085/">Laval-du-Tarn</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/48029/">Le Born</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48032/">Le Buisson</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/48051/">Le Collet-de-Dèze</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48089/">Le Malzieu-Forain</a> · 10 réseaux : 3 notés D, 1 noté C, 6 notés A</li>
+<li><a href="/commune/48090/">Le Malzieu-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48115/">Le Pompidou</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/48131/">Le Rozier</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48025/">Les Bessons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48028/">Les Bondons</a> · 7 réseaux : 5 notés D, 1 noté C, 1 noté A</li>
+<li><a href="/commune/48073/">Les Hermaux</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48083/">Les Laubies</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48012/">Les Monts-Verts</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48187/">Les Salces</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48185/">Les Salelles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48086/">Luc</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/48091/">Marchastel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48092/">Marvejols</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48141/">Mas-Saint-Chély</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48094/">Massegros Causses Gorges</a> · 4 réseaux : 1 noté B, 3 notés A</li>
+<li><a href="/commune/48095/">Mende</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48096/">Meyrueis</a> · 11 réseaux : 5 notés D, 3 notés C, 3 notés A</li>
+<li><a href="/commune/48097/">Moissac-Vallée-Française</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48098/">Molezon</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/48027/">Mont Lozère et Goulet</a> · 17 réseaux : 6 notés D, 11 notés A</li>
+<li><a href="/commune/48100/">Montbel</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48103/">Montrodat</a> · 5 réseaux : 1 noté D, 4 notés A</li>
+<li><a href="/commune/48127/">Monts-de-Randon</a> · 15 réseaux : 7 notés D, 8 notés A</li>
+<li><a href="/commune/48104/">Nasbinals</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/48105/">Naussac-Fontanes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48106/">Noalhac</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/48107/">Palhers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48110/">Paulhac-en-Margeride</a> · 3 réseaux : 1 noté D, 1 noté C, 1 noté A</li>
+<li><a href="/commune/48111/">Pelouse</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48009/">Peyre en Aubrac</a> · 17 réseaux : 7 notés D, 2 notés C, 8 notés A</li>
+<li><a href="/commune/48015/">Pied-de-Borne</a> · 7 réseaux : 3 notés D, 4 notés A</li>
+<li><a href="/commune/48112/">Pierrefiche</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/48116/">Pont de Montvert - Sud Mont Lozère</a> · 9 réseaux : 2 notés D, 7 notés A</li>
+<li><a href="/commune/48117/">Pourcharesses</a> · 6 réseaux : 2 notés C, 4 notés A</li>
+<li><a href="/commune/48119/">Prévenchères</a> · 7 réseaux : 5 notés D, 2 notés A</li>
+<li><a href="/commune/48087/">Prinsuéjols-Malbouzon</a> · 5 réseaux : 4 notés D, 1 noté A</li>
+<li><a href="/commune/48121/">Prunières</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/48123/">Recoules-d'Aubrac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48124/">Recoules-de-Fumas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48128/">Rimeize</a> · 6 réseaux : 1 noté D, 5 notés A</li>
+<li><a href="/commune/48129/">Rocles</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48130/">Rousses</a> · 5 réseaux : 2 notés D, 3 notés A</li>
+<li><a href="/commune/48139/">Saint Bonnet-Laval</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48132/">Saint-Alban-sur-Limagnole</a> · 10 réseaux : 1 noté D, 1 noté C, 8 notés A</li>
+<li><a href="/commune/48135/">Saint-André-Capcèze</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48136/">Saint-André-de-Lancize</a> · 6 réseaux : 5 notés D, 1 noté C</li>
+<li><a href="/commune/48137/">Saint-Bauzile</a> · 5 réseaux : 3 notés D, 2 notés A</li>
+<li><a href="/commune/48138/">Saint-Bonnet-de-Chirac</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/48140/">Saint-Chély-d'Apcher</a> · 6 réseaux : 1 noté C, 5 notés A</li>
+<li><a href="/commune/48145/">Saint-Denis-en-Margeride</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/48147/">Saint-Étienne-du-Valdonnez</a> · 6 réseaux : 4 notés D, 2 notés A</li>
+<li><a href="/commune/48148/">Saint-Étienne-Vallée-Française</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48150/">Saint-Flour-de-Mercoire</a> · 5 réseaux : 2 notés D, 3 notés A</li>
+<li><a href="/commune/48151/">Saint-Frézal-d'Albuges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48153/">Saint-Gal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48155/">Saint-Germain-de-Calberte</a> · 6 réseaux : 4 notés D, 2 notés A</li>
+<li><a href="/commune/48156/">Saint-Germain-du-Teil</a> · 8 réseaux : 8 notés A</li>
+<li><a href="/commune/48158/">Saint-Hilaire-de-Lavit</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48160/">Saint-Jean-la-Fouillouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48161/">Saint-Juéry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48163/">Saint-Julien-des-Points</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48165/">Saint-Laurent-de-Muret</a> · 7 réseaux : 4 notés D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/48167/">Saint-Laurent-de-Veyrès</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48168/">Saint-Léger-de-Peyre</a> · 5 réseaux : 3 notés D, 2 notés A</li>
+<li><a href="/commune/48169/">Saint-Léger-du-Malzieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/48170/">Saint-Martin-de-Boubaux</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48171/">Saint-Martin-de-Lansuscle</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/48173/">Saint-Michel-de-Dèze</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48174/">Saint-Paul-le-Froid</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48175/">Saint-Pierre-de-Nogaret</a> · 9 réseaux : 9 notés D</li>
+<li><a href="/commune/48176/">Saint-Pierre-des-Tripiers</a> · 3 réseaux : 1 noté D, 1 noté C, 1 noté A</li>
+<li><a href="/commune/48177/">Saint-Pierre-le-Vieux</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/48178/">Saint-Privat-de-Vallongue</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/48179/">Saint-Privat-du-Fau</a> · 4 réseaux : 3 notés D, 1 noté A</li>
+<li><a href="/commune/48181/">Saint-Saturnin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/48182/">Saint-Sauveur-de-Ginestoux</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48183/">Saint-Sauveur-de-Peyre</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48144/">Sainte-Croix-Vallée-Française</a> · 4 réseaux : 3 notés D, 1 noté A</li>
+<li><a href="/commune/48149/">Sainte-Eulalie</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/48157/">Sainte-Hélène</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/48188/">Serverette</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/48190/">Termes</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/48192/">Trélans</a> · 1 réseau, noté D</li>
+<li><a href="/commune/48193/">Vebron</a> · 7 réseaux : 1 noté D, 6 notés A</li>
+<li><a href="/commune/48152/">Ventalon en Cévennes</a> · 7 réseaux : 4 notés D, 3 notés A</li>
+<li><a href="/commune/48194/">Vialas</a> · 7 réseaux : 3 notés D, 4 notés A</li>
+<li><a href="/commune/48198/">Villefort</a> · 2 réseaux : 2 notés A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Lozère · eau du robinet », https://meteodurobinet.fr/departement/48/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

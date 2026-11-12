@@ -1,0 +1,124 @@
+{
+  "$schema": "https://specs.frictionlessdata.io/schemas/table-schema.json",
+  "title": "Service d’eau potable : le fichier d’un service",
+  "description": "Une ligne par exercice déclaré à SISPEA, par exercice croissant. Après les colonnes décrites ici, une colonne par indicateur de SISPEA que le site a lu pour ce service, intitulée par son code (D101.0, D102.0, P104.3…) : nombre à virgule décimale, valeur telle que l’observatoire la publie, vide quand l’indicateur n’est pas déclaré cet exercice. Les libellés et les unités des indicateurs sont ceux du dictionnaire de SISPEA.",
+  "fields": [
+    {
+      "name": "Identifiant du service (SISPEA)",
+      "type": "string",
+      "description": "Identifiant SISPEA du service d’eau, clé de la fiche /service/<identifiant>."
+    },
+    {
+      "name": "Exercice",
+      "type": "integer",
+      "description": "Exercice de la déclaration à SISPEA ; le prix de l’exercice N est celui du 1er janvier N+1."
+    },
+    {
+      "name": "Collectivité",
+      "type": "string",
+      "description": "Collectivité organisatrice déclarée à SISPEA."
+    },
+    {
+      "name": "Nom du service (SISPEA)",
+      "type": "string",
+      "description": "Nom interne du service dans SISPEA, tel que l’observatoire le publie."
+    },
+    {
+      "name": "Mode de gestion",
+      "type": "string",
+      "description": "Mode de gestion déclaré, tel que SISPEA le publie (le libellé change d’une extraction à l’autre ; voir le code)."
+    },
+    {
+      "name": "Code du mode de gestion",
+      "type": "string",
+      "description": "Code stable du mode de gestion : R régie, D gestion déléguée (délégation), I inconnu. Vide sans valeur.",
+      "constraints": {
+        "enum": [
+          "R",
+          "D",
+          "I"
+        ]
+      }
+    },
+    {
+      "name": "Exploitant",
+      "type": "string",
+      "description": "Exploitant déclaré à SISPEA (à ne pas confondre avec le distributeur du contrôle sanitaire)."
+    },
+    {
+      "name": "Missions (production, transfert, distribution)",
+      "type": "string",
+      "description": "Trois caractères : production, transfert, distribution (1 si le service l’assure, 0 sinon).",
+      "constraints": {
+        "pattern": "^[01]{3}$"
+      }
+    },
+    {
+      "name": "Statut de la déclaration",
+      "type": "string",
+      "description": "Statut de la déclaration à SISPEA, tel que l’observatoire le publie (voir le code)."
+    },
+    {
+      "name": "Code du statut de la déclaration",
+      "type": "string",
+      "description": "Code stable du statut : P publié non vérifié, C confirmé / publié, V vérifié, S en attente de saisie, E en cours de saisie, A en attente de vérification, W en cours de vérification.",
+      "constraints": {
+        "enum": [
+          "P",
+          "C",
+          "V",
+          "S",
+          "E",
+          "A",
+          "W"
+        ]
+      }
+    },
+    {
+      "name": "Population desservie (habitants)",
+      "type": "number",
+      "description": "Population du service (indicateur D101.0 de SISPEA, déclarée par le service ou estimée par SISPEA d’après la population de 2010).",
+      "unit": "habitants",
+      "decimalChar": ",",
+      "bareNumber": true
+    },
+    {
+      "name": "Consommation par habitant desservi (litres par habitant et par jour)",
+      "type": "number",
+      "description": "Consommation domestique de l’exercice de la fiche du service (volume vendu VP.063 rapporté aux habitants desservis D101.0 et à 365 jours) ; vide pour les autres exercices ou quand la valeur est écartée (au-delà de 1 000 litres).",
+      "unit": "litres par habitant et par jour",
+      "decimalChar": ",",
+      "bareNumber": true
+    },
+    {
+      "name": "Volume perdu dans le réseau (litres par habitant et par jour)",
+      "type": "number",
+      "description": "Eau mise en distribution diminuée de l’eau consommée, rapportée aux habitants desservis et à 365 jours, d’après les volumes déclarés (exercice de la fiche seulement) ; vide pour une déclaration de volumes jugée invraisemblable.",
+      "unit": "litres par habitant et par jour",
+      "decimalChar": ",",
+      "bareNumber": true
+    },
+    {
+      "name": "Part des taxes et redevances dans la facture de 120 m³ (%)",
+      "type": "number",
+      "description": "Taxes et redevances (VP.179, TVA comprise) rapportées à la facture d’eau potable de 120 m³ (D102.0), exercice de la fiche depuis 2024 seulement ; vide quand la somme des parts s’écarte du prix publié de plus de 1 % ou que la part sort de 5 à 60 %.",
+      "unit": "%",
+      "decimalChar": ",",
+      "bareNumber": true
+    }
+  ],
+  "missingValues": [
+    ""
+  ],
+  "primaryKey": [
+    "Identifiant du service (SISPEA)",
+    "Exercice"
+  ],
+  "x-lecture": {
+    "delimiter": ";",
+    "encoding": "utf-8-sig",
+    "lineTerminator": "\r\n",
+    "decimalChar": ","
+  },
+  "x-reecriture": "Les fichiers sont fabriqués dans le navigateur à chaque téléchargement, d’après les données publiées chaque lundi : aucune version datée n’est conservée."
+}

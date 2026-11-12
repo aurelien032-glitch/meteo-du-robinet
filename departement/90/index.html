@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Territoire de Belfort (90) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Territoire de Belfort · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Territoire de Belfort (90) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/90/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Territoire de Belfort · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Territoire de Belfort · eau du robinet","url":"https://meteodurobinet.fr/departement/90/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Territoire de Belfort","item":"https://meteodurobinet.fr/departement/90/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/90/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Territoire de Belfort</h1>
+<p class="meta">Département 90</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>2 sur 25 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 22 réseaux</li>
+<li>B qualité convenable* : 1 réseau</li>
+<li>C qualité insuffisante* : 0 réseau</li>
+<li>D mauvaise qualité* : 2 réseaux</li>
+</ul>
+<p>Les notes C et D tiennent à la bactériologie (2 réseaux, dont 2 notés D).</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>29 prélèvements</strong> évalués en septembre 2026 ; 207 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 31 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 15 jours, alerte 40 jours, alerte renforcée 24 jours, crise 0 jour</li>
+<li>2026 en cours : vigilance 24 jours, alerte 10 jours, alerte renforcée 14 jours, crise 120 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,56</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 4 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>4 services d’eau</strong> desservent au moins une commune du département ; 4 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 27 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/090000073/">ABA BEAUCOURT</a> · 090000073 · sans note · 3 communes</li>
+<li><a href="/reseau/090000118/">ABA CROIX-VILLARS</a> · 090000118 · sans note · 2 communes</li>
+<li><a href="/reseau/090003793/">ANGEOT</a> · 090003793 · note A · 8 communes</li>
+<li><a href="/reseau/090000157/">ARGIESANS</a> · 090000157 · note A · 4 communes</li>
+<li><a href="/reseau/090000021/">AUXELLES HAUT</a> · 090000021 · note A · 2 communes</li>
+<li><a href="/reseau/090000060/">BELFORT</a> · 090000060 · note A · 14 communes</li>
+<li><a href="/reseau/090003307/">BORON-GROSNE</a> · 090003307 · note A · 7 communes</li>
+<li><a href="/reseau/090000080/">COURTELEVANT</a> · 090000080 · note A · 2 communes</li>
+<li><a href="/reseau/090003794/">EGUENIGUE</a> · 090003794 · note A · 4 communes</li>
+<li><a href="/reseau/090000154/">EVETTE-SALBERT</a> · 090000154 · note A · 2 communes</li>
+<li><a href="/reseau/090000100/">FAVEROIS-DELLE</a> · 090000100 · note A · 11 communes</li>
+<li><a href="/reseau/090000039/">FOUSSEMAGNE</a> · 090000039 · note A · 1 commune</li>
+<li><a href="/reseau/090000018/">GIROMAGNY</a> · 090000018 · note A · 10 communes</li>
+<li><a href="/reseau/090000103/">GRANDVILLARS</a> · 090000103 · note A · 1 commune</li>
+<li><a href="/reseau/090000122/">LEPUIX HT PRES</a> · 090000122 · note A · 1 commune</li>
+<li><a href="/reseau/090000113/">LEPUIX NEUF</a> · 090000113 · note A · 4 communes</li>
+<li><a href="/reseau/090000126/">LEPUIX ST GUILLAUME</a> · 090000126 · note B · 1 commune</li>
+<li><a href="/reseau/090000034/">LEVAL 2</a> · 090000034 · note A · 2 communes</li>
+<li><a href="/reseau/090000106/">MORVILLARS</a> · 090000106 · note A · 4 communes</li>
+<li><a href="/reseau/090000143/">PETIT-CROIX</a> · 090000143 · note A · 6 communes</li>
+<li><a href="/reseau/090000020/">QUARTIER DU MONT BONNET</a> · 090000020 · note A · 1 commune</li>
+<li><a href="/reseau/090000082/">RECHESY-COURCELLES</a> · 090000082 · note A · 2 communes</li>
+<li><a href="/reseau/090000148/">RIERVESCEMONT</a> · 090000148 · note D · 1 commune</li>
+<li><a href="/reseau/090000033/">ROUGEMONT LE CHATEAU</a> · 090000033 · note A · 5 communes</li>
+<li><a href="/reseau/090000116/">SMIBA</a> · 090000116 · note D · 1 commune</li>
+<li><a href="/reseau/090000035/">ST NICOLAS</a> · 090000035 · note A · 1 commune</li>
+<li><a href="/reseau/090000111/">SUD AGGLOMERATION</a> · 090000111 · note A · 9 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/90001/">Andelnans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90002/">Angeot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90003/">Anjoutey</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90004/">Argiésans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90082/">Autrechêne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90005/">Auxelles-Bas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90006/">Auxelles-Haut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90007/">Banvillars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90008/">Bavilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90009/">Beaucourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90010/">Belfort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90011/">Bermont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90012/">Bessoncourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90013/">Bethonvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90014/">Boron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90015/">Botans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90016/">Bourg-sous-Châtelet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90017/">Bourogne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90018/">Brebotte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90019/">Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90020/">Buc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90021/">Charmois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90022/">Châtenois-les-Forges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90023/">Chaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90024/">Chavanatte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90025/">Chavannes-les-Grands</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90026/">Chèvremont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90027/">Courcelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90028/">Courtelevant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90029/">Cravanche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90030/">Croix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90031/">Cunelières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90032/">Danjoutin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90033/">Delle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90034/">Denney</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90035/">Dorans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90036/">Eguenigue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90037/">Éloie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90039/">Essert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90041/">Étueffont</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/90042/">Évette-Salbert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90043/">Faverois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90045/">Fêche-l'Église</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90044/">Felon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90046/">Florimont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90047/">Fontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90048/">Fontenelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90049/">Foussemagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90050/">Frais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90051/">Froidefontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90052/">Giromagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90053/">Grandvillars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90054/">Grosmagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90055/">Grosne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90056/">Joncherey</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90057/">Lachapelle-sous-Chaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90058/">Lachapelle-sous-Rougemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90059/">Lacollonge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90060/">Lagrange</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90062/">Larivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90063/">Lebetain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90065/">Lepuix</a> · 3 réseaux : 1 noté D, 1 noté B, 1 noté A</li>
+<li><a href="/commune/90064/">Lepuix-Neuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90066/">Leval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90067/">Menoncourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90068/">Meroux-Moval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90069/">Méziré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90070/">Montbouton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90071/">Montreux-Château</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90072/">Morvillars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90074/">Novillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90075/">Offemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90076/">Pérouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90077/">Petit-Croix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90078/">Petitefontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90079/">Petitmagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90080/">Phaffans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90081/">Réchésy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90083/">Recouvrance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90084/">Reppe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90085/">Riervescemont</a> · 1 réseau, noté D</li>
+<li><a href="/commune/90086/">Romagny-sous-Rougemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90087/">Roppe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90088/">Rougegoutte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90089/">Rougemont-le-Château</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/90090/">Saint-Dizier-l'Évêque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90091/">Saint-Germain-le-Châtelet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90093/">Sermamagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90094/">Sevenans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90095/">Suarce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90096/">Thiancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90097/">Trévenans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90098/">Urcerey</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90099/">Valdoie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90100/">Vauthiermont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90101/">Vellescot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90102/">Vescemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90103/">Vétrigne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90104/">Vézelois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/90105/">Villars-le-Sec</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Territoire de Belfort · eau du robinet », https://meteodurobinet.fr/departement/90/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

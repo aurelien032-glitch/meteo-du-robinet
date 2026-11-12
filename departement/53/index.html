@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Mayenne (53) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Mayenne · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Mayenne (53) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/53/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Mayenne · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Mayenne · eau du robinet","url":"https://meteodurobinet.fr/departement/53/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Mayenne","item":"https://meteodurobinet.fr/departement/53/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/53/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Mayenne</h1>
+<p class="meta">Département 53</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>1 sur 121 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 116 réseaux</li>
+<li>B qualité convenable* : 4 réseaux</li>
+<li>C qualité insuffisante* : 1 réseau</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Les notes C et D tiennent à la bactériologie (1 réseau).</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>Aucun réseau visé</strong></p>
+<p>depuis le 1er janvier 2026.</p>
+<h3>Prélèvements</h3>
+<p><strong>175 prélèvements</strong> évalués en septembre 2026 ; 1 256 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 7 jours, alerte 50 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 20 jours, alerte 71 jours, alerte renforcée 68 jours, crise 20 jours</li>
+<li>2026 en cours : vigilance 13 jours, alerte 15 jours, alerte renforcée 15 jours, crise 121 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,00</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 26 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>29 services d’eau</strong> desservent au moins une commune du département ; 16 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 122 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/053003538/">ABA_SAINT OUEN DES TOITS</a> · 053003538 · sans note · 1 commune</li>
+<li><a href="/reseau/053000015/">AHUILLE</a> · 053000015 · note A · 1 commune</li>
+<li><a href="/reseau/053000807/">ALEXAIN - ST GERMAIN</a> · 053000807 · note A · 4 communes</li>
+<li><a href="/reseau/053000370/">AMBRIERES</a> · 053000370 · note A · 2 communes</li>
+<li><a href="/reseau/053003537/">ANDOUILLE - LA BACONNIERE</a> · 053003537 · note A · 2 communes</li>
+<li><a href="/reseau/053000593/">ARGENTRE</a> · 053000593 · note A · 3 communes</li>
+<li><a href="/reseau/053000429/">ARON</a> · 053000429 · note A · 1 commune</li>
+<li><a href="/reseau/053003907/">ASTILLÉ - COURBEVEILLE</a> · 053003907 · note A · 2 communes</li>
+<li><a href="/reseau/053003905/">AZÉ ZONE AGGLOMÉRÉE NORD-OUEST</a> · 053003905 · note A · 1 commune</li>
+<li><a href="/reseau/053000414/">BAIS</a> · 053000414 · note A · 6 communes</li>
+<li><a href="/reseau/053000362/">BALLEE</a> · 053000362 · note A · 4 communes</li>
+<li><a href="/reseau/053003550/">BAZOUGERS</a> · 053003550 · note A · 1 commune</li>
+<li><a href="/reseau/053000363/">BIERNE</a> · 053000363 · note A · 8 communes</li>
+<li><a href="/reseau/053000019/">BONCHAMP</a> · 053000019 · note A · 3 communes</li>
+<li><a href="/reseau/053003953/">BOUESSAY</a> · 053003953 · note A · 1 commune</li>
+<li><a href="/reseau/053003906/">BOURGON</a> · 053003906 · note A · 2 communes</li>
+<li><a href="/reseau/053000067/">CARELLES</a> · 053000067 · note A · 4 communes</li>
+<li><a href="/reseau/053003552/">CC PAYS CHATEAU-GONTIER OUEST</a> · 053003552 · note A · 6 communes</li>
+<li><a href="/reseau/053000142/">CHAILLAND</a> · 053000142 · note A · 3 communes</li>
+<li><a href="/reseau/053000180/">CHALONS DU MAINE</a> · 053000180 · note A · 2 communes</li>
+<li><a href="/reseau/053000378/">CHAMPEON</a> · 053000378 · note A · 1 commune</li>
+<li><a href="/reseau/053000451/">CHAMPFREMONT</a> · 053000451 · note A · 4 communes</li>
+<li><a href="/reseau/053000379/">CHANTRIGNE</a> · 053000379 · note A · 1 commune</li>
+<li><a href="/reseau/053003879/">CHANTRIGNE - CAMPAGNE EST</a> · 053003879 · note A · 1 commune</li>
+<li><a href="/reseau/053000380/">CHARCHIGNE</a> · 053000380 · note A · 1 commune</li>
+<li><a href="/reseau/053000364/">CHATEAU-GONTIER</a> · 053000364 · note A · 1 commune</li>
+<li><a href="/reseau/053003904/">CHATEAU-GONTIER OUEST SUD ET ST FORT</a> · 053003904 · note A · 1 commune</li>
+<li><a href="/reseau/053000027/">CHATILLON SUR COLMONT</a> · 053000027 · note A · 1 commune</li>
+<li><a href="/reseau/053000053/">CHEMAZE</a> · 053000053 · note A · 1 commune</li>
+<li><a href="/reseau/053003549/">CHEMÉRÉ-LE-ROI</a> · 053003549 · note A · 1 commune</li>
+<li><a href="/reseau/053000149/">COMMER EST</a> · 053000149 · note A · 2 communes</li>
+<li><a href="/reseau/053000148/">COMMER OUEST</a> · 053000148 · note A · 3 communes</li>
+<li><a href="/reseau/053000366/">COSSE EN CHAMPAGNE</a> · 053000366 · note A · 4 communes</li>
+<li><a href="/reseau/053000057/">COSSE-LE-VIVIEN</a> · 053000057 · note A · 1 commune</li>
+<li><a href="/reseau/053000458/">COURCITE</a> · 053000458 · note A · 3 communes</li>
+<li><a href="/reseau/053000063/">CRAON</a> · 053000063 · note A · 1 commune</li>
+<li><a href="/reseau/053000455/">CRENNES</a> · 053000455 · note A · 1 commune</li>
+<li><a href="/reseau/053000422/">DISTRIBUTION DE L'HAMARDIERE</a> · 053000422 · note A · 4 communes</li>
+<li><a href="/reseau/053000423/">DISTRIBUTION DE LA CHEVROLIERE</a> · 053000423 · note A · 5 communes</li>
+<li><a href="/reseau/053003954/">ENTRAMMES</a> · 053003954 · note A · 1 commune</li>
+<li><a href="/reseau/053000094/">ERNEE</a> · 053000094 · note A · 3 communes</li>
+<li><a href="/reseau/053000424/">EVRON</a> · 053000424 · note A · 1 commune</li>
+<li><a href="/reseau/053003553/">FROMENTIERES</a> · 053003553 · note A · 1 commune</li>
+<li><a href="/reseau/053000109/">GORRON</a> · 053000109 · note A · 4 communes</li>
+<li><a href="/reseau/053000415/">GRAZAY</a> · 053000415 · note A · 3 communes</li>
+<li><a href="/reseau/053000368/">GREZ EN BOUERE</a> · 053000368 · note A · 3 communes</li>
+<li><a href="/reseau/053000382/">JAVRON</a> · 053000382 · note A · 1 commune</li>
+<li><a href="/reseau/053003930/">JAVRON ZI SUD</a> · 053003930 · note A · 1 commune</li>
+<li><a href="/reseau/053000125/">JUVIGNE NORD</a> · 053000125 · note A · 1 commune</li>
+<li><a href="/reseau/053000658/">JUVIGNE SUD - LA CROIXILLE</a> · 053000658 · note A · 2 communes</li>
+<li><a href="/reseau/053000374/">LA BAROCHE</a> · 053000374 · note A · 3 communes</li>
+<li><a href="/reseau/053000447/">LA BAZOUGE</a> · 053000447 · note B · 5 communes</li>
+<li><a href="/reseau/053003539/">LA BAZOUGE DES ALLEUX</a> · 053003539 · note A · 1 commune</li>
+<li><a href="/reseau/053003947/">LA BRULATTE</a> · 053003947 · note A · 1 commune</li>
+<li><a href="/reseau/053000409/">LA CHAPELLE AU RIBOUL</a> · 053000409 · note A · 1 commune</li>
+<li><a href="/reseau/053003547/">LA CHAPELLE RAINSOUIN</a> · 053003547 · note A · 1 commune</li>
+<li><a href="/reseau/053003916/">LA GRAVELLE</a> · 053003916 · note A · 1 commune</li>
+<li><a href="/reseau/053000375/">LA HAIE TRAVERSAINE</a> · 053000375 · note A · 1 commune</li>
+<li><a href="/reseau/053000371/">LA HAUTE VARENNE</a> · 053000371 · note A · 4 communes</li>
+<li><a href="/reseau/053000207/">LA PELLERINE</a> · 053000207 · note A · 1 commune</li>
+<li><a href="/reseau/053003554/">LA PLAINE</a> · 053003554 · note B · 9 communes</li>
+<li><a href="/reseau/053003956/">LARCHAMP</a> · 053003956 · note A · 1 commune</li>
+<li><a href="/reseau/053000383/">LASSAY</a> · 053000383 · note A · 5 communes</li>
+<li><a href="/reseau/053000001/">LAVAL AGGLOMERATION</a> · 053000001 · note A · 3 communes</li>
+<li><a href="/reseau/053003872/">LAVAL AGGLOMERATION SUD</a> · 053003872 · note A · 3 communes</li>
+<li><a href="/reseau/053000529/">LE BOIS DU TAY</a> · 053000529 · note A · 1 commune</li>
+<li><a href="/reseau/053000104/">LE BOURGNEUF LA FORET</a> · 053000104 · note A · 2 communes</li>
+<li><a href="/reseau/053000367/">LE BURET - LANDEREAU</a> · 053000367 · note A · 4 communes</li>
+<li><a href="/reseau/053000526/">LE CRAONNAIS SERVICE BAS</a> · 053000526 · note A · 6 communes</li>
+<li><a href="/reseau/053000158/">LE CRAONNAIS SERVICE HAUT</a> · 053000158 · note A · 5 communes</li>
+<li><a href="/reseau/053000416/">LE HORPS</a> · 053000416 · note A · 3 communes</li>
+<li><a href="/reseau/053000417/">LE RIBAY</a> · 053000417 · note A · 1 commune</li>
+<li><a href="/reseau/053000372/">LES AVALOIRS</a> · 053000372 · note A · 8 communes</li>
+<li><a href="/reseau/053000384/">LIGNIERES</a> · 053000384 · note A · 1 commune</li>
+<li><a href="/reseau/053000033/">LIVRE LA TOUCHE</a> · 053000033 · note A · 12 communes</li>
+<li><a href="/reseau/053000240/">LOIRON</a> · 053000240 · note A · 5 communes</li>
+<li><a href="/reseau/053000456/">LOUPFOUGERES</a> · 053000456 · note A · 1 commune</li>
+<li><a href="/reseau/053000179/">LOUVERNE</a> · 053000179 · note A · 3 communes</li>
+<li><a href="/reseau/053000448/">MAISONCELLES</a> · 053000448 · note A · 4 communes</li>
+<li><a href="/reseau/053000187/">MARTIGNE</a> · 053000187 · note A · 1 commune</li>
+<li><a href="/reseau/053000440/">MAYENNE</a> · 053000440 · note A · 1 commune</li>
+<li><a href="/reseau/053003901/">MAYENNE POIRSAC</a> · 053003901 · note A · 1 commune</li>
+<li><a href="/reseau/053000411/">MESLAY DU MAINE VILLE</a> · 053000411 · note A · 1 commune</li>
+<li><a href="/reseau/053000219/">MONTAUDIN - ST BERTHEVIN LA TANNIERE</a> · 053000219 · note A · 2 communes</li>
+<li><a href="/reseau/053000385/">MONTREUIL-POULAY</a> · 053000385 · note A · 1 commune</li>
+<li><a href="/reseau/053000206/">MONTSURS</a> · 053000206 · note A · 3 communes</li>
+<li><a href="/reseau/053000159/">NIAFLES</a> · 053000159 · note A · 1 commune</li>
+<li><a href="/reseau/053000210/">OISSEAU</a> · 053000210 · note A · 1 commune</li>
+<li><a href="/reseau/053000412/">PARIGNE SUR BRAYE</a> · 053000412 · note A · 1 commune</li>
+<li><a href="/reseau/053000116/">PORT-BRILLET</a> · 053000116 · note A · 4 communes</li>
+<li><a href="/reseau/053000386/">PRE EN PAIL ST SAMSOM</a> · 053000386 · note A · 1 commune</li>
+<li><a href="/reseau/053000387/">PRE EN PAIL SUD - ST JULIEN DES EGLANTIERS</a> · 053000387 · note A · 1 commune</li>
+<li><a href="/reseau/053000369/">PREAUX</a> · 053000369 · note A · 1 commune</li>
+<li><a href="/reseau/053003551/">SACE</a> · 053003551 · note A · 1 commune</li>
+<li><a href="/reseau/053000404/">SAINT CYR LE GRAVELAIS</a> · 053000404 · note A · 1 commune</li>
+<li><a href="/reseau/053000228/">SAINT DENIS DE GASTINES</a> · 053000228 · note A · 1 commune</li>
+<li><a href="/reseau/053003536/">SAINT ELLIER DU MAINE</a> · 053003536 · note B · 2 communes</li>
+<li><a href="/reseau/053000237/">SAINT GEORGES BUTTAVENT</a> · 053000237 · note C · 1 commune</li>
+<li><a href="/reseau/053000100/">SAINT HILAIRE-DU-MAINE</a> · 053000100 · note A · 1 commune</li>
+<li><a href="/reseau/053000167/">SAINT JEAN SUR MAYENNE</a> · 053000167 · note A · 4 communes</li>
+<li><a href="/reseau/053000084/">SAINT MARS SUR LA FUTAIE</a> · 053000084 · note A · 3 communes</li>
+<li><a href="/reseau/053003955/">SAINT OUEN DES TOITS</a> · 053003955 · note A · 1 commune</li>
+<li><a href="/reseau/053000450/">SAINT PIERRE DES NIDS</a> · 053000450 · note A · 2 communes</li>
+<li><a href="/reseau/053003543/">SAINT-GEORGES-LE-FLÉCHARD</a> · 053003543 · note B · 1 commune</li>
+<li><a href="/reseau/053000425/">SAINTE GEMMES</a> · 053000425 · note A · 1 commune</li>
+<li><a href="/reseau/053000222/">ST BERTHEVIN NORD OUEST</a> · 053000222 · note A · 1 commune</li>
+<li><a href="/reseau/053000223/">ST BERTHEVIN SUD EST</a> · 053000223 · note A · 1 commune</li>
+<li><a href="/reseau/053000426/">ST CHRISTOPHE/CHATRES</a> · 053000426 · note A · 2 communes</li>
+<li><a href="/reseau/053000388/">ST FRAIMBAULT</a> · 053000388 · note A · 1 commune</li>
+<li><a href="/reseau/053003900/">ST FRAIMBAULT RIVE DROITE</a> · 053003900 · note A · 1 commune</li>
+<li><a href="/reseau/053003544/">THORIGNÉ-EN-CHARNIE</a> · 053003544 · note A · 1 commune</li>
+<li><a href="/reseau/053000419/">TORCE - SAINTE SUZANNE</a> · 053000419 · note A · 2 communes</li>
+<li><a href="/reseau/053000365/">VAIGES</a> · 053000365 · note A · 4 communes</li>
+<li><a href="/reseau/053000808/">VAUTORTE</a> · 053000808 · note A · 1 commune</li>
+<li><a href="/reseau/053000347/">VIEUVY</a> · 053000347 · note A · 4 communes</li>
+<li><a href="/reseau/053000457/">VILLAINES CENTRE VILLE</a> · 053000457 · note A · 1 commune</li>
+<li><a href="/reseau/053003941/">VILLAINES OUEST</a> · 053003941 · note A · 1 commune</li>
+<li><a href="/reseau/053003920/">VILLAINES VAUCELLE</a> · 053003920 · note A · 3 communes</li>
+<li><a href="/reseau/053000454/">VILLEPAIL</a> · 053000454 · note A · 1 commune</li>
+<li><a href="/reseau/053003897/">VILLIERS CHARLEMAGNE</a> · 053003897 · note A · 1 commune</li>
+<li><a href="/reseau/053000418/">VIMARTIN-SUR-ORTHE</a> · 053000418 · note A · 1 commune</li>
+<li><a href="/reseau/053003875/">VOUTRÉ OUEST ET BOURG</a> · 053003875 · note A · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/53001/">Ahuillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53002/">Alexain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53003/">Ambrières-les-Vallées</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53005/">Andouillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53007/">Argentré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53008/">Aron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53009/">Arquenay</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53010/">Assé-le-Bérenger</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53011/">Astillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53012/">Athée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53013/">Averton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53016/">Bais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53018/">Ballots</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53019/">Bannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53025/">Bazougers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53026/">Beaulieu-sur-Oudon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53027/">Beaumont-Pied-de-Bœuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53028/">Belgeard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53029/">Bierné-les-Villages</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53228/">Blandouet-Saint Jean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53034/">Bonchamp-lès-Laval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53035/">Bouchamps-lès-Craon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53036/">Bouère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53037/">Bouessay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53038/">Boulay-les-Ifs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53040/">Bourgon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53041/">Brains-sur-les-Marches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53042/">Brecé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53043/">Brée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53047/">Carelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53048/">Chailland</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53049/">Châlons-du-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53051/">Champéon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53052/">Champfrémont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53053/">Champgenéteux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53054/">Changé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53055/">Chantrigné</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53061/">Charchigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53062/">Château-Gontier-sur-Mayenne</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/53063/">Châtelain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53064/">Châtillon-sur-Colmont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53066/">Chemazé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53067/">Chémeré-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53068/">Chérancé</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53069/">Chevaigné-du-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53071/">Colombiers-du-Plessis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53072/">Commer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53073/">Congrier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53074/">Contest</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53075/">Cosmes</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53076/">Cossé-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53077/">Cossé-le-Vivien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53078/">Coudray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53079/">Couesmes-Vaucé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53080/">Couptrain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53082/">Courbeveille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53083/">Courcité</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53084/">Craon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53085/">Crennes-sur-Fraubée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53088/">Cuillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53089/">Daon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53090/">Denazé</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53091/">Désertines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53094/">Entrammes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53096/">Ernée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53097/">Évron</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/53098/">Fontaine-Couverte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53099/">Forcé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53100/">Fougerolles-du-Plessis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53101/">Fromentières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53102/">Gastines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53104/">Gennes-Longuefuye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53105/">Gesnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53106/">Gesvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53107/">Gorron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53109/">Grazay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53110/">Grez-en-Bouère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53113/">Hambers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53114/">Hardanges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53115/">Hercé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53117/">Houssay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53120/">Izé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53121/">Javron-les-Chapelles</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/53122/">Jublains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53123/">Juvigné</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53119/">L'Huisserie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53015/">La Baconnière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53021/">La Bazoge-Montpinçon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53022/">La Bazouge-de-Chemeré</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53023/">La Bazouge-des-Alleux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53031/">La Bigottière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53033/">La Boissière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53045/">La Brûlatte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53056/">La Chapelle-Anthenaise</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53057/">La Chapelle-au-Riboul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53058/">La Chapelle-Craonnaise</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53059/">La Chapelle-Rainsouin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53086/">La Croixille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53087/">La Cropte</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53093/">La Dorée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53108/">La Gravelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53111/">La Haie-Traversaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53173/">La Pallu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53177/">La Pellerine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53136/">La Roche-Neuville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53191/">La Roë</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53192/">La Rouaudière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53258/">La Selle-Craonnaise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53125/">Landivy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53126/">Larchamp</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53127/">Lassay-les-Châteaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53128/">Laubrières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53129/">Launay-Villiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53130/">Laval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53030/">Le Bignon-du-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53039/">Le Bourgneuf-la-Forêt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53046/">Le Buret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53103/">Le Genest-Saint-Isle</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53112/">Le Ham</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53116/">Le Horps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53118/">Le Housseau-Brétignolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53176/">Le Pas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53190/">Le Ribay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53131/">Lesbois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53132/">Levaré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53133/">Lignières-Orgères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53134/">Livet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53135/">Livré-la-Touche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53137/">Loiron-Ruillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53139/">Loupfougères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53140/">Louverné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53141/">Louvigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53142/">Madré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53143/">Maisoncelles-du-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53144/">Marcillé-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53145/">Marigné-Peuton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53146/">Martigné-sur-Mayenne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53147/">Mayenne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53148/">Mée</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53150/">Ménil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53151/">Méral</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53152/">Meslay-du-Maine</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/53153/">Mézangers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53154/">Montaudin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53155/">Montenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53156/">Montflours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53157/">Montigné-le-Brillant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53158/">Montjean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53160/">Montreuil-Poulay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53161/">Montsûrs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53162/">Moulay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53163/">Neau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53164/">Neuilly-le-Vendin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53165/">Niafles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53168/">Nuillé-sur-Vicoin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53170/">Oisseau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53169/">Olivet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53172/">Origné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53174/">Parigné-sur-Braye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53175/">Parné-sur-Roc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53178/">Peuton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53179/">Placé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53180/">Pommerieux</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53181/">Pontmain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53182/">Port-Brillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53185/">Pré-en-Pail-Saint-Samson</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53184/">Préaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53124/">Prée-d'Anjou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53186/">Quelaines-Saint-Gault</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53187/">Ravigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53188/">Renazé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53189/">Rennes-en-Grenouilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53193/">Ruillé-Froid-Fonds</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53195/">Sacé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53196/">Saint-Aignan-de-Couptrain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53197/">Saint-Aignan-sur-Roë</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53198/">Saint-Aubin-du-Désert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53199/">Saint-Aubin-Fosse-Louvain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53200/">Saint-Baudelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53201/">Saint-Berthevin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53202/">Saint-Berthevin-la-Tannière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53203/">Saint-Brice</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53204/">Saint-Calais-du-Désert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53206/">Saint-Charles-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53208/">Saint-Cyr-en-Pail</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53209/">Saint-Cyr-le-Gravelais</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53210/">Saint-Denis-d'Anjou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53211/">Saint-Denis-de-Gastines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53212/">Saint-Denis-du-Maine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53213/">Saint-Ellier-du-Maine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53214/">Saint-Erblon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53216/">Saint-Fraimbault-de-Prières</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53219/">Saint-Georges-Buttavent</a> · 1 réseau, noté C</li>
+<li><a href="/commune/53220/">Saint-Georges-le-Fléchard</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53221/">Saint-Georges-sur-Erve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53222/">Saint-Germain-d'Anxure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53223/">Saint-Germain-de-Coulamer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53224/">Saint-Germain-le-Fouilloux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53225/">Saint-Germain-le-Guillaume</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53226/">Saint-Hilaire-du-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53229/">Saint-Jean-sur-Mayenne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53230/">Saint-Julien-du-Terroux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53232/">Saint-Léger</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53233/">Saint-Loup-du-Dorat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53234/">Saint-Loup-du-Gast</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53236/">Saint-Mars-du-Désert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53237/">Saint-Mars-sur-Colmont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53238/">Saint-Mars-sur-la-Futaie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53240/">Saint-Martin-du-Limet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53242/">Saint-Michel-de-la-Roë</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53243/">Saint-Ouën-des-Toits</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53245/">Saint-Pierre-des-Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53246/">Saint-Pierre-des-Nids</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53247/">Saint-Pierre-la-Cour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53248/">Saint-Pierre-sur-Erve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53250/">Saint-Poix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53251/">Saint-Quentin-les-Anges</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53253/">Saint-Saturnin-du-Limet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53256/">Saint-Thomas-de-Courceriers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53218/">Sainte-Gemmes-le-Robert</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53235/">Sainte-Marie-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53255/">Sainte-Suzanne-et-Chammes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53257/">Saulges</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53259/">Senonnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53260/">Simplé</a> · 1 réseau, noté B</li>
+<li><a href="/commune/53261/">Soucé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53262/">Soulgé-sur-Ouette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53264/">Thorigné-en-Charnie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53263/">Thubœuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53265/">Torcé-Viviers-en-Charnie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53266/">Trans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53267/">Vaiges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53017/">Val-du-Maine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53269/">Vautorte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53270/">Vieuvy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53271/">Villaines-la-Juhel</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/53272/">Villepail</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53273/">Villiers-Charlemagne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/53249/">Vimartin-sur-Orthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/53276/">Voutré</a> · 2 réseaux : 2 notés A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Mayenne · eau du robinet », https://meteodurobinet.fr/departement/53/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

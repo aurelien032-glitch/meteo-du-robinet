@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Seine-et-Marne (77) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Seine-et-Marne · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Seine-et-Marne (77) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/77/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Seine-et-Marne · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Seine-et-Marne · eau du robinet","url":"https://meteodurobinet.fr/departement/77/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Seine-et-Marne","item":"https://meteodurobinet.fr/departement/77/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/77/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Seine-et-Marne</h1>
+<p class="meta">Département 77</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>69 sur 234 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 157 réseaux</li>
+<li>B qualité convenable* : 8 réseaux</li>
+<li>C qualité insuffisante* : 69 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 66, métaux et minéraux 10.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>27 réseaux visés sur 234</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>349 prélèvements</strong> évalués en septembre 2026 ; 2 816 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : vigilance 65 jours, alerte 120 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2026 en cours : vigilance 6 jours, alerte 0 jour, alerte renforcée 9 jours, crise 127 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,15</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 73 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>125 services d’eau</strong> desservent au moins une commune du département ; 20 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 265 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/077000045/">ABA AUGERS EN BRIE A - S2E 77</a> · 077000045 · sans note · 1 commune</li>
+<li><a href="/reseau/077000046/">ABA AUGERS EN BRIE B - S2E 77</a> · 077000046 · sans note · 1 commune</li>
+<li><a href="/reseau/077001368/">ABA BANNOST VILLEGAGNON - S2E 77</a> · 077001368 · sans note · 3 communes</li>
+<li><a href="/reseau/077001375/">ABA BEAUCHERY SAINT MARTIN - SE2 77</a> · 077001375 · sans note · 1 commune</li>
+<li><a href="/reseau/077000260/">ABA BOISDON - S2E 77</a> · 077000260 · sans note · 5 communes</li>
+<li><a href="/reseau/077000093/">ABA BOISSY LE CHATEL - CDA CPB</a> · 077000093 · sans note · 2 communes</li>
+<li><a href="/reseau/077000120/">ABA CERNEUX - S2E 77</a> · 077000120 · sans note · 1 commune</li>
+<li><a href="/reseau/077000174/">ABA CHENOISE-CUCHARMOY A - S2E 77</a> · 077000174 · sans note · 2 communes</li>
+<li><a href="/reseau/077000264/">ABA COURTACON - S2E77</a> · 077000264 · sans note · 2 communes</li>
+<li><a href="/reseau/077001983/">ABA FERTE GAUCHER (LA) B - S2E 77</a> · 077001983 · sans note · 1 commune</li>
+<li><a href="/reseau/077000307/">ABA LESCHEROLLES - S2E 77</a> · 077000307 · sans note · 1 commune</li>
+<li><a href="/reseau/077004717/">ABA LIEUSAINT - CDA GPS</a> · 077004717 · sans note · 1 commune</li>
+<li><a href="/reseau/077001414/">ABA LOUAN VILLEGRUIS FONTAINE A - S2E 77</a> · 077001414 · sans note · 1 commune</li>
+<li><a href="/reseau/077001415/">ABA LOUAN VILLEGRUIS FONTAINE B - S2E 77</a> · 077001415 · sans note · 1 commune</li>
+<li><a href="/reseau/077000319/">ABA MORTERY - S2E 77</a> · 077000319 · sans note · 1 commune</li>
+<li><a href="/reseau/077000346/">ABA ROUILLY - SE2 77</a> · 077000346 · sans note · 1 commune</li>
+<li><a href="/reseau/077001438/">ABA SAINT HILLIERS - S2E 77</a> · 077001438 · sans note · 1 commune</li>
+<li><a href="/reseau/077000511/">ABA SAINT MARTIN DES CHAMPS - S2E 77</a> · 077000511 · sans note · 6 communes</li>
+<li><a href="/reseau/077001333/">ABA SAINT MARTIN DU BOSCHET - S2E 77</a> · 077001333 · sans note · 1 commune</li>
+<li><a href="/reseau/077001597/">ABA SAINT-GERMAIN-SUR-MORIN - SMAEP TMM</a> · 077001597 · sans note · 6 communes</li>
+<li><a href="/reseau/077001446/">ABA SANCY LES PROVINS A - S2E77</a> · 077001446 · sans note · 1 commune</li>
+<li><a href="/reseau/077001668/">ABA VILLENOY - CDA PM</a> · 077001668 · sans note · 1 commune</li>
+<li><a href="/reseau/077000460/">ABA VILLIERS SAINT GEORGES - S2E 77 </a> · 077000460 · sans note · 1 commune</li>
+<li><a href="/reseau/077000379/">ABA VOULTON - S2E 77</a> · 077000379 · sans note · 2 communes</li>
+<li><a href="/reseau/077000050/">ACHERES LA FORET - CDA PDF</a> · 077000050 · note A · 1 commune</li>
+<li><a href="/reseau/077000789/">AMPONVILLE - SMEAPN</a> · 077000789 · note A · 1 commune</li>
+<li><a href="/reseau/077000923/">ARBONNE LA FORET - CDA PDF</a> · 077000923 · note A · 3 communes</li>
+<li><a href="/reseau/077004842/">ARGENTIERES - CDC BRC</a> · 077004842 · note A · 2 communes</li>
+<li><a href="/reseau/077001330/">ARMENTIERES EN BRIE - CDC PDO</a> · 077001330 · note C · 1 commune</li>
+<li><a href="/reseau/077000542/">AUBEPIERRE OZOUER LE REPOS</a> · 077000542 · note A · 1 commune</li>
+<li><a href="/reseau/077000060/">BABY - S2E 77</a> · 077000060 · note C · 1 commune</li>
+<li><a href="/reseau/077002652/">BAGNEAUX-SUR-LOING - SMEAPN</a> · 077002652 · note A · 1 commune</li>
+<li><a href="/reseau/077000072/">BALLOY - S2E 77</a> · 077000072 · note A · 2 communes</li>
+<li><a href="/reseau/077000919/">BARBIZON - CDA PDF</a> · 077000919 · note A · 1 commune</li>
+<li><a href="/reseau/077000064/">BAZOCHES LES BRAY - S2E 77</a> · 077000064 · note C · 1 commune</li>
+<li><a href="/reseau/077000164/">BEAUMONT DU GATINAIS</a> · 077000164 · note C · 1 commune</li>
+<li><a href="/reseau/077001610/">BELLOT - S2E 77</a> · 077001610 · note A · 8 communes</li>
+<li><a href="/reseau/077001444/">BERNAY VILBERT - SIAEP HOUSSAYE</a> · 077001444 · note A · 3 communes</li>
+<li><a href="/reseau/077000154/">BLENNES SIAEP LORREZ C</a> · 077000154 · sans note · 1 commune</li>
+<li><a href="/reseau/077001030/">BOIS LE ROI - CDA PDF</a> · 077001030 · note A · 1 commune</li>
+<li><a href="/reseau/077001043/">BOISSISE LA BERTRAND - CDA MVS</a> · 077001043 · note A · 1 commune</li>
+<li><a href="/reseau/077000476/">BOISSISE LE ROI - CDA MVS</a> · 077000476 · note A · 1 commune</li>
+<li><a href="/reseau/077000102/">BOISSY AUX CAILLES - CDA PDF </a> · 077000102 · note C · 1 commune</li>
+<li><a href="/reseau/077000158/">BOUGLIGNY</a> · 077000158 · note A · 1 commune</li>
+<li><a href="/reseau/077000114/">BOURRON MARLOTTE - CDA PDF</a> · 077000114 · note A · 1 commune</li>
+<li><a href="/reseau/077000104/">BREAU</a> · 077000104 · note A · 1 commune</li>
+<li><a href="/reseau/077001174/">BRIE COMTE ROBERT</a> · 077001174 · note A · 1 commune</li>
+<li><a href="/reseau/077000802/">BROSSE MONTCEAUX (LA) - CDC PDM</a> · 077000802 · note C · 1 commune</li>
+<li><a href="/reseau/077002096/">BUSSY SAINT GEORGES - SMAEP LAGNY B</a> · 077002096 · note C · 4 communes</li>
+<li><a href="/reseau/077000926/">BUTHIERS - SMEAPN</a> · 077000926 · note A · 3 communes</li>
+<li><a href="/reseau/077001988/">CELLE SUR MORIN (LA)</a> · 077001988 · note C · 1 commune</li>
+<li><a href="/reseau/077000915/">CELY EN BIERE - CDA PDF</a> · 077000915 · note A · 1 commune</li>
+<li><a href="/reseau/077000911/">CHAILLY EN BIERE - CDA PDF</a> · 077000911 · note A · 1 commune</li>
+<li><a href="/reseau/077001251/">CHAILLY EN BRIE - S2E 77</a> · 077001251 · note A · 13 communes</li>
+<li><a href="/reseau/077001383/">CHALAUTRE LA GRANDE - S2E77</a> · 077001383 · note C · 1 commune</li>
+<li><a href="/reseau/077001038/">CHAMPAGNE-SUR-SEINE - SIAEP VERNOU - CHAMPAGNE/SEINE A</a> · 077001038 · note A · 2 communes</li>
+<li><a href="/reseau/077000905/">CHAMPDEUIL - CDC BRC</a> · 077000905 · note A · 3 communes</li>
+<li><a href="/reseau/077000132/">CHAMPEAUX - CDC BRC</a> · 077000132 · note A · 2 communes</li>
+<li><a href="/reseau/077001484/">CHAMPS SUR MARNE - SAN VAL MAUBUEE</a> · 077001484 · note C · 6 communes</li>
+<li><a href="/reseau/077000770/">CHAPELLE GAUTHIER (LA)</a> · 077000770 · note A · 1 commune</li>
+<li><a href="/reseau/077000544/">CHAPELLE IGER (LA)</a> · 077000544 · note A · 1 commune</li>
+<li><a href="/reseau/077000781/">CHAPELLE LA REINE (LA) - CDA PDF</a> · 077000781 · note C · 1 commune</li>
+<li><a href="/reseau/077000139/">CHAPELLE-RABLAIS (LA) - SIAEP CRF A</a> · 077000139 · note A · 2 communes</li>
+<li><a href="/reseau/077000742/">CHARNY - SMAEP TMM</a> · 077000742 · note C · 6 communes</li>
+<li><a href="/reseau/077000898/">CHARTRETTES - CDA PDF</a> · 077000898 · note C · 1 commune</li>
+<li><a href="/reseau/077001325/">CHATEAU LANDON</a> · 077001325 · note A · 1 commune</li>
+<li><a href="/reseau/077001388/">CHATEAUBLEAU</a> · 077001388 · note A · 1 commune</li>
+<li><a href="/reseau/077001084/">CHATELET EN BRIE - CDC BRC</a> · 077001084 · note A · 8 communes</li>
+<li><a href="/reseau/077000560/">CHATENAY SUR SEINE - S2E77</a> · 077000560 · note A · 2 communes</li>
+<li><a href="/reseau/077000537/">CHAUMES EN BRIE - CDC BRC</a> · 077000537 · note A · 3 communes</li>
+<li><a href="/reseau/077001159/">CHELLES - SEDIF</a> · 077001159 · note B · 4 communes</li>
+<li><a href="/reseau/077001696/">CHEVRY-COSSIGNY - SIAEP CHEVRY - FEROLLES A</a> · 077001696 · note A · 2 communes</li>
+<li><a href="/reseau/077000723/">CITRY - CDA CPB</a> · 077000723 · note A · 3 communes</li>
+<li><a href="/reseau/077001488/">CLAYE-SOUILLY - SIAEP TREMBLAY - CLAYE</a> · 077001488 · note C · 5 communes</li>
+<li><a href="/reseau/077001130/">COMBS-LA-VILLE - CDA GPS</a> · 077001130 · note A · 2 communes</li>
+<li><a href="/reseau/077001847/">CONGIS SUR THEROUANNE - CDC PDO</a> · 077001847 · note A · 1 commune</li>
+<li><a href="/reseau/077000689/">COULOMBS EN VALOIS - CDC PDO</a> · 077000689 · note A · 4 communes</li>
+<li><a href="/reseau/077001217/">COULOMMIERS - CDA CPB</a> · 077001217 · note A · 3 communes</li>
+<li><a href="/reseau/077004703/">COURCELLES EN BASSEE - CDC PDM</a> · 077004703 · note A · 1 commune</li>
+<li><a href="/reseau/077000570/">COURPALAY</a> · 077000570 · note A · 1 commune</li>
+<li><a href="/reseau/077000901/">COURTOMER - SIAEPA HOUSSAYE</a> · 077000901 · note A · 1 commune</li>
+<li><a href="/reseau/077000256/">COUTENCON - S2E77</a> · 077000256 · note A · 1 commune</li>
+<li><a href="/reseau/077001604/">CRECY LA CHAPELLE - SMAAEP CBE</a> · 077001604 · note C · 1 commune</li>
+<li><a href="/reseau/077001670/">CREGY LES MEAUX - CDA PM</a> · 077001670 · note C · 5 communes</li>
+<li><a href="/reseau/077001391/">CROIX EN BRIE (LA) A</a> · 077001391 · note A · 1 commune</li>
+<li><a href="/reseau/077001393/">CROIX EN BRIE (LA) B</a> · 077001393 · note A · 1 commune</li>
+<li><a href="/reseau/077000215/">CROUY SUR OURCQ -  CDC PDO</a> · 077000215 · note A · 1 commune</li>
+<li><a href="/reseau/077001080/">DAMMARIE LES LYS A - CDA MVS</a> · 077001080 · note A · 3 communes</li>
+<li><a href="/reseau/077001079/">DAMMARIE LES LYS B - CDA MVS</a> · 077001079 · note A · 1 commune</li>
+<li><a href="/reseau/077001540/">DAMMARTIN EN GOELE - SMAEP GOELE</a> · 077001540 · note C · 2 communes</li>
+<li><a href="/reseau/077000109/">DONNEMARIE DONTILLY - S2E 77</a> · 077000109 · note A · 12 communes</li>
+<li><a href="/reseau/077000681/">DOUY LA RAMEE - CDC PDO</a> · 077000681 · note C · 1 commune</li>
+<li><a href="/reseau/077004841/">ECRENNES (LES) - CDC BRC</a> · 077004841 · note A · 1 commune</li>
+<li><a href="/reseau/077000785/">EGREVILLE - SIAEP PLATEAU SUD BOCAGE</a> · 077000785 · note A · 5 communes</li>
+<li><a href="/reseau/077002094/">ESBLY - SMAEP TMM</a> · 077002094 · note A · 10 communes</li>
+<li><a href="/reseau/077000679/">ETREPILLY - CDC PDO</a> · 077000679 · note A · 1 commune</li>
+<li><a href="/reseau/077001005/">EVRY GREGY SUR YERRE - CDC BRC </a> · 077001005 · note A · 6 communes</li>
+<li><a href="/reseau/077003002/">FAVIERES A (CIE FERMIÈRE DE ROTSCHILD)</a> · 077003002 · note A · 1 commune</li>
+<li><a href="/reseau/077002087/">FEROLLES-ATTILLY - SIAEP CHEVRY - FEROLLES B</a> · 077002087 · note C · 1 commune</li>
+<li><a href="/reseau/077000192/">FERRIERES A - CDA MG</a> · 077000192 · note A · 1 commune</li>
+<li><a href="/reseau/077001858/">FERRIERES B - CDA MG</a> · 077001858 · note A · 1 commune</li>
+<li><a href="/reseau/077001453/">FERTE GAUCHER (LA) A - S2E 77</a> · 077001453 · note C · 1 commune</li>
+<li><a href="/reseau/077001990/">FERTE GAUCHER (LA) C - S2E 77</a> · 077001990 · note A · 1 commune</li>
+<li><a href="/reseau/077000705/">FERTE-SOUS-JOUARRE - CDA CPB</a> · 077000705 · note C · 10 communes</li>
+<li><a href="/reseau/077000294/">FONTAINE FOURCHES - S2E 77</a> · 077000294 · note A · 1 commune</li>
+<li><a href="/reseau/077000954/">FONTAINE LE PORT-CDC BRC</a> · 077000954 · sans note · 1 commune</li>
+<li><a href="/reseau/077001210/">FONTAINEBLEAU A - CDA PDF </a> · 077001210 · note A · 2 communes</li>
+<li><a href="/reseau/077001199/">FONTAINEBLEAU B - CDA PDF</a> · 077001199 · note A · 1 commune</li>
+<li><a href="/reseau/077001991/">FONTAINS - SIAEP CHAPELLE RABLAIS - FONTAINS B</a> · 077001991 · note A · 1 commune</li>
+<li><a href="/reseau/077000943/">FONTENAILLES - SIAEP BAILLY CARROIS ET SA RÉGION</a> · 077000943 · note A · 4 communes</li>
+<li><a href="/reseau/077000596/">FONTENAY TRESIGNY</a> · 077000596 · note A · 1 commune</li>
+<li><a href="/reseau/077000825/">FROMONT - SMEAPN</a> · 077000825 · note A · 3 communes</li>
+<li><a href="/reseau/077001337/">FUBLAINES - SMAAEP CBE</a> · 077001337 · note C · 6 communes</li>
+<li><a href="/reseau/077000188/">GARENTREVILLE - SMEAPN</a> · 077000188 · note A · 1 commune</li>
+<li><a href="/reseau/077001407/">GASTINS</a> · 077001407 · note A · 1 commune</li>
+<li><a href="/reseau/077000936/">GENEVRAYE (LA) - SIDEAU</a> · 077000936 · note A · 1 commune</li>
+<li><a href="/reseau/077000076/">GIRONVILLE - SIAEP ARVILLE-GIRONVILLE</a> · 077000076 · note C · 2 communes</li>
+<li><a href="/reseau/077001268/">GOUAIX - S2E 77</a> · 077001268 · note C · 3 communes</li>
+<li><a href="/reseau/077000819/">GRANDE PAROISSE (LA) - CDC PDM</a> · 077000819 · note A · 1 commune</li>
+<li><a href="/reseau/077001187/">GRETZ-ARMAINVILLIERS - SIAEP TOURNAN</a> · 077001187 · note A · 5 communes</li>
+<li><a href="/reseau/077002089/">GREZ-SUR-LOING - SMEAPN</a> · 077002089 · note C · 1 commune</li>
+<li><a href="/reseau/077000295/">GRISY SUR SEINE - S2E 77</a> · 077000295 · note C · 1 commune</li>
+<li><a href="/reseau/077001495/">GUERARD - SMAAEP CBE</a> · 077001495 · note C · 13 communes</li>
+<li><a href="/reseau/077000184/">GUERCHEVILLE - SMEAPN</a> · 077000184 · note A · 1 commune</li>
+<li><a href="/reseau/077000471/">GUIGNES - CDC BRC</a> · 077000471 · note C · 1 commune</li>
+<li><a href="/reseau/077000289/">GURCY LE CHATEL A - S2E 77</a> · 077000289 · note C · 1 commune</li>
+<li><a href="/reseau/077000290/">GURCY LE CHATEL B - S2E 77</a> · 077000290 · sans note · 1 commune</li>
+<li><a href="/reseau/077000611/">HAUTEFEUILLE -  CDA CPB</a> · 077000611 · note A · 1 commune</li>
+<li><a href="/reseau/077000505/">HERICY - CDA PDF</a> · 077000505 · note A · 1 commune</li>
+<li><a href="/reseau/077000284/">HERME A - S2E 77</a> · 077000284 · sans note · 1 commune</li>
+<li><a href="/reseau/077000207/">ICHY</a> · 077000207 · note C · 1 commune</li>
+<li><a href="/reseau/077001915/">ISLES LES MELDEUSES - CDC PDO</a> · 077001915 · note A · 1 commune</li>
+<li><a href="/reseau/077000466/">JOUY LE CHATEL - S2E 77</a> · 077000466 · note C · 2 communes</li>
+<li><a href="/reseau/077000276/">JOUY SUR MORIN - S2E 77</a> · 077000276 · note A · 1 commune</li>
+<li><a href="/reseau/077001356/">JUILLY - SMAEP GOELE</a> · 077001356 · note A · 3 communes</li>
+<li><a href="/reseau/077001503/">LAGNY - SMAEP LAGNY A</a> · 077001503 · note C · 14 communes</li>
+<li><a href="/reseau/077000874/">LARCHANT - SMEAPN</a> · 077000874 · note C · 1 commune</li>
+<li><a href="/reseau/077001549/">LESIGNY A</a> · 077001549 · note C · 1 commune</li>
+<li><a href="/reseau/077004231/">LESIGNY D</a> · 077004231 · note A · 1 commune</li>
+<li><a href="/reseau/077004719/">LIMOGES FOURCHES - CDA MVS</a> · 077004719 · note A · 2 communes</li>
+<li><a href="/reseau/077000675/">LIZY SUR OURCQ - CDC PDO</a> · 077000675 · note C · 7 communes</li>
+<li><a href="/reseau/077000299/">LONGUEVILLE - S2E 77</a> · 077000299 · note A · 1 commune</li>
+<li><a href="/reseau/077000524/">LORREZ-LE-BOCAGE - SIAEP LORREZ A</a> · 077000524 · note C · 8 communes</li>
+<li><a href="/reseau/077001463/">LUMIGNY NESLES ORMEAUX</a> · 077001463 · note A · 1 commune</li>
+<li><a href="/reseau/077000729/">LUZANCY - CDA CPB</a> · 077000729 · note A · 1 commune</li>
+<li><a href="/reseau/077003255/">LUZANCY A</a> · 077003255 · note A · 1 commune</li>
+<li><a href="/reseau/077000516/">MADELEINE SUR LOING (LA)</a> · 077000516 · note A · 1 commune</li>
+<li><a href="/reseau/077000208/">MAISONCELLES EN GATINAIS</a> · 077000208 · note A · 1 commune</li>
+<li><a href="/reseau/077001526/">MAREUIL LES MEAUX - SMAEP TMM</a> · 077001526 · note C · 1 commune</li>
+<li><a href="/reseau/077000213/">MARLES EN BRIE - SIAEP HOUSSAYE EN BRIE</a> · 077000213 · note A · 4 communes</li>
+<li><a href="/reseau/077001469/">MAROLLES SUR SEINE -  CDC PDM</a> · 077001469 · note C · 3 communes</li>
+<li><a href="/reseau/077001350/">MAUREGARD - SMAEP GOELE</a> · 077001350 · sans note · 1 commune</li>
+<li><a href="/reseau/077000691/">MAY EN MULTIEN -  CDC PDO</a> · 077000691 · note A · 5 communes</li>
+<li><a href="/reseau/077000500/">MEAUX - CDA PM</a> · 077000500 · note C · 2 communes</li>
+<li><a href="/reseau/077001042/">MEE SUR SEINE (LE) - CDA MVS</a> · 077001042 · note A · 2 communes</li>
+<li><a href="/reseau/077000311/">MEIGNEUX - S2E 77</a> · 077000311 · note A · 1 commune</li>
+<li><a href="/reseau/077001071/">MELUN - CDA MVS</a> · 077001071 · note A · 8 communes</li>
+<li><a href="/reseau/077000316/">MELZ SUR SEINE - S2E 77</a> · 077000316 · note A · 1 commune</li>
+<li><a href="/reseau/077000429/">MITRY MORY A</a> · 077000429 · note A · 1 commune</li>
+<li><a href="/reseau/077000428/">MITRY MORY B</a> · 077000428 · note A · 1 commune</li>
+<li><a href="/reseau/077001888/">MITRY MORY C</a> · 077001888 · note A · 1 commune</li>
+<li><a href="/reseau/077001126/">MOISSY-CRAMAYEL - CDA GPS</a> · 077001126 · note A · 2 communes</li>
+<li><a href="/reseau/077000179/">MONDREVILLE - SIAEP CHENOU - MONDREVILLE</a> · 077000179 · note A · 2 communes</li>
+<li><a href="/reseau/077000404/">MONS EN MONTOIS - S2E 77</a> · 077000404 · sans note · 3 communes</li>
+<li><a href="/reseau/077004235/">MONTCEAUX LES PROVINS - S2E 77</a> · 077004235 · note C · 1 commune</li>
+<li><a href="/reseau/077000931/">MONTCOURT-FROMONVILLE - SMEAPN</a> · 077000931 · note A · 1 commune</li>
+<li><a href="/reseau/077001167/">MONTEREAU FAULT YONNE - CDC PDM</a> · 077001167 · note A · 3 communes</li>
+<li><a href="/reseau/077004224/">MONTEVRAIN - CDA MG</a> · 077004224 · note B · 4 communes</li>
+<li><a href="/reseau/077001345/">MONTGE EN GOELE - SMAEP GOELE</a> · 077001345 · note A · 4 communes</li>
+<li><a href="/reseau/077000733/">MONTHYON A - SMAEP TMM</a> · 077000733 · note C · 6 communes</li>
+<li><a href="/reseau/077000737/">MONTHYON B - SMAEP TMM</a> · 077000737 · note A · 1 commune</li>
+<li><a href="/reseau/077000608/">MONTIGNY LE GUESDIER - S2E 77</a> · 077000608 · note A · 1 commune</li>
+<li><a href="/reseau/077000604/">MONTIGNY LENCOUP - S2E77</a> · 077000604 · note C · 1 commune</li>
+<li><a href="/reseau/077001513/">MONTIGNY-SUR-LOING - SIDEAU</a> · 077001513 · note A · 1 commune</li>
+<li><a href="/reseau/077001239/">MORET-LOING-ET-ORVANNE - SIDEAU A</a> · 077001239 · note C · 2 communes</li>
+<li><a href="/reseau/077001522/">MORET-LOING-ET-ORVANNE - SIDEAU C</a> · 077001522 · note C · 1 commune</li>
+<li><a href="/reseau/077004234/">MORET-LOING-ET-ORVANNE - SIDEAU E</a> · 077004234 · note A · 1 commune</li>
+<li><a href="/reseau/077000963/">MORMANT</a> · 077000963 · note A · 1 commune</li>
+<li><a href="/reseau/077001275/">MORTCERF - SIAEP HOUSSAYE</a> · 077001275 · note A · 1 commune</li>
+<li><a href="/reseau/077001993/">MOUROUX A - S2E 77</a> · 077001993 · note A · 1 commune</li>
+<li><a href="/reseau/077001250/">MOUROUX B - S2E 77</a> · 077001250 · note A · 4 communes</li>
+<li><a href="/reseau/077001534/">MOUSSY LE NEUF - SMAEP GOELE</a> · 077001534 · note C · 2 communes</li>
+<li><a href="/reseau/077001361/">MOUSSY LE VIEUX - SMAEP GOELE</a> · 077001361 · note A · 3 communes</li>
+<li><a href="/reseau/077000989/">NANGIS</a> · 077000989 · note A · 1 commune</li>
+<li><a href="/reseau/077000438/">NANTEAU SUR LUNAIN A</a> · 077000438 · note C · 1 commune</li>
+<li><a href="/reseau/077001938/">NANTEAU SUR LUNAIN B</a> · 077001938 · note A · 1 commune</li>
+<li><a href="/reseau/077000872/">NEMOURS - SMEAPN</a> · 077000872 · note C · 9 communes</li>
+<li><a href="/reseau/077000982/">NOISY SUR ECOLE - CDA PDF</a> · 077000982 · note A · 2 communes</li>
+<li><a href="/reseau/077001703/">NONVILLE - SIDEAU</a> · 077001703 · note A · 1 commune</li>
+<li><a href="/reseau/077000327/">NOYEN SUR SEINE - S2E 77</a> · 077000327 · note A · 2 communes</li>
+<li><a href="/reseau/077000421/">OBSONVILLE</a> · 077000421 · note C · 1 commune</li>
+<li><a href="/reseau/077001262/">ORMES SUR VOULZIE (LES) - S2E 77</a> · 077001262 · note A · 2 communes</li>
+<li><a href="/reseau/077001569/">OTHIS - SMAEP GOELE</a> · 077001569 · note A · 1 commune</li>
+<li><a href="/reseau/077000328/">PASSY SUR SEINE - S2E77</a> · 077000328 · note C · 1 commune</li>
+<li><a href="/reseau/077001423/">PECY</a> · 077001423 · note C · 1 commune</li>
+<li><a href="/reseau/077000330/">PERTHES EN GATINAIS - CDA PDF</a> · 077000330 · note A · 1 commune</li>
+<li><a href="/reseau/077001477/">PONTAULT-COMBAULT - SIAEP OUEST BRIARD A</a> · 077001477 · note B · 1 commune</li>
+<li><a href="/reseau/077000334/">PRECY SUR MARNE - SMAEP TMM</a> · 077000334 · note C · 2 communes</li>
+<li><a href="/reseau/077000341/">PRINGY - CDA MVS</a> · 077000341 · note A · 1 commune</li>
+<li><a href="/reseau/077000622/">PROVINS S2E77</a> · 077000622 · note C · 18 communes</li>
+<li><a href="/reseau/077000412/">PUISIEUX -  CDC PDO</a> · 077000412 · note C · 1 commune</li>
+<li><a href="/reseau/077001291/">QUIERS</a> · 077001291 · note A · 1 commune</li>
+<li><a href="/reseau/077001433/">RAMPILLON</a> · 077001433 · note A · 1 commune</li>
+<li><a href="/reseau/077001641/">REBAIS - S2E 77</a> · 077001641 · note A · 4 communes</li>
+<li><a href="/reseau/077000993/">RECLOSES - CDA PDF</a> · 077000993 · note A · 1 commune</li>
+<li><a href="/reseau/077000728/">REUIL EN BRIE A</a> · 077000728 · note A · 1 commune</li>
+<li><a href="/reseau/077001091/">ROCHETTE (LA) A - CDA MVS</a> · 077001091 · note A · 1 commune</li>
+<li><a href="/reseau/077004800/">ROCHETTE (LA) B - CDA MVS</a> · 077004800 · note A · 1 commune</li>
+<li><a href="/reseau/077001506/">ROISSY-EN-BRIE - SIAEP OUEST BRIARD B</a> · 077001506 · note C · 3 communes</li>
+<li><a href="/reseau/077001349/">ROUVRES - SMAEP GOELE</a> · 077001349 · note A · 1 commune</li>
+<li><a href="/reseau/077001289/">ROZAY EN BRIE</a> · 077001289 · note A · 1 commune</li>
+<li><a href="/reseau/077001656/">SAACY SUR MARNE - S2E 77</a> · 077001656 · note A · 3 communes</li>
+<li><a href="/reseau/077001623/">SABLONNIERES - S2E 77</a> · 077001623 · note A · 11 communes</li>
+<li><a href="/reseau/077004255/">SAINT AUGUSTIN - S2E 77</a> · 077004255 · note C · 5 communes</li>
+<li><a href="/reseau/077003253/">SAINT CYR SUR MORIN - SE2 77</a> · 077003253 · note B · 1 commune</li>
+<li><a href="/reseau/077002653/">SAINT DENIS LES REBAIS - SE2 77</a> · 077002653 · note B · 7 communes</li>
+<li><a href="/reseau/077000488/">SAINT FARGEAU PONTHIERRY A - CDA MVS</a> · 077000488 · note A · 1 commune</li>
+<li><a href="/reseau/077000489/">SAINT FARGEAU PONTHIERRY B</a> · 077000489 · note C · 1 commune</li>
+<li><a href="/reseau/077000593/">SAINT GERMAIN LAVAL - CDC PDM</a> · 077000593 · note C · 5 communes</li>
+<li><a href="/reseau/077001001/">SAINT GERMAIN SUR ECOLE - CDA PDF</a> · 077001001 · note A · 1 commune</li>
+<li><a href="/reseau/077001989/">SAINT JEAN LES DEUX JUMEAUX - CDA CPB</a> · 077001989 · note C · 1 commune</li>
+<li><a href="/reseau/077001962/">SAINT MARD - SMAEP GOELE</a> · 077001962 · note C · 4 communes</li>
+<li><a href="/reseau/077001583/">SAINT PATHUS - SMAEP GOELE</a> · 077001583 · note A · 2 communes</li>
+<li><a href="/reseau/077000998/">SAINT SAUVEUR SUR ECOLE - CDA PDF</a> · 077000998 · note A · 1 commune</li>
+<li><a href="/reseau/077000631/">SAINT SOUPPLETS - SMAEP TMM</a> · 077000631 · note A · 2 communes</li>
+<li><a href="/reseau/077000347/">SAINTE COLOMBE - S2E77</a> · 077000347 · note C · 31 communes</li>
+<li><a href="/reseau/077001764/">SAMOIS SUR SEINE - CDA PDF</a> · 077001764 · note A · 1 commune</li>
+<li><a href="/reseau/077001110/">SAVIGNY-LE-TEMPLE - CDA GPS</a> · 077001110 · note A · 4 communes</li>
+<li><a href="/reseau/077000480/">SEINE PORT - SEDIF</a> · 077000480 · note B · 1 commune</li>
+<li><a href="/reseau/077000763/">SERRIS - SAN VAL D'EUROPE</a> · 077000763 · note B · 5 communes</li>
+<li><a href="/reseau/077001178/">SERVON - SIAEP SANTENY-SERVON</a> · 077001178 · note A · 1 commune</li>
+<li><a href="/reseau/077000884/">SOUPPES SUR LOING A</a> · 077000884 · note A · 1 commune</li>
+<li><a href="/reseau/077000885/">SOUPPES SUR LOING B</a> · 077000885 · note A · 1 commune</li>
+<li><a href="/reseau/077004233/">THOMERY</a> · 077004233 · note A · 1 commune</li>
+<li><a href="/reseau/077001465/">TOMBE (LA) - S2E 77</a> · 077001465 · note C · 1 commune</li>
+<li><a href="/reseau/077001299/">TOUQUIN - SIAEP TOUQUIN</a> · 077001299 · note A · 4 communes</li>
+<li><a href="/reseau/077001008/">TOUSSON - CDA PDF</a> · 077001008 · note A · 1 commune</li>
+<li><a href="/reseau/077000248/">TREUZY LEVELAY - SIDEAU</a> · 077000248 · note C · 1 commune</li>
+<li><a href="/reseau/077001565/">TRILPORT - CDA PM</a> · 077001565 · note A · 1 commune</li>
+<li><a href="/reseau/077000240/">URY - CDA PDF</a> · 077000240 · note A · 1 commune</li>
+<li><a href="/reseau/077000972/">VALENCE EN BRIE - CDC BRC</a> · 077000972 · note A · 5 communes</li>
+<li><a href="/reseau/077000813/">VARENNES SUR SEINE - CDC PDM</a> · 077000813 · note C · 5 communes</li>
+<li><a href="/reseau/077000445/">VARREDDES - CDA PM</a> · 077000445 · note A · 2 communes</li>
+<li><a href="/reseau/077001304/">VAUDOY EN BRIE A</a> · 077001304 · note A · 1 commune</li>
+<li><a href="/reseau/077001305/">VAUDOY EN BRIE B</a> · 077001305 · note A · 1 commune</li>
+<li><a href="/reseau/077001306/">VAUDOY EN BRIE C</a> · 077001306 · note C · 1 commune</li>
+<li><a href="/reseau/077004801/">VAUX LE PENIL - CDA MVS</a> · 077004801 · note A · 6 communes</li>
+<li><a href="/reseau/077002654/">VERDELOT - S2E 77</a> · 077002654 · note A · 2 communes</li>
+<li><a href="/reseau/077001013/">VERNEUIL-L'ETANG - SIAEP ANDREZEL-V-Y</a> · 077001013 · note C · 3 communes</li>
+<li><a href="/reseau/077001530/">VERNOU-LA-CELLE-SUR-SEINE - SIAEP VERNOU - CHAMPAGNE/SEINE B</a> · 077001530 · note A · 1 commune</li>
+<li><a href="/reseau/077000839/">VILLE-SAINT-JACQUES - SIAEP ORVANNE</a> · 077000839 · note A · 5 communes</li>
+<li><a href="/reseau/077000357/">VILLEMER - SIDEAU</a> · 077000357 · note A · 1 commune</li>
+<li><a href="/reseau/077000367/">VILLENAUXE LA PETITE A - S2E 77</a> · 077000367 · note C · 1 commune</li>
+<li><a href="/reseau/077000368/">VILLENAUXE LA PETITE B - S2E 77</a> · 077000368 · note C · 1 commune</li>
+<li><a href="/reseau/077000515/">VILLENEUVE LES BORDES A - S2E 77</a> · 077000515 · note A · 2 communes</li>
+<li><a href="/reseau/077001946/">VILLENEUVE LES BORDES B - S2E 77</a> · 077001946 · note A · 1 commune</li>
+<li><a href="/reseau/077000582/">VILLENEUVE-LE-COMTE - SMAEP BRIE BOISEE</a> · 077000582 · note A · 4 communes</li>
+<li><a href="/reseau/077001078/">VILLIERS EN BIERE - CDA MVS</a> · 077001078 · note A · 1 commune</li>
+<li><a href="/reseau/077000847/">VILLIERS SOUS GREZ - SMEAPN</a> · 077000847 · note A · 1 commune</li>
+<li><a href="/reseau/077001917/">VILLIERS SUR MORIN - CDA CPB</a> · 077001917 · note B · 2 communes</li>
+<li><a href="/reseau/077000372/">VILLUIS - S2E77</a> · 077000372 · note C · 1 commune</li>
+<li><a href="/reseau/077001314/">VOINSLES A</a> · 077001314 · sans note · 1 commune</li>
+<li><a href="/reseau/077001892/">VOINSLES B</a> · 077001892 · note C · 1 commune</li>
+<li><a href="/reseau/077000225/">VOULX - CDC PDM</a> · 077000225 · note A · 1 commune</li>
+<li><a href="/reseau/077001018/">VULAINES SUR SEINE - CDA PDF</a> · 077001018 · note A · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/77001/">Achères-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77002/">Amillis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77003/">Amponville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77004/">Andrezel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77005/">Annet-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77006/">Arbonne-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77007/">Argentières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77008/">Armentières-en-Brie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77009/">Arville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77010/">Aubepierre-Ozouer-le-Repos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77011/">Aufferville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77012/">Augers-en-Brie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77013/">Aulnoy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77014/">Avon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77015/">Baby</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77016/">Bagneaux-sur-Loing</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77018/">Bailly-Romainvilliers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77019/">Balloy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77020/">Bannost-Villegagnon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77021/">Barbey</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77022/">Barbizon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77023/">Barcy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77024/">Bassevelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77025/">Bazoches-lès-Bray</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77026/">Beauchery-Saint-Martin</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77027/">Beaumont-du-Gâtinais</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77433/">Beautheil-Saints</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77029/">Beauvoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77030/">Bellot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77031/">Bernay-Vilbert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77032/">Beton-Bazoches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77033/">Bezalles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77034/">Blandy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77035/">Blennes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77037/">Bois-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77036/">Boisdon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77038/">Boissettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77039/">Boissise-la-Bertrand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77040/">Boissise-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77041/">Boissy-aux-Cailles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77042/">Boissy-le-Châtel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77043/">Boitron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77044/">Bombon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77045/">Bougligny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77046/">Boulancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77047/">Bouleurs</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77048/">Bourron-Marlotte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77049/">Boutigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77050/">Bransles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77051/">Bray-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77052/">Bréau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77053/">Brie-Comte-Robert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77055/">Brou-sur-Chantereine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77056/">Burcy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77057/">Bussières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77058/">Bussy-Saint-Georges</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77059/">Bussy-Saint-Martin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77060/">Buthiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77061/">Cannes-Écluse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77062/">Carnetin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77065/">Cély</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77066/">Cerneux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77067/">Cesson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77068/">Cessoy-en-Montois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77069/">Chailly-en-Bière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77070/">Chailly-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77071/">Chaintreaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77072/">Chalautre-la-Grande</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77073/">Chalautre-la-Petite</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77075/">Chalifert</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77076/">Chalmaison</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77077/">Chambry</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77078/">Chamigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77079/">Champagne-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77080/">Champcenest</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77081/">Champdeuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77082/">Champeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77083/">Champs-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77084/">Changis-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77085/">Chanteloup-en-Brie</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77094/">Charmentray</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77095/">Charny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77096/">Chartrettes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77097/">Chartronges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77099/">Château-Landon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77098/">Châteaubleau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77101/">Châtenay-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77102/">Châtenoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77103/">Châtillon-la-Borde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77104/">Châtres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77335/">Chauconin-Neufmontiers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77106/">Chauffry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77107/">Chaumes-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77108/">Chelles</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77109/">Chenoise-Cucharmoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77110/">Chenou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77111/">Chessy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77112/">Chevrainvilliers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77113/">Chevru</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77114/">Chevry-Cossigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77115/">Chevry-en-Sereine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77116/">Choisy-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77117/">Citry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77118/">Claye-Souilly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77119/">Clos-Fontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77120/">Cocherel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77121/">Collégien</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77122/">Combs-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77123/">Compans</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77124/">Conches-sur-Gondoire</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77125/">Condé-Sainte-Libiaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77126/">Congis-sur-Thérouanne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77127/">Coubert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77128/">Couilly-Pont-aux-Dames</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77129/">Coulombs-en-Valois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77130/">Coulommes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77131/">Coulommiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77132/">Coupvray</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77133/">Courcelles-en-Bassée</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77134/">Courchamp</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77135/">Courpalay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77136/">Courquetaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77137/">Courtacon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77138/">Courtomer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77139/">Courtry</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77140/">Coutençon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77141/">Coutevroult</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77142/">Crécy-la-Chapelle</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77143/">Crégy-lès-Meaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77144/">Crèvecœur-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77145/">Crisenoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77146/">Croissy-Beaubourg</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77148/">Crouy-sur-Ourcq</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77150/">Cuisy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77151/">Dagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77152/">Dammarie-les-Lys</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77153/">Dammartin-en-Goële</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77154/">Dammartin-sur-Tigeaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77155/">Dampmart</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77156/">Darvault</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77157/">Dhuisy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77158/">Diant</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77159/">Donnemarie-Dontilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77161/">Dormelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77162/">Doue</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/77163/">Douy-la-Ramée</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77164/">Échouboulains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77167/">Égligny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77168/">Égreville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77169/">Émerainville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77171/">Esbly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77172/">Esmans</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77173/">Étrépilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77174/">Everly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77175/">Évry-Grégy-sur-Yerre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77176/">Faremoutiers</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77177/">Favières</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77178/">Faÿ-lès-Nemours</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77179/">Féricy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77180/">Férolles-Attilly</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77181/">Ferrières-en-Brie</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77184/">Flagy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77185/">Fleury-en-Bière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77187/">Fontaine-Fourches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77188/">Fontaine-le-Port</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77186/">Fontainebleau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77190/">Fontains</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77191/">Fontenailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77192/">Fontenay-Trésigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77193/">Forfry</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77194/">Forges</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77195/">Fouju</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77196/">Fresnes-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77197/">Frétoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77198/">Fromont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77199/">Fublaines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77200/">Garentreville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77201/">Gastins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77203/">Germigny-l'Évêque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77204/">Germigny-sous-Coulombs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77205/">Gesvres-le-Chapitre</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77206/">Giremoutiers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77207/">Gironville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77208/">Gouaix</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77209/">Gouvernes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77211/">Grandpuits-Bailly-Carrois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77212/">Gravon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77214/">Gressy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77215/">Gretz-Armainvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77216/">Grez-sur-Loing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77217/">Grisy-Suisnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77218/">Grisy-sur-Seine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77219/">Guérard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77220/">Guercheville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77221/">Guermantes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77222/">Guignes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77223/">Gurcy-le-Châtel</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77224/">Hautefeuille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77226/">Héricy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77227/">Hermé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77228/">Hondevilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77230/">Ichy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77231/">Isles-les-Meldeuses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77232/">Isles-lès-Villenoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77233/">Iverny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77234/">Jablines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77235/">Jaignes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77236/">Jaulnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77237/">Jossigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77238/">Jouarre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77239/">Jouy-le-Châtel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77240/">Jouy-sur-Morin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77241/">Juilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77242/">Jutigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77054/">La Brosse-Montceaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77063/">La Celle-sur-Morin</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77086/">La Chapelle-Gauthier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77087/">La Chapelle-Iger</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77088/">La Chapelle-la-Reine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77093/">La Chapelle-Moutils</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77089/">La Chapelle-Rablais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77090/">La Chapelle-Saint-Sulpice</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77147/">La Croix-en-Brie</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77182/">La Ferté-Gaucher</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77183/">La Ferté-sous-Jouarre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77202/">La Genevraye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77210/">La Grande-Paroisse</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77225/">La Haute-Maison</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77229/">La Houssaye-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77267/">La Madeleine-sur-Loing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77389/">La Rochette</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77467/">La Tombe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77472/">La Trétoire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77243/">Lagny-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77244/">Larchant</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77245/">Laval-en-Brie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77100/">Le Châtelet-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77285/">Le Mée-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77291/">Le Mesnil-Amelot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77363/">Le Pin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77364/">Le Plessis-aux-Bois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77365/">Le Plessis-Feu-Aussoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77366/">Le Plessis-l'Évêque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77367/">Le Plessis-Placy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77485/">Le Vaudoué</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77246/">Léchelle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77091/">Les Chapelles-Bourbon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77165/">Les Écrennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77275/">Les Marêts</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77347/">Les Ormes-sur-Voulzie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77247/">Lescherolles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77248/">Lesches</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77249/">Lésigny</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77250/">Leudon-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77251/">Lieusaint</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77252/">Limoges-Fourches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77253/">Lissy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77254/">Liverdy-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77255/">Livry-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77256/">Lizines</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77257/">Lizy-sur-Ourcq</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77258/">Lognes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77259/">Longperrier</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77260/">Longueville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77261/">Lorrez-le-Bocage-Préaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77262/">Louan-Villegruis-Fontaine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77263/">Luisetaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77264/">Lumigny-Nesles-Ormeaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77265/">Luzancy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77266/">Machault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77268/">Magny-le-Hongre</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77269/">Maincy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77272/">Maison-Rouge</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77270/">Maisoncelles-en-Brie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77271/">Maisoncelles-en-Gâtinais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77273/">Marchémoret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77274/">Marcilly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77276/">Mareuil-lès-Meaux</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77277/">Marles-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77278/">Marolles-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77279/">Marolles-sur-Seine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77280/">Mary-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77281/">Mauperthuis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77282/">Mauregard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77283/">May-en-Multien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77284/">Meaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77286/">Meigneux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77287/">Meilleray</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77288/">Melun</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77289/">Melz-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77290/">Méry-sur-Marne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77292/">Messy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77293/">Misy-sur-Yonne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77294/">Mitry-Mory</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/77295/">Moisenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77296/">Moissy-Cramayel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77302/">Moncourt-Fromonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77297/">Mondreville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77298/">Mons-en-Montois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77300/">Montceaux-lès-Meaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77301/">Montceaux-lès-Provins</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77303/">Montdauphin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77304/">Montenils</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77305/">Montereau-Fault-Yonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77306/">Montereau-sur-le-Jard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77307/">Montévrain</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77308/">Montgé-en-Goële</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77309/">Monthyon</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77310/">Montigny-le-Guesdier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77311/">Montigny-Lencoup</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77312/">Montigny-sur-Loing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77313/">Montmachoux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77314/">Montolivet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77315/">Montry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77316/">Moret-Loing-et-Orvanne</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/77317/">Mormant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77318/">Mortcerf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77319/">Mortery</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77320/">Mouroux</a> · 4 réseaux : 1 noté C, 1 noté B, 2 notés A</li>
+<li><a href="/commune/77321/">Mousseaux-lès-Bray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77322/">Moussy-le-Neuf</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77323/">Moussy-le-Vieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77325/">Mouy-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77326/">Nandy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77327/">Nangis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77328/">Nanteau-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77329/">Nanteau-sur-Lunain</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77330/">Nanteuil-lès-Meaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77331/">Nanteuil-sur-Marne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77332/">Nantouillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77333/">Nemours</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77336/">Neufmoutiers-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77337/">Noisiel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77338/">Noisy-Rudignon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77339/">Noisy-sur-École</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77340/">Nonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77341/">Noyen-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77342/">Obsonville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77343/">Ocquerre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77344/">Oissery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77345/">Orly-sur-Morin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77348/">Ormesson</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77349/">Othis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77350/">Ozoir-la-Ferrière</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77352/">Ozouer-le-Voulgis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77353/">Paley</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77354/">Pamfou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77355/">Paroy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77356/">Passy-sur-Seine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77357/">Pécy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77358/">Penchard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77359/">Perthes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77360/">Pézarches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77361/">Pierre-Levée</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77368/">Poigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77369/">Poincy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77370/">Poligny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77371/">Pommeuse</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77372/">Pomponne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77373/">Pontault-Combault</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77374/">Pontcarré</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77376/">Précy-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77377/">Presles-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77378/">Pringy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77379/">Provins</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77380/">Puisieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77381/">Quiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77382/">Quincy-Voisins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77383/">Rampillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77384/">Réau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77385/">Rebais</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77386/">Recloses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77387/">Remauville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77388/">Reuil-en-Brie</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77390/">Roissy-en-Brie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77391/">Rouilly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77392/">Rouvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77393/">Rozay-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77394/">Rubelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77395/">Rumont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77396/">Rupéreux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77397/">Saâcy-sur-Marne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77398/">Sablonnières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77400/">Saint-Augustin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77402/">Saint-Barthélemy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77403/">Saint-Brice</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77405/">Saint-Cyr-sur-Morin</a> · 4 réseaux : 2 notés B, 2 notés A</li>
+<li><a href="/commune/77406/">Saint-Denis-lès-Rebais</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77407/">Saint-Fargeau-Ponthierry</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77408/">Saint-Fiacre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77409/">Saint-Germain-Laval</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77410/">Saint-Germain-Laxis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77411/">Saint-Germain-sous-Doue</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77412/">Saint-Germain-sur-École</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77413/">Saint-Germain-sur-Morin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77414/">Saint-Hilliers</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77415/">Saint-Jean-les-Deux-Jumeaux</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77416/">Saint-Just-en-Brie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77417/">Saint-Léger</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/77418/">Saint-Loup-de-Naud</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77419/">Saint-Mammès</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77420/">Saint-Mard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77421/">Saint-Mars-Vieux-Maisons</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77423/">Saint-Martin-des-Champs</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77424/">Saint-Martin-du-Boschet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77425/">Saint-Martin-en-Bière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77426/">Saint-Méry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77427/">Saint-Mesmes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77428/">Saint-Ouen-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77429/">Saint-Ouen-sur-Morin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77430/">Saint-Pathus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77431/">Saint-Pierre-lès-Nemours</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77432/">Saint-Rémy-de-la-Vanne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77434/">Saint-Sauveur-lès-Bray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77435/">Saint-Sauveur-sur-École</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77436/">Saint-Siméon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77437/">Saint-Soupplets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77438/">Saint-Thibault-des-Vignes</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77401/">Sainte-Aulde</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77404/">Sainte-Colombe</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77439/">Salins</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77440/">Sammeron</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77441/">Samois-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77442/">Samoreau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77443/">Sancy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77444/">Sancy-lès-Provins</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77445/">Savigny-le-Temple</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77446/">Savins</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77447/">Seine-Port</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77448/">Sept-Sorts</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77449/">Serris</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77450/">Servon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77451/">Signy-Signets</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77452/">Sigy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77453/">Sivry-Courtry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77454/">Sognolles-en-Montois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77455/">Soignolles-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77456/">Soisy-Bouy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77457/">Solers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77458/">Souppes-sur-Loing</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77459/">Sourdun</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77460/">Tancrou</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77461/">Thénisy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77462/">Thieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77463/">Thomery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77464/">Thorigny-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77465/">Thoury-Férottes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77466/">Tigeaux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77468/">Torcy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77469/">Touquin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77470/">Tournan-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77471/">Tousson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77473/">Treuzy-Levelay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77474/">Trilbardou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77475/">Trilport</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77476/">Trocy-en-Multien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77477/">Ury</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77478/">Ussy-sur-Marne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77479/">Vaires-sur-Marne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77480/">Valence-en-Brie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77481/">Vanvillé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77482/">Varennes-sur-Seine</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77483/">Varreddes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77484/">Vaucourtois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77486/">Vaudoy-en-Brie</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/77487/">Vaux-le-Pénil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77489/">Vaux-sur-Lunain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77490/">Vendrest</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77492/">Verdelot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77493/">Verneuil-l'Étang</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77494/">Vernou-la-Celle-sur-Seine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77495/">Vert-Saint-Denis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77496/">Vieux-Champagne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77498/">Vignely</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77516/">Ville-Saint-Jacques</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77500/">Villebéon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77501/">Villecerf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77504/">Villemaréchal</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77505/">Villemareuil</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77506/">Villemer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77507/">Villenauxe-la-Petite</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/77508/">Villeneuve-le-Comte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77509/">Villeneuve-les-Bordes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77510/">Villeneuve-Saint-Denis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77511/">Villeneuve-sous-Dammartin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77512/">Villeneuve-sur-Bellot</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/77513/">Villenoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77514/">Villeparisis</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77515/">Villeroy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77517/">Villevaudé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77518/">Villiers-en-Bière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77519/">Villiers-Saint-Georges</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77520/">Villiers-sous-Grez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77521/">Villiers-sur-Morin</a> · 1 réseau, noté B</li>
+<li><a href="/commune/77522/">Villiers-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77523/">Villuis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77524/">Vimpelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77525/">Vinantes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77526/">Vincy-Manœuvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77527/">Voinsles</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/77528/">Voisenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77529/">Voulangis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77530/">Voulton</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77531/">Voulx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77532/">Vulaines-lès-Provins</a> · 1 réseau, noté C</li>
+<li><a href="/commune/77533/">Vulaines-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/77534/">Yèbles</a> · 1 réseau, noté C</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Seine-et-Marne · eau du robinet », https://meteodurobinet.fr/departement/77/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

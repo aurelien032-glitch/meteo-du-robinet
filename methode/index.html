@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Méthode de calcul, note A à D, lexique, sources des données et mentions légales du site Météo du robinet." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Comprendre · Météo du robinet" />
+    <meta property="og:description" content="Méthode de calcul, note A à D, lexique, sources des données et mentions légales du site Météo du robinet." />
+    <meta property="og:url" content="https://meteodurobinet.fr/methode/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Comprendre · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Comprendre","url":"https://meteodurobinet.fr/methode/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Comprendre","item":"https://meteodurobinet.fr/methode/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/methode/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Comprendre</h1>
+<p class="lead">Cette page décrit comment le site lit les résultats du contrôle sanitaire, calcule la note de A à D de chaque réseau et construit la carte. Les règles détaillées figurent plus bas.</p>
+<p>Méthode de calcul, version du 12 novembre 2026.</p>
+<h2>L’essentiel</h2>
+<h3>La note d’un réseau</h3>
+<p>Les résultats du contrôle sanitaire, jugés réseau par réseau, donnent la note de A à D.</p>
+<h4>Les résultats publiés</h4>
+<p>Les agences régionales de santé (ARS) font prélever et analyser l’eau du robinet tout au long de l’année. Cette surveillance réglementaire s’appelle le contrôle sanitaire. Le ministère chargé de la Santé en publie chaque résultat en données ouvertes ; le site les reprend tels que publiés.</p>
+<h4>Le réseau de distribution</h4>
+<p>Un réseau de distribution est un ensemble de canalisations qui délivre une eau de même qualité. Une commune est desservie par un ou plusieurs réseaux, et un réseau peut desservir plusieurs communes. Le contrôle sanitaire juge l’eau réseau par réseau, et le site procède de même.</p>
+<p>Le réseau d’un logement figure sur sa facture d’eau.</p>
+<h4>La note de A à D</h4>
+<p>Depuis 2023, l’ARS joint chaque année à la facture d’eau une synthèse qui attribue à l’eau du réseau une note de A à D. Le site calcule cette note pour chaque réseau selon les mêmes principes. Sous la note, un sous-indice par famille de paramètres donne la note de chaque famille ; celle du réseau est la plus défavorable.</p>
+<ul>
+<li><strong>Note A : Bonne qualité.</strong> Aucun dépassement des limites de qualité retenu par la note dans l’année.</li>
+<li><strong>Note B : Qualité convenable.</strong> Dépassements limités, 30 jours cumulés au plus dans l’année, ou rares contaminations bactériologiques.</li>
+<li><strong>Note C : Qualité insuffisante.</strong> Dépassements de plus de 30 jours, contamination bactériologique marquée, ou eau déconseillée par l’ARS aux publics sensibles.</li>
+<li><strong>Note D : Mauvaise qualité.</strong> Restriction de consommation prononcée par l’ARS, ou contaminations bactériologiques fréquentes.</li>
+</ul>
+<h4>Limite et référence de qualité</h4>
+<p>L’arrêté du 11 janvier 2007 fixe des limites de qualité. Un résultat supérieur à une limite rend l’eau non conforme ; il ne la rend pas pour autant impropre à la consommation, et seule l’ARS peut en restreindre l’usage.</p>
+<p>Une référence de qualité sert à vérifier le bon fonctionnement des installations ; son dépassement n’est pas une non-conformité. Certaines substances n’ont aucun seuil réglementaire.</p>
+<h4>Les avis de l’ARS</h4>
+<p>Lorsque la qualité de l’eau le justifie, l’ARS peut en restreindre la consommation, demander de la faire bouillir ou la déconseiller aux nourrissons et aux femmes enceintes. Le site relève ces avis dans les conclusions des prélèvements et en donne la date.</p>
+<p>La levée d’un avis n’étant pas publiée, le site n’indique jamais qu’un avis est en vigueur.</p>
+<h4>Ce que le site n’indique pas</h4>
+<ul>
+<li>Le site ne se prononce pas sur la consommation de l’eau ; cette appréciation relève de l’ARS.</li>
+<li>Il n’avance aucune cause de pollution.</li>
+<li>Il n’estime pas le nombre d’habitants concernés, la population desservie par chaque réseau n’étant pas publiée.</li>
+<li>Il ne classe ni les communes, ni les départements, ni les maîtres d’ouvrage ; seuls les réseaux reçoivent une note.</li>
+</ul>
+<h3>La carte</h3>
+<p>La carte colore chaque réseau selon la couche choisie (note, avis de l’ARS, famille de paramètres) ou chaque commune selon son service d’eau et d’assainissement (prix, rendement, protection des captages, mode de gestion, facture d’eau complète), et présente, à titre de contexte, la sécheresse et le niveau des nappes.</p>
+<h4>La carte des réseaux et le maître d’ouvrage</h4>
+<p>La carte colore chaque réseau de distribution d’après la zone qu’il dessert. Les contours sont ceux que publient les agences régionales de santé ; leur millésime diffère d’une région à l’autre et accompagne chaque contour montré. Un réseau dont aucune couche publiée ne donne le contour est représenté par sa commune, cernée d’un filet fin lorsque plusieurs réseaux la desservent.</p>
+<p>Le maître d’ouvrage est le libellé que le contrôle sanitaire donne à la collectivité, au syndicat ou à la régie qui gère un réseau. Une page lui est consacrée dès qu’il gère deux réseaux ; elle ne le note pas et ne le classe pas.</p>
+<h4>La sécheresse et les nappes sur la carte</h4>
+<p>Les couches de la sécheresse et des nappes ne jugent pas l’eau du robinet et n’entrent pas dans la note.</p>
+<p>Les zones de sécheresse sont celles du jeu de données « Donnée Sécheresse - VigiEau », reconstruites chaque semaine ; la légende donne leur date. Le niveau lu en un point est le plus élevé des zones qui le couvrent. Une masse d’eau est colorée d’après ses seuls points de suivi, qui ne représentent pas toute la nappe.</p>
+<h4>Le fond de plan et la confidentialité</h4>
+<p>Le fond de plan de la carte, la recherche par adresse, la sécheresse et la liste complète des analyses interrogent des services tiers qui reçoivent l’adresse IP du visiteur ; le site ne dépose aucun cookie, et chacune de ces requêtes est décrite dans les données personnelles des mentions légales.</p>
+<p>Les noms de villes de la vue de France, capitales régionales et grandes villes de la métropole, viennent d’une liste du site et ne demandent aucun service extérieur ; à partir du zoom 8, les noms du fond de plan les remplacent.</p>
+<p class="cap">© OpenStreetMap contributors, OpenFreeMap © OpenMapTiles</p>
+<h2>Les règles détaillées</h2>
+<span id="familles"></span>
+<span id="non-conformite"></span>
+<span id="classe-ars"></span>
+<span id="famille-analysee"></span>
+<span id="grille-bacteriologique"></span>
+<span id="bacteriologie-sans-prelevement-propre"></span>
+<span id="fenetre-bacteriologie"></span>
+<span id="confirmation-pfas"></span>
+<span id="turbidite"></span>
+<span id="hors-jugement"></span>
+<span id="restriction-parametre-ecarte"></span>
+<span id="comparaison-ars"></span>
+<span id="duree"></span>
+<span id="duree-annee-en-cours"></span>
+<span id="limite-reference"></span>
+<span id="pesticides"></span>
+<span id="directive-2020-2184"></span>
+<span id="non-detectes"></span>
+<span id="annee-en-cours"></span>
+<span id="prelevement-conforme"></span>
+<h3 id="regles-note">La note et les familles de paramètres</h3>
+<p>Six familles, une note par famille ; la note du réseau est la plus défavorable</p>
+<h3 id="arrete">Les seuils de l’arrêté du 11 janvier 2007</h3>
+<p>Limites, références et valeurs indicatives, ce que mesure le contrôle sanitaire, substances sans limite</p>
+<span id="ce-que-mesure"></span>
+<span id="mesure-radioactivite"></span>
+<h4 id="mesures-controle">Ce que mesure le contrôle sanitaire, famille par famille</h4>
+<h5>Pesticides</h5>
+<p>L’arrêté du 11 janvier 2007 modifié fixe une limite de qualité de 0,10 µg/L par pesticide, de 0,03 µg/L pour l’aldrine, la dieldrine, l’heptachlore et l’époxyde d’heptachlore, et de 0,50 µg/L pour le total des pesticides.</p>
+<p>Les pesticides y désignent les substances organiques insecticides, herbicides, fongicides et apparentées, ainsi que leurs métabolites jugés pertinents. Un métabolite déclaré non pertinent par l’Anses n’est plus soumis à la limite par substance ; l’arrêté lui applique une valeur indicative de 0,9 µg/L.</p>
+<p class="cap">Textes de référence : Arrêté du 11 janvier 2007 relatif aux limites et références de qualité des eaux brutes et des eaux destinées à la consommation humaine, modifié notamment par l’arrêté du 30 décembre 2022 (annexe I) ; Bilans de la qualité de l’eau du robinet du ministère chargé de la Santé et des agences régionales de santé.</p>
+<h5>Nitrates</h5>
+<p>L’arrêté du 11 janvier 2007 modifié fixe la limite de qualité des nitrates à 50 mg/L et celle des nitrites à 0,50 mg/L au robinet (0,10 mg/L à la sortie des installations de traitement).</p>
+<p>La somme de la concentration en nitrates divisée par 50 et de celle en nitrites divisée par 3 doit rester inférieure ou égale à 1.</p>
+<p class="cap">Textes de référence : Arrêté du 11 janvier 2007 relatif aux limites et références de qualité des eaux brutes et des eaux destinées à la consommation humaine, modifié notamment par l’arrêté du 30 décembre 2022 (annexe I) ; Bilans de la qualité de l’eau du robinet du ministère chargé de la Santé et des agences régionales de santé.</p>
+<h5>PFAS et TFA</h5>
+<p>L’arrêté du 11 janvier 2007 modifié fixe une limite de qualité de 0,1 µg/L pour la somme de 20 substances alkylées per- et polyfluorées (PFAS) qu’il énumère.</p>
+<p>Issue de la directive (UE) 2020/2184, cette limite s’applique depuis le 1er janvier 2023 ; la recherche de ces substances est systématique dans le contrôle sanitaire depuis le 1er janvier 2026 (note d’information DGS/EA4/2023/61).</p>
+<p>Le TFA (acide trifluoroacétique) ne figure pas parmi les 20 PFAS de la somme et n’a pas de limite de qualité propre ; il relève de la partie « Substances sans limite de qualité ».</p>
+<p class="cap">Textes de référence : Arrêté du 11 janvier 2007 relatif aux limites et références de qualité des eaux brutes et des eaux destinées à la consommation humaine, modifié notamment par l’arrêté du 30 décembre 2022 (annexe I) ; Directive (UE) 2020/2184 du Parlement européen et du Conseil du 16 décembre 2020 relative à la qualité des eaux destinées à la consommation humaine ; Note d’information n° DGS/EA4/2023/61 du 14 avril 2023 de la direction générale de la santé.</p>
+<h5>Bactéries</h5>
+<p>L’arrêté du 11 janvier 2007 modifié fixe pour les bactéries Escherichia coli et entérocoques intestinaux une limite de qualité de 0 n/100 mL.</p>
+<p>Les bilans des agences régionales de santé expriment la qualité bactériologique d’un réseau par la part de ses prélèvements conformes ; la qualité est jugée bonne lorsque 95 % au moins des prélèvements sont conformes.</p>
+<p class="cap">Textes de référence : Arrêté du 11 janvier 2007 relatif aux limites et références de qualité des eaux brutes et des eaux destinées à la consommation humaine, modifié notamment par l’arrêté du 30 décembre 2022 (annexe I) ; Bilans de la qualité de l’eau du robinet du ministère chargé de la Santé et des agences régionales de santé.</p>
+<h5>Métaux et minéraux</h5>
+<p>L’arrêté du 11 janvier 2007 modifié fixe une limite de qualité pour plusieurs métaux et minéraux, par exemple 10 µg/L pour l’arsenic et 1,5 mg/L pour les fluorures.</p>
+<p>Le plomb, le cuivre et le nickel, mesurés au robinet, dépendent aussi des canalisations intérieures. Comme dans les synthèses de l’ARS, ils sont écartés du jugement des réseaux ; leurs résultats sont publiés sans jugement dans la partie « Plomb, cuivre et nickel » de la section « Sujets et contexte » de la page « Carte ».</p>
+<p class="cap">Textes de référence : Arrêté du 11 janvier 2007 relatif aux limites et références de qualité des eaux brutes et des eaux destinées à la consommation humaine, modifié notamment par l’arrêté du 30 décembre 2022 (annexe I) ; Note d’information DGS/EA4 du 19 juillet 2019 (indicateur global de qualité joint à la facture d’eau).</p>
+<h5>Radioactivité</h5>
+<p>Pour la radioactivité, l’arrêté du 11 janvier 2007 modifié fixe des références de qualité, et non des limites : une dose indicative de 0,1 mSv/an, 100 Bq/L pour le tritium et 100 Bq/L pour le radon dans les eaux d’origine souterraine.</p>
+<p>Au-delà de 0,1 Bq/L d’activité alpha globale ou de 1 Bq/L d’activité bêta globale résiduelle, l’arrêté prévoit l’analyse des radionucléides spécifiques.</p>
+<p>Une référence de qualité est une valeur indicative : son dépassement ne constitue pas une non-conformité.</p>
+<p>La couche « Radioactivité » de la carte compte, par réseau, les analyses de radioactivité de l’année : un réseau est classé « aucune référence dépassée » ou « au moins une référence dépassée » (radon 222, tritium ou dose totale indicative ; les activités alpha et bêta globales n’ont pas de valeur de référence). Un réseau sans analyse de radioactivité dans l’année est en gris. Le réseau est l’unité de compte ; la couche n’a ni note, ni jugement de conformité, ni estimation de population.</p>
+<p class="cap">Textes de référence : Arrêté du 11 janvier 2007 relatif aux limites et références de qualité des eaux brutes et des eaux destinées à la consommation humaine, modifié notamment par l’arrêté du 30 décembre 2022 (annexe I).</p>
+<h4 id="arrete-limites-microbio">Limites de qualité : microbiologie</h4>
+<h4 id="arrete-limites-chimie">Limites de qualité : chimie</h4>
+<h4 id="arrete-references">Références de qualité</h4>
+<h4 id="arrete-radioactivite">Radioactivité (références de qualité)</h4>
+<h4 id="arrete-valeur-indicative">Valeur indicative</h4>
+<h4 id="arrete-vigilance">Valeurs de vigilance</h4>
+<span id="couche-sans-limite"></span>
+<h4 id="hors-grille">Substances sans limite de qualité</h4>
+<p>La couche « Substances sans limite » de la carte compte, par réseau, les analyses de ces substances, rangées en six groupes (perchlorate, TFA, métabolites de pesticides sans limite, PFAS pris un par un, acides haloacétiques, autres composés organiques) : un réseau est classé « substances recherchées, aucune quantifiée » ou « au moins une substance quantifiée », une substance quantifiée ayant une valeur supérieure à zéro. Les substances recherchées dépendent des campagnes de chaque année. Un réseau sans analyse de ces substances est en gris. Aucune de ces substances n’a de limite propre : la couche ne mesure ni conformité ni dépassement.</p>
+<span id="avis"></span>
+<span id="avis-annee-en-cours"></span>
+<span id="sans-information"></span>
+<h3 id="regles-avis">Les avis de l’ARS</h3>
+<p>Relevé des conclusions, avis de l’année en cours, départements sans information</p>
+<h3 id="regles-carte">La carte</h3>
+<p>Réseaux et maîtres d’ouvrage, un paramètre au choix, surfaces lissées, relief, sécheresse, nappes et pression sur la ressource</p>
+<span id="contours"></span>
+<span id="maitre-d-ouvrage"></span>
+<span id="departements"></span>
+<span id="niveaux-lieu"></span>
+<h4 id="carte-reseaux">La carte des réseaux et le maître d’ouvrage</h4>
+<p>Le fil d’un lieu le situe et mène à ses voisins : France › département › lieu ‹ liste. Le lieu courant s’écrit par son type (commune, réseau, service d’eau, collectivité) et le titre du panneau porte son nom. Le département se lit dans le code du lieu, sans autre donnée (le siège pour une collectivité, la déclaration pour un service) et mène à la carte cadrée sur lui : il n’a ni couleur, ni note, ni classement. Après le signe ‹ se lit la liste de ce qui dessert le lieu ou qu’il dessert : les réseaux d’une commune, les communes d’un service ou d’une collectivité ; pour un réseau, la commune desservie précède son type. Le signe › va du contenant au contenu ; le signe ‹ relie un lieu à ce qui le dessert.</p>
+<p>France est le premier maillon du fil ; quand aucun lieu n’est choisi, c’est le seul. Après le département, le fil d’une commune et d’un réseau porte la collectivité qui organise l’eau de la commune (une intercommunalité, le plus souvent), qui ouvre son panneau sur la carte et la fiche de son service ailleurs ; une commune qui gère seule son eau n’a pas ce maillon. Le service d’eau se lit dans la zone « Qui gère l’eau » de chaque panneau, un lien dans chaque sens. Une collectivité organise des services d’eau potable ou d’assainissement, un service dessert des communes, un réseau de distribution dessert des communes ; la collectivité et le service sont ceux de SISPEA, le réseau est celui du contrôle sanitaire. Le fil relie ces niveaux sans les ordonner ni les classer. Le nombre de services d’eau est celui des déclarations de l’exercice de référence ; la liste d’une collectivité compte aussi, pour quelques-unes, des services de la composition qui n’ont pas déclaré cet exercice. Le site n’a ni niveau départemental ni niveau régional au-delà du nom du lieu ; l’agence de l’eau est écrite en texte sur le panneau d’un service et d’une collectivité. Un clic sur France ferme le lieu et recadre la carte sur la France entière, la couche, l’année et le mois restant ; la croix du titre ferme le lieu et garde la vue.</p>
+<p>Un niveau unique est un lien qui le sélectionne ; un niveau pluriel s’écrit avec son nombre et ouvre sa liste sous le fil ; un niveau absent n’est pas écrit, un service d’assainissement n’ayant ni note ni réseau ; pendant le chargement, trois points tiennent la place de la liste. Une ligne qui ne tient pas passe à la ligne par maillon entier, sans points de suspension. L’assainissement non collectif est compté et listé avec son lien vers l’observatoire, sans être sélectionnable. Les communes d’un service ou d’une collectivité choisi sont mises en évidence par leurs contours, sans couleur de jugement. Le maître d’ouvrage du contrôle sanitaire est nommé dans la fiche complète d’un réseau et dans le panneau d’une collectivité à lien sûr ; il ne forme pas un niveau du fil.</p>
+<span id="niveau-moyen"></span>
+<span id="eau-au-quotidien"></span>
+<h4 id="couche-parametre">Un paramètre au choix sur la carte</h4>
+<p>La couche « Un paramètre » de la carte donne, pour un paramètre du contrôle sanitaire choisi dans une liste, l’état de chaque réseau dans l’année. La liste réunit les paramètres qui ont une limite de qualité, une référence de qualité ou, pour quatre métabolites de pesticides jugés non pertinents, une valeur indicative ; ils sont rangés comme dans l’arrêté du 11 janvier 2007 : limites de qualité microbiologiques, limites de qualité chimiques par famille, références de qualité, puis l’eau au quotidien. Chaque ligne porte l’étiquette « limite » ou « référence » ; un métabolite sans limite porte « valeur indicative », et un paramètre de l’eau au quotidien « niveau moyen ».</p>
+<p>Pour une limite de qualité, un réseau est dans la case « aucune analyse au-dessus de la limite » lorsque toutes ses analyses chiffrées de l’année la respectent, et dans la case « au moins une analyse au-dessus de la limite » lorsqu’une la dépasse. Seules comptent les analyses qui portent la limite : un réseau dont aucune analyse chiffrée de l’année ne la porte est en gris, et le gris ne désigne ni une limite respectée ni une limite dépassée (la limite de 1 NFU de la turbidité n’est portée que par les analyses faites à la mise en distribution). Un paramètre dont les analyses portent plusieurs limites ou plusieurs références (nitrites, chlorates, chlorites, sélénium, ammonium) les dit toutes, la plus fréquente d’abord : l’état compare chaque analyse au repère qu’elle porte. Le panneau du réseau donne la valeur maximale de l’année et, pour un réseau au-dessus de la limite, sa date et le nombre d’analyses au-dessus de la limite. La valeur maximale est celle des seules analyses qui portent la limite appliquée, comme l’état qui la compare à cette limite ; pour le total des pesticides, celle des analyses jugées, sans les métabolites non pertinents. Pour une référence de qualité, valeur indicative de bon fonctionnement, la lecture est la même, sans couleur de jugement : une référence n’est pas une limite, et son dépassement n’est jamais une non-conformité.</p>
+<p>La couche compte des réseaux, jamais des communes ni des habitants. Une commune sans contour de réseau prend l’état de celui de ses réseaux sans contour qui est le moins bien placé, et la légende le dit. Les états des nitrates et de la somme des 20 PFAS sont ceux des familles de la note : un même fait n’a qu’un nombre. Pour le total des pesticides, l’état suit la valeur jugée, sans les métabolites non pertinents que les laboratoires y incluent, et la valeur affichée est celle des analyses ainsi jugées.</p>
+<p>Les paramètres que la note ne retient pas portent l’étiquette « hors note » : le plomb, le cuivre et le nickel, liés aux canalisations ; le chlorure de vinyle, la somme des hydrocarbures aromatiques polycycliques, le benzo(a)pyrène, l’acrylamide et l’épichlorhydrine, liés aux matériaux des canalisations et aux réactifs de traitement ; la turbidité. Les huit premiers sont lus sans couleur de jugement ; la turbidité garde les couleurs de sa famille. E. coli et les entérocoques figurent dans la liste : la couche compte les réseaux dont au moins un prélèvement de l’année a dépassé la limite, fixée à zéro, alors que la note de la bactériologie suit la grille de l’ARS, qui juge le taux de prélèvements conformes sur plusieurs années (couche « Bactéries »).</p>
+<p>Le groupe « Eau au quotidien » lit huit paramètres des fiches en niveau moyen : la dureté, le pH, la température de l’eau, le chlore libre, la turbidité, la couleur, les fluorures et l’équilibre calcocarbonique. La valeur d’un réseau est la moyenne de ses mesures de l’année, rangée dans une classe de valeur, sans jugement : la couche ne porte aucun jugement sur l’eau. La dureté suit les catégories des synthèses annuelles de l’ARS (10, 20 et 30 °f) et l’équilibre calcocarbonique ses cinq catégories ; les autres bornes sont des repères arrondis d’après la répartition des moyennes publiées, et la borne basse de chaque classe est incluse. Un réseau sans mesure dans l’année est en gris : la mesure d’une année antérieure n’est pas reprise. Une moyenne invraisemblable (pH hors de 4 à 10,5, température hors de 0 à 40 °C, turbidité au-dessus de 50 NFU, dureté au-dessus de 150 °f, chlore libre au-dessus de 10 mg/L, couleur au-dessus de 500 mg(Pt)/L) est écartée et comptée à part dans la légende. Un paramètre qui a une limite ou une référence et un niveau moyen (turbidité, fluorures, pH, température, couleur, équilibre calcocarbonique) a deux lignes dans la liste.</p>
+<p>Les états viennent des résultats du contrôle sanitaire de l’année affichée ; l’année en cours s’arrête à la dernière publication mensuelle. Les valeurs maximales sont publiées à quatre chiffres significatifs.</p>
+<h4 id="surfaces-lissees">Les surfaces lissées de la vue de France</h4>
+<h4 id="relief-rivieres">Le relief et les rivières de la vue de France</h4>
+<h4 id="zones-secheresse">Les zones de sécheresse de la carte</h4>
+<span id="masses-eau"></span>
+<h4 id="points-nappes">Les masses d’eau des nappes de la carte</h4>
+<h4 id="nappes">Niveau des nappes</h4>
+<h4 id="secheresse">Historique des restrictions sécheresse</h4>
+<h4 id="ressource">Pression sur la ressource</h4>
+<h4 id="ventes-pesticides">Ventes de pesticides</h4>
+<span id="couche-eaux-brutes"></span>
+<h4 id="seuils-amont">Seuils appliqués aux nappes et aux rivières</h4>
+<p>Les couches « Nitrates des nappes » et « Pesticides des nappes » de la carte colorent les masses d’eau souterraines du Sandre d’après la plus haute des dernières valeurs de nitrates ou du total des pesticides mesurées par les points de mesure que Hub’Eau rattache à chaque masse (ADES, code de masse déclaré pour la station) ; la dernière valeur d’un point est celle de son analyse la plus récente. Les classes se placent aux repères appliqués aux nappes décrits ci-dessus. Le panneau d’une masse donne la date de la valeur retenue et le maximum de ses points depuis la première année publiée de l’amont. Une masse sans point de mesure rattaché est en gris ; aucun point de mesure n’est dessiné. Une eau brute n’est pas l’eau du robinet : la couche n’est liée à aucune note, ne juge aucune conformité du robinet et ne compte ni communes ni population. Les stations de rivière figurent seulement dans un tableau, sous la carte.</p>
+<span id="services"></span>
+<span id="prix-sispea"></span>
+<span id="population-service"></span>
+<span id="comptes-services"></span>
+<span id="services-successifs"></span>
+<span id="couche-rendement"></span>
+<span id="couche-protection"></span>
+<span id="couche-gestion"></span>
+<span id="couche-assainissement"></span>
+<span id="couche-facture"></span>
+<span id="couche-fuites"></span>
+<span id="couche-renouvellement"></span>
+<span id="couche-consommation"></span>
+<span id="couche-type-service"></span>
+<span id="couche-interruptions"></span>
+<span id="couche-delai"></span>
+<span id="couche-dette"></span>
+<span id="couche-taxes"></span>
+<span id="type-de-service"></span>
+<span id="blocs-service"></span>
+<span id="seuils-service"></span>
+<span id="redevances-montants"></span>
+<span id="conformites-assainissement"></span>
+<span id="export-services"></span>
+<span id="statut-declaration"></span>
+<span id="liens-observatoire"></span>
+<span id="missions-services"></span>
+<span id="lien-collectivite"></span>
+<span id="consommation"></span>
+<span id="consommation-par-habitant"></span>
+<span id="renouvellement"></span>
+<span id="protection-captages"></span>
+<h3 id="regles-services">Services d’eau</h3>
+<p>Prix, rendement, protection des captages, mode de gestion, assainissement collectif, facture, valeurs écartées</p>
+<h3 id="regles-chiffres">Couleurs, symboles et chiffres</h3>
+<p>La palette de la carte, le réseau comme unité de mesure, la lecture des cartes et des tableaux</p>
+<span id="lire-bulletin"></span>
+<h4 id="couleurs">Couleurs et symboles</h4>
+<span id="classements"></span>
+<h4 id="unite">Le réseau, unité de mesure</h4>
+<h3 id="regles-lexique">Lexique, sources et limites</h3>
+<p>Sigles et termes, producteurs et millésimes des données, limites de lecture</p>
+<span id="exploitant"></span>
+<h4 id="lexique">Lexique</h4>
+<span id="annees-publiees"></span>
+<h4 id="sources">Sources des données</h4>
+<ul>
+<li><strong>Contrôle sanitaire de l’eau distribuée (SISE-Eaux)</strong> · chaque analyse réglementaire, par prélèvement, réseau et commune · ministère chargé de la Santé, via data.gouv.fr et Hub’Eau</li>
+<li><strong>SISPEA</strong> · prix de l’eau et de l’assainissement collectif, rendement, protection des captages, renouvellement, mode de gestion, décomposition de la facture, qualité de service, finances, composition communale des services d’eau et d’assainissement · Office français de la biodiversité</li>
+<li><strong>SISPEA, conformités de l’assainissement</strong> · P203.3, P204.3 et P205.3 (directive européenne sur les eaux résiduaires urbaines), P254.3 (autosurveillance des stations d’épuration) et P301.3 (assainissement non collectif), publiés dans les fichiers CSV des services, jamais cartographiés ni notés · ministère chargé de l’environnement (P203.3, P204.3, P205.3) ; collectivités (P254.3, P301.3) ; publication par l’Office français de la biodiversité</li>
+<li><strong>BNPE</strong> · volumes prélevés pour l’eau potable, par ouvrage · OFB, via Hub’Eau</li>
+<li><strong>BNV-D</strong> · ventes de substances phytopharmaceutiques, par département du distributeur · OFB, via Hub’Eau</li>
+<li><strong>ADES</strong> · nitrates et pesticides dans les eaux souterraines · BRGM, via Hub’Eau</li>
+<li><strong>Naïades</strong> · nitrates et pesticides dans les rivières · agences de l’eau, via Hub’Eau</li>
+<li><strong>VigiEau</strong> · restrictions sécheresse applicables à une commune, lues en direct · ministère de la Transition écologique</li>
+<li><strong>Donnée Sécheresse (ex-Propluvia)</strong> · zones d’alerte de la carte (reconstruites chaque semaine) et historique des arrêtés de restriction par zone · ministère de la Transition écologique, via data.gouv.fr</li>
+<li><strong>Contours des réseaux de distribution</strong> · zone desservie par chaque réseau, couche régionale de chaque ARS, de millésime propre à chaque région · agences régionales de santé, via AtlaSanté (utilisation libre sous réserve de mentionner la source et la date)</li>
+<li><strong><a href="https://www.data.gouv.fr/datasets/polygones-elementaires-de-masses-deau-souterraines-metropole-version-rapportage-2022">Masses d’eau souterraines</a></strong> · polygones du premier horizon de chaque masse d’eau, sur lesquels la carte des nappes reporte la classe médiane de ses points de suivi (version rapportage 2022, Licence Ouverte) · Sandre, services de l’État</li>
+<li><strong><a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Relief de la carte</a></strong> · relief ombré à l’échelle de la France (Terrain Tiles, niveau 8) : « <span lang="en">Europe terrain data produced using Copernicus data and information funded by the European Union - EU-DEM layers</span> » ; SRTM et GMTED2010, <span lang="en">courtesy of the U.S. Geological Survey</span> · Mapzen (Tilezen), AWS Open Data, Copernicus, USGS</li>
+<li><strong><a href="https://www.data.gouv.fr/datasets/troncons-hydrographiques-metropole-2025-bd-topage-r">Rivières de la carte</a></strong> · cours d’eau principaux, à l’échelle de la France : tronçons d’écoulement naturel permanent de 50 m de large au moins de la BD Topage 2025 (Licence Ouverte 2.0) ; en repli, les tracés de Natural Earth (10 m, domaine public) · Sandre, services de l’État (BD Topage) ; Natural Earth</li>
+<li><strong>Zones de répartition des eaux</strong> · zones de déficit structurel entre ressource et besoins · Sandre, services de l’État</li>
+<li><strong>Piézométrie</strong> · niveau des nappes, mesures journalières des piézomètres · BRGM, via Hub’Eau</li>
+<li><strong>Codes postaux</strong> · correspondance entre codes postaux et communes, pour la recherche · La Poste, via data.gouv.fr</li>
+<li><strong>Contours administratifs</strong> · départements et communes · Etalab, IGN</li>
+<li><strong>Fond de plan de la carte</strong> · routes et noms de lieux, à partir du zoom 8, désactivables dans le menu de la carte · contributeurs d’OpenStreetMap, via OpenFreeMap</li>
+<li><strong><a href="https://adresse.data.gouv.fr/">Base Adresse Nationale (Géoplateforme de l’IGN)</a></strong> · position d’une adresse saisie par le visiteur, pour trouver le réseau au point ; interrogée seulement à sa demande, Licence Ouverte · Etalab, IGN, communes</li>
+</ul>
+<h4 id="limites">Limites des données</h4>
+<h3 id="regles-site">Le site</h3>
+<p>Historique de la méthode, licence et citation, mentions légales, accessibilité</p>
+<h4 id="historique">Historique des changements</h4>
+<ul>
+<li><strong>12 novembre 2026</strong> · Services d’eau : l’indice de connaissance et de gestion patrimoniale d’un service est rapporté au seuil de 40 points, sous lequel le descriptif détaillé des réseaux n’est pas établi. La fiche d’un service montre aussi la redevance pour la performance des réseaux qu’il déclare et l’abattement que le site en calcule. Chaque exercice est lu avec le texte de son époque : jusqu’à l’exercice 2023, le rendement est rapporté au seuil du décret du 27 janvier 2012 que la collectivité déclare (abrogé le 11 juillet 2024) ; depuis 2026, l’abattement de la redevance est calculé par le site d’après le décret n° 2024-787 et les valeurs déclarées deux exercices plus tôt, le montant déclaré faisant foi. Aucune note ne change.</li>
+<li><strong>1er novembre 2026</strong> · Avis de l’ARS : l’expression qui reconnaît le chlorure de vinyle dans une conclusion ne lisait pas « chlorures de vinyl » (pluriel, sans « e »). Une restriction de consommation qui le cite ainsi, avec un dépassement de sa limite dans l’année, vaut la note D, comme pour « chlorure de vinyle ». Dans les années publiées, deux réseaux changent : 084000105 en 2023 (de A à D) et 021001350 en 2024 (de C à D). Aucun autre résultat de la classification des conclusions ne change.</li>
+<li><strong>17 octobre 2026</strong> · Avis de l’ARS : un conseil de ne pas utiliser l’eau pour des usages alimentaires sans écoulement préalable, lié au nickel ou au plomb des canalisations, n’est plus compté comme une restriction de consommation, comme une eau trouble au robinet ou le conseil de laisser couler l’eau. 26 conclusions de 2023 à 2026 sont concernées ; les réseaux sous restriction passent de 672 à 663 en 2023, de 684 à 678 en 2024, de 622 à 615 en 2025 et de 314 à 307 en 2026. Aucune note ne change.</li>
+<li><strong>14 octobre 2026</strong> · Durée d’un dépassement : pour l’année en cours, elle s’arrête au prélèvement le plus récent publié (31 juillet 2026) et non plus au 31 décembre, de sorte que les jours non observés ne comptent plus dans les 30 jours. En 2026, 38 réseaux passent de « plus de 30 jours » à « 30 jours au plus » pour les pesticides, et 65 réseaux de la note C à la note B ; les années closes ne changent pas.</li>
+<li><strong>14 octobre 2026</strong> · Bactériologie : un réseau dont tous les prélèvements des cinq années proviennent d’un réseau de distribution situé en amont est noté d’après la grille de l’ARS sur ces prélèvements, et non plus d’après le taux de 95 % appliqué aux autres familles (53, 40, 30 et 7 réseaux en 2023, 2024, 2025 et 2026 ; 5, 3, 1 et 1 notes changées). Sur huit synthèses de l’ARS lues où les deux règles différaient, la grille retrouve la note bactériologique dans six cas.</li>
+<li><strong>14 octobre 2026</strong> · Restriction de l’ARS portant sur un paramètre écarté de la note (plomb, chlorure de vinyle) : elle classe le réseau en D lorsque sa conclusion cite ce paramètre et qu’il dépasse sa limite dans l’année, et non plus lorsqu’elle cite une autre cause de la famille, la turbidité par exemple (1, 3, 1 et 0 notes changées en 2023, 2024, 2025 et 2026). Les cinq synthèses de l’ARS lues notent ces réseaux A ; le site en note désormais deux A et trois C, une restriction pour la turbidité valant C depuis le 11 octobre.</li>
+<li><strong>14 octobre 2026</strong> · Pesticides : un réseau dont les seules analyses de la famille portent sur des métabolites non pertinents est désormais conforme, et non plus sans analyse ; il ne reprend plus la note d’une année antérieure (321 couples réseau-année de 2023 à 2026, 20 notes changées en 2024 et 12 en 2025, toutes en A). Contrôles de chaque mois : les prélèvements non conformes sous dérogation préfectorale ne sont plus comptés, comme dans les totaux annuels. Part des réseaux non conformes aux pesticides de l’amont : calculée sur les mêmes réseaux que la note. Consommation par habitant : les déclarations de plus de 1 000 litres par habitant et par jour sont écartées.</li>
+<li><strong>14 octobre 2026</strong> · Services d’eau : les chiffres d’un département portent sur les services qui y desservent au moins une commune, pondérés par la population de ces communes ; les Hauts-de-Seine, la Seine-Saint-Denis et le Val-de-Marne, dont la SISPEA range les services sous Paris, ont désormais les leurs. Les prix inférieurs à 0,20 € ou supérieurs à 15 € le m³ sont écartés comme invraisemblables.</li>
+<li><strong>12 octobre 2026</strong> · Bactériologie : les prélèvements de 2021 et 2022 entrent dans le cumul des derniers prélèvements, cinq ans au plus, comme dans les synthèses de l’ARS ; ceux d’un autre réseau de distribution situé en amont ne sont plus comptés. Comparaison aux mêmes 282 synthèses de l’ARS de 2025 : accord de 95 % sur 183 réseaux tirés au hasard, contre 93 %.</li>
+<li><strong>12 octobre 2026</strong> · Renouvellement des canalisations : la durée nécessaire pour renouveler l’ensemble du réseau se déduit du taux de la France pondéré par la longueur des réseaux (158 ans en 2024), et non plus de la médiane des services (455 ans). Les taux supérieurs à 20 % par an et les longueurs supérieures à 1 000 mètres de réseau par habitant desservi sont écartés comme invraisemblables.</li>
+<li><strong>11 octobre 2026</strong> · Turbidité hors de la note, comme dans l’indicateur de l’ARS ; un avis de l’ARS qui la cite vaut C. Elle reste comptée dans la conformité. Comparaison à 282 synthèses de l’ARS de 2025 : accord de 93 % sur 183 réseaux tirés au hasard.</li>
+<li><strong>7 octobre 2026</strong> · Avis de l’ARS : restrictions de consommation et consignes d’ébullition comptées à part. Cartes des parts de réseaux aux couleurs des notes, en quatre paliers (10, 25 et 50 %).</li>
+<li><strong>5 octobre 2026</strong> · Bactériologie notée selon la grille publiée par l’ARS, sur les derniers prélèvements. PFAS : un dépassement compte lorsqu’il est observé au moins deux jours dans l’année. Métabolites non pertinents écartés de la note selon l’Anses (ESA-métolachlore et diméthénamide ESA depuis 2022, AMPA depuis 2025), total des pesticides compris. Comparaison à 198 synthèses de l’ARS de 2025 : accord de 84 % sur la note.</li>
+<li><strong>4 octobre 2026</strong> · Matériaux des canalisations et réactifs de traitement écartés de la note. Limites de la directive 2020/2184 appliquées depuis 2023. Sixième famille, les autres limites de qualité.</li>
+<li><strong>3 octobre 2026</strong> · Note A à D de chaque réseau, calculée selon l’indicateur annuel de l’ARS.</li>
+</ul>
+<span id="citation"></span>
+<span id="licence"></span>
+<span id="fichiers-lisibles-par-machine"></span>
+<h4 id="reutilisation">Réutilisation et citation</h4>
+<p>Licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Forme de citation : Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé, « titre de la page », adresse de la page.</p>
+<p>Le site s’appuie sur des bibliothèques libres : echarts (Apache-2.0), fflate (MIT), maplibre-gl (BSD-3-Clause), pmtiles (BSD-3-Clause), react (MIT), react-dom (MIT), react-router-dom (MIT). La police Atkinson Hyperlegible Next est publiée sous licence SIL Open Font 1.1. <a href="/fonts/atkinson/OFL.txt">Texte de la licence de la police</a>.</p>
+<h5>Fichiers lisibles par une machine</h5>
+<p>Le site ne propose aucune donnée nationale à télécharger. Le menu de la fiche d’un réseau, d’une commune, d’un service d’eau ou d’un maître d’ouvrage propose le fichier CSV de ce lieu, pour toutes les années publiées, fabriqué dans le navigateur à partir des données de la fiche. Les données sources restent ouvertes et se lisent aux adresses de leurs producteurs.</p>
+<p>Chaque fichier est de données nues (UTF-8, point-virgule, virgule décimale). Le fichier lisez-moi.txt donne la licence, la citation, la source et la lecture des colonnes ; deux schémas au format Frictionless Table Schema, schema-reseaux.json et schema-service.json, décrivent chaque colonne.</p>
+<p>Le fichier d’une année passée ne change pas ; celui de l’année en cours suit les données publiées chaque lundi.</p>
+<script type="application/ld+json">{"@context":["https://schema.org",{"dct":"http://purl.org/dc/terms/","freq":"http://purl.org/cld/freq/"}],"@type":"Dataset","name":"Météo du robinet : les données d’un lieu","description":"Le fichier CSV d’un réseau, d’une commune, d’un service d’eau ou d’un maître d’ouvrage, toutes les années publiées, fabriqué dans le navigateur depuis le menu de la fiche du lieu ; aucun fichier national n’est téléchargeable.","url":"https://meteodurobinet.fr/methode/#reutilisation","hasPart":[{"@type":"Dataset","name":"Réseaux d’eau potable : note calculée, situations, avis de l’ARS et prix","description":"Une ligne par réseau de distribution du contrôle sanitaire et par année : note de A à D calculée par le site, situation de chaque famille de paramètres, avis de l’ARS, prix du service. Colonnes de codes stables en fin de fichier.","measurementTechnique":"Calcul du site d’après le contrôle sanitaire des eaux destinées à la consommation humaine (SISE-Eaux) et SISPEA","distribution":[{"@type":"DataDownload","name":"Schéma des colonnes","contentUrl":"https://meteodurobinet.fr/export/schema-reseaux.json","encodingFormat":"application/json","description":"Frictionless Table Schema"},{"@type":"DataDownload","name":"Licence, citation et lecture des colonnes","contentUrl":"https://meteodurobinet.fr/export/lisez-moi.txt","encodingFormat":"text/plain","description":"Texte, UTF-8"}],"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"inLanguage":"fr","isAccessibleForFree":true,"dct:accrualPeriodicity":{"@id":"freq:weekly"}},{"@type":"Dataset","name":"Service d’eau potable (SISPEA)","description":"Une ligne par exercice déclaré à SISPEA : identité du service et indicateurs de l’observatoire, tels qu’il les publie.","isBasedOn":"https://www.services.eaufrance.fr/","distribution":[{"@type":"DataDownload","name":"Schéma des colonnes","contentUrl":"https://meteodurobinet.fr/export/schema-service.json","encodingFormat":"application/json","description":"Frictionless Table Schema"},{"@type":"DataDownload","name":"Licence, citation et lecture des colonnes","contentUrl":"https://meteodurobinet.fr/export/lisez-moi.txt","encodingFormat":"text/plain","description":"Texte, UTF-8"}],"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"inLanguage":"fr","isAccessibleForFree":true,"dct:accrualPeriodicity":{"@id":"freq:weekly"}}],"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"inLanguage":"fr","isAccessibleForFree":true,"dct:accrualPeriodicity":{"@id":"freq:weekly"}}</script>
+<span id="mentions-legales"></span>
+<span id="donnees-personnelles"></span>
+<h4 id="mentions">Mentions légales</h4>
+<span id="declaration-accessibilite"></span>
+<h4 id="accessibilite">Déclaration d’accessibilité</h4>
+<p>Le site vise le niveau AA des Web Content Accessibility Guidelines (WCAG) 2.2. Aucun audit au référentiel général d’amélioration de l’accessibilité (RGAA) n’a été réalisé et le site n’a pas été évalué par un tiers : son niveau de conformité n’est pas déclaré.</p>
+<p>À chaque évolution, une revue automatisée parcourt les pages principales avec le navigateur Edge piloté par Playwright, en quatre passes (thème clair, téléphone, thème sombre, couleurs forcées). Elle applique l’outil axe-core aux critères WCAG 2.2 AA, relève les débordements (dont celui d’une page de chaque famille à 320 px de large) et les erreurs de la console, et échoue à la première violation. Un parcours automatique de la page à la touche de tabulation, sur une page de chaque famille, vérifie qu’aucun piège ne retient le focus, que chaque élément atteint est visible, porte un contour de focus et n’est pas entièrement masqué par un autre élément. Des tests automatisés vérifient en outre les contrastes des textes (4,5 pour 1 au moins), la distinction des couleurs des échelles sous trois formes de daltonisme simulées, les cibles tactiles de 44 px, le nom accessible des tableaux et des graphiques, la langue des passages en anglais et l’absence de décalage de mise en page au chargement.</p>
+<p>Aucun essai avec un lecteur d’écran, sur un appareil tactile réel ou avec des personnes en situation de handicap n’a été réalisé, et aucun n’est prévu. Les contrôles automatiques ne couvrent pas tous les critères : la conformité complète n’est pas démontrée.</p>
+<p>Limites connues. La carte est un canevas que ni le clavier ni un lecteur d’écran ne parcourent réseau par réseau ; le tableau de la couche (menu ⋯, « Tableau de la couche »), qui reprend ses valeurs et se télécharge en CSV, en est l’équivalent textuel. Le fond de plan fourni par OpenFreeMap n’est pas contrôlé. Les contenus d’autres sites auxquels le site renvoie, dont l’observatoire SISPEA, relèvent de leurs éditeurs.</p>
+<p>Un défaut d’accessibilité se signale par « Signaler une erreur » (menu ⋯, rubrique « Aide »), comme toute erreur du site.</p>
+<p class="cap">Déclaration établie le 29 octobre 2026.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Comprendre », https://meteodurobinet.fr/methode/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

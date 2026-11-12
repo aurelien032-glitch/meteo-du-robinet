@@ -1,0 +1,1 @@
+import{gY as f,c5 as e,aR as N}from"./index-Cxv4TnZB.js";const T=i=>i?`tx-${i}`:"",u="1340",I=N[1];function p(i,r,o,c,m){if(r==null||Number.isNaN(r))return null;const s=f(i,m)?{}:e(o),t=e(c),l=n=>n.min!=null||n.max!=null,a=n=>n.max!=null&&r>n.max||n.min!=null&&r<n.min;return!l(s)&&!l(t)&&i!==u?null:l(s)&&a(s)?"depasse":l(t)&&a(t)||i===u&&r>I?"vigilance":"bon"}export{T as c,p};

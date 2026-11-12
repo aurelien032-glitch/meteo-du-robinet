@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Var (83) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Var · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Var (83) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/83/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Var · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Var · eau du robinet","url":"https://meteodurobinet.fr/departement/83/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Var","item":"https://meteodurobinet.fr/departement/83/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/83/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Var</h1>
+<p class="meta">Département 83</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>12 sur 272 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 254 réseaux</li>
+<li>B qualité convenable* : 6 réseaux</li>
+<li>C qualité insuffisante* : 6 réseaux</li>
+<li>D mauvaise qualité* : 6 réseaux</li>
+</ul>
+<p>Bactériologie 9 (6 D), autres limites de qualité 2.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>9 réseaux visés sur 272</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>372 prélèvements</strong> évalués en septembre 2026 ; 2 623 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 134 jours, alerte 70 jours, alerte renforcée 34 jours, crise 0 jour</li>
+<li>2025 : vigilance 0 jour, alerte 30 jours, alerte renforcée 64 jours, crise 0 jour</li>
+<li>2026 en cours : vigilance 16 jours, alerte 21 jours, alerte renforcée 100 jours, crise 0 jour</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,37</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 81 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>112 services d’eau</strong> desservent au moins une commune du département ; 54 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 276 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/083002608/">ADD BESSE LES HAUTS DU LAC</a> · 083002608 · note A · 1 commune</li>
+<li><a href="/reseau/083002601/">ADD. HAMEAUX ET CAMPAGNE PIERREFEU</a> · 083002601 · note A · 1 commune</li>
+<li><a href="/reseau/083002603/">ADD. LA GARDE ZAC LES PLANTADES</a> · 083002603 · note A · 1 commune</li>
+<li><a href="/reseau/083000800/">ADD. LA MOTTE CENTRE ET ECARTS EST</a> · 083000800 · note A · 1 commune</li>
+<li><a href="/reseau/083001042/">ADD. LORGUES VILLAGE ET ECARTS SUD</a> · 083001042 · note A · 1 commune</li>
+<li><a href="/reseau/083000750/">ADD. TARADEAU ETAGE BAS VILLAGE</a> · 083000750 · note A · 1 commune</li>
+<li><a href="/reseau/083000751/">ADD. TARADEAU ETAGE HAUT COMMUNE</a> · 083000751 · note A · 1 commune</li>
+<li><a href="/reseau/083002606/">ADD. TAVERNES QUARTIER EST</a> · 083002606 · note A · 1 commune</li>
+<li><a href="/reseau/083000677/">ADDUC SEILLANS GUINIER-COMBELONGUES</a> · 083000677 · note A · 1 commune</li>
+<li><a href="/reseau/083000505/">ADDUC. ARCS STJEAN BAS-VILLAGE</a> · 083000505 · note A · 1 commune</li>
+<li><a href="/reseau/083001250/">ADDUC. COLLOBRIERES EST-ETAGE BAS</a> · 083001250 · note A · 1 commune</li>
+<li><a href="/reseau/083000156/">ADDUC. DRAGUIGNAN -LE FLAYOSQUET</a> · 083000156 · note A · 1 commune</li>
+<li><a href="/reseau/083000231/">ADDUC. DRAGUIGNAN CENTRE-LA CALADE</a> · 083000231 · note A · 1 commune</li>
+<li><a href="/reseau/083000228/">ADDUC. DRAGUIGNAN NE-LES TUILLIERES</a> · 083000228 · note A · 1 commune</li>
+<li><a href="/reseau/083000161/">ADDUC. DRAGUIGNAN QUARTIERS EST</a> · 083000161 · note A · 1 commune</li>
+<li><a href="/reseau/083000221/">ADDUC. DRAGUIGNAN VILLE NORD-OUEST</a> · 083000221 · note A · 1 commune</li>
+<li><a href="/reseau/083000237/">ADDUC. DRAGUIGNAN VILLE SUD_OUEST</a> · 083000237 · note A · 1 commune</li>
+<li><a href="/reseau/083000152/">ADDUC. DRAGUIGNAN ZI SALAMANDRIER</a> · 083000152 · note A · 1 commune</li>
+<li><a href="/reseau/083000889/">ADDUC. GARDE FREINET HT SERVICE</a> · 083000889 · note A · 1 commune</li>
+<li><a href="/reseau/083000803/">ADDUC. LA MOTTE LES ROUCAS-FERINEL</a> · 083000803 · note A · 1 commune</li>
+<li><a href="/reseau/083001222/">ADDUC. LE THORONET STE CROIX</a> · 083001222 · note A · 1 commune</li>
+<li><a href="/reseau/083001221/">ADDUC. LE THORONET VIDAL</a> · 083001221 · note A · 2 communes</li>
+<li><a href="/reseau/083000601/">ADDUC. MONTAUROUX VILLAGE-ECART EST</a> · 083000601 · note A · 1 commune</li>
+<li><a href="/reseau/083001071/">ADDUC. SAINT-RAPHAEL AGAY-ANTHEOR</a> · 083001071 · note A · 1 commune</li>
+<li><a href="/reseau/083000681/">ADDUC. SEILLANS LONNE-FONTBRIGASSE</a> · 083000681 · note D · 1 commune</li>
+<li><a href="/reseau/083000682/">ADDUC. SEILLANS ST MICHEL-ECART EST</a> · 083000682 · note A · 1 commune</li>
+<li><a href="/reseau/083001040/">ADDUC. ST ANTONIN CAGNOSC-MENTONE</a> · 083001040 · note D · 1 commune</li>
+<li><a href="/reseau/083001099/">ADDUC. ST MAXIMIN N-O CENTRE VILLE</a> · 083001099 · note A · 1 commune</li>
+<li><a href="/reseau/083000890/">ADDUC. VILLAGE LA GARDE-FREINET</a> · 083000890 · note A · 1 commune</li>
+<li><a href="/reseau/083000950/">ADDUCT. BRIGNOLES VILLE NORD ET CENSIERS</a> · 083000950 · note A · 1 commune</li>
+<li><a href="/reseau/083000118/">ADDUCT. RAYOL CAVALAIRE LA MOLE</a> · 083000118 · note A · 3 communes</li>
+<li><a href="/reseau/083000426/">ADDUCTION 6 FOURS LES LONES-BUCARIN</a> · 083000426 · note A · 1 commune</li>
+<li><a href="/reseau/083000272/">ADDUCTION AIGUINES-VILLAGE</a> · 083000272 · note A · 1 commune</li>
+<li><a href="/reseau/083000206/">ADDUCTION AMPUS EGLISONE</a> · 083000206 · note A · 1 commune</li>
+<li><a href="/reseau/083000203/">ADDUCTION AMPUS VILLAGE</a> · 083000203 · note A · 1 commune</li>
+<li><a href="/reseau/083000696/">ADDUCTION BANDOL CENTRE VILLE</a> · 083000696 · note A · 1 commune</li>
+<li><a href="/reseau/083001287/">ADDUCTION BANDOL NORD ET OUEST</a> · 083001287 · note A · 1 commune</li>
+<li><a href="/reseau/083001286/">ADDUCTION BANDOL ZONE LITTORALE</a> · 083001286 · note A · 1 commune</li>
+<li><a href="/reseau/083000878/">ADDUCTION BARGEMON ROUTE DE CALLAS</a> · 083000878 · note A · 1 commune</li>
+<li><a href="/reseau/083000877/">ADDUCTION BARGEMON ROUTE DE COMPS</a> · 083000877 · note A · 1 commune</li>
+<li><a href="/reseau/083000656/">ADDUCTION BARJOLS ENSERTS LA LAUVE</a> · 083000656 · note A · 1 commune</li>
+<li><a href="/reseau/083000543/">ADDUCTION BAS VILLAGE LA BASTIDE</a> · 083000543 · note A · 1 commune</li>
+<li><a href="/reseau/083000483/">ADDUCTION BELGENTIER BAS</a> · 083000483 · note A · 1 commune</li>
+<li><a href="/reseau/083000484/">ADDUCTION BELGENTIER HAUT</a> · 083000484 · note A · 1 commune</li>
+<li><a href="/reseau/083000922/">ADDUCTION BORMES - CABASSON</a> · 083000922 · note B · 1 commune</li>
+<li><a href="/reseau/083000946/">ADDUCTION BRIGNOLES VIEILLE VILLE</a> · 083000946 · note A · 1 commune</li>
+<li><a href="/reseau/083000194/">ADDUCTION CARCES CENTRE ET SUD</a> · 083000194 · note A · 1 commune</li>
+<li><a href="/reseau/083000190/">ADDUCTION CARCES SECTEUR NORD</a> · 083000190 · note A · 1 commune</li>
+<li><a href="/reseau/083000341/">ADDUCTION CARQUEIRANNE CENTRE ET EST</a> · 083000341 · note A · 1 commune</li>
+<li><a href="/reseau/083000339/">ADDUCTION CARQUEIRANNE NORD É OUEST</a> · 083000339 · note A · 1 commune</li>
+<li><a href="/reseau/083001251/">ADDUCTION COLLOBRIERES OUEST</a> · 083001251 · note A · 1 commune</li>
+<li><a href="/reseau/083000507/">ADDUCTION COMBAUD</a> · 083000507 · note A · 1 commune</li>
+<li><a href="/reseau/083000569/">ADDUCTION COMPS VILLAGE ET ECARTS</a> · 083000569 · note A · 1 commune</li>
+<li><a href="/reseau/083000721/">ADDUCTION COTIGNAC - LE POUVEREL</a> · 083000721 · note A · 1 commune</li>
+<li><a href="/reseau/083000650/">ADDUCTION D'ARTIGNOSC</a> · 083000650 · note A · 1 commune</li>
+<li><a href="/reseau/083000816/">ADDUCTION D'ARTIGUES</a> · 083000816 · note A · 1 commune</li>
+<li><a href="/reseau/083000897/">ADDUCTION D'ENTRECASTEAUX</a> · 083000897 · note A · 1 commune</li>
+<li><a href="/reseau/083000818/">ADDUCTION D'ESPARRON</a> · 083000818 · note A · 1 commune</li>
+<li><a href="/reseau/083000040/">ADDUCTION D'OLLIERES</a> · 083000040 · note A · 1 commune</li>
+<li><a href="/reseau/083000784/">ADDUCTION DE AUPS</a> · 083000784 · note A · 1 commune</li>
+<li><a href="/reseau/083002260/">ADDUCTION DE AUPS OUEST</a> · 083002260 · note A · 1 commune</li>
+<li><a href="/reseau/083000687/">ADDUCTION DE BAGNOLS-EN-FORET</a> · 083000687 · note A · 1 commune</li>
+<li><a href="/reseau/083000745/">ADDUCTION DE BAUDINARD</a> · 083000745 · note A · 1 commune</li>
+<li><a href="/reseau/083000743/">ADDUCTION DE BAUDUEN</a> · 083000743 · note A · 1 commune</li>
+<li><a href="/reseau/083000066/">ADDUCTION DE BESSE VILLAGE</a> · 083000066 · note A · 1 commune</li>
+<li><a href="/reseau/083000914/">ADDUCTION DE BORMES LES MIMOSAS</a> · 083000914 · note A · 1 commune</li>
+<li><a href="/reseau/083000465/">ADDUCTION DE BRAS</a> · 083000465 · note A · 1 commune</li>
+<li><a href="/reseau/083000085/">ADDUCTION DE BRUE-AURIAC</a> · 083000085 · note A · 1 commune</li>
+<li><a href="/reseau/083000614/">ADDUCTION DE CABASSE</a> · 083000614 · note A · 1 commune</li>
+<li><a href="/reseau/083000044/">ADDUCTION DE CAMPS LA SOURCE</a> · 083000044 · note A · 1 commune</li>
+<li><a href="/reseau/083000933/">ADDUCTION DE CARNOULES</a> · 083000933 · note A · 1 commune</li>
+<li><a href="/reseau/083000927/">ADDUCTION DE CHATEAUVERT</a> · 083000927 · note A · 1 commune</li>
+<li><a href="/reseau/083000870/">ADDUCTION DE CLAVIERS</a> · 083000870 · note A · 1 commune</li>
+<li><a href="/reseau/083000094/">ADDUCTION DE CORRENS</a> · 083000094 · note A · 1 commune</li>
+<li><a href="/reseau/083000079/">ADDUCTION DE CUERS</a> · 083000079 · note A · 1 commune</li>
+<li><a href="/reseau/083000726/">ADDUCTION DE FAYENCE MALUEBY</a> · 083000726 · note A · 1 commune</li>
+<li><a href="/reseau/083000488/">ADDUCTION DE FORCALQUEIRET</a> · 083000488 · note A · 1 commune</li>
+<li><a href="/reseau/083000707/">ADDUCTION DE FOX-AMPHOUX</a> · 083000707 · note A · 1 commune</li>
+<li><a href="/reseau/083000029/">ADDUCTION DE GAREOULT</a> · 083000029 · note A · 1 commune</li>
+<li><a href="/reseau/083000820/">ADDUCTION DE GINASSERVIS</a> · 083000820 · note A · 1 commune</li>
+<li><a href="/reseau/083001258/">ADDUCTION DE GONFARON ECARTS EST</a> · 083001258 · note A · 1 commune</li>
+<li><a href="/reseau/083000396/">ADDUCTION DE HYERES</a> · 083000396 · note B · 1 commune</li>
+<li><a href="/reseau/083000035/">ADDUCTION DE LA CELLE</a> · 083000035 · note A · 1 commune</li>
+<li><a href="/reseau/083000329/">ADDUCTION DE LA GARDE</a> · 083000329 · note A · 1 commune</li>
+<li><a href="/reseau/083000553/">ADDUCTION DE LA ROQUE-ESCLAPON</a> · 083000553 · note A · 1 commune</li>
+<li><a href="/reseau/083000828/">ADDUCTION DE LA VERDIERE</a> · 083000828 · note A · 1 commune</li>
+<li><a href="/reseau/083001177/">ADDUCTION DE MAZAUGUES</a> · 083001177 · note A · 1 commune</li>
+<li><a href="/reseau/083002414/">ADDUCTION DE MEOUNES</a> · 083002414 · note A · 1 commune</li>
+<li><a href="/reseau/083000648/">ADDUCTION DE MOISSAC</a> · 083000648 · note A · 1 commune</li>
+<li><a href="/reseau/083000871/">ADDUCTION DE MONTFERRAT</a> · 083000871 · note A · 1 commune</li>
+<li><a href="/reseau/083000060/">ADDUCTION DE MONTFORT</a> · 083000060 · note A · 1 commune</li>
+<li><a href="/reseau/083000713/">ADDUCTION DE MONTMEYAN</a> · 083000713 · note A · 1 commune</li>
+<li><a href="/reseau/083001160/">ADDUCTION DE NANS - VILLAGE</a> · 083001160 · note A · 1 commune</li>
+<li><a href="/reseau/083000017/">ADDUCTION DE NEOULES</a> · 083000017 · note A · 1 commune</li>
+<li><a href="/reseau/083000022/">ADDUCTION DE PIGNANS</a> · 083000022 · note A · 1 commune</li>
+<li><a href="/reseau/083000010/">ADDUCTION DE PONTEVES</a> · 083000010 · note A · 1 commune</li>
+<li><a href="/reseau/083001201/">ADDUCTION DE POURCIEUX</a> · 083001201 · note A · 1 commune</li>
+<li><a href="/reseau/083000050/">ADDUCTION DE POURRIERES</a> · 083000050 · note A · 1 commune</li>
+<li><a href="/reseau/083001011/">ADDUCTION DE PUGET SUR ARGENS</a> · 083001011 · note A · 1 commune</li>
+<li><a href="/reseau/083000709/">ADDUCTION DE REGUSSE</a> · 083000709 · note A · 1 commune</li>
+<li><a href="/reseau/083000822/">ADDUCTION DE RIANS</a> · 083000822 · note D · 1 commune</li>
+<li><a href="/reseau/083000072/">ADDUCTION DE RIBOUX</a> · 083000072 · note A · 1 commune</li>
+<li><a href="/reseau/083000056/">ADDUCTION DE ROCBARON</a> · 083000056 · note A · 1 commune</li>
+<li><a href="/reseau/083000824/">ADDUCTION DE SAINT-JULIEN</a> · 083000824 · note A · 1 commune</li>
+<li><a href="/reseau/083001094/">ADDUCTION DE SAINT-MANDRIER</a> · 083001094 · note A · 1 commune</li>
+<li><a href="/reseau/083000826/">ADDUCTION DE SAINT-MARTIN</a> · 083000826 · note A · 1 commune</li>
+<li><a href="/reseau/083001080/">ADDUCTION DE SAINT-PAUL</a> · 083001080 · note A · 1 commune</li>
+<li><a href="/reseau/083001105/">ADDUCTION DE SAINT-ZACHARIE</a> · 083001105 · note A · 1 commune</li>
+<li><a href="/reseau/083000489/">ADDUCTION DE SAINTE ANASTASIE</a> · 083000489 · note A · 1 commune</li>
+<li><a href="/reseau/083000772/">ADDUCTION DE SALERNES</a> · 083000772 · note A · 1 commune</li>
+<li><a href="/reseau/083000088/">ADDUCTION DE SEILLONS</a> · 083000088 · note A · 1 commune</li>
+<li><a href="/reseau/083001112/">ADDUCTION DE SIGNES</a> · 083001112 · note A · 1 commune</li>
+<li><a href="/reseau/083000711/">ADDUCTION DE SILLANS</a> · 083000711 · note A · 1 commune</li>
+<li><a href="/reseau/083003656/">ADDUCTION DE SOLLIES TOUCAS SUD</a> · 083003656 · note A · 1 commune</li>
+<li><a href="/reseau/083000167/">ADDUCTION DE SOLLIES-TOUCAS</a> · 083000167 · note A · 1 commune</li>
+<li><a href="/reseau/083000176/">ADDUCTION DE SOLLIES-VILLE</a> · 083000176 · note A · 1 commune</li>
+<li><a href="/reseau/083000608/">ADDUCTION DE TANNERON</a> · 083000608 · note A · 1 commune</li>
+<li><a href="/reseau/083000296/">ADDUCTION DE TOURRETTES</a> · 083000296 · note A · 1 commune</li>
+<li><a href="/reseau/083001182/">ADDUCTION DE TOURTOUR</a> · 083001182 · note A · 1 commune</li>
+<li><a href="/reseau/083001209/">ADDUCTION DE TOURVES</a> · 083001209 · note A · 1 commune</li>
+<li><a href="/reseau/083001055/">ADDUCTION DE VERIGNON</a> · 083001055 · note A · 1 commune</li>
+<li><a href="/reseau/083000575/">ADDUCTION DE VINON</a> · 083000575 · note A · 1 commune</li>
+<li><a href="/reseau/083000124/">ADDUCTION DE VINS</a> · 083000124 · note A · 1 commune</li>
+<li><a href="/reseau/083000518/">ADDUCTION DES ADRETS</a> · 083000518 · note A · 1 commune</li>
+<li><a href="/reseau/083001269/">ADDUCTION DES DEMUEYES</a> · 083001269 · note A · 1 commune</li>
+<li><a href="/reseau/083000593/">ADDUCTION DES MAYONS</a> · 083000593 · note A · 1 commune</li>
+<li><a href="/reseau/083001108/">ADDUCTION DES SALLES</a> · 083001108 · note A · 1 commune</li>
+<li><a href="/reseau/083000216/">ADDUCTION DRAGUIGNAN LES RAILLORETS</a> · 083000216 · note C · 1 commune</li>
+<li><a href="/reseau/083000461/">ADDUCTION DU BEAUSSET</a> · 083000461 · note A · 1 commune</li>
+<li><a href="/reseau/083000264/">ADDUCTION DU BOURGUET</a> · 083000264 · note A · 1 commune</li>
+<li><a href="/reseau/083001126/">ADDUCTION DU LAVANDOU</a> · 083001126 · note A · 1 commune</li>
+<li><a href="/reseau/083000758/">ADDUCTION DU LUC - ZI DES LAUVES</a> · 083000758 · note A · 1 commune</li>
+<li><a href="/reseau/083001164/">ADDUCTION DU VAL</a> · 083001164 · note A · 1 commune</li>
+<li><a href="/reseau/083000978/">ADDUCTION EVENOS FONT VIVE</a> · 083000978 · note A · 1 commune</li>
+<li><a href="/reseau/083001746/">ADDUCTION EVENOS NEBRE BROUSSAN</a> · 083001746 · note A · 2 communes</li>
+<li><a href="/reseau/083005134/">ADDUCTION FAYENCE PLAINE</a> · 083005134 · note A · 1 commune</li>
+<li><a href="/reseau/083000860/">ADDUCTION FIGANIERES COMBE BAYARDE</a> · 083000860 · note A · 1 commune</li>
+<li><a href="/reseau/083000862/">ADDUCTION FIGANIERES QUARTIERS NORD</a> · 083000862 · note A · 1 commune</li>
+<li><a href="/reseau/083001018/">ADDUCTION FLASSANS ROUDAI</a> · 083001018 · note B · 1 commune</li>
+<li><a href="/reseau/083001016/">ADDUCTION FLASSANS VILLE</a> · 083001016 · note A · 1 commune</li>
+<li><a href="/reseau/083001026/">ADDUCTION FREJUS CAIS CAPITOU</a> · 083001026 · note A · 1 commune</li>
+<li><a href="/reseau/083001028/">ADDUCTION FREJUS CENTRE</a> · 083001028 · note A · 1 commune</li>
+<li><a href="/reseau/083001027/">ADDUCTION FREJUS SAINT-AYGULF</a> · 083001027 · note A · 1 commune</li>
+<li><a href="/reseau/083001025/">ADDUCTION FREJUS SAINT-JEAN</a> · 083001025 · note A · 1 commune</li>
+<li><a href="/reseau/083001033/">ADDUCTION GONFARON VILLAGE</a> · 083001033 · note A · 1 commune</li>
+<li><a href="/reseau/083000539/">ADDUCTION HAUT VILLAGE LA BASTIDE</a> · 083000539 · note A · 1 commune</li>
+<li><a href="/reseau/083000637/">ADDUCTION LA CADIERE - BANDOL</a> · 083000637 · note A · 1 commune</li>
+<li><a href="/reseau/083000634/">ADDUCTION LA CADIERE CENTRE ET NORD</a> · 083000634 · note A · 1 commune</li>
+<li><a href="/reseau/083000632/">ADDUCTION LA CADIERE SUD-ST JEAN</a> · 083000632 · note A · 1 commune</li>
+<li><a href="/reseau/083001273/">ADDUCTION LA FARLEDE NORD</a> · 083001273 · note A · 1 commune</li>
+<li><a href="/reseau/083000181/">ADDUCTION LA FARLEDE VILLE</a> · 083000181 · note A · 1 commune</li>
+<li><a href="/reseau/083000245/">ADDUCTION LA LONDE</a> · 083000245 · note A · 1 commune</li>
+<li><a href="/reseau/083000535/">ADDUCTION LA MARTRE COULET</a> · 083000535 · note A · 1 commune</li>
+<li><a href="/reseau/083000534/">ADDUCTION LA MARTRE VILLAGE</a> · 083000534 · note A · 1 commune</li>
+<li><a href="/reseau/083000799/">ADDUCTION LA MOTTE ECARTS NORD</a> · 083000799 · note A · 1 commune</li>
+<li><a href="/reseau/083000957/">ADDUCTION LA SEYNE - TAMARIS</a> · 083000957 · note A · 1 commune</li>
+<li><a href="/reseau/083000959/">ADDUCTION LA SEYNE CENTRE ET NORD</a> · 083000959 · note A · 1 commune</li>
+<li><a href="/reseau/083000958/">ADDUCTION LA SEYNE-SABLETTE FABREGAS</a> · 083000958 · note A · 1 commune</li>
+<li><a href="/reseau/083000319/">ADDUCTION LA VALETTE - NORD-OUEST</a> · 083000319 · note A · 1 commune</li>
+<li><a href="/reseau/083000321/">ADDUCTION LA VALETTE - VILLE</a> · 083000321 · note A · 1 commune</li>
+<li><a href="/reseau/083000628/">ADDUCTION LE CANNET VILLAGE</a> · 083000628 · note A · 1 commune</li>
+<li><a href="/reseau/083000967/">ADDUCTION LE CASTELLET NORD</a> · 083000967 · note A · 1 commune</li>
+<li><a href="/reseau/083000968/">ADDUCTION LE CASTELLET PLAN</a> · 083000968 · note A · 1 commune</li>
+<li><a href="/reseau/083000969/">ADDUCTION LE CASTELLET VILLAGE NORD</a> · 083000969 · note A · 1 commune</li>
+<li><a href="/reseau/083000558/">ADDUCTION LE LOGIS DU PIN</a> · 083000558 · note A · 1 commune</li>
+<li><a href="/reseau/083002612/">ADDUCTION LE LUC BON PIN</a> · 083002612 · note A · 1 commune</li>
+<li><a href="/reseau/083002611/">ADDUCTION LE LUC CENTRE OUEST</a> · 083002611 · sans note · 1 commune</li>
+<li><a href="/reseau/083001142/">ADDUCTION LE MUY NORD</a> · 083001142 · note A · 1 commune</li>
+<li><a href="/reseau/083001143/">ADDUCTION LE MUY SUD ET ECARTS</a> · 083001143 · note A · 1 commune</li>
+<li><a href="/reseau/083000314/">ADDUCTION LE PRADET VILLE</a> · 083000314 · note A · 1 commune</li>
+<li><a href="/reseau/083001146/">ADDUCTION LE REVEST - VILLAGE</a> · 083001146 · note A · 1 commune</li>
+<li><a href="/reseau/083001148/">ADDUCTION LE REVEST BAS</a> · 083001148 · note A · 1 commune</li>
+<li><a href="/reseau/083001147/">ADDUCTION LE REVEST HAUT</a> · 083001147 · note A · 1 commune</li>
+<li><a href="/reseau/083000627/">ADDUCTION LE VIEUX CANNET</a> · 083000627 · note A · 1 commune</li>
+<li><a href="/reseau/083000905/">ADDUCTION LES COTES DU PLAN</a> · 083000905 · note A · 1 commune</li>
+<li><a href="/reseau/083000394/">ADDUCTION LES DEUXIEMES BORRELS</a> · 083000394 · note A · 1 commune</li>
+<li><a href="/reseau/083002535/">ADDUCTION LES GABOINS</a> · 083002535 · note A · 1 commune</li>
+<li><a href="/reseau/083000908/">ADDUCTION LES HAUTS D'OLLIOULES</a> · 083000908 · note A · 1 commune</li>
+<li><a href="/reseau/083000342/">ADDUCTION LES HIRONDELLES</a> · 083000342 · note B · 1 commune</li>
+<li><a href="/reseau/083000393/">ADDUCTION LES PREMIERS BORRELS</a> · 083000393 · note A · 1 commune</li>
+<li><a href="/reseau/083001061/">ADDUCTION LES RISPLES</a> · 083001061 · note A · 1 commune</li>
+<li><a href="/reseau/083000395/">ADDUCTION LES TROISIEMES BORRELS</a> · 083000395 · note A · 1 commune</li>
+<li><a href="/reseau/083001041/">ADDUCTION LORGUES - VOIE FERREE</a> · 083001041 · note A · 1 commune</li>
+<li><a href="/reseau/083000989/">ADDUCTION MONS QUARTIER TANSONIVE</a> · 083000989 · sans note · 1 commune</li>
+<li><a href="/reseau/083000600/">ADDUCTION MONTAUROUX - ECARTS N-O</a> · 083000600 · note A · 1 commune</li>
+<li><a href="/reseau/083005561/">ADDUCTION MONTAUROUX PLAINE</a> · 083005561 · note A · 1 commune</li>
+<li><a href="/reseau/083000907/">ADDUCTION OLLIOULES CENTRE VILLE</a> · 083000907 · note A · 1 commune</li>
+<li><a href="/reseau/083000912/">ADDUCTION OLLIOULES SUD-EST</a> · 083000912 · note A · 1 commune</li>
+<li><a href="/reseau/083001063/">ADDUCTION PANEOU LA COLLE</a> · 083001063 · note A · 1 commune</li>
+<li><a href="/reseau/083000525/">ADDUCTION PLAINE DE TRIGANCE</a> · 083000525 · note B · 1 commune</li>
+<li><a href="/reseau/083001161/">ADDUCTION PLAN D'AUPS - NANS HAUT</a> · 083001161 · note A · 2 communes</li>
+<li><a href="/reseau/083000869/">ADDUCTION PLAN DE CALLAS</a> · 083000869 · note A · 1 commune</li>
+<li><a href="/reseau/083000801/">ADDUCTION PLATEAU DE LA MOTTE</a> · 083000801 · note A · 1 commune</li>
+<li><a href="/reseau/083000384/">ADDUCTION PORQUEROLLES</a> · 083000384 · note A · 1 commune</li>
+<li><a href="/reseau/083000383/">ADDUCTION PORT-CROS</a> · 083000383 · note A · 1 commune</li>
+<li><a href="/reseau/083000098/">ADDUCTION PUGET VILLE - LA RUOL</a> · 083000098 · note C · 1 commune</li>
+<li><a href="/reseau/083000127/">ADDUCTION PUGET VILLE OUEST ET CANADEL</a> · 083000127 · note A · 1 commune</li>
+<li><a href="/reseau/083000103/">ADDUCTION PUGET-VILLE LE VILLAGE</a> · 083000103 · note A · 1 commune</li>
+<li><a href="/reseau/083002549/">ADDUCTION QUARTIER SAINT VAL</a> · 083002549 · note A · 1 commune</li>
+<li><a href="/reseau/083000991/">ADDUCTION ROQUEBRUNE - ISSAMBRES</a> · 083000991 · note C · 1 commune</li>
+<li><a href="/reseau/083000992/">ADDUCTION ROQUEBRUNE VILLAGE</a> · 083000992 · note A · 1 commune</li>
+<li><a href="/reseau/083001123/">ADDUCTION ROQUEBRUSSANE</a> · 083001123 · note A · 1 commune</li>
+<li><a href="/reseau/083001087/">ADDUCTION ROUGIERS CENTRE VILLE</a> · 083001087 · note A · 1 commune</li>
+<li><a href="/reseau/083001086/">ADDUCTION ROUGIERS VIEUX VILLAGE</a> · 083001086 · note A · 1 commune</li>
+<li><a href="/reseau/083000752/">ADDUCTION ROUTE DE LORGUES</a> · 083000752 · note A · 1 commune</li>
+<li><a href="/reseau/083001176/">ADDUCTION SAINT RAPHAEL LE TRAYAS</a> · 083001176 · note A · 1 commune</li>
+<li><a href="/reseau/083000119/">ADDUCTION SAINT TROPEZ-SIDECM</a> · 083000119 · note A · 8 communes</li>
+<li><a href="/reseau/083001065/">ADDUCTION SAINT-RAPHAEL CENTRE</a> · 083001065 · note B · 1 commune</li>
+<li><a href="/reseau/083000979/">ADDUCTION SAINTE ANNE D'EVENOS</a> · 083000979 · note A · 1 commune</li>
+<li><a href="/reseau/083000476/">ADDUCTION SANARY NORD LE LANÇON</a> · 083000476 · note A · 1 commune</li>
+<li><a href="/reseau/083000477/">ADDUCTION SANARY SUD EST CENTRE</a> · 083000477 · note A · 1 commune</li>
+<li><a href="/reseau/083000478/">ADDUCTION SANARYGORGUETTE PIERREDON</a> · 083000478 · note A · 1 commune</li>
+<li><a href="/reseau/083001987/">ADDUCTION SAUVEBONNE</a> · 083001987 · note A · 1 commune</li>
+<li><a href="/reseau/083001118/">ADDUCTION SIGNES - ZONE ACTIVITE</a> · 083001118 · note A · 1 commune</li>
+<li><a href="/reseau/083000427/">ADDUCTION SIX FOURS RESEAU LE FORT</a> · 083000427 · note A · 1 commune</li>
+<li><a href="/reseau/083000185/">ADDUCTION SOLLIES PONT CENTRE ET NORD</a> · 083000185 · note A · 1 commune</li>
+<li><a href="/reseau/083001272/">ADDUCTION SOLLIES PONT SUD</a> · 083001272 · note A · 1 commune</li>
+<li><a href="/reseau/083000811/">ADDUCTION ST CYR CENTRE VILLE-SAMAT</a> · 083000811 · note A · 1 commune</li>
+<li><a href="/reseau/083000812/">ADDUCTION ST CYR CLARES-FREGATE</a> · 083000812 · note A · 1 commune</li>
+<li><a href="/reseau/083000813/">ADDUCTION ST CYR LECQUES MADRAGUE</a> · 083000813 · note A · 1 commune</li>
+<li><a href="/reseau/083001260/">ADDUCTION ST MAXIMIN N-E ET SUD</a> · 083001260 · note A · 1 commune</li>
+<li><a href="/reseau/083002485/">ADDUCTION STE ROSELINE (PEICAL)</a> · 083002485 · note A · 1 commune</li>
+<li><a href="/reseau/083000436/">ADDUCTION STE-MAXIME</a> · 083000436 · note A · 1 commune</li>
+<li><a href="/reseau/083000835/">ADDUCTION TAVERNES LE BURY</a> · 083000835 · note A · 1 commune</li>
+<li><a href="/reseau/083000836/">ADDUCTION TAVERNES SUS VILLE</a> · 083000836 · note A · 1 commune</li>
+<li><a href="/reseau/083000837/">ADDUCTION TAVERNES VILLAGE</a> · 083000837 · note A · 1 commune</li>
+<li><a href="/reseau/083004057/">ADDUCTION TOULON ARTIGUES</a> · 083004057 · note A · 1 commune</li>
+<li><a href="/reseau/083004056/">ADDUCTION TOULON CENTRE</a> · 083004056 · note A · 1 commune</li>
+<li><a href="/reseau/083004054/">ADDUCTION TOULON LA VALETTE</a> · 083004054 · note A · 1 commune</li>
+<li><a href="/reseau/083004055/">ADDUCTION TOULON NORD ET OUEST</a> · 083004055 · note A · 1 commune</li>
+<li><a href="/reseau/083000293/">ADDUCTION TOULON ST ANTOINE</a> · 083000293 · note A · 1 commune</li>
+<li><a href="/reseau/083000623/">ADDUCTION TRANS QUARTIER ST VICTOR</a> · 083000623 · note A · 1 commune</li>
+<li><a href="/reseau/083000622/">ADDUCTION TRANS SUPER TRANS</a> · 083000622 · note A · 1 commune</li>
+<li><a href="/reseau/083000625/">ADDUCTION TRANS VARAYON-BAUDIN</a> · 083000625 · note A · 1 commune</li>
+<li><a href="/reseau/083000621/">ADDUCTION TRANS VILLAGE-LA CROIX</a> · 083000621 · note A · 2 communes</li>
+<li><a href="/reseau/083000660/">ADDUCTION VARAGES HTS QUARTIERS</a> · 083000660 · note A · 1 commune</li>
+<li><a href="/reseau/083001216/">ADDUCTION VIDAUBAN CAMPAGNE</a> · 083001216 · note A · 1 commune</li>
+<li><a href="/reseau/083001214/">ADDUCTION VIDAUBAN VILLAGE</a> · 083001214 · note A · 1 commune</li>
+<li><a href="/reseau/083000561/">ADDUCTION VILLAGE CHATEAUVIEUX</a> · 083000561 · note A · 1 commune</li>
+<li><a href="/reseau/083000544/">ADDUCTION VILLAGE DE BARGEME</a> · 083000544 · note A · 1 commune</li>
+<li><a href="/reseau/083000653/">ADDUCTION VILLAGE DE BARJOLS</a> · 083000653 · note D · 1 commune</li>
+<li><a href="/reseau/083000510/">ADDUCTION VILLAGE DE BRENON</a> · 083000510 · note C · 1 commune</li>
+<li><a href="/reseau/083000868/">ADDUCTION VILLAGE DE CALLAS</a> · 083000868 · note A · 1 commune</li>
+<li><a href="/reseau/083000588/">ADDUCTION VILLAGE DE CALLIAN</a> · 083000588 · note A · 1 commune</li>
+<li><a href="/reseau/083000881/">ADDUCTION VILLAGE DE CHATEAUDOUBLE</a> · 083000881 · note C · 1 commune</li>
+<li><a href="/reseau/083000720/">ADDUCTION VILLAGE DE COTIGNAC</a> · 083000720 · note A · 1 commune</li>
+<li><a href="/reseau/083000863/">ADDUCTION VILLAGE DE FIGANIERES</a> · 083000863 · note C · 1 commune</li>
+<li><a href="/reseau/083000987/">ADDUCTION VILLAGE DE MONS</a> · 083000987 · note A · 1 commune</li>
+<li><a href="/reseau/083001153/">ADDUCTION VILLAGE DE PIERREFEU</a> · 083001153 · note A · 1 commune</li>
+<li><a href="/reseau/083000675/">ADDUCTION VILLAGE DE SEILLANS</a> · 083000675 · note A · 1 commune</li>
+<li><a href="/reseau/083000661/">ADDUCTION VILLAGE DE VARAGES</a> · 083000661 · note A · 1 commune</li>
+<li><a href="/reseau/083000756/">ADDUCTION VILLAGE DU LUC</a> · 083000756 · note A · 1 commune</li>
+<li><a href="/reseau/083000876/">ADDUCTION VILLAGE ET CLOS BARGEMON</a> · 083000876 · note A · 1 commune</li>
+<li><a href="/reseau/083000526/">ADDUCTION VILLAGE ET ECART TRIGANCE</a> · 083000526 · note A · 1 commune</li>
+<li><a href="/reseau/083000504/">ADDUCTION VILLAGE LES ARCS</a> · 083000504 · note A · 1 commune</li>
+<li><a href="/reseau/083001039/">ADDUCTION VILLAGE SAINT-ANTONIN</a> · 083001039 · note A · 1 commune</li>
+<li><a href="/reseau/083000738/">ADDUCTION VILLECROZE QUARTIERS SE</a> · 083000738 · note A · 1 commune</li>
+<li><a href="/reseau/083000737/">ADDUCTION VILLECROZE VILLAGE</a> · 083000737 · note A · 1 commune</li>
+<li><a href="/reseau/083001257/">GONFARON - HAMEAU FORESTIER</a> · 083001257 · note A · 1 commune</li>
+<li><a href="/reseau/083000888/">HAMEAU DE LA MOURRE</a> · 083000888 · sans note · 1 commune</li>
+<li><a href="/reseau/083000570/">HAMEAU DE LA SOUCHE</a> · 083000570 · note A · 1 commune</li>
+<li><a href="/reseau/083000674/">HAMEAU DE SAINT ARNOUX (SEILLANS)</a> · 083000674 · note A · 1 commune</li>
+<li><a href="/reseau/083000545/">HAMEAU DE SAINT LAURENT</a> · 083000545 · note A · 1 commune</li>
+<li><a href="/reseau/083001044/">HAMEAU DES MIQUELETS</a> · 083001044 · note A · 1 commune</li>
+<li><a href="/reseau/083000891/">HAMEAU DES PLAINES</a> · 083000891 · note A · 1 commune</li>
+<li><a href="/reseau/083000212/">HAMEAU DU LENTIER</a> · 083000212 · note A · 1 commune</li>
+<li><a href="/reseau/083000568/">HAMEAU JABRON</a> · 083000568 · note A · 1 commune</li>
+<li><a href="/reseau/083000538/">HAMEAU PLAN D'ANELLE</a> · 083000538 · note D · 1 commune</li>
+<li><a href="/reseau/083000880/">HAMEAU REBOUILLON</a> · 083000880 · note A · 1 commune</li>
+<li><a href="/reseau/083000528/">HAMEAU SOLEILS</a> · 083000528 · note D · 1 commune</li>
+<li><a href="/reseau/083000638/">LA CADIERE - SAINT CYR</a> · 083000638 · note A · 1 commune</li>
+<li><a href="/reseau/083002258/">LA RECABELLIERE</a> · 083002258 · note A · 1 commune</li>
+<li><a href="/reseau/083000604/">LOTISSEMENT ESTERET DU LAC</a> · 083000604 · note A · 1 commune</li>
+<li><a href="/reseau/083000947/">RESEAU BRIGNOLES VILLE SE ET NICOPOLIS</a> · 083000947 · note A · 1 commune</li>
+<li><a href="/reseau/083000273/">RESEAU CPG MUNICIPAL LE GALETAS</a> · 083000273 · sans note · 1 commune</li>
+<li><a href="/reseau/083001224/">THORONET DOMAINE DE MAPPE</a> · 083001224 · note A · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/83002/">Aiguines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83003/">Ampus</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83005/">Artignosc-sur-Verdon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83006/">Artigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83007/">Aups</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83008/">Bagnols-en-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83009/">Bandol</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83010/">Bargème</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83011/">Bargemon</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83012/">Barjols</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/83014/">Baudinard-sur-Verdon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83015/">Bauduen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83017/">Belgentier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83018/">Besse-sur-Issole</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83019/">Bormes-les-Mimosas</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/83021/">Bras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83022/">Brenon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/83023/">Brignoles</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83025/">Brue-Auriac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83026/">Cabasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83028/">Callas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83029/">Callian</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83030/">Camps-la-Source</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83032/">Carcès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83033/">Carnoules</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83034/">Carqueiranne</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/83036/">Cavalaire-sur-Mer</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83038/">Châteaudouble</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/83039/">Châteauvert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83040/">Châteauvieux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83041/">Claviers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83042/">Cogolin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83043/">Collobrières</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83044/">Comps-sur-Artuby</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83045/">Correns</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83046/">Cotignac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83049/">Cuers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83050/">Draguignan</a> · 9 réseaux : 1 noté C, 8 notés A</li>
+<li><a href="/commune/83051/">Entrecasteaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83052/">Esparron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83053/">Évenos</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83055/">Fayence</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83056/">Figanières</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/83057/">Flassans-sur-Issole</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/83058/">Flayosc</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83059/">Forcalqueiret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83060/">Fox-Amphoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83061/">Fréjus</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83064/">Garéoult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83065/">Gassin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83066/">Ginasservis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83067/">Gonfaron</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83068/">Grimaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83069/">Hyères</a> · 7 réseaux : 1 noté B, 6 notés A</li>
+<li><a href="/commune/83013/">La Bastide</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83027/">La Cadière-d'Azur</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83037/">La Celle</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83048/">La Croix-Valmer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83054/">La Farlède</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83062/">La Garde</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83063/">La Garde-Freinet</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83071/">La Londe-les-Maures</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83074/">La Martre</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/83079/">La Môle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83085/">La Motte</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83109/">La Roque-Esclapon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83108/">La Roquebrussanne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83126/">La Seyne-sur-Mer</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83144/">La Valette-du-Var</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83146/">La Verdière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83016/">Le Beausset</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83020/">Le Bourguet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83031/">Le Cannet-des-Maures</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83035/">Le Castellet</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83070/">Le Lavandou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83073/">Le Luc</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83086/">Le Muy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83094/">Le Plan-de-la-Tour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83098/">Le Pradet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83103/">Le Revest-les-Eaux</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83136/">Le Thoronet</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83143/">Le Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83001/">Les Adrets-de-l'Estérel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83004/">Les Arcs</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83075/">Les Mayons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83122/">Les Salles-sur-Verdon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83072/">Lorgues</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/83076/">Mazaugues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83077/">Méounes-lès-Montrieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83078/">Moissac-Bellevue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83080/">Mons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83081/">Montauroux</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83082/">Montferrat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83083/">Montfort-sur-Argens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83084/">Montmeyan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83087/">Nans-les-Pins</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83088/">Néoules</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83089/">Ollières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83090/">Ollioules</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83091/">Pierrefeu-du-Var</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83092/">Pignans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83093/">Plan-d'Aups-Sainte-Baume</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83095/">Pontevès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83096/">Pourcieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83097/">Pourrières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83099/">Puget-sur-Argens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83100/">Puget-Ville</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/83101/">Ramatuelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83152/">Rayol-Canadel-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83102/">Régusse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83104/">Rians</a> · 1 réseau, noté D</li>
+<li><a href="/commune/83105/">Riboux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83106/">Rocbaron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83107/">Roquebrune-sur-Argens</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/83110/">Rougiers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83154/">Saint-Antonin-du-Var</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/83112/">Saint-Cyr-sur-Mer</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83113/">Saint-Julien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83153/">Saint-Mandrier-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83114/">Saint-Martin-de-Pallières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83116/">Saint-Maximin-la-Sainte-Baume</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83117/">Saint-Paul-en-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83118/">Saint-Raphaël</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/83119/">Saint-Tropez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83120/">Saint-Zacharie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83111/">Sainte-Anastasie-sur-Issole</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83115/">Sainte-Maxime</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83121/">Salernes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83123/">Sanary-sur-Mer</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83124/">Seillans</a> · 5 réseaux : 1 noté D, 4 notés A</li>
+<li><a href="/commune/83125/">Seillons-Source-d'Argens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83127/">Signes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83128/">Sillans-la-Cascade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83129/">Six-Fours-les-Plages</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83130/">Solliès-Pont</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83131/">Solliès-Toucas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83132/">Solliès-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83133/">Tanneron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83134/">Taradeau</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/83135/">Tavernes</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83137/">Toulon</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/83138/">Tourrettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83139/">Tourtour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83140/">Tourves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83141/">Trans-en-Provence</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/83142/">Trigance</a> · 3 réseaux : 1 noté D, 1 noté B, 1 noté A</li>
+<li><a href="/commune/83145/">Varages</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83147/">Vérignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83148/">Vidauban</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83149/">Villecroze</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/83150/">Vinon-sur-Verdon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/83151/">Vins-sur-Caramy</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Var · eau du robinet », https://meteodurobinet.fr/departement/83/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

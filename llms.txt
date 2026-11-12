@@ -1,0 +1,57 @@
+# Météo du robinet
+
+> Qualité de l’eau du robinet de chaque commune et de chaque réseau d’eau potable de France (environ 22 700 réseaux de distribution), d’après le contrôle sanitaire des agences régionales de santé (ARS) depuis 2023, avec une note A, B, C ou D calculée par le site selon la méthode de l’indicateur de l’ARS, les avis de l’ARS, les restrictions sécheresse du jour, le prix de l’eau et les services d’eau. Plateforme conçue par Hydroforge (https://hydroforge.fr/), cabinet d’Aurélien Nogent, consultant en eau potable. Une version plus détaillée figure dans https://meteodurobinet.fr/llms-full.txt
+
+## Licence et citation
+
+Les contenus propres du site (notes calculées, textes, cartes, tableaux) sont publiés sous licence CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.fr) : la réutilisation est libre, non commerciale, avec mention de la source. La source se cite sous la forme suivante, avec le titre et l’adresse de la page utilisée :
+
+Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « titre de la page », adresse de la page.
+
+Exemple : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Saint-Quentin (02) · eau du robinet », https://meteodurobinet.fr/commune/02691/
+
+La forme complète, reprise par les mentions légales du site, est : Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé.
+
+Les données publiques réutilisées par le site restent sous leur propre licence (Licence Ouverte d’Etalab) ; leurs producteurs sont cités sur la page Comprendre, rubrique « Sources des données ». Les notes A à D sont calculées par le site : la synthèse annuelle de l’ARS jointe à la facture d’eau fait foi. Le site ne formule aucune recommandation sanitaire ; il rapporte les avis de l’ARS, datés et attribués. Pour toute consigne, la mairie et l’ARS font foi.
+
+## Sources et mise à jour
+
+- Contrôle sanitaire de l’eau distribuée (SISE-Eaux), ministère chargé de la Santé, via data.gouv.fr et Hub’Eau : chaque analyse réglementaire, par prélèvement, réseau et commune.
+- SISPEA, Office français de la biodiversité : prix, rendement, protection des captages, renouvellement, mode de gestion et missions des services d’eau ; prix de l’assainissement collectif ; facture d’eau complète (eau potable et assainissement collectif) ; collectivité organisatrice de chaque service, avec un lien vers la page du service et de la collectivité sur l’observatoire (services.eaufrance.fr).
+- VigiEau, ministère de la Transition écologique : restrictions sécheresse, lues en direct.
+- Contours des réseaux de distribution : couches régionales des ARS, publiées sur AtlaSanté (utilisation libre sous réserve de mentionner la source et la date) ; le millésime de chaque contour est écrit dans le contrôle d’information de la carte.
+- Zones de sécheresse : jeu « Carte des zones et arrêtés en vigueur » (ministère de la Transition écologique, data.gouv.fr), reconstruit chaque semaine.
+- Fond de plan de la carte : contributeurs d’OpenStreetMap, via OpenFreeMap, demandé à partir du zoom 8 et désactivable.
+- BNPE, ADES, Naïades et piézométrie (OFB, BRGM, agences de l’eau, via Hub’Eau) : prélèvements, qualité des nappes et des rivières, niveau des nappes.
+- Masses d’eau souterraines : polygones du premier horizon, Sandre (version rapportage 2022, Licence Ouverte) ; la masse de chaque point de mesure est celle que Hub’Eau déclare pour sa station.
+- Relief et rivières de la vue de France : cours d’eau principaux de la BD Topage 2025 du Sandre (Licence Ouverte 2.0 ; Natural Earth, domaine public, en repli) et Terrain Tiles (AWS Open Data ; Copernicus EU-DEM, SRTM et GMTED2010 de l’USGS).
+- Recherche par adresse : Base Adresse Nationale, Géoplateforme de l’IGN (Licence Ouverte), interrogée seulement à la demande du visiteur.
+
+Les données du site sont reconstruites chaque semaine. Le ministère publie les résultats du contrôle sanitaire chaque mois, avec un décalage de plusieurs semaines ; chaque page indique la période couverte et la date d’arrêt des données. La méthode de calcul est datée et son historique figure sur la page Comprendre.
+
+## Conception
+
+Météo du robinet est conçue par Hydroforge, qui conçoit des plateformes de données et de datavisualisation sur mesure : https://hydroforge.fr/dataviz/ (contact : https://hydroforge.fr/contact/).
+
+## Pages principales
+
+Le menu du site a trois entrées : Carte, Fiche, Comprendre.
+
+- [Carte](https://meteodurobinet.fr/): carte plein écran des réseaux d’eau potable de France et panneau du lieu choisi ; couches : note A à D, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes, situation de chaque famille de paramètres, radioactivité, substances sans limite, un paramètre au choix parmi plus de 800 (`?couche=parametre&param=`) et eaux brutes (`?couche=`, `?annee=`, `?sel=`) ; le tableau de la couche (`?tableau=1`) donne le même contenu en texte
+- Fiche : la page de détail du lieu choisi (commune, réseau, service d’eau, maître d’ouvrage) ; sans lieu choisi, la fiche de la France : https://meteodurobinet.fr/france/
+- [Comprendre](https://meteodurobinet.fr/methode/): méthode de calcul, note A à D, carte des réseaux, sécheresse et nappes, confidentialité du fond de plan, lexique, sources et limites
+- [Réutilisation et citation](https://meteodurobinet.fr/methode/#reutilisation): licence et forme de la citation
+- [Mentions légales](https://meteodurobinet.fr/methode/#mentions): éditeur et hébergeur
+
+## Fiches
+
+- Fiche d’une commune : https://meteodurobinet.fr/commune/{code INSEE}/
+- Fiche d’un réseau de distribution : https://meteodurobinet.fr/reseau/{code du réseau}/
+- Fiche d’un service d’eau : https://meteodurobinet.fr/service/{identifiant SISPEA}/
+- Page d’un maître d’ouvrage (deux réseaux au moins ; ses réseaux avec leur note en nombre de réseaux, sans classement) : https://meteodurobinet.fr/maitre-d-ouvrage/{clé}/
+- Fiche d’un département : https://meteodurobinet.fr/departement/{numéro}/ ; page courte qui compte les réseaux par note, nomme les familles en cause et liste les communes avec leurs réseaux comptés par note ; le département n’est pas jugé, il n’a ni note ni classement
+- Plan du site : https://meteodurobinet.fr/sitemap.xml
+
+## Données
+
+Le site ne propose aucune donnée nationale en téléchargement. Chaque fiche permet de télécharger les données de son lieu, un fichier CSV fabriqué dans le navigateur, avec la licence et la citation ci-dessus.

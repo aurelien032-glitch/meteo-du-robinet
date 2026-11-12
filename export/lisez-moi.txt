@@ -1,0 +1,42 @@
+Météo du robinet (meteodurobinet.fr) : lisez-moi des fichiers de données d'un lieu
+
+CE QUE CONTIENT LE FICHIER
+Le menu ⋯ de la fiche d'un réseau, d'une commune, d'un service d'eau ou d'un maître d'ouvrage propose « Télécharger les données de ce lieu » : un fichier CSV pour toutes les années publiées, fabriqué dans le navigateur à partir des données de la fiche. Le site ne propose aucune donnée nationale à télécharger.
+- meteo-du-robinet_reseau_<code du réseau>.csv : une ligne par année publiée, de la plus ancienne à la plus récente.
+- meteo-du-robinet_commune_<code INSEE>.csv : une ligne par réseau qui dessert la commune et par année, par code de réseau puis par année. Une commune n'a pas de note : ses réseaux en ont une chacun.
+- meteo-du-robinet_moa_<clé du maître d'ouvrage>.csv : une ligne par réseau du maître d'ouvrage et par année, par code de réseau puis par année. Le site ne note pas le maître d'ouvrage.
+- meteo-du-robinet_service_<identifiant SISPEA>.csv : une ligne par exercice déclaré à SISPEA, de l'exercice le plus ancien au plus récent.
+
+FORMAT
+UTF-8 avec marque d'ordre des octets, séparateur point-virgule, nombres décimaux avec virgule, fins de ligne CRLF, aucune espace insécable, aucune ligne de commentaire : la première ligne porte les noms des colonnes. Une cellule vide est une valeur absente. Dans un tableur, taper en texte la colonne des codes de réseau et celle des codes INSEE, pour garder leurs zéros initiaux.
+Les schémas des colonnes (nom, type, unité, valeurs possibles) sont au format Frictionless Table Schema : schema-reseaux.json (réseaux, communes, maîtres d'ouvrage) et schema-service.json (service d'eau), à la même adresse que ce fichier.
+
+SOURCES ET LICENCES
+Contrôle sanitaire des eaux destinées à la consommation humaine (SISE-Eaux), ministère chargé de la Santé : données ouvertes, Licence Ouverte Etalab 2.0. Avis de l'ARS : conclusions du contrôle sanitaire, mêmes données. Prix et indicateurs des services : SISPEA, observatoire des services publics d'eau et d'assainissement (Office français de la biodiversité), Licence Ouverte Etalab 2.0.
+La note calculée, les textes et les cartes du site sont publiés sous licence CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.fr). La note calculée n'est pas la synthèse officielle de l'ARS, qui fait foi.
+
+CITATION
+Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d'après le contrôle sanitaire des eaux du ministère chargé de la Santé, avec le nom du fichier et l'adresse de la fiche du lieu. Pour les données SISPEA : d'après SISPEA, observatoire des services publics d'eau et d'assainissement (Office français de la biodiversité).
+Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : https://hydroforge.fr/dataviz/
+
+LECTURE DES COLONNES, FICHIERS DES RÉSEAUX
+Une ligne est un réseau de distribution du contrôle sanitaire pour une année. Le nom du réseau, le maître d'ouvrage, l'unité de gestion et le distributeur sont les plus récents connus et s'appliquent à toutes les années du fichier. La note, les situations, l'avis et le prix sont ceux de l'année.
+- Code du réseau : neuf caractères, zéros initiaux compris ; clé de la ligne avec l'année du bilan.
+- Département, Nom du réseau.
+- Commune de tête ou commune unique, Code INSEE de cette commune : la commune desservie dont le nom ouvre celui du réseau, ou l'unique commune desservie ; vides sinon.
+- Communes desservies (nombre), Codes INSEE des communes desservies : la desserte de l'année ; elle ne sert à aucun jugement.
+- Maître d'ouvrage, Clé du maître d'ouvrage : renseignés seulement pour un maître d'ouvrage d'au moins deux réseaux. Une cellule vide ne signifie pas que le réseau n'a pas de maître d'ouvrage.
+- Unité de gestion (contrôle sanitaire), Distributeur (contrôle sanitaire) : libellés du contrôle sanitaire, à ne pas confondre avec l'exploitant déclaré à SISPEA.
+- Note calculée : note de A à D calculée par le site selon les mêmes principes que les synthèses annuelles de l'ARS jointes à la facture, famille la plus défavorable du réseau, grille de l'ARS pour la bactériologie. Vide : pas de note.
+- Famille reprise d'une année antérieure : famille sans analyse dans l'année dont la note reprend la lettre de sa dernière année analysée, cinq ans au plus.
+- Situation : pesticides, nitrates, PFAS, bactériologie, métaux et minéraux, autres limites de qualité : la situation de la famille selon la méthode de son bilan officiel, en texte ; « pas d'analyse » quand la famille n'a pas été analysée dans l'année. Une situation n'est pas la note.
+- Avis de l'ARS dans l'année : l'avis le plus grave cité dans les conclusions du contrôle sanitaire de l'année, hors avis locaux ; « pas d'information » quand la délégation de l'ARS ne précise pas ses avis.
+- Prix du service d'eau (€ le m³, au 1er janvier suivant l'exercice), Exercice du prix (SISPEA), Identifiant du service (SISPEA) : le prix du service, donné quand toutes les communes desservies relèvent du même service ; le prix de l'exercice N est celui du 1er janvier N+1.
+- Année du bilan, Année en cours (données partielles) : l'année de la ligne ; « true » quand l'année est en cours et que les données s'arrêtent à la date d'arrêt des avis.
+- Code de situation (une colonne par famille), Code de l'avis de l'ARS, Familles reprises d'une année antérieure (codes) : codes qui ne changent pas d'une année à l'autre. Situation : 0 conforme, puis les situations croissantes selon la famille ; avis : 0 aucun avis, 1 eau déconseillée aux publics sensibles, 2 consigne d'ébullition, 3 restriction de consommation, i pas d'information.
+- Début du cumul bactériologique de la note (année) : première année des prélèvements bactériologiques sur lesquels porte la note ; l'année de la ligne seule quand elle compte assez de prélèvements, sinon les années antérieures s'y ajoutent, cinq ans au plus. Donné pour un réseau noté B, C ou D ; vide pour un réseau noté A.
+- Prélèvements bactériologiques de l'année (sans réseau amont), Prélèvements bactériologiques non conformes de l'année, Maximum d'E. coli ou d'entérocoques de l'année (n/100 mL), Prélèvements bactériologiques du réseau amont seul (1 = oui) : le bilan bactériologique de l'année de la ligne seule, à côté de la note, qui peut ajouter au besoin les années précédentes (colonne du début du cumul). Ce sont les prélèvements du réseau, sans ceux d'un autre réseau de distribution situé en amont. Vides sans prélèvement publié dans l'année ; un maximum de 0 dit qu'aucun résultat de ces germes n'est supérieur à zéro dans les données publiées. La dernière colonne vaut 1 quand tous les prélèvements du réseau dans l'année sont ceux d'un réseau situé en amont, que la note reprend alors faute d'autres : les trois colonnes précédentes sont celles de ce réseau amont, que plusieurs réseaux peuvent partager. Aucune ligne ni colonne ne totalise plusieurs réseaux.
+Le contour publié par l'ARS n'est pas dans le fichier.
+
+LECTURE DES COLONNES, FICHIER D'UN SERVICE D'EAU
+Une ligne est une déclaration d'un exercice à SISPEA, telle que l'observatoire la publie. Les premières colonnes décrivent le service et sa déclaration : identifiant, exercice, collectivité, nom interne, mode de gestion et son code (R régie, D gestion déléguée, I inconnu), exploitant, missions (production, transfert, distribution), statut de la déclaration et son code, population desservie. Les colonnes suivantes sont des indicateurs de SISPEA, intitulées par leur code (D101.0 population desservie, D102.0 prix TTC du m³ pour 120 m³ par an, P104.3 rendement du réseau, P105.3 indice linéaire des volumes non comptés, P106.3 indice linéaire de pertes en réseau, P107.2 taux moyen de renouvellement…) : valeurs brutes, vides quand l'indicateur n'est pas déclaré l'exercice. Les libellés et les unités sont ceux du dictionnaire de SISPEA (https://www.services.eaufrance.fr/). Le fichier ne juge rien : un prix hors de 0,20 à 15 € le m³, que le site écarte de ses cartes, y figure tel que SISPEA le publie.

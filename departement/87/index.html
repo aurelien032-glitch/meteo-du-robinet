@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Haute-Vienne (87) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Haute-Vienne · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Haute-Vienne (87) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/87/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Haute-Vienne · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Haute-Vienne · eau du robinet","url":"https://meteodurobinet.fr/departement/87/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Haute-Vienne","item":"https://meteodurobinet.fr/departement/87/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/87/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Haute-Vienne</h1>
+<p class="meta">Département 87</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>6 sur 189 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 180 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 3 réseaux</li>
+<li>D mauvaise qualité* : 3 réseaux</li>
+</ul>
+<p>Bactériologie 5 (3 D), pesticides 1.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>180 prélèvements</strong> évalués en septembre 2026 ; 1 503 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 80 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 1 jour, alerte 3 jours, alerte renforcée 46 jours, crise 44 jours</li>
+<li>2026 en cours : vigilance 14 jours, alerte 0 jour, alerte renforcée 6 jours, crise 122 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,82</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 9 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>28 services d’eau</strong> desservent au moins une commune du département ; 19 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 207 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/087000379/">ABA BANTARD</a> · 087000379 · sans note · 2 communes</li>
+<li><a href="/reseau/087000065/">ABA BLOND BOURG</a> · 087000065 · sans note · 1 commune</li>
+<li><a href="/reseau/087001425/">ABA BONNAC LA COTE</a> · 087001425 · sans note · 1 commune</li>
+<li><a href="/reseau/087000230/">ABA BOURG EYMOUTIERS</a> · 087000230 · sans note · 1 commune</li>
+<li><a href="/reseau/087000243/">ABA BUSSY</a> · 087000243 · sans note · 1 commune</li>
+<li><a href="/reseau/087001430/">ABA CHAPTELAT</a> · 087001430 · sans note · 1 commune</li>
+<li><a href="/reseau/087000949/">ABA COUZEIX (LIMOGES)</a> · 087000949 · sans note · 1 commune</li>
+<li><a href="/reseau/087000380/">ABA GORGES OUVERTES</a> · 087000380 · sans note · 2 communes</li>
+<li><a href="/reseau/087001148/">ABA LA CLAUTRE (SYTEPOL)</a> · 087001148 · sans note · 1 commune</li>
+<li><a href="/reseau/087000077/">ABA LA GUYONNERIE</a> · 087000077 · sans note · 1 commune</li>
+<li><a href="/reseau/087000549/">ABA LE PALAIS</a> · 087000549 · sans note · 1 commune</li>
+<li><a href="/reseau/087000756/">ABA MORTEMART BOURG</a> · 087000756 · sans note · 1 commune</li>
+<li><a href="/reseau/087001428/">ABA PEYRILHAC</a> · 087001428 · sans note · 1 commune</li>
+<li><a href="/reseau/087000376/">ABA PLANTEDIT</a> · 087000376 · sans note · 3 communes</li>
+<li><a href="/reseau/087001678/">ABA PUYMOROUX</a> · 087001678 · sans note · 1 commune</li>
+<li><a href="/reseau/087001660/">ABA RILHAC RANCON (LIMOGES)</a> · 087001660 · sans note · 1 commune</li>
+<li><a href="/reseau/087003375/">ABA SAINT-GENCE</a> · 087003375 · sans note · 1 commune</li>
+<li><a href="/reseau/087003376/">ABA VEYRAC</a> · 087003376 · sans note · 1 commune</li>
+<li><a href="/reseau/087000304/">AGNOT</a> · 087000304 · note A · 1 commune</li>
+<li><a href="/reseau/087001240/">AGNOT LAURIERE</a> · 087001240 · note A · 1 commune</li>
+<li><a href="/reseau/087001352/">AMBOIRAS</a> · 087001352 · note A · 1 commune</li>
+<li><a href="/reseau/087001169/">ARNAC LA POSTE</a> · 087001169 · note A · 1 commune</li>
+<li><a href="/reseau/087000216/">AUGNE</a> · 087000216 · note A · 1 commune</li>
+<li><a href="/reseau/087001705/">AUPHELLE </a> · 087001705 · note A · 1 commune</li>
+<li><a href="/reseau/087000858/">BEAUMONT BAS</a> · 087000858 · note C · 1 commune</li>
+<li><a href="/reseau/087000860/">BEAUMONT HAUT</a> · 087000860 · note A · 1 commune</li>
+<li><a href="/reseau/087000106/">BEISSAT</a> · 087000106 · note A · 25 communes</li>
+<li><a href="/reseau/087004069/">BENAIZE</a> · 087004069 · note A · 4 communes</li>
+<li><a href="/reseau/087001248/">BERSAC SUR RIVALIER</a> · 087001248 · note A · 1 commune</li>
+<li><a href="/reseau/087000717/">BOUBON</a> · 087000717 · note A · 2 communes</li>
+<li><a href="/reseau/087001716/">BREUILAUFA</a> · 087001716 · note A · 1 commune</li>
+<li><a href="/reseau/087000479/">BRIANCE</a> · 087000479 · note A · 16 communes</li>
+<li><a href="/reseau/087001401/">BRIANCE LES CROZES</a> · 087001401 · note A · 2 communes</li>
+<li><a href="/reseau/087001563/">BUJALEUF (AUGNE)</a> · 087001563 · note A · 1 commune</li>
+<li><a href="/reseau/087000209/">BUJALEUF BOURG</a> · 087000209 · note A · 1 commune</li>
+<li><a href="/reseau/087001217/">BUSSIERE BOFFY</a> · 087001217 · note A · 1 commune</li>
+<li><a href="/reseau/087000189/">CHADIERAS</a> · 087000189 · note A · 1 commune</li>
+<li><a href="/reseau/087001715/">CHAMBORET (BEISSAT)</a> · 087001715 · note A · 1 commune</li>
+<li><a href="/reseau/087000084/">CHAMBORET (NANTIAT)</a> · 087000084 · note A · 1 commune</li>
+<li><a href="/reseau/087000946/">CHAMBOURSAT</a> · 087000946 · note B · 1 commune</li>
+<li><a href="/reseau/087004008/">CHAMPNETERY  </a> · 087004008 · note A · 1 commune</li>
+<li><a href="/reseau/087001714/">CHAMPS LA VIGNE</a> · 087001714 · note A · 1 commune</li>
+<li><a href="/reseau/087000251/">CHANTECOUDERT</a> · 087000251 · note A · 1 commune</li>
+<li><a href="/reseau/087001357/">CHASSAGNAS</a> · 087001357 · note A · 1 commune</li>
+<li><a href="/reseau/087000853/">CHATEAUCOURT</a> · 087000853 · note A · 1 commune</li>
+<li><a href="/reseau/087001270/">CHATEAUNEUF LA FORET</a> · 087001270 · note A · 2 communes</li>
+<li><a href="/reseau/087000602/">CHATENET EN DOGNON</a> · 087000602 · note A · 1 commune</li>
+<li><a href="/reseau/087000299/">CHAVANAT</a> · 087000299 · note A · 1 commune</li>
+<li><a href="/reseau/087000002/">CHEDEVILLE VILLAGE</a> · 087000002 · note A · 1 commune</li>
+<li><a href="/reseau/087000775/">CHEISSOUX</a> · 087000775 · note A · 1 commune</li>
+<li><a href="/reseau/087001130/">CHEZ CHAPELLE</a> · 087001130 · note A · 1 commune</li>
+<li><a href="/reseau/087000841/">CIEUX</a> · 087000841 · note A · 1 commune</li>
+<li><a href="/reseau/087001346/">CLOS</a> · 087001346 · note A · 1 commune</li>
+<li><a href="/reseau/087001679/">COULEREDE MELANGE</a> · 087001679 · note A · 1 commune</li>
+<li><a href="/reseau/087001229/">COURBEFY (LA BRIANCE)</a> · 087001229 · note A · 1 commune</li>
+<li><a href="/reseau/087003977/">COUZE GARTEMPE</a> · 087003977 · note A · 5 communes</li>
+<li><a href="/reseau/087000950/">COYOL</a> · 087000950 · note A · 1 commune</li>
+<li><a href="/reseau/087000458/">CROIX DE VALETTE</a> · 087000458 · note A · 2 communes</li>
+<li><a href="/reseau/087001377/">CRONSTAD</a> · 087001377 · note A · 1 commune</li>
+<li><a href="/reseau/087001950/">DOMPIERRE LES EGLISES</a> · 087001950 · note A · 1 commune</li>
+<li><a href="/reseau/087003639/">DOMPS</a> · 087003639 · note A · 1 commune</li>
+<li><a href="/reseau/087004068/">DONARIEIX</a> · 087004068 · note A · 1 commune</li>
+<li><a href="/reseau/087000201/">DONZENAT</a> · 087000201 · note A · 1 commune</li>
+<li><a href="/reseau/087000974/">DOURNAZAC</a> · 087000974 · note A · 1 commune</li>
+<li><a href="/reseau/087001588/">DOURNAZAC (LA CHAPELLE MONTBRANDEIX)</a> · 087001588 · note A · 1 commune</li>
+<li><a href="/reseau/087004067/">EYMOUTIERS BOURG</a> · 087004067 · note A · 1 commune</li>
+<li><a href="/reseau/087000017/">FONTAUBE</a> · 087000017 · note A · 1 commune</li>
+<li><a href="/reseau/087000420/">FREGEFONT</a> · 087000420 · note A · 2 communes</li>
+<li><a href="/reseau/087000744/">GABOUREAU</a> · 087000744 · note A · 2 communes</li>
+<li><a href="/reseau/087001187/">GAJOUBERT</a> · 087001187 · note A · 1 commune</li>
+<li><a href="/reseau/087000010/">GERBASSOU BOURG</a> · 087000010 · note A · 1 commune</li>
+<li><a href="/reseau/087000570/">GOLAS</a> · 087000570 · note A · 1 commune</li>
+<li><a href="/reseau/087000199/">GUIMONT</a> · 087000199 · note A · 1 commune</li>
+<li><a href="/reseau/087001146/">JAVERDAT</a> · 087001146 · note A · 1 commune</li>
+<li><a href="/reseau/087000254/">JOUAC</a> · 087000254 · note A · 1 commune</li>
+<li><a href="/reseau/087000096/">L'AGE</a> · 087000096 · note B · 1 commune</li>
+<li><a href="/reseau/087000711/">L'ARTIGE</a> · 087000711 · note A · 3 communes</li>
+<li><a href="/reseau/087001995/">LA BETOULLE</a> · 087001995 · note A · 1 commune</li>
+<li><a href="/reseau/087003985/">LA CHAPELLE BLANCHE VILLAGE</a> · 087003985 · note A · 1 commune</li>
+<li><a href="/reseau/087001378/">LA CHASSAGNE</a> · 087001378 · note A · 1 commune</li>
+<li><a href="/reseau/087003637/">LA CHASSAGNE-ST MARTIN</a> · 087003637 · note A · 1 commune</li>
+<li><a href="/reseau/087001354/">LA CROISILLE SUR BRIANCE</a> · 087001354 · note A · 1 commune</li>
+<li><a href="/reseau/087001283/">LA GARENNE</a> · 087001283 · note A · 1 commune</li>
+<li><a href="/reseau/087001172/">LA GRANDE VALADE</a> · 087001172 · note A · 1 commune</li>
+<li><a href="/reseau/087000535/">LA GRILLERE</a> · 087000535 · note A · 1 commune</li>
+<li><a href="/reseau/087000532/">LA GRILLERE MONT GARGAN</a> · 087000532 · note A · 1 commune</li>
+<li><a href="/reseau/087000738/">LA HAUTE BARRIERE</a> · 087000738 · note A · 3 communes</li>
+<li><a href="/reseau/087001291/">LA MALIGNE</a> · 087001291 · note A · 1 commune</li>
+<li><a href="/reseau/087000749/">LA MARTINIE</a> · 087000749 · note A · 1 commune</li>
+<li><a href="/reseau/087001739/">LA MEYZE</a> · 087001739 · note A · 1 commune</li>
+<li><a href="/reseau/087000544/">LA PERRIERE</a> · 087000544 · note A · 1 commune</li>
+<li><a href="/reseau/087000779/">LA PORCHERIE</a> · 087000779 · note A · 1 commune</li>
+<li><a href="/reseau/087001541/">LA POUGE DOURNAZAC</a> · 087001541 · note A · 1 commune</li>
+<li><a href="/reseau/087000465/">LA ROCHE VIENNE COMBADE</a> · 087000465 · note A · 5 communes</li>
+<li><a href="/reseau/087001134/">LA TERRADE</a> · 087001134 · note A · 1 commune</li>
+<li><a href="/reseau/087001145/">LA VALETTE</a> · 087001145 · note A · 1 commune</li>
+<li><a href="/reseau/087000187/">LACHAUD</a> · 087000187 · note A · 1 commune</li>
+<li><a href="/reseau/087001224/">LADIGNAC LE LONG</a> · 087001224 · note A · 1 commune</li>
+<li><a href="/reseau/087001662/">LAFOND</a> · 087001662 · note A · 1 commune</li>
+<li><a href="/reseau/087001245/">LAILLOUX</a> · 087001245 · note A · 1 commune</li>
+<li><a href="/reseau/087000587/">LANAUD</a> · 087000587 · note A · 9 communes</li>
+<li><a href="/reseau/087000681/">LANAUD BRIANCE</a> · 087000681 · note A · 12 communes</li>
+<li><a href="/reseau/087001239/">LAURIERE</a> · 087001239 · note A · 1 commune</li>
+<li><a href="/reseau/087001298/">LE BOST</a> · 087001298 · note A · 1 commune</li>
+<li><a href="/reseau/087001212/">LE BUIS</a> · 087001212 · note A · 1 commune</li>
+<li><a href="/reseau/087001233/">LE CHALARD</a> · 087001233 · note A · 1 commune</li>
+<li><a href="/reseau/087000234/">LE MONT SUD</a> · 087000234 · note A · 1 commune</li>
+<li><a href="/reseau/087000312/">LE MONTEIL</a> · 087000312 · note A · 1 commune</li>
+<li><a href="/reseau/087001138/">LE PECHER</a> · 087001138 · note A · 1 commune</li>
+<li><a href="/reseau/087001414/">LE PUY CHEVALIER</a> · 087001414 · note A · 1 commune</li>
+<li><a href="/reseau/087000454/">LE STADE</a> · 087000454 · note A · 1 commune</li>
+<li><a href="/reseau/087001323/">LE VILLARD</a> · 087001323 · note A · 1 commune</li>
+<li><a href="/reseau/087000541/">LES ADOUX</a> · 087000541 · note A · 1 commune</li>
+<li><a href="/reseau/087001236/">LES BILLANGES</a> · 087001236 · note A · 1 commune</li>
+<li><a href="/reseau/087000710/">LES CARDERIES</a> · 087000710 · note A · 1 commune</li>
+<li><a href="/reseau/087001442/">LES CHEVAILLES</a> · 087001442 · note A · 1 commune</li>
+<li><a href="/reseau/087003674/">LES COMBES</a> · 087003674 · note A · 1 commune</li>
+<li><a href="/reseau/087000346/">LES COMBES SAGNOLLE</a> · 087000346 · note A · 1 commune</li>
+<li><a href="/reseau/087000053/">LES FARACHATS LA GRIMAUDIE</a> · 087000053 · note A · 1 commune</li>
+<li><a href="/reseau/087000080/">LES FORETS</a> · 087000080 · note A · 1 commune</li>
+<li><a href="/reseau/087000741/">LES LIADES</a> · 087000741 · note A · 2 communes</li>
+<li><a href="/reseau/087000424/">LES MADURES</a> · 087000424 · note A · 1 commune</li>
+<li><a href="/reseau/087001321/">LES PINS</a> · 087001321 · note A · 1 commune</li>
+<li><a href="/reseau/087001419/">LES RETOUILLERES VILLAGE</a> · 087001419 · note A · 1 commune</li>
+<li><a href="/reseau/087001376/">LES VERGNES</a> · 087001376 · note A · 1 commune</li>
+<li><a href="/reseau/087000014/">LES VERGNES PUY GARSAULT</a> · 087000014 · note A · 1 commune</li>
+<li><a href="/reseau/087000601/">LIMOGES METROPOLE LA BASTIDE</a> · 087000601 · note B · 9 communes</li>
+<li><a href="/reseau/087001528/">LOTISSEMENT DU GERBASSOU</a> · 087001528 · note A · 1 commune</li>
+<li><a href="/reseau/087000259/">LUSSAC LES EGLISES</a> · 087000259 · note A · 1 commune</li>
+<li><a href="/reseau/087000551/">MAISON ROUGE</a> · 087000551 · note A · 4 communes</li>
+<li><a href="/reseau/087001441/">MALLETY</a> · 087001441 · note A · 1 commune</li>
+<li><a href="/reseau/087001299/">MASLEON</a> · 087001299 · note A · 1 commune</li>
+<li><a href="/reseau/087000297/">MAUCLOUP</a> · 087000297 · note A · 1 commune</li>
+<li><a href="/reseau/087001360/">MAZEAUDOIS</a> · 087001360 · note A · 1 commune</li>
+<li><a href="/reseau/087001366/">MEUZAC (SIAEP DE L'AUVEZERE)</a> · 087001366 · note A · 1 commune</li>
+<li><a href="/reseau/087001364/">MEUZAC BOURG</a> · 087001364 · note A · 1 commune</li>
+<li><a href="/reseau/087000604/">MEUZAC VILLAGES</a> · 087000604 · note A · 1 commune</li>
+<li><a href="/reseau/087001158/">MOISSANNES</a> · 087001158 · note C · 1 commune</li>
+<li><a href="/reseau/087001433/">MONT GARGAN</a> · 087001433 · note A · 2 communes</li>
+<li><a href="/reseau/087001684/">MONT LARRON SUD</a> · 087001684 · note A · 1 commune</li>
+<li><a href="/reseau/087001434/">MONT SUD S1</a> · 087001434 · note A · 1 commune</li>
+<li><a href="/reseau/087000844/">MONTGENIE</a> · 087000844 · note A · 1 commune</li>
+<li><a href="/reseau/087000249/">MONTROL SENARD</a> · 087000249 · note A · 1 commune</li>
+<li><a href="/reseau/087000101/">NANTIAT BOURG</a> · 087000101 · note A · 1 commune</li>
+<li><a href="/reseau/087000205/">NEDDE BOURG</a> · 087000205 · note A · 1 commune</li>
+<li><a href="/reseau/087000567/">NEUVIC BOURG</a> · 087000567 · note A · 1 commune</li>
+<li><a href="/reseau/087003374/">NIEUL</a> · 087003374 · note A · 1 commune</li>
+<li><a href="/reseau/087000073/">NOUIC</a> · 087000073 · note A · 1 commune</li>
+<li><a href="/reseau/087000403/">PAMPALY</a> · 087000403 · note A · 1 commune</li>
+<li><a href="/reseau/087001578/">PETITES MAGNELLES CHATEAUPONSAC</a> · 087001578 · note A · 1 commune</li>
+<li><a href="/reseau/087000220/">PEYRASSOU S1</a> · 087000220 · note A · 1 commune</li>
+<li><a href="/reseau/087000222/">PEYRASSOUX MONT NORD</a> · 087000222 · note D · 1 commune</li>
+<li><a href="/reseau/087001337/">PEYRAT LE CHATEAU</a> · 087001337 · note A · 1 commune</li>
+<li><a href="/reseau/087000450/">PLANTADIS</a> · 087000450 · note A · 3 communes</li>
+<li><a href="/reseau/087000340/">POPERDU</a> · 087000340 · note A · 1 commune</li>
+<li><a href="/reseau/087000746/">PUY BOSSE LA COTE</a> · 087000746 · note A · 3 communes</li>
+<li><a href="/reseau/087000300/">PUY COURTY</a> · 087000300 · note A · 1 commune</li>
+<li><a href="/reseau/087000068/">PUY DE MERY BELLEIX</a> · 087000068 · note A · 2 communes</li>
+<li><a href="/reseau/087000036/">PUY LES VIGNES HAUT SERVICE</a> · 087000036 · note A · 1 commune</li>
+<li><a href="/reseau/087000427/">PUY MELIER</a> · 087000427 · note A · 1 commune</li>
+<li><a href="/reseau/087001136/">REMPNAT</a> · 087001136 · note A · 1 commune</li>
+<li><a href="/reseau/087001164/">RILHAC-LASTOURS</a> · 087001164 · note A · 1 commune</li>
+<li><a href="/reseau/087000795/">ROCHECHOUART</a> · 087000795 · note A · 1 commune</li>
+<li><a href="/reseau/087001963/">ROYERES MAZIERE</a> · 087001963 · note A · 1 commune</li>
+<li><a href="/reseau/087001372/">ROZIERS SAINT GEORGES</a> · 087001372 · note A · 1 commune</li>
+<li><a href="/reseau/087000796/">SAILLAT SUR VIENNE</a> · 087000796 · note A · 1 commune</li>
+<li><a href="/reseau/087001208/">SAINT AMAND LE PETIT</a> · 087001208 · note A · 1 commune</li>
+<li><a href="/reseau/087001161/">SAINT AMAND MAGNAZEIX</a> · 087001161 · note A · 1 commune</li>
+<li><a href="/reseau/087001302/">SAINT DENIS DES MURS</a> · 087001302 · note A · 1 commune</li>
+<li><a href="/reseau/087000925/">SAINT GILLES</a> · 087000925 · note A · 1 commune</li>
+<li><a href="/reseau/087000769/">SAINT HILAIRE LA TREILLE</a> · 087000769 · note A · 1 commune</li>
+<li><a href="/reseau/087001426/">SAINT JOUVENT</a> · 087001426 · note A · 1 commune</li>
+<li><a href="/reseau/087001319/">SAINT JULIEN (TRAMONTEIL)</a> · 087001319 · note A · 1 commune</li>
+<li><a href="/reseau/087001908/">SAINT JULIEN LE PETIT (LES MONARDS)</a> · 087001908 · note A · 1 commune</li>
+<li><a href="/reseau/087001311/">SAINT JULIEN LE PETIT BOURG</a> · 087001311 · note A · 1 commune</li>
+<li><a href="/reseau/087001289/">SAINT LAURENT LES EGLISES</a> · 087001289 · note A · 1 commune</li>
+<li><a href="/reseau/087001255/">SAINT LEGER LA MONTAGNE</a> · 087001255 · note A · 1 commune</li>
+<li><a href="/reseau/087000275/">SAINT LEGER MAGNAZEIX LE BOURG</a> · 087000275 · note A · 1 commune</li>
+<li><a href="/reseau/087003627/">SAINT LEONARD</a> · 087003627 · note A · 1 commune</li>
+<li><a href="/reseau/087000031/">SAINT LEONARD LES ALLOIS</a> · 087000031 · note A · 1 commune</li>
+<li><a href="/reseau/087000271/">SAINT MARTIN LE MAULT</a> · 087000271 · note A · 1 commune</li>
+<li><a href="/reseau/087001263/">SAINT MEARD</a> · 087001263 · note A · 1 commune</li>
+<li><a href="/reseau/087000762/">SAINT SORNIN LEULAC</a> · 087000762 · note C · 1 commune</li>
+<li><a href="/reseau/087004001/">SAINT SULPICE LES FEUILLES</a> · 087004001 · note A · 1 commune</li>
+<li><a href="/reseau/087000658/">SAINT-JUNIEN</a> · 087000658 · note A · 2 communes</li>
+<li><a href="/reseau/087004045/">SAINT-PARDOUX-LE-LAC</a> · 087004045 · note A · 1 commune</li>
+<li><a href="/reseau/087001306/">SAINTE ANNE SAINT PRIEST</a> · 087001306 · note D · 1 commune</li>
+<li><a href="/reseau/087001204/">SAUVIAT SUR VIGE</a> · 087001204 · note A · 1 commune</li>
+<li><a href="/reseau/087001121/">SEREILHAC</a> · 087001121 · note A · 1 commune</li>
+<li><a href="/reseau/087000239/">SOUFFRANGEAS</a> · 087000239 · note D · 1 commune</li>
+<li><a href="/reseau/087000834/">SURDOUX</a> · 087000834 · note A · 1 commune</li>
+<li><a href="/reseau/087001341/">SUSSAC</a> · 087001341 · note A · 1 commune</li>
+<li><a href="/reseau/087003515/">SYTEPOL (VBG)</a> · 087003515 · note A · 13 communes</li>
+<li><a href="/reseau/087001427/">THOURON</a> · 087001427 · note A · 1 commune</li>
+<li><a href="/reseau/087001367/">TILLY</a> · 087001367 · note A · 1 commune</li>
+<li><a href="/reseau/087001545/">VAL DE TARDOIRE</a> · 087001545 · note A · 2 communes</li>
+<li><a href="/reseau/087000930/">VAULRY</a> · 087000930 · note A · 1 commune</li>
+<li><a href="/reseau/087000742/">VERGNOLAS</a> · 087000742 · note A · 2 communes</li>
+<li><a href="/reseau/087000562/">VEYTISOU (1)</a> · 087000562 · note A · 1 commune</li>
+<li><a href="/reseau/087000564/">VEYTISOU (2)</a> · 087000564 · note A · 1 commune</li>
+<li><a href="/reseau/087003654/">VICQ/BREUILH LA REJATAS</a> · 087003654 · note A · 1 commune</li>
+<li><a href="/reseau/087003653/">VIENNE COMBADE (SURPRESSEUR)</a> · 087003653 · note A · 1 commune</li>
+<li><a href="/reseau/087000023/">VIEUX</a> · 087000023 · note A · 1 commune</li>
+<li><a href="/reseau/087001759/">VILLAGE LE MONT</a> · 087001759 · note A · 1 commune</li>
+<li><a href="/reseau/087000789/">VILLEFAVARD</a> · 087000789 · note A · 1 commune</li>
+<li><a href="/reseau/087000856/">VILLEMOUJEANNE</a> · 087000856 · note A · 1 commune</li>
+<li><a href="/reseau/087000075/">VILLERAJOUZE</a> · 087000075 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/87001/">Aixe-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87002/">Ambazac</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/87003/">Arnac-la-Poste</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87004/">Augne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87005/">Aureil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87006/">Azat-le-Ris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87007/">Balledent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87009/">Beaumont-du-Lac</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/87011/">Bellac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87012/">Berneuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87013/">Bersac-sur-Rivalier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87014/">Bessines-sur-Gartempe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87015/">Beynac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87017/">Blanzac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87018/">Blond</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/87019/">Boisseuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87020/">Bonnac-la-Côte</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87021/">Bosmie-l'Aiguille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87022/">Breuilaufa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87024/">Bujaleuf</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87025/">Burgnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87027/">Bussière-Galant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87030/">Chaillac-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87032/">Châlus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87033/">Chamboret</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87034/">Champagnac-la-Rivière</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87035/">Champnétery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87036/">Champsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87038/">Chaptelat</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87039/">Château-Chervix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87040/">Châteauneuf-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87041/">Châteauponsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87043/">Cheissoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87044/">Chéronnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87045/">Cieux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87046/">Cognac-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87047/">Compreignac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87048/">Condat-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87049/">Coussac-Bonneval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87050/">Couzeix</a> · 3 réseaux : 2 notés B, 1 noté A</li>
+<li><a href="/commune/87053/">Cromac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87054/">Cussac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87056/">Dinsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87057/">Dompierre-les-Églises</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87058/">Domps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87060/">Dournazac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87061/">Droux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87062/">Eybouleuf</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87063/">Eyjeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87064/">Eymoutiers</a> · 8 réseaux : 2 notés D, 6 notés A</li>
+<li><a href="/commune/87065/">Feytiat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87066/">Flavignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87067/">Folles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87068/">Fromental</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87069/">Gajoubert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87071/">Glandon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87072/">Glanges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87073/">Gorre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87075/">Isle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87076/">Jabreilles-les-Bordes</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/87077/">Janailhac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87078/">Javerdat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87080/">Jouac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87081/">Jourgnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87008/">La Bazeuge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87037/">La Chapelle-Montbrandeix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87051/">La Croisille-sur-Briance</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/87052/">La Croix-sur-Gartempe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87070/">La Geneytouse</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87079/">La Jonchère-Saint-Maurice</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87096/">La Meyze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87120/">La Porcherie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87127/">La Roche-l'Abeille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87082/">Ladignac-le-Long</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87083/">Laurière</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87084/">Lavignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87023/">Le Buis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87031/">Le Chalard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87042/">Le Châtenet-en-Dognon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87059/">Le Dorat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87113/">Le Palais-sur-Vienne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87205/">Le Vigen</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87016/">Les Billanges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87029/">Les Cars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87074/">Les Grands-Chézeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87189/">Les Salles-Lavauguyon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87085/">Limoges</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87086/">Linards</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87087/">Lussac-les-Églises</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87088/">Magnac-Bourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87089/">Magnac-Laval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87090/">Mailhac-sur-Benaize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87091/">Maisonnais-sur-Tardoire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87092/">Marval</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87093/">Masléon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87094/">Meilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87095/">Meuzac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87099/">Moissannes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/87100/">Montrol-Sénard</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87101/">Mortemart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87103/">Nantiat</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/87104/">Nedde</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/87105/">Neuvic-Entier</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/87106/">Nexon</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87107/">Nieul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87108/">Nouic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87109/">Oradour-Saint-Genest</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87110/">Oradour-sur-Glane</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87111/">Oradour-sur-Vayres</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87112/">Pageas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87114/">Panazol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87115/">Pensol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87116/">Peyrat-de-Bellac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87117/">Peyrat-le-Château</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/87118/">Peyrilhac</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87119/">Pierre-Buffière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87121/">Rancon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87122/">Razès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87123/">Rempnat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87124/">Rilhac-Lastours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87125/">Rilhac-Rancon</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87126/">Rochechouart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87129/">Royères</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87130/">Roziers-Saint-Georges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87131/">Saillat-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87132/">Saint-Amand-le-Petit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87133/">Saint-Amand-Magnazeix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87135/">Saint-Auvent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87137/">Saint-Bazile</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87138/">Saint-Bonnet-Briance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87139/">Saint-Bonnet-de-Bellac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87140/">Saint-Brice-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87141/">Saint-Cyr</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87142/">Saint-Denis-des-Murs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87143/">Saint-Gence</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87144/">Saint-Genest-sur-Roselle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87145/">Saint-Georges-les-Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87146/">Saint-Germain-les-Belles</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87147/">Saint-Gilles-les-Forêts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87148/">Saint-Hilaire-Bonneval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87149/">Saint-Hilaire-la-Treille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87150/">Saint-Hilaire-les-Places</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87151/">Saint-Jean-Ligoure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87152/">Saint-Jouvent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87153/">Saint-Julien-le-Petit</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87154/">Saint-Junien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87155/">Saint-Junien-les-Combes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87156/">Saint-Just-le-Martel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87157/">Saint-Laurent-les-Églises</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87158/">Saint-Laurent-sur-Gorre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87159/">Saint-Léger-la-Montagne</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87160/">Saint-Léger-Magnazeix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87161/">Saint-Léonard-de-Noblat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87163/">Saint-Martial-sur-Isop</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87164/">Saint-Martin-de-Jussac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87165/">Saint-Martin-le-Mault</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87166/">Saint-Martin-le-Vieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87167/">Saint-Martin-Terressus</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87168/">Saint-Mathieu</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87169/">Saint-Maurice-les-Brousses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87170/">Saint-Méard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87172/">Saint-Ouen-sur-Gartempe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87128/">Saint-Pardoux-le-Lac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87174/">Saint-Paul</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87176/">Saint-Priest-Ligoure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87177/">Saint-Priest-sous-Aixe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87178/">Saint-Priest-Taurion</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/87179/">Saint-Sornin-la-Marche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87180/">Saint-Sornin-Leulac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/87181/">Saint-Sulpice-Laurière</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87182/">Saint-Sulpice-les-Feuilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87183/">Saint-Sylvestre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87185/">Saint-Victurnien</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87186/">Saint-Vitte-sur-Briance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87187/">Saint-Yrieix-la-Perche</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87188/">Saint-Yrieix-sous-Aixe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87134/">Sainte-Anne-Saint-Priest</a> · 1 réseau, noté D</li>
+<li><a href="/commune/87162/">Sainte-Marie-de-Vaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87190/">Sauviat-sur-Vige</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87191/">Séreilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87192/">Solignac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/87193/">Surdoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87194/">Sussac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87195/">Tersannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87197/">Thouron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87097/">Val d'Issoire</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87028/">Val-d'Oire-et-Gartempe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87198/">Vaulry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87199/">Vayres</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/87200/">Verneuil-Moustiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87201/">Verneuil-sur-Vienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87202/">Veyrac</a> · 1 réseau, noté B</li>
+<li><a href="/commune/87203/">Vicq-sur-Breuilh</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87204/">Videix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/87206/">Villefavard</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Haute-Vienne · eau du robinet », https://meteodurobinet.fr/departement/87/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

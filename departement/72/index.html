@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Sarthe (72) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Sarthe · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Sarthe (72) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/72/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Sarthe · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sarthe · eau du robinet","url":"https://meteodurobinet.fr/departement/72/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Sarthe","item":"https://meteodurobinet.fr/departement/72/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/72/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Sarthe</h1>
+<p class="meta">Département 72</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>2 sur 105 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 100 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 2 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Les notes C et D tiennent aux nitrates (2 réseaux).</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>2 réseaux visés sur 105</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>192 prélèvements</strong> évalués en septembre 2026 ; 1 593 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 50 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 0 jour, alerte 58 jours, alerte renforcée 67 jours, crise 28 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 8 jours, alerte renforcée 7 jours, crise 135 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,74</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 30 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>36 services d’eau</strong> desservent au moins une commune du département ; 11 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 109 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/072001157/">ABA COULOMBIERS</a> · 072001157 · sans note · 3 communes</li>
+<li><a href="/reseau/072003591/">ABA LE MANS METROPOLE YVRE LE PÔLIN</a> · 072003591 · sans note · 1 commune</li>
+<li><a href="/reseau/072000050/">ANCINNES</a> · 072000050 · note A · 1 commune</li>
+<li><a href="/reseau/072003580/">ARCONNAY PAR ST GERMAIN DU CORBEIS</a> · 072003580 · note A · 1 commune</li>
+<li><a href="/reseau/072000498/">ASSÉ LE RIBOUL-SEGRIE</a> · 072000498 · note A · 6 communes</li>
+<li><a href="/reseau/072003587/">AUBIGNE RACAN / CHATAIGNOUX</a> · 072003587 · note A · 1 commune</li>
+<li><a href="/reseau/072003981/">BAILLEUL</a> · 072003981 · note A · 2 communes</li>
+<li><a href="/reseau/072000167/">BALLON-ST MARS</a> · 072000167 · note A · 7 communes</li>
+<li><a href="/reseau/072000493/">BAZOUGES SUR LE LOIR</a> · 072000493 · note A · 4 communes</li>
+<li><a href="/reseau/072000290/">BEAUMONT PIED DE BOEUF</a> · 072000290 · note A · 5 communes</li>
+<li><a href="/reseau/072000924/">BEAUMONT SUR SARTHE</a> · 072000924 · note A · 1 commune</li>
+<li><a href="/reseau/072000177/">BESSE SUR BRAYE</a> · 072000177 · note A · 6 communes</li>
+<li><a href="/reseau/072000221/">BOESSE LE SEC</a> · 072000221 · note A · 8 communes</li>
+<li><a href="/reseau/072000225/">BONNETABLE</a> · 072000225 · note A · 1 commune</li>
+<li><a href="/reseau/072000230/">BOULOIRE</a> · 072000230 · note A · 5 communes</li>
+<li><a href="/reseau/072001166/">BOULOIRE - BOIS SORIN</a> · 072001166 · note A · 8 communes</li>
+<li><a href="/reseau/072000502/">BRAINS SUR GEE</a> · 072000502 · note A · 10 communes</li>
+<li><a href="/reseau/072000286/">BRETTE LES PINS</a> · 072000286 · note A · 3 communes</li>
+<li><a href="/reseau/072000531/">CERANS FOULLETOURTE</a> · 072000531 · note A · 3 communes</li>
+<li><a href="/reseau/072000525/">CHAMPFLEUR</a> · 072000525 · note A · 9 communes</li>
+<li><a href="/reseau/072000937/">CHANTENAY VILLEDIEU</a> · 072000937 · note A · 13 communes</li>
+<li><a href="/reseau/072000186/">CHENU</a> · 072000186 · note A · 4 communes</li>
+<li><a href="/reseau/072000187/">CHENU-DISSAY</a> · 072000187 · note A · 3 communes</li>
+<li><a href="/reseau/072004094/">CHERRÉ-AU</a> · 072004094 · note A · 1 commune</li>
+<li><a href="/reseau/072000211/">CONFLANS SUR ANILLE</a> · 072000211 · note A · 4 communes</li>
+<li><a href="/reseau/072000562/">CONLIE</a> · 072000562 · note B · 4 communes</li>
+<li><a href="/reseau/072004084/">CONNERRE-DUNEAU</a> · 072004084 · note A · 3 communes</li>
+<li><a href="/reseau/072004087/">CONNERRE-ORMEAUX</a> · 072004087 · note A · 4 communes</li>
+<li><a href="/reseau/072000245/">CORMES</a> · 072000245 · note B · 3 communes</li>
+<li><a href="/reseau/072000233/">COUDRECIEUX</a> · 072000233 · note A · 1 commune</li>
+<li><a href="/reseau/072000596/">COURCELLES LA FORET</a> · 072000596 · note A · 10 communes</li>
+<li><a href="/reseau/072000347/">DOLLON  ST MICHEL</a> · 072000347 · note C · 2 communes</li>
+<li><a href="/reseau/072000602/">FRESNAY SUR SARTHE</a> · 072000602 · note A · 2 communes</li>
+<li><a href="/reseau/072000666/">FYE</a> · 072000666 · note A · 3 communes</li>
+<li><a href="/reseau/072000098/">GESNES LE GANDELIN</a> · 072000098 · note A · 5 communes</li>
+<li><a href="/reseau/072000335/">JALAIS CIBEUDIERE</a> · 072000335 · note A · 1 commune</li>
+<li><a href="/reseau/072000336/">JALAIS HUCHEREAUX</a> · 072000336 · note A · 5 communes</li>
+<li><a href="/reseau/072000609/">LA BAZOGE</a> · 072000609 · note A · 1 commune</li>
+<li><a href="/reseau/072000342/">LA BUTTE DE BOUER</a> · 072000342 · note C · 5 communes</li>
+<li><a href="/reseau/072000308/">LA FERTE BERNARD</a> · 072000308 · note A · 2 communes</li>
+<li><a href="/reseau/072000993/">LA FERTE BERNARD - PERCHE SARTHOIS</a> · 072000993 · note A · 1 commune</li>
+<li><a href="/reseau/072001140/">LA FERTE BERNARD - VIGNES BRULEES</a> · 072001140 · note A · 1 commune</li>
+<li><a href="/reseau/072000611/">LA FLECHE</a> · 072000611 · note A · 1 commune</li>
+<li><a href="/reseau/072000635/">LA SUZE SUR SARTHE</a> · 072000635 · note A · 1 commune</li>
+<li><a href="/reseau/072000237/">LAMNAY ST JEAN CHAMPROND NORD</a> · 072000237 · note A · 2 communes</li>
+<li><a href="/reseau/072000569/">LAVARDIN - LA PORIE</a> · 072000569 · note A · 3 communes</li>
+<li><a href="/reseau/072000571/">LAVARDIN - LES BUTTES</a> · 072000571 · note A · 6 communes</li>
+<li><a href="/reseau/072000149/">LAVERNAT</a> · 072000149 · note A · 4 communes</li>
+<li><a href="/reseau/072000376/">LE LOROUER</a> · 072000376 · note A · 4 communes</li>
+<li><a href="/reseau/072000130/">LE LUDE</a> · 072000130 · note A · 1 commune</li>
+<li><a href="/reseau/072004117/">LE MANS METROPOLE CURES</a> · 072004117 · note A · 2 communes</li>
+<li><a href="/reseau/072003592/">LE MANS METROPOLE ESU</a> · 072003592 · note A · 17 communes</li>
+<li><a href="/reseau/072004088/">LE MANS METROPOLE FATINES</a> · 072004088 · note A · 1 commune</li>
+<li><a href="/reseau/072003590/">LE MANS METROPOLE SAINT MARS D'OUTILLÉ</a> · 072003590 · note A · 2 communes</li>
+<li><a href="/reseau/072000746/">LE MANS METROPOLE SAINT PAVACE F1</a> · 072000746 · note A · 6 communes</li>
+<li><a href="/reseau/072000841/">LE MANS METROPOLE SARGÉ LES LE MANS</a> · 072000841 · note A · 4 communes</li>
+<li><a href="/reseau/072000368/">LE PERCHE SARTHOIS TANNERIE</a> · 072000368 · note A · 5 communes</li>
+<li><a href="/reseau/072000387/">LES FONTENELLES</a> · 072000387 · note A · 4 communes</li>
+<li><a href="/reseau/072000349/">LES TUAUX ROUGES</a> · 072000349 · note A · 4 communes</li>
+<li><a href="/reseau/072000390/">LOIR ET BRAYE</a> · 072000390 · note A · 2 communes</li>
+<li><a href="/reseau/072000380/">LOIR ET DEME</a> · 072000380 · note A · 4 communes</li>
+<li><a href="/reseau/072000627/">LUCHE PRINGE</a> · 072000627 · note A · 4 communes</li>
+<li><a href="/reseau/072003419/">MARIGNE-LAILLE</a> · 072003419 · note A · 3 communes</li>
+<li><a href="/reseau/072000282/">MAROLLES LES SAINT CALAIS</a> · 072000282 · note A · 1 commune</li>
+<li><a href="/reseau/072000355/">MELLERAY</a> · 072000355 · note A · 1 commune</li>
+<li><a href="/reseau/072000633/">MEZIERES SOUS LAVARDIN</a> · 072000633 · note A · 4 communes</li>
+<li><a href="/reseau/072000396/">MONTFORT LE GESNOIS LES SABLONS</a> · 072000396 · note A · 2 communes</li>
+<li><a href="/reseau/072000400/">MONTFORT LE GESNOIS MONTALON</a> · 072000400 · note A · 2 communes</li>
+<li><a href="/reseau/072000358/">MONTMIRAIL</a> · 072000358 · note A · 1 commune</li>
+<li><a href="/reseau/072000638/">MONTREUIL LE CHETIF</a> · 072000638 · note A · 6 communes</li>
+<li><a href="/reseau/072000408/">MONTREUIL LE HENRI</a> · 072000408 · note A · 2 communes</li>
+<li><a href="/reseau/072000106/">MONTVAL</a> · 072000106 · note A · 1 commune</li>
+<li><a href="/reseau/072000838/">NOGENT LE BERNARD</a> · 072000838 · note A · 1 commune</li>
+<li><a href="/reseau/072000646/">PARCE SUR SARTHE</a> · 072000646 · note A · 7 communes</li>
+<li><a href="/reseau/072000365/">PARIGNE L'EVEQUE</a> · 072000365 · note A · 1 commune</li>
+<li><a href="/reseau/072004027/">PERSEIGNE SAOSNOIS</a> · 072004027 · note A · 33 communes</li>
+<li><a href="/reseau/072000652/">PEZE LE ROBERT</a> · 072000652 · note A · 2 communes</li>
+<li><a href="/reseau/072000201/">PONTVALLAIN</a> · 072000201 · note A · 8 communes</li>
+<li><a href="/reseau/072000657/">PRECIGNE</a> · 072000657 · note A · 1 commune</li>
+<li><a href="/reseau/072000404/">PRUILLE L'EGUILLE</a> · 072000404 · note A · 3 communes</li>
+<li><a href="/reseau/072000662/">ROUESSE FONTAINE</a> · 072000662 · note A · 19 communes</li>
+<li><a href="/reseau/072000572/">SABLE SUR SARTHE</a> · 072000572 · note B · 8 communes</li>
+<li><a href="/reseau/072000274/">SAINT CALAIS</a> · 072000274 · note A · 1 commune</li>
+<li><a href="/reseau/072000672/">SAINT DENIS D'ORQUES</a> · 072000672 · note A · 1 commune</li>
+<li><a href="/reseau/072003989/">SAINT EN COSMES EN VAIRAIS (ROBINIERE)</a> · 072003989 · note A · 6 communes</li>
+<li><a href="/reseau/072000281/">SAINT GERVAIS DE VIC</a> · 072000281 · note A · 1 commune</li>
+<li><a href="/reseau/072000876/">SAINT MARS D' OUTILLE-ECOMMOY</a> · 072000876 · note A · 1 commune</li>
+<li><a href="/reseau/072000560/">SAINT SYMPHORIEN</a> · 072000560 · note A · 7 communes</li>
+<li><a href="/reseau/072000240/">SAVIGNE L'EVEQUE</a> · 072000240 · note A · 1 commune</li>
+<li><a href="/reseau/072000759/">SEMUR EN VALLON</a> · 072000759 · note A · 1 commune</li>
+<li><a href="/reseau/072000115/">SIDERM ECOMMOY</a> · 072000115 · note A · 4 communes</li>
+<li><a href="/reseau/072000066/">SIDERM ESU</a> · 072000066 · note A · 7 communes</li>
+<li><a href="/reseau/072000065/">SIDERM SAINT MARS D'OUTILLE</a> · 072000065 · note A · 5 communes</li>
+<li><a href="/reseau/072004110/">SIDERM ST PAVACE F1</a> · 072004110 · note A · 2 communes</li>
+<li><a href="/reseau/072004111/">SIDERM ST PAVACE F2</a> · 072004111 · note A · 3 communes</li>
+<li><a href="/reseau/072003176/">SIDERM YVRE LE POLIN</a> · 072003176 · note A · 11 communes</li>
+<li><a href="/reseau/072000679/">SILLE LE GUILLAUME</a> · 072000679 · note A · 10 communes</li>
+<li><a href="/reseau/072000694/">SILLE-SAINT PIERRE</a> · 072000694 · note A · 4 communes</li>
+<li><a href="/reseau/072000508/">SOULIGNE FLACE</a> · 072000508 · note A · 7 communes</li>
+<li><a href="/reseau/072000837/">ST PATERNE-C.U. ALENCON</a> · 072000837 · note A · 1 commune</li>
+<li><a href="/reseau/072003560/">ST REMY DES MONTS PAR LE PERCHE SUD</a> · 072003560 · sans note · 1 commune</li>
+<li><a href="/reseau/072000183/">STE JAMME MONTBIZOT</a> · 072000183 · note A · 2 communes</li>
+<li><a href="/reseau/072000257/">THELIGNY</a> · 072000257 · note A · 3 communes</li>
+<li><a href="/reseau/072000632/">THOREE LES PINS-LES CARTES</a> · 072000632 · note A · 2 communes</li>
+<li><a href="/reseau/072000161/">TUFFE LA PIERRE</a> · 072000161 · note A · 1 commune</li>
+<li><a href="/reseau/072000755/">TUFFE LES BRETELLIERES</a> · 072000755 · note A · 1 commune</li>
+<li><a href="/reseau/072003576/">VALENNES PAR SIAEP DE SOUDAY (41)</a> · 072003576 · sans note · 1 commune</li>
+<li><a href="/reseau/072000315/">VIBRAYE CHAMPROND SUD</a> · 072000315 · note A · 2 communes</li>
+<li><a href="/reseau/072000440/">VIVE PARENCE</a> · 072000440 · note A · 8 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/72001/">Aigné</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72002/">Aillières-Beauvoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72003/">Allonnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72004/">Amné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72005/">Ancinnes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72006/">Arçonnay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72007/">Ardenay-sur-Mérize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72008/">Arnage</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72009/">Arthezé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72010/">Asnières-sur-Vègre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72011/">Assé-le-Boisne</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72012/">Assé-le-Riboul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72013/">Aubigné-Racan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72016/">Auvers-le-Hamon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72017/">Auvers-sous-Montfaucon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72018/">Avesnes-en-Saosnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72019/">Avessé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72020/">Avezé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72021/">Avoise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72023/">Ballon-Saint Mars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72025/">Bazouges Cré sur Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72026/">Beaufay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72028/">Beaumont-Pied-de-Bœuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72027/">Beaumont-sur-Dême</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72029/">Beaumont-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72031/">Beillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72032/">Berfay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72219/">Bernay-Neuvy-en-Champagne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72034/">Bérus</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72035/">Bessé-sur-Braye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72036/">Béthon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72037/">Blèves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72038/">Boëssé-le-Sec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72039/">Bonnétable</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72041/">Bouër</a> · 1 réseau, noté C</li>
+<li><a href="/commune/72042/">Bouloire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72043/">Bourg-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72044/">Bousse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72045/">Brains-sur-Gée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72047/">Brette-les-Pins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72048/">Briosne-lès-Sables</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72050/">Brûlon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72051/">Cérans-Foulletourte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72052/">Chahaignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72053/">Challes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72054/">Champagné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72056/">Champfleur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72057/">Champrond</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72058/">Changé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72059/">Chantenay-Villedieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72070/">Chassillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72072/">Château-l'Hermitage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72073/">Chaufour-Notre-Dame</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72074/">Chemiré-en-Charnie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72075/">Chemiré-le-Gaudin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72076/">Chenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72077/">Chenu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72078/">Chérancé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72079/">Chérisay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72080/">Cherré-Au</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/72083/">Chevillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72084/">Clermont-Créans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72085/">Cogners</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72086/">Commerveil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72087/">Conflans-sur-Anille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72088/">Congé-sur-Orne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72089/">Conlie</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72090/">Connerré</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72091/">Contilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72093/">Cormes</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72094/">Coudrecieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72095/">Coulaines</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72096/">Coulans-sur-Gée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72098/">Coulongé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72099/">Courcebœufs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72100/">Courcelles-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72101/">Courcemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72102/">Courcival</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72103/">Courdemanche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72104/">Courgains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72105/">Courgenard</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72106/">Courtillers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72107/">Crannes-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72109/">Crissé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72110/">Crosmières</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72111/">Cures</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/72112/">Dangeul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72113/">Degré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72114/">Dehault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72115/">Dissay-sous-Courcillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72118/">Dollon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/72119/">Domfront-en-Champagne</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/72120/">Doucelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72121/">Douillet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72122/">Duneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72123/">Dureil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72124/">Écommoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72125/">Écorpain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72126/">Épineu-le-Chevreuil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72127/">Étival-lès-le-Mans</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72129/">Fatines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72130/">Fay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72131/">Fercé-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72133/">Fillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72134/">Flée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72136/">Fontenay-sur-Vègre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72138/">Fresnay-sur-Sarthe</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72139/">Fyé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72141/">Gesnes-le-Gandelin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72142/">Grandchamp</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72144/">Gréez-sur-Roc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72146/">Guécélard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72148/">Jauzé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72149/">Joué-en-Charnie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72150/">Joué-l'Abbé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72151/">Juigné-sur-Sarthe</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72152/">Juillé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72153/">Jupilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72024/">La Bazoge</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72040/">La Bosse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72049/">La Bruère-sur-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72060/">La Chapelle-aux-Choux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72061/">La Chapelle-d'Aligné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72062/">La Chapelle-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72064/">La Chapelle-Huon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72065/">La Chapelle-Saint-Aubin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72066/">La Chapelle-Saint-Fray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72067/">La Chapelle-Saint-Rémy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72068/">La Chartre-sur-le-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72132/">La Ferté-Bernard</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72154/">La Flèche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72135/">La Fontaine-Saint-Martin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72147/">La Guierche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72198/">La Milesse</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72249/">La Quinte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72346/">La Suze-sur-Sarthe</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72155/">Laigné-Saint-Gervais</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72156/">Lamnay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72157/">Lavardin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72158/">Lavaré</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/72160/">Lavernat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72022/">Le Bailleul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72046/">Le Breil-sur-Mérize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72143/">Le Grand-Lucé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72145/">Le Grez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72172/">Le Luart</a> · 1 réseau, noté C</li>
+<li><a href="/commune/72176/">Le Lude</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72181/">Le Mans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72362/">Le Tronchet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72015/">Les Aulneaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72192/">Les Mées</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72161/">Lhomme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72163/">Ligron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72164/">Livet-en-Saosnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72262/">Loir en Vallée</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72165/">Lombron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72166/">Longnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72167/">Louailles</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72168/">Loué</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72169/">Louplande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72170/">Louvigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72171/">Louzes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72174/">Lucé-sous-Ballon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72173/">Luceau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72175/">Luché-Pringé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72177/">Maigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72178/">Maisoncelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72179/">Malicorne-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72180/">Mamers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72182/">Mansigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72183/">Marçon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72184/">Mareil-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72185/">Mareil-sur-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72186/">Maresché</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72187/">Marigné-Laillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72189/">Marolles-les-Braults</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72190/">Marolles-lès-Saint-Calais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72188/">Marollette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72191/">Mayet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72193/">Melleray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72194/">Meurcé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72195/">Mézeray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72197/">Mézières-sous-Lavardin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72196/">Mézières-sur-Ponthouin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72199/">Moitron-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72200/">Moncé-en-Belin</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72201/">Moncé-en-Saosnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72202/">Monhoudou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72211/">Mont-Saint-Jean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72204/">Montaillé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72205/">Montbizot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72241/">Montfort-le-Gesnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72208/">Montmirail</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72209/">Montreuil-le-Chétif</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72210/">Montreuil-le-Henri</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72071/">Montval-sur-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72212/">Moulins-le-Carbonnel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72213/">Mulsanne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72214/">Nauvay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72215/">Neufchâtel-en-Saosnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72216/">Neuvillalais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72217/">Neuville-sur-Sarthe</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72218/">Neuvillette-en-Charnie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72220/">Nogent-le-Bernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72221/">Nogent-sur-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72232/">Notre-Dame-du-Pé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72222/">Nouans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72223/">Noyen-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72224/">Nuillé-le-Jalais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72225/">Oisseau-le-Petit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72226/">Oizé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72227/">Panon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72228/">Parcé-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72229/">Parennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72231/">Parigné-l'Évêque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72230/">Parigné-le-Pôlin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72233/">Peray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72234/">Pezé-le-Robert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72235/">Piacé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72236/">Pincé</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72237/">Pirmil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72238/">Pizieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72239/">Poillé-sur-Vègre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72243/">Pontvallain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72244/">Précigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72245/">Préval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72246/">Prévelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72248/">Pruillé-l'Éguillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72247/">Pruillé-le-Chétif</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72250/">Rahay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72251/">René</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72252/">Requeil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72253/">Roëzé-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72254/">Rouessé-Fontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72255/">Rouessé-Vassé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72256/">Rouez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72257/">Rouillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72259/">Rouperroux-le-Coquet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72260/">Ruaudin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72261/">Ruillé-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72264/">Sablé-sur-Sarthe</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72265/">Saint-Aignan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72266/">Saint-Aubin-de-Locquenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72267/">Saint-Aubin-des-Coudrais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72268/">Saint-Biez-en-Belin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72269/">Saint-Calais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72270/">Saint-Calez-en-Saosnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72271/">Saint-Célerin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72273/">Saint-Christophe-du-Jambet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72274/">Saint-Christophe-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72275/">Saint-Corneille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72276/">Saint-Cosme-en-Vairais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72278/">Saint-Denis-d'Orques</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72277/">Saint-Denis-des-Coudrais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72279/">Saint-Georges-de-la-Couée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72280/">Saint-Georges-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72281/">Saint-Georges-du-Rosay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72282/">Saint-Georges-le-Gaultier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72283/">Saint-Germain-d'Arcé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72286/">Saint-Gervais-de-Vic</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72287/">Saint-Gervais-en-Belin</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/72290/">Saint-Jean-d'Assé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72291/">Saint-Jean-de-la-Motte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72292/">Saint-Jean-des-Échelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72293/">Saint-Jean-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72294/">Saint-Léonard-des-Bois</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72295/">Saint-Longis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72296/">Saint-Maixent</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/72297/">Saint-Marceau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72299/">Saint-Mars-d'Outillé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72298/">Saint-Mars-de-Locquenay</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/72300/">Saint-Mars-la-Brière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72302/">Saint-Martin-des-Monts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72303/">Saint-Michel-de-Chavaignes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/72305/">Saint-Ouen-de-Mimbré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72306/">Saint-Ouen-en-Belin</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72307/">Saint-Ouen-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72308/">Saint-Paterne - Le Chevain</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72309/">Saint-Paul-le-Gaultier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72310/">Saint-Pavace</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72311/">Saint-Pierre-de-Chevillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72312/">Saint-Pierre-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72313/">Saint-Pierre-des-Ormes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72314/">Saint-Pierre-du-Lorouër</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72315/">Saint-Rémy-de-Sillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72316/">Saint-Rémy-des-Monts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72317/">Saint-Rémy-du-Val</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72320/">Saint-Saturnin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72321/">Saint-Symphorien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72322/">Saint-Ulphace</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72323/">Saint-Victeur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72324/">Saint-Vincent-des-Prés</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72325/">Saint-Vincent-du-Lorouër</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72272/">Sainte-Cérotte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72289/">Sainte-Jamme-sur-Sarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72319/">Sainte-Sabine-sur-Longève</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72326/">Saosnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72327/">Sarcé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72328/">Sargé-lès-le-Mans</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72329/">Savigné-l'Évêque</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72330/">Savigné-sous-le-Lude</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72331/">Sceaux-sur-Huisne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/72332/">Ségrie</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72333/">Semur-en-Vallon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72334/">Sillé-le-Guillaume</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72335/">Sillé-le-Philippe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72336/">Solesmes</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72337/">Sougé-le-Ganelon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72338/">Souillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72339/">Souligné-Flacé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72340/">Souligné-sous-Ballon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72341/">Soulitré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72342/">Souvigné-sur-Même</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72343/">Souvigné-sur-Sarthe</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72344/">Spay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72345/">Surfonds</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72347/">Tassé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72348/">Tassillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72349/">Teillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72350/">Teloché</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72351/">Tennie</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/72352/">Terrehault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72353/">Théligny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72354/">Thoigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72355/">Thoiré-sous-Contensor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72356/">Thoiré-sur-Dinan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72357/">Thorée-les-Pins</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72358/">Thorigné-sur-Dué</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72359/">Torcé-en-Vallée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72360/">Trangé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72361/">Tresson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72363/">Tuffé Val de la Chéronne</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72364/">Vaas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72128/">Val-d'Étangson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72382/">Val-de-la-Hune</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72366/">Valennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72367/">Vallon-sur-Gée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72368/">Vancé</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72369/">Verneil-le-Chétif</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72370/">Vernie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72372/">Vezot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72373/">Vibraye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72374/">Villaines-la-Carelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72375/">Villaines-la-Gonais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72376/">Villaines-sous-Lucé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72377/">Villaines-sous-Malicorne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72137/">Villeneuve-en-Perseigne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72378/">Vion</a> · 1 réseau, noté B</li>
+<li><a href="/commune/72379/">Viré-en-Champagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72380/">Vivoin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72381/">Voivres-lès-le-Mans</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/72383/">Vouvray-sur-Huisne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/72386/">Yvré-l'Évêque</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/72385/">Yvré-le-Pôlin</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Sarthe · eau du robinet », https://meteodurobinet.fr/departement/72/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

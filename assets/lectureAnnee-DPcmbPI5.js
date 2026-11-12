@@ -1,0 +1,1 @@
+const n="L’année détermine la note, l’avis et les prélèvements ; la sécheresse et";function r(e){return e?`${n} ${e==="service"?"les indicateurs du service":"le prix"} gardent leur date.`:null}export{r as p};

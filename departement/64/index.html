@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Pyrénées-Atlantiques (64) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Pyrénées-Atlantiques · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Pyrénées-Atlantiques (64) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/64/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Pyrénées-Atlantiques · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Pyrénées-Atlantiques · eau du robinet","url":"https://meteodurobinet.fr/departement/64/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Pyrénées-Atlantiques","item":"https://meteodurobinet.fr/departement/64/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/64/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Pyrénées-Atlantiques</h1>
+<p class="meta">Département 64</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>43 sur 224 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 180 réseaux</li>
+<li>B qualité convenable* : 1 réseau</li>
+<li>C qualité insuffisante* : 9 réseaux</li>
+<li>D mauvaise qualité* : 34 réseaux</li>
+</ul>
+<p>Les notes C et D tiennent à la bactériologie (43 réseaux, dont 34 notés D).</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>208 prélèvements</strong> évalués en septembre 2026 ; 1 843 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 16 jours, alerte 0 jour, alerte renforcée 0 jour, crise 63 jours</li>
+<li>2025 : vigilance 9 jours, alerte 0 jour, alerte renforcée 7 jours, crise 92 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 0 jour, alerte renforcée 7 jours, crise 149 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,60</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 45 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>62 services d’eau</strong> desservent au moins une commune du département ; 39 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 225 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/064000360/">AAS BAS - ASSOUSTE</a> · 064000360 · note A · 1 commune</li>
+<li><a href="/reseau/064003484/">AAS PLEISSE</a> · 064003484 · note A · 1 commune</li>
+<li><a href="/reseau/064000316/">ACCOUS BOURG</a> · 064000316 · note A · 1 commune</li>
+<li><a href="/reseau/064000317/">ACCOUS LHERS</a> · 064000317 · note D · 1 commune</li>
+<li><a href="/reseau/064001461/">ACCOUS PONT DE LESCUN</a> · 064001461 · note D · 1 commune</li>
+<li><a href="/reseau/064000483/">AGNOS GURMENCON ASASP ARROS</a> · 064000483 · note A · 3 communes</li>
+<li><a href="/reseau/064000527/">AHAXE MENDIVE LECUMBERRY</a> · 064000527 · note A · 3 communes</li>
+<li><a href="/reseau/064003631/">AHETZE - ARBONNE</a> · 064003631 · note A · 2 communes</li>
+<li><a href="/reseau/064000528/">AINHICE</a> · 064000528 · note A · 16 communes</li>
+<li><a href="/reseau/064001667/">AINHOA - SAINT PEE SUR NIVELLE</a> · 064001667 · note A · 4 communes</li>
+<li><a href="/reseau/064000320/">ANCE</a> · 064000320 · note A · 1 commune</li>
+<li><a href="/reseau/064000487/">ANGLET</a> · 064000487 · note A · 1 commune</li>
+<li><a href="/reseau/064001740/">ANHAUX HAUT SERVICE</a> · 064001740 · note A · 1 commune</li>
+<li><a href="/reseau/064000321/">ARAMITS BOURG</a> · 064000321 · note A · 1 commune</li>
+<li><a href="/reseau/064001625/">ARAMITS BUGANGUE SANS PAREIL</a> · 064001625 · note A · 1 commune</li>
+<li><a href="/reseau/064001010/">ARANCOU BERGOUEY VIELLENAVE</a> · 064001010 · note A · 2 communes</li>
+<li><a href="/reseau/064000455/">AREN-PRECHACQ-JOSBAIG</a> · 064000455 · note A · 3 communes</li>
+<li><a href="/reseau/064001268/">ARETTE BOURDES</a> · 064001268 · note A · 1 commune</li>
+<li><a href="/reseau/064001630/">ARETTE BOURDET</a> · 064001630 · note A · 1 commune</li>
+<li><a href="/reseau/064000322/">ARETTE BOURG</a> · 064000322 · note A · 1 commune</li>
+<li><a href="/reseau/064000758/">ARETTE MOULINE-LAGARDE-RAGUTE</a> · 064000758 · note A · 1 commune</li>
+<li><a href="/reseau/064000489/">ARNEGUY</a> · 064000489 · note A · 1 commune</li>
+<li><a href="/reseau/064000330/">ASASP LAGNOS</a> · 064000330 · note A · 1 commune</li>
+<li><a href="/reseau/064000490/">ASCAIN</a> · 064000490 · note A · 1 commune</li>
+<li><a href="/reseau/064000332/">ASTE BEON</a> · 064000332 · note A · 1 commune</li>
+<li><a href="/reseau/064000336/">AUSSURUCQ BARRICATA</a> · 064000336 · note A · 1 commune</li>
+<li><a href="/reseau/064000334/">AUSSURUCQ BOURG</a> · 064000334 · note D · 1 commune</li>
+<li><a href="/reseau/064000337/">AUSSURUCQ GARAIBIE</a> · 064000337 · note D · 1 commune</li>
+<li><a href="/reseau/064000338/">AYDIUS</a> · 064000338 · note A · 1 commune</li>
+<li><a href="/reseau/064000339/">BAIGTS BONNUT GIRONS SALLESPIS</a> · 064000339 · note A · 4 communes</li>
+<li><a href="/reseau/064001021/">BANCA COMMUNE</a> · 064001021 · note A · 1 commune</li>
+<li><a href="/reseau/064000494/">BAYONNE</a> · 064000494 · note A · 1 commune</li>
+<li><a href="/reseau/064000341/">BEDOUS BOURG</a> · 064000341 · note A · 1 commune</li>
+<li><a href="/reseau/064003553/">BEDOUS DECHETTERIE</a> · 064003553 · note D · 1 commune</li>
+<li><a href="/reseau/064003554/">BEDOUS MAISON FORESTIERE</a> · 064003554 · note A · 1 commune</li>
+<li><a href="/reseau/064000342/">BEDOUS ORCUN</a> · 064000342 · note A · 1 commune</li>
+<li><a href="/reseau/064000495/">BEHORLEGUY</a> · 064000495 · note A · 1 commune</li>
+<li><a href="/reseau/064001005/">BEOST BAGES</a> · 064001005 · note A · 1 commune</li>
+<li><a href="/reseau/064000343/">BEOST BOURG</a> · 064000343 · note A · 1 commune</li>
+<li><a href="/reseau/064000344/">BERENX</a> · 064000344 · note A · 1 commune</li>
+<li><a href="/reseau/064000496/">BIARRITZ-BIDART</a> · 064000496 · note A · 2 communes</li>
+<li><a href="/reseau/064000497/">BIDARRAY-DOMINIXENIA</a> · 064000497 · note A · 1 commune</li>
+<li><a href="/reseau/064003960/">BIDARRAY-ERRAMUNDEYA</a> · 064003960 · note A · 1 commune</li>
+<li><a href="/reseau/064003959/">BIDARRAY-HARLEPOA</a> · 064003959 · note A · 1 commune</li>
+<li><a href="/reseau/064000345/">BIDOS</a> · 064000345 · note B · 1 commune</li>
+<li><a href="/reseau/064000346/">BIELLE</a> · 064000346 · note D · 1 commune</li>
+<li><a href="/reseau/064000347/">BILHERES EN OSSAU</a> · 064000347 · note C · 1 commune</li>
+<li><a href="/reseau/064000500/">BIRIATOU</a> · 064000500 · note A · 1 commune</li>
+<li><a href="/reseau/064000984/">BORCE AUBISE</a> · 064000984 · note D · 1 commune</li>
+<li><a href="/reseau/064003558/">BORCE BARALET LABOURDEGNE</a> · 064003558 · note D · 1 commune</li>
+<li><a href="/reseau/064000349/">BORCE BERAT</a> · 064000349 · note A · 1 commune</li>
+<li><a href="/reseau/064001674/">BORCE BERAT DU HAUT</a> · 064001674 · note D · 1 commune</li>
+<li><a href="/reseau/064001624/">BORCE BEZIAT</a> · 064001624 · note A · 1 commune</li>
+<li><a href="/reseau/064000348/">BORCE BOURG</a> · 064000348 · note A · 1 commune</li>
+<li><a href="/reseau/064003405/">BORDES ANGAIS</a> · 064003405 · note A · 2 communes</li>
+<li><a href="/reseau/064000533/">BOUCAU</a> · 064000533 · note A · 1 commune</li>
+<li><a href="/reseau/064000353/">CASTET</a> · 064000353 · note A · 1 commune</li>
+<li><a href="/reseau/064000355/">CETTE EYGUN BOURG</a> · 064000355 · note D · 1 commune</li>
+<li><a href="/reseau/064003973/">CHARRE</a> · 064003973 · note A · 1 commune</li>
+<li><a href="/reseau/064000545/">CIBOURE</a> · 064000545 · note A · 1 commune</li>
+<li><a href="/reseau/064004266/">COSLEDAA LANNECAUBE</a> · 064004266 · note A · 2 communes</li>
+<li><a href="/reseau/064000358/">EAUX BONNES BOURG</a> · 064000358 · note A · 1 commune</li>
+<li><a href="/reseau/064001723/">ECARTS AINCILLE</a> · 064001723 · note A · 1 commune</li>
+<li><a href="/reseau/064000362/">ESCOT</a> · 064000362 · note D · 1 commune</li>
+<li><a href="/reseau/064000502/">ESPELETTE BAS SERVICE</a> · 064000502 · note A · 1 commune</li>
+<li><a href="/reseau/064000503/">ESPELETTE HAUT SERVICE</a> · 064000503 · note A · 1 commune</li>
+<li><a href="/reseau/064004255/">ESQUIULE</a> · 064004255 · note A · 1 commune</li>
+<li><a href="/reseau/064000482/">ESTOS LEDEUIX VERDETS POEY D'OLORON</a> · 064000482 · note A · 4 communes</li>
+<li><a href="/reseau/064000365/">ETCHEBAR LICHANS</a> · 064000365 · note A · 2 communes</li>
+<li><a href="/reseau/064000366/">ETSAUT</a> · 064000366 · note D · 1 commune</li>
+<li><a href="/reseau/064000367/">EYSUS</a> · 064000367 · note A · 1 commune</li>
+<li><a href="/reseau/064000387/">FABREGES PONT DE CAMPS</a> · 064000387 · note A · 1 commune</li>
+<li><a href="/reseau/064000373/">FAGET DE GOES</a> · 064000373 · note A · 1 commune</li>
+<li><a href="/reseau/064000368/">FEAS</a> · 064000368 · note A · 1 commune</li>
+<li><a href="/reseau/064004256/">FEAS QUARTIER NARBE</a> · 064004256 · note A · 1 commune</li>
+<li><a href="/reseau/064000369/">GARINDEIN</a> · 064000369 · sans note · 1 commune</li>
+<li><a href="/reseau/064000465/">GAVE ET BAISE</a> · 064000465 · note A · 35 communes</li>
+<li><a href="/reseau/064000370/">GERE BELESTEN</a> · 064000370 · note D · 1 commune</li>
+<li><a href="/reseau/064000371/">GERE MONPLAISIR</a> · 064000371 · note A · 1 commune</li>
+<li><a href="/reseau/064000372/">GOES BOURG</a> · 064000372 · note A · 1 commune</li>
+<li><a href="/reseau/064003534/">GOURETTE BELAMBRA</a> · 064003534 · note A · 1 commune</li>
+<li><a href="/reseau/064000359/">GOURETTE BOURG</a> · 064000359 · note D · 1 commune</li>
+<li><a href="/reseau/064003533/">GOURETTE QUARTIER CHAPELLE</a> · 064003533 · note A · 1 commune</li>
+<li><a href="/reseau/064003971/">GUETHARY</a> · 064003971 · note A · 1 commune</li>
+<li><a href="/reseau/064000505/">HASPARREN</a> · 064000505 · note A · 1 commune</li>
+<li><a href="/reseau/064001697/">HAUX</a> · 064001697 · note A · 1 commune</li>
+<li><a href="/reseau/064000506/">HELETTE</a> · 064000506 · note A · 1 commune</li>
+<li><a href="/reseau/064001719/">HELETTE ZASPI-ITHURRI</a> · 064001719 · note A · 1 commune</li>
+<li><a href="/reseau/064001665/">HENDAYE</a> · 064001665 · note A · 1 commune</li>
+<li><a href="/reseau/064001475/">HOTEL DU COL D'AUBISQUE</a> · 064001475 · note D · 1 commune</li>
+<li><a href="/reseau/064000507/">IHOLDY</a> · 064000507 · note D · 1 commune</li>
+<li><a href="/reseau/064000508/">IRISSARRY</a> · 064000508 · note A · 1 commune</li>
+<li><a href="/reseau/064000509/">IROULEGUY-ANHAUX</a> · 064000509 · note D · 2 communes</li>
+<li><a href="/reseau/064000376/">ISSOR BOURG</a> · 064000376 · note D · 1 commune</li>
+<li><a href="/reseau/064000743/">ISSOR QUARTIER HAUT</a> · 064000743 · note D · 1 commune</li>
+<li><a href="/reseau/064003977/">L'HOPITAL SAINT BLAISE</a> · 064003977 · note A · 1 commune</li>
+<li><a href="/reseau/064000324/">LA PIERRE SAINT MARTIN</a> · 064000324 · note A · 1 commune</li>
+<li><a href="/reseau/064003587/">LACADEE LABEYRIE HAGETAUBIN</a> · 064003587 · note A · 3 communes</li>
+<li><a href="/reseau/064000378/">LANNE BOURG</a> · 064000378 · note A · 1 commune</li>
+<li><a href="/reseau/064000379/">LANNE ISSARBE</a> · 064000379 · note C · 1 commune</li>
+<li><a href="/reseau/064000380/">LARRAU BOURG</a> · 064000380 · note A · 1 commune</li>
+<li><a href="/reseau/064000968/">LARRAU SAIBER</a> · 064000968 · note C · 1 commune</li>
+<li><a href="/reseau/064000388/">LARUNS ARTOUSTE GABAS</a> · 064000388 · note A · 1 commune</li>
+<li><a href="/reseau/064000718/">LARUNS BARTHEQUE</a> · 064000718 · note A · 1 commune</li>
+<li><a href="/reseau/064000382/">LARUNS BOURG</a> · 064000382 · note A · 1 commune</li>
+<li><a href="/reseau/064000383/">LARUNS EAUX CHAUDES</a> · 064000383 · note A · 1 commune</li>
+<li><a href="/reseau/064000717/">LARUNS GARE</a> · 064000717 · note A · 1 commune</li>
+<li><a href="/reseau/064001444/">LARUNS GETEU</a> · 064001444 · note A · 1 commune</li>
+<li><a href="/reseau/064000384/">LARUNS GOUST</a> · 064000384 · note D · 1 commune</li>
+<li><a href="/reseau/064001716/">LARUNS LAC D'ARTOUSTE</a> · 064001716 · note A · 1 commune</li>
+<li><a href="/reseau/064001717/">LARUNS MIEGEBAT</a> · 064001717 · note A · 1 commune</li>
+<li><a href="/reseau/064000716/">LARUNS PON</a> · 064000716 · note A · 1 commune</li>
+<li><a href="/reseau/064000392/">LARUNS STATION SKI ARTOUSTE</a> · 064000392 · note D · 1 commune</li>
+<li><a href="/reseau/064000511/">LASSE BOURG</a> · 064000511 · note A · 1 commune</li>
+<li><a href="/reseau/064003505/">LE POURTALET</a> · 064003505 · note C · 1 commune</li>
+<li><a href="/reseau/064000399/">LEDEUIX FAGET</a> · 064000399 · note A · 1 commune</li>
+<li><a href="/reseau/064000400/">LEES ATHAS-ATHAS</a> · 064000400 · note A · 1 commune</li>
+<li><a href="/reseau/064000724/">LEES ATHAS-CHOUGOUN</a> · 064000724 · note D · 1 commune</li>
+<li><a href="/reseau/064000401/">LEES ATHAS-LEES</a> · 064000401 · note D · 1 commune</li>
+<li><a href="/reseau/064000484/">LES ALDUDES</a> · 064000484 · note C · 1 commune</li>
+<li><a href="/reseau/064000530/">LES EAUX D'ARBEROUE</a> · 064000530 · note A · 14 communes</li>
+<li><a href="/reseau/064000744/">LESCUN ARCE</a> · 064000744 · note A · 1 commune</li>
+<li><a href="/reseau/064000402/">LESCUN BOURG</a> · 064000402 · note D · 1 commune</li>
+<li><a href="/reseau/064000404/">LESCUN LABEROUAT</a> · 064000404 · note A · 1 commune</li>
+<li><a href="/reseau/064000403/">LESCUN TINICOUDE</a> · 064000403 · note D · 1 commune</li>
+<li><a href="/reseau/064000405/">LESTELLE BETHARRAM</a> · 064000405 · note A · 1 commune</li>
+<li><a href="/reseau/064000408/">LICQ ATHEREY</a> · 064000408 · note A · 1 commune</li>
+<li><a href="/reseau/064000409/">LICQ SUSSELGUE</a> · 064000409 · note A · 1 commune</li>
+<li><a href="/reseau/064000534/">LOUHOSSOA</a> · 064000534 · note A · 1 commune</li>
+<li><a href="/reseau/064000410/">LOURDIOS ICHERE BOURG</a> · 064000410 · note A · 1 commune</li>
+<li><a href="/reseau/064000412/">LOURDIOS ICHERE COL D'ICHERE</a> · 064000412 · note A · 1 commune</li>
+<li><a href="/reseau/064000411/">LOURDIOS ICHERE RACHE</a> · 064000411 · note C · 1 commune</li>
+<li><a href="/reseau/064000413/">LOUVIE SOUBIRON BOURG</a> · 064000413 · note A · 1 commune</li>
+<li><a href="/reseau/064001508/">LOUVIE SOUBIRON QUARTIER HAUT</a> · 064001508 · note D · 1 commune</li>
+<li><a href="/reseau/064000415/">LURBE ST CHRISTAU</a> · 064000415 · note A · 1 commune</li>
+<li><a href="/reseau/064000476/">LUY ET GABAS CENTRE</a> · 064000476 · note A · 6 communes</li>
+<li><a href="/reseau/064003603/">LUY ET GABAS EST</a> · 064003603 · note A · 11 communes</li>
+<li><a href="/reseau/064003601/">LUY ET GABAS OUEST</a> · 064003601 · note A · 30 communes</li>
+<li><a href="/reseau/064000535/">MACAYE</a> · 064000535 · note A · 1 commune</li>
+<li><a href="/reseau/064000416/">MAULEON-GARINDEIN</a> · 064000416 · note A · 3 communes</li>
+<li><a href="/reseau/064000537/">MENDIONDE BASSEBOURE</a> · 064000537 · note A · 2 communes</li>
+<li><a href="/reseau/064001590/">MENDIONDE UR ONA</a> · 064001590 · note C · 1 commune</li>
+<li><a href="/reseau/064000538/">MENDIONDE URSUYA</a> · 064000538 · note A · 1 commune</li>
+<li><a href="/reseau/064000417/">MONTORY BOURG</a> · 064000417 · note A · 1 commune</li>
+<li><a href="/reseau/064000478/">NAY OUEST</a> · 064000478 · note A · 11 communes</li>
+<li><a href="/reseau/064000419/">OLORON</a> · 064000419 · note A · 1 commune</li>
+<li><a href="/reseau/064000420/">OLORON FAGET</a> · 064000420 · note A · 1 commune</li>
+<li><a href="/reseau/064003072/">OLORON QUARTIER BAGER</a> · 064003072 · note A · 1 commune</li>
+<li><a href="/reseau/064000421/">ORDIARP BOURG</a> · 064000421 · note A · 1 commune</li>
+<li><a href="/reseau/064000426/">ORTHEZ MAGRET</a> · 064000426 · note A · 1 commune</li>
+<li><a href="/reseau/064001580/">ORTHEZ MERICAIN</a> · 064001580 · note A · 1 commune</li>
+<li><a href="/reseau/064000423/">ORTHEZ VILLE</a> · 064000423 · note A · 1 commune</li>
+<li><a href="/reseau/064000428/">OSSE EN ASPE BOURG</a> · 064000428 · note D · 1 commune</li>
+<li><a href="/reseau/064000997/">OSSE EN ASPE GOUADAN</a> · 064000997 · note D · 1 commune</li>
+<li><a href="/reseau/064003972/">OSSERAIN RIVAREYTE</a> · 064003972 · note A · 1 commune</li>
+<li><a href="/reseau/064000513/">OSSES</a> · 064000513 · note A · 1 commune</li>
+<li><a href="/reseau/064001757/">PARC ANIMALIER</a> · 064001757 · note D · 1 commune</li>
+<li><a href="/reseau/064000432/">PAU</a> · 064000432 · note A · 1 commune</li>
+<li><a href="/reseau/064001738/">PAYS DE MIXE-BIDACHE</a> · 064001738 · note A · 27 communes</li>
+<li><a href="/reseau/064000470/">PLAINE DE NAY</a> · 064000470 · note A · 13 communes</li>
+<li><a href="/reseau/064000434/">PRECILHON</a> · 064000434 · note A · 1 commune</li>
+<li><a href="/reseau/064000485/">QUARTIER ESNAZU</a> · 064000485 · note A · 1 commune</li>
+<li><a href="/reseau/064001726/">QUARTIER GARRALDA - AYHERRE</a> · 064001726 · note A · 1 commune</li>
+<li><a href="/reseau/064004095/">QUARTIER LASSERRE MOUMOUR</a> · 064004095 · note A · 1 commune</li>
+<li><a href="/reseau/064003565/">QUARTIER LISTO</a> · 064003565 · note A · 1 commune</li>
+<li><a href="/reseau/064000456/">REGION D'ARTIX</a> · 064000456 · note A · 19 communes</li>
+<li><a href="/reseau/064000459/">REGION D'ARZACQ</a> · 064000459 · note A · 20 communes</li>
+<li><a href="/reseau/064000461/">REGION DE CROUSEILLES</a> · 064000461 · note A · 9 communes</li>
+<li><a href="/reseau/064000462/">REGION DE GARLIN</a> · 064000462 · note A · 21 communes</li>
+<li><a href="/reseau/064004464/">REGION DE GARLIN 2</a> · 064004464 · note A · 8 communes</li>
+<li><a href="/reseau/064000471/">REGION DE JURANCON</a> · 064000471 · note A · 24 communes</li>
+<li><a href="/reseau/064000541/">REGION DE L'OSTABARRET</a> · 064000541 · note A · 11 communes</li>
+<li><a href="/reseau/064000479/">REGION DE LEMBEYE</a> · 064000479 · note A · 6 communes</li>
+<li><a href="/reseau/064000472/">REGION DE SALIES</a> · 064000472 · note A · 17 communes</li>
+<li><a href="/reseau/064000473/">REGION DE SAUVETERRE</a> · 064000473 · note A · 9 communes</li>
+<li><a href="/reseau/064000480/">REGION PONTACQ MONTANER LALONGUE</a> · 064000480 · note A · 34 communes</li>
+<li><a href="/reseau/064000435/">SAINT BOES</a> · 064000435 · note A · 1 commune</li>
+<li><a href="/reseau/064000516/">SAINT ETIENNE DE BAIGORRY</a> · 064000516 · note A · 1 commune</li>
+<li><a href="/reseau/064000517/">SAINT JEAN PIED DE PORT</a> · 064000517 · note A · 1 commune</li>
+<li><a href="/reseau/064000544/">SAINT-JEAN-DE-LUZ</a> · 064000544 · note A · 1 commune</li>
+<li><a href="/reseau/064000444/">SALLES MONGISCARD</a> · 064000444 · note A · 1 commune</li>
+<li><a href="/reseau/064000519/">SARE BOURG</a> · 064000519 · note A · 1 commune</li>
+<li><a href="/reseau/064001730/">SARE CHILARDI</a> · 064001730 · note D · 1 commune</li>
+<li><a href="/reseau/064000520/">SARE GROTTES</a> · 064000520 · note A · 1 commune</li>
+<li><a href="/reseau/064000445/">SARRANCE BOURG</a> · 064000445 · note A · 1 commune</li>
+<li><a href="/reseau/064000727/">SARRANCE LAUNDE</a> · 064000727 · note C · 1 commune</li>
+<li><a href="/reseau/064000446/">SARRANCE PONT SUZON</a> · 064000446 · note D · 1 commune</li>
+<li><a href="/reseau/064003271/">SAUCEDE</a> · 064003271 · note A · 1 commune</li>
+<li><a href="/reseau/064000447/">SAULT DE NAVAILLES</a> · 064000447 · note A · 1 commune</li>
+<li><a href="/reseau/064003545/">SECTEUR NABAS-ESPIUTE</a> · 064003545 · note A · 5 communes</li>
+<li><a href="/reseau/064004268/">SECTEUR SEVIGNACQ THEZE</a> · 064004268 · note A · 7 communes</li>
+<li><a href="/reseau/064004011/">SECTEUR TTP ELHUET</a> · 064004011 · note A · 1 commune</li>
+<li><a href="/reseau/064003544/">SOULE - ALCAY</a> · 064003544 · note A · 12 communes</li>
+<li><a href="/reseau/064003543/">SOULE - MAULEON</a> · 064003543 · note A · 22 communes</li>
+<li><a href="/reseau/064000523/">SOURAIDE</a> · 064000523 · note A · 1 commune</li>
+<li><a href="/reseau/064000543/">ST JEAN LE VIEUX-BUSSUNARITS</a> · 064000543 · note A · 2 communes</li>
+<li><a href="/reseau/064000518/">ST MARTIN D'ARROSSA</a> · 064000518 · note A · 1 commune</li>
+<li><a href="/reseau/064000438/">STE ENGRACE ALCHACHO</a> · 064000438 · note A · 1 commune</li>
+<li><a href="/reseau/064000442/">STE ENGRACE ASCARATEIL</a> · 064000442 · note D · 1 commune</li>
+<li><a href="/reseau/064000440/">STE ENGRACE ATHORO</a> · 064000440 · note A · 1 commune</li>
+<li><a href="/reseau/064000441/">STE ENGRACE BERRIEX</a> · 064000441 · note A · 1 commune</li>
+<li><a href="/reseau/064000436/">STE ENGRACE BOURG</a> · 064000436 · note A · 1 commune</li>
+<li><a href="/reseau/064000437/">STE ENGRACE CASERNE</a> · 064000437 · note A · 1 commune</li>
+<li><a href="/reseau/064000439/">STE ENGRACE DOLAINTY</a> · 064000439 · note A · 1 commune</li>
+<li><a href="/reseau/064001661/">STE ENGRACE URRUTIA</a> · 064001661 · note A · 1 commune</li>
+<li><a href="/reseau/064000468/">SYNDICAT D'OGEU LES BAINS</a> · 064000468 · note A · 9 communes</li>
+<li><a href="/reseau/064000466/">SYNDICAT DE GRECHEZ</a> · 064000466 · note A · 5 communes</li>
+<li><a href="/reseau/064000481/">SYNDICAT DE LESCAR</a> · 064000481 · note A · 6 communes</li>
+<li><a href="/reseau/064000467/">SYNDICAT DE NAVARRENX</a> · 064000467 · note A · 22 communes</li>
+<li><a href="/reseau/064000475/">SYNDICAT DU VERT</a> · 064000475 · note A · 5 communes</li>
+<li><a href="/reseau/064000448/">TARDETS BOURG</a> · 064000448 · note A · 1 commune</li>
+<li><a href="/reseau/064000449/">TARDETS LA MADELEINE</a> · 064000449 · note D · 1 commune</li>
+<li><a href="/reseau/064000450/">TROIS VILLES</a> · 064000450 · note A · 1 commune</li>
+<li><a href="/reseau/064003590/">URA - ARCANGUES</a> · 064003590 · note A · 3 communes</li>
+<li><a href="/reseau/064000539/">URA - CAMBO LES BAINS</a> · 064000539 · note A · 4 communes</li>
+<li><a href="/reseau/064003592/">URA - ITXASSOU</a> · 064003592 · note A · 1 commune</li>
+<li><a href="/reseau/064003591/">URA - SAINT PIERRE D'IRUBE</a> · 064003591 · note A · 7 communes</li>
+<li><a href="/reseau/064000501/">URCURAY</a> · 064000501 · note A · 1 commune</li>
+<li><a href="/reseau/064000451/">URDOS</a> · 064000451 · note A · 1 commune</li>
+<li><a href="/reseau/064001519/">URDOS LAZARET</a> · 064001519 · note D · 1 commune</li>
+<li><a href="/reseau/064000524/">UREPEL</a> · 064000524 · note A · 1 commune</li>
+<li><a href="/reseau/064001663/">URRUGNE</a> · 064001663 · note A · 2 communes</li>
+<li><a href="/reseau/064003581/">URRUGNE BEHOBIE</a> · 064003581 · note C · 1 commune</li>
+<li><a href="/reseau/064000458/">VALLEE D'OSSAU</a> · 064000458 · note A · 8 communes</li>
+<li><a href="/reseau/064003605/">VALLEE DE L'OUSSE OUEST</a> · 064003605 · note A · 13 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/64001/">Aast</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64002/">Abère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64003/">Abidos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64004/">Abitain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64005/">Abos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64006/">Accous</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/64007/">Agnos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64008/">Ahaxe-Alciette-Bascassan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64009/">Ahetze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64010/">Aïcirits-Camou-Suhast</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64011/">Aincille</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64012/">Ainharp</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64013/">Ainhice-Mongelos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64014/">Ainhoa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64015/">Alçay-Alçabéhéty-Sunharette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64016/">Aldudes</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/64017/">Alos-Sibas-Abense</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64018/">Amendeuix-Oneix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64019/">Amorots-Succos</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64225/">Ance Féas</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/64021/">Andoins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64022/">Andrein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64023/">Angaïs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64024/">Anglet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64025/">Angous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64026/">Anhaux</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/64027/">Anos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64028/">Anoye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64029/">Aramits</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64031/">Arancou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64032/">Araujuzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64033/">Araux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64034/">Arbérats-Sillègue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64035/">Arbonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64036/">Arbouet-Sussaute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64037/">Arbus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64038/">Arcangues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64039/">Aren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64041/">Aressy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64040/">Arette</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/64042/">Argagnon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64043/">Argelos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64044/">Arget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64045/">Arhansus</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64046/">Armendarits</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64047/">Arnéguy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64048/">Arnos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64049/">Aroue-Ithorots-Olhaïby</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64050/">Arrast-Larrebieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64051/">Arraute-Charritte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64052/">Arricau-Bordes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64053/">Arrien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64054/">Arros-de-Nay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64056/">Arrosès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64058/">Arthez-d'Asson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64057/">Arthez-de-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64059/">Artigueloutan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64060/">Artiguelouve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64061/">Artix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64062/">Arudy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64063/">Arzacq-Arraziguet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64064/">Asasp-Arros</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64065/">Ascain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64066/">Ascarat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64067/">Assat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64068/">Asson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64069/">Aste-Béon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64070/">Astis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64071/">Athos-Aspis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64072/">Aubertin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64073/">Aubin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64074/">Aubous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64075/">Audaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64077/">Auga</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64078/">Auriac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64079/">Aurions-Idernes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64080/">Aussevielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64081/">Aussurucq</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/64082/">Auterrive</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64083/">Autevielle-Saint-Martin-Bideren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64084/">Aydie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64085/">Aydius</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64086/">Ayherre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64087/">Baigts-de-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64088/">Balansun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64089/">Baleix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64090/">Baliracq-Maumusson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64091/">Baliros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64092/">Banca</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64093/">Barcus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64094/">Bardos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64095/">Barinque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64096/">Barraute-Camu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64097/">Barzun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64098/">Bassillon-Vauzé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64100/">Bassussarry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64099/">Bastanès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64101/">Baudreix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64102/">Bayonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64103/">Bédeille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64104/">Bedous</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/64105/">Béguios</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64106/">Béhasque-Lapiste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64107/">Béhorléguy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64108/">Bellocq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64109/">Bénéjacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64111/">Bentayou-Sérée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64110/">Béost</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/64112/">Bérenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64113/">Bergouey-Viellenave</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64114/">Bernadets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64115/">Berrogain-Laruns</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64116/">Bescat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64117/">Bésingrand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64118/">Bétracq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64119/">Beuste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64121/">Beyrie-en-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64120/">Beyrie-sur-Joyeuse</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/64122/">Biarritz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64123/">Bidache</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64124/">Bidarray</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/64125/">Bidart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64126/">Bidos</a> · 1 réseau, noté B</li>
+<li><a href="/commune/64127/">Bielle</a> · 1 réseau, noté D</li>
+<li><a href="/commune/64128/">Bilhères</a> · 1 réseau, noté C</li>
+<li><a href="/commune/64129/">Billère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64130/">Biriatou</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64131/">Biron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64132/">Bizanos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64133/">Boeil-Bezing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64134/">Bonloc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64135/">Bonnut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64136/">Borce</a> · 7 réseaux : 4 notés D, 3 notés A</li>
+<li><a href="/commune/64137/">Bordères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64138/">Bordes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64139/">Bosdarros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64140/">Boucau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64141/">Boueilh-Boueilho-Lasque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64142/">Bougarber</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64143/">Bouillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64144/">Boumourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64145/">Bourdettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64146/">Bournos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64147/">Briscous</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64148/">Bruges-Capbis-Mifaget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64149/">Bugnein</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64150/">Bunus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64151/">Burgaronne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64152/">Buros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64153/">Burosse-Mendousse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64154/">Bussunarits-Sarrasquette</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64155/">Bustince-Iriberry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64156/">Buziet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64157/">Buzy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64158/">Cabidos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64159/">Cadillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64160/">Cambo-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64161/">Came</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64162/">Camou-Cihigue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64165/">Cardesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64166/">Caro</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64167/">Carrère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64168/">Carresse-Cassaber</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64170/">Castagnède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64171/">Casteide-Cami</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64172/">Casteide-Candau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64173/">Casteide-Doat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64174/">Castéra-Loubix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64175/">Castet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64176/">Castetbon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64177/">Castétis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64178/">Castetnau-Camblong</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64179/">Castetner</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64180/">Castetpugon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64181/">Castillon (Canton d'Arthez-de-Béarn)</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64182/">Castillon (Canton de Lembeye)</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64183/">Caubios-Loos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64184/">Cescau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64185/">Cette-Eygun</a> · 1 réseau, noté D</li>
+<li><a href="/commune/64186/">Charre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64187/">Charritte-de-Bas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64188/">Chéraute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64189/">Ciboure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64190/">Claracq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64191/">Coarraze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64192/">Conchez-de-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64193/">Corbère-Abères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64194/">Coslédaà-Lube-Boast</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64195/">Coublucq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64196/">Crouseilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64197/">Cuqueron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64198/">Denguin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64199/">Diusse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64200/">Doazon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64201/">Dognen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64202/">Domezain-Berraute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64203/">Doumy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64204/">Eaux-Bonnes</a> · 6 réseaux : 1 noté D, 5 notés A</li>
+<li><a href="/commune/64205/">Escos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64206/">Escot</a> · 1 réseau, noté D</li>
+<li><a href="/commune/64207/">Escou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64208/">Escoubès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64209/">Escout</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64210/">Escurès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64211/">Eslourenties-Daban</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64212/">Espéchède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64213/">Espelette</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64214/">Espès-Undurein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64215/">Espiute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64216/">Espoey</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64217/">Esquiule</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64218/">Estérençuby</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64219/">Estialescq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64220/">Estos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64221/">Etcharry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64222/">Etchebar</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64223/">Etsaut</a> · 1 réseau, noté D</li>
+<li><a href="/commune/64224/">Eysus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64226/">Fichous-Riumayou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64227/">Gabaston</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64228/">Gabat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64229/">Gamarthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64230/">Gan</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64231/">Garindein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64232/">Garlède-Mondebat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64233/">Garlin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64234/">Garos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64235/">Garris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64236/">Gayon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64237/">Gelos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64238/">Ger</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64239/">Gerderest</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64240/">Gère-Bélesten</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/64241/">Géronce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64242/">Gestas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64243/">Géus-d'Arzacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64244/">Geüs-d'Oloron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64245/">Goès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64246/">Gomer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64247/">Gotein-Libarrenx</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64249/">Guéthary</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64250/">Guiche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64251/">Guinarthe-Parenties</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64252/">Gurmençon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64253/">Gurs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64254/">Hagetaubin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64255/">Halsou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64256/">Hasparren</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/64257/">Haut-de-Bosdarros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64258/">Haux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64259/">Hélette</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64260/">Hendaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64261/">Herrère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64262/">Higuères-Souye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64265/">Hosta</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64266/">Hours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64267/">Ibarrolle</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64268/">Idaux-Mendy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64269/">Idron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64270/">Igon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64271/">Iholdy</a> · 1 réseau, noté D</li>
+<li><a href="/commune/64272/">Ilharre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64273/">Irissarry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64274/">Irouléguy</a> · 1 réseau, noté D</li>
+<li><a href="/commune/64275/">Ispoure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64276/">Issor</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/64277/">Isturits</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64279/">Itxassou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64280/">Izeste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64281/">Jasses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64282/">Jatxou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64283/">Jaxu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64284/">Jurançon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64285/">Juxue</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64263/">L'Hôpital-d'Orion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64264/">L'Hôpital-Saint-Blaise</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64289/">La Bastide-Clairence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64286/">Laà-Mondrans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64287/">Laàs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64288/">Labastide-Cézéracq</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64290/">Labastide-Monréjeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64291/">Labastide-Villefranche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64292/">Labatmale</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64293/">Labatut-Figuières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64294/">Labets-Biscay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64295/">Labeyrie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64296/">Lacadée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64297/">Lacarre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64298/">Lacarry-Arhan-Charritte-de-Haut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64299/">Lacommande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64300/">Lacq</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64301/">Lagor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64302/">Lagos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64303/">Laguinge-Restoue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64304/">Lahonce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64305/">Lahontan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64306/">Lahourcade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64307/">Lalongue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64308/">Lalonquette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64309/">Lamayou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64310/">Lanne-en-Barétous</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/64311/">Lannecaube</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64312/">Lanneplaà</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64313/">Lantabat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64314/">Larceveau-Arros-Cibits</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64315/">Laroin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64316/">Larrau</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/64317/">Larressore</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64318/">Larreule</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64319/">Larribar-Sorhapuru</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64320/">Laruns</a> · 13 réseaux : 2 notés D, 1 noté C, 10 notés A</li>
+<li><a href="/commune/64321/">Lasclaveries</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64322/">Lasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64323/">Lasserre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64324/">Lasseube</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/64325/">Lasseubetat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64326/">Lay-Lamidou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64327/">Lecumberry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64328/">Ledeuix</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64329/">Lée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64330/">Lées-Athas</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/64331/">Lembeye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64332/">Lème</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64334/">Léren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64335/">Lescar</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64336/">Lescun</a> · 4 réseaux : 2 notés D, 2 notés A</li>
+<li><a href="/commune/64337/">Lespielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64338/">Lespourcy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64339/">Lestelle-Bétharram</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64340/">Lichans-Sunhar</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64341/">Lichos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64342/">Licq-Athérey</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64343/">Limendous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64344/">Livron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64345/">Lohitzun-Oyhercq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64346/">Lombia</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64347/">Lonçon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64348/">Lons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64349/">Loubieng</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64350/">Louhossoa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64351/">Lourdios-Ichère</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/64352/">Lourenties</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64353/">Louvie-Juzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64354/">Louvie-Soubiron</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/64355/">Louvigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64356/">Luc-Armau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64357/">Lucarré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64358/">Lucgarier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64359/">Lucq-de-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64360/">Lurbe-Saint-Christau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64361/">Lussagnet-Lusson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64362/">Luxe-Sumberraute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64363/">Lys</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64364/">Macaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64365/">Malaussanne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64366/">Mascaraàs-Haron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64367/">Maslacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64368/">Masparraute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64369/">Maspie-Lalonquère-Juillacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64370/">Maucor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64371/">Mauléon-Licharre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64372/">Maure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64373/">Mazères-Lezons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64374/">Mazerolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64375/">Méharin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64376/">Meillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64377/">Mendionde</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/64378/">Menditte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64379/">Mendive</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64380/">Méracq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64381/">Méritein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64382/">Mesplède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64383/">Mialos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64385/">Miossens-Lanusse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64386/">Mirepeix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64387/">Momas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64388/">Momy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64389/">Monassut-Audiracq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64390/">Moncaup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64391/">Moncayolle-Larrory-Mendibieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64392/">Moncla</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64393/">Monein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64394/">Monpezat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64395/">Monségur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64396/">Mont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64401/">Mont-Disse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64397/">Montagut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64398/">Montaner</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64399/">Montardon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64400/">Montaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64403/">Montfort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64404/">Montory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64405/">Morlaàs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64406/">Morlanne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64407/">Mouguerre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64408/">Mouhous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64409/">Moumour</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64410/">Mourenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64411/">Musculdy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64412/">Nabas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64413/">Narcastet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64414/">Narp</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64415/">Navailles-Angos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64416/">Navarrenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64417/">Nay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64418/">Noguères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64419/">Nousty</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64420/">Ogenne-Camptort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64421/">Ogeu-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64422/">Oloron-Sainte-Marie</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/64423/">Oraàs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64424/">Ordiarp</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64425/">Orègue</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64426/">Orin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64427/">Orion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64428/">Orriule</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64429/">Orsanco</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64430/">Orthez</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/64431/">Os-Marsillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64432/">Ossas-Suhare</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64433/">Osse-en-Aspe</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/64434/">Ossenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64435/">Osserain-Rivareyte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64436/">Ossès</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64437/">Ostabat-Asme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64438/">Ouillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64439/">Ousse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64440/">Ozenx-Montestrucq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64441/">Pagolle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64442/">Parbayse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64443/">Pardies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64444/">Pardies-Piétat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64445/">Pau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64446/">Peyrelongue-Abos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64447/">Piets-Plasence-Moustrou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64449/">Poey-d'Oloron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64448/">Poey-de-Lescar</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64450/">Pomps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64451/">Ponson-Debat-Pouts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64452/">Ponson-Dessus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64453/">Pontacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64454/">Pontiacq-Viellepinte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64455/">Portet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64456/">Pouliacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64457/">Poursiugues-Boucoue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64458/">Préchacq-Josbaig</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64459/">Préchacq-Navarrenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64460/">Précilhon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64461/">Puyoô</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64462/">Ramous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64463/">Rébénacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64464/">Ribarrouy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64465/">Riupeyrous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64466/">Rivehaute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64467/">Rontignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64468/">Roquiague</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64469/">Saint-Abit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64470/">Saint-Armou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64471/">Saint-Boès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64472/">Saint-Castin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64474/">Saint-Dos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64476/">Saint-Esteben</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64477/">Saint-Étienne-de-Baïgorry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64478/">Saint-Faust</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64479/">Saint-Girons-en-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64480/">Saint-Gladie-Arrive-Munein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64481/">Saint-Goin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64482/">Saint-Jammes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64483/">Saint-Jean-de-Luz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64484/">Saint-Jean-le-Vieux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64485/">Saint-Jean-Pied-de-Port</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64486/">Saint-Jean-Poudge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64487/">Saint-Just-Ibarre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64488/">Saint-Laurent-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64489/">Saint-Martin-d'Arberoue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64490/">Saint-Martin-d'Arrossa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64491/">Saint-Médard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64492/">Saint-Michel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64493/">Saint-Palais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64494/">Saint-Pé-de-Léren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64495/">Saint-Pée-sur-Nivelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64496/">Saint-Pierre-d'Irube</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64498/">Saint-Vincent</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64473/">Sainte-Colome</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64475/">Sainte-Engrâce</a> · 8 réseaux : 1 noté D, 7 notés A</li>
+<li><a href="/commune/64499/">Salies-de-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64500/">Salles-Mongiscard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64501/">Sallespisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64502/">Sames</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64503/">Samsons-Lion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64504/">Sare</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/64505/">Sarpourenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64506/">Sarrance</a> · 3 réseaux : 1 noté D, 1 noté C, 1 noté A</li>
+<li><a href="/commune/64507/">Saubole</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64508/">Saucède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64509/">Sauguis-Saint-Étienne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64510/">Sault-de-Navailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64511/">Sauvagnon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64512/">Sauvelade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64513/">Sauveterre-de-Béarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64514/">Séby</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64515/">Sedze-Maubecq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64516/">Sedzère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64517/">Séméacq-Blachon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64518/">Sendets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64519/">Serres-Castet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64520/">Serres-Morlaàs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64521/">Serres-Sainte-Marie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64523/">Sévignacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64522/">Sévignacq-Meyracq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64524/">Simacourbe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64525/">Siros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64526/">Soumoulou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64527/">Souraïde</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64528/">Suhescun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64529/">Sus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64530/">Susmiou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64531/">Tabaille-Usquain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64532/">Tadousse-Ussau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64533/">Tardets-Sorholus</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/64534/">Taron-Sadirac-Viellenave</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64535/">Tarsacq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64536/">Thèze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64537/">Trois-Villes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64538/">Uhart-Cize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64539/">Uhart-Mixe</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64540/">Urcuit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64541/">Urdès</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/64542/">Urdos</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/64543/">Urepel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64544/">Urost</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64545/">Urrugne</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/64546/">Urt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/64547/">Ustaritz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64548/">Uzan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64549/">Uzein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64550/">Uzos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64551/">Verdets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64552/">Vialer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64554/">Viellenave-d'Arthez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64555/">Viellenave-de-Navarrenx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64556/">Vielleségure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64557/">Vignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64558/">Villefranque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64559/">Viodos-Abense-de-Bas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/64560/">Viven</a> · 2 réseaux : 2 notés A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Pyrénées-Atlantiques · eau du robinet », https://meteodurobinet.fr/departement/64/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

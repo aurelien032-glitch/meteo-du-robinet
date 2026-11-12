@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Val-d'Oise (95) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Val-d'Oise · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Val-d'Oise (95) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/95/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Val-d'Oise · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Val-d’Oise · eau du robinet","url":"https://meteodurobinet.fr/departement/95/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Val-d’Oise","item":"https://meteodurobinet.fr/departement/95/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/95/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Val-d’Oise</h1>
+<p class="meta">Département 95</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>16 sur 71 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 52 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 16 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 9, métaux et minéraux 5.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>50 réseaux visés sur 71</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>64 prélèvements</strong> évalués en juillet 2026 ; 760 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : année absente du jeu de données</li>
+<li>2026 en cours : vigilance 0 jour, alerte 0 jour, alerte renforcée 92 jours, crise 31 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,06</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 17 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>43 services d’eau</strong> desservent au moins une commune du département ; 9 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 74 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/095000106/">AMBLEVILLE</a> · 095000106 · note A · 1 commune</li>
+<li><a href="/reseau/095000108/">BERNES SUR OISE</a> · 095000108 · note C · 1 commune</li>
+<li><a href="/reseau/095000407/">BOISSY L'AILLERIE</a> · 095000407 · note A · 1 commune</li>
+<li><a href="/reseau/095000276/">BONNEUIL EN FRANCE</a> · 095000276 · note C · 1 commune</li>
+<li><a href="/reseau/095000344/">BRIGNANCOURT</a> · 095000344 · note A · 1 commune</li>
+<li><a href="/reseau/095000109/">BRUYERES SUR OISE</a> · 095000109 · note C · 1 commune</li>
+<li><a href="/reseau/095000354/">BUHY MONTREUIL SUR EPTE</a> · 095000354 · note A · 2 communes</li>
+<li><a href="/reseau/095004051/">CACP CERGY-ST CHRIST PUISEUX PONTOISE</a> · 095004051 · note A · 2 communes</li>
+<li><a href="/reseau/095004049/">CACP EST-SUD</a> · 095004049 · note A · 5 communes</li>
+<li><a href="/reseau/095004052/">CACP NORD</a> · 095004052 · note A · 3 communes</li>
+<li><a href="/reseau/095004050/">CACP OUEST</a> · 095004050 · note A · 5 communes</li>
+<li><a href="/reseau/095004053/">CACP PREFECTURE VILLAGES</a> · 095004053 · note C · 3 communes</li>
+<li><a href="/reseau/095000309/">CHARS HAUT SERVICE</a> · 095000309 · note A · 1 commune</li>
+<li><a href="/reseau/095000307/">CHARS-LE BELLAY-MOUSSY</a> · 095000307 · note A · 3 communes</li>
+<li><a href="/reseau/095000351/">CHAUSSY</a> · 095000351 · note A · 1 commune</li>
+<li><a href="/reseau/095004038/">CHENNEVIERES-EPIAIS LES LOUVRES</a> · 095004038 · note A · 2 communes</li>
+<li><a href="/reseau/095000392/">COURCELLES SUR VIOSNE</a> · 095000392 · note A · 1 commune</li>
+<li><a href="/reseau/095000315/">DISTRIBUTION RES. DE NEUILLY</a> · 095000315 · note A · 4 communes</li>
+<li><a href="/reseau/095000238/">DISTRIBUTION RES. FOSSES 1500</a> · 095000238 · note A · 1 commune</li>
+<li><a href="/reseau/095000239/">DISTRIBUTION RES. FOSSES 500</a> · 095000239 · note A · 4 communes</li>
+<li><a href="/reseau/095000241/">DISTRIBUTION RES. MARLY 1500</a> · 095000241 · note A · 1 commune</li>
+<li><a href="/reseau/095000243/">ECOUEN BOIS BLEU</a> · 095000243 · note A · 1 commune</li>
+<li><a href="/reseau/095000586/">ENNERY</a> · 095000586 · note A · 1 commune</li>
+<li><a href="/reseau/095000244/">EZANVILLE</a> · 095000244 · note A · 1 commune</li>
+<li><a href="/reseau/095000316/">FREMECOURT-CORMEILLES EN VEXIN</a> · 095000316 · note A · 2 communes</li>
+<li><a href="/reseau/095000215/">GENICOURT</a> · 095000215 · note A · 1 commune</li>
+<li><a href="/reseau/095000294/">GOUSSAINVILLE</a> · 095000294 · note A · 1 commune</li>
+<li><a href="/reseau/095000228/">GRISY LES PLATRES-EPIAIS-RHUS</a> · 095000228 · note A · 2 communes</li>
+<li><a href="/reseau/095000242/">HAMEAU DE VILLERON-ZI FOSSES</a> · 095000242 · note C · 1 commune</li>
+<li><a href="/reseau/095000340/">HARAVILLIERS-BREANCON</a> · 095000340 · note A · 2 communes</li>
+<li><a href="/reseau/095000362/">HAUTE ISLE</a> · 095000362 · note A · 1 commune</li>
+<li><a href="/reseau/095000451/">JOUY LE MOUTIER ECANCOURT</a> · 095000451 · note A · 1 commune</li>
+<li><a href="/reseau/095000356/">LA ROCHE GUYON</a> · 095000356 · note A · 1 commune</li>
+<li><a href="/reseau/095000290/">LABBEVILLE FROUVILLE HEDOUVILLE</a> · 095000290 · note B · 3 communes</li>
+<li><a href="/reseau/095000302/">LE THILLAY - VAUDHERLAND</a> · 095000302 · note A · 2 communes</li>
+<li><a href="/reseau/095000416/">LIVILLIERS-HEROUVILLE</a> · 095000416 · note C · 2 communes</li>
+<li><a href="/reseau/095000260/">LOUVRES</a> · 095000260 · note C · 1 commune</li>
+<li><a href="/reseau/095000317/">MARINES SANTEUIL HAUT</a> · 095000317 · sans note · 2 communes</li>
+<li><a href="/reseau/095000389/">MONTGEROULT</a> · 095000389 · note A · 1 commune</li>
+<li><a href="/reseau/095000110/">MOURS NOINTEL PRESLES</a> · 095000110 · note A · 3 communes</li>
+<li><a href="/reseau/095000398/">NESLES LA VALLEE</a> · 095000398 · note A · 1 commune</li>
+<li><a href="/reseau/095000328/">NUCOURT</a> · 095000328 · sans note · 1 commune</li>
+<li><a href="/reseau/095000121/">OMERVILLE AMIEL LE MESNIL</a> · 095000121 · note A · 1 commune</li>
+<li><a href="/reseau/095003036/">OSNY PIGEONNIER</a> · 095003036 · note A · 1 commune</li>
+<li><a href="/reseau/095000234/">ROISSY EN FRANCE</a> · 095000234 · note A · 1 commune</li>
+<li><a href="/reseau/095000605/">ROISSY ZONE HOTELIERE</a> · 095000605 · note C · 1 commune</li>
+<li><a href="/reseau/095000168/">RONQUEROLLES</a> · 095000168 · note A · 1 commune</li>
+<li><a href="/reseau/095000111/">S.I.E.G. DE BEAUMONT PERSAN</a> · 095000111 · note C · 2 communes</li>
+<li><a href="/reseau/095000183/">SAINT CLAIR SUR EPTE</a> · 095000183 · note A · 1 commune</li>
+<li><a href="/reseau/095000331/">SANTEUIL</a> · 095000331 · note A · 1 commune</li>
+<li><a href="/reseau/095003633/">SDT MONTSOULT</a> · 095003633 · note A · 8 communes</li>
+<li><a href="/reseau/095000386/">SEDIF 95 EAU DE MERY/OISE</a> · 095000386 · note A · 34 communes</li>
+<li><a href="/reseau/095004073/">SEDIF 95 MERY-NEUILLY </a> · 095004073 · note B · 8 communes</li>
+<li><a href="/reseau/095000650/">SERAINCOURT BOURG</a> · 095000650 · note A · 1 commune</li>
+<li><a href="/reseau/095000117/">SERAINCOURT FREMAINVILLE</a> · 095000117 · note A · 2 communes</li>
+<li><a href="/reseau/095000127/">SIAEP DE L'ISLE-ADAM</a> · 095000127 · note C · 3 communes</li>
+<li><a href="/reseau/095000324/">SIAEP DU VEXIN OUEST - ST GERVAIS</a> · 095000324 · note A · 7 communes</li>
+<li><a href="/reseau/095004048/">SIAEP-TC-95</a> · 095004048 · note C · 3 communes</li>
+<li><a href="/reseau/095003651/">SIECCAO</a> · 095003651 · note C · 9 communes</li>
+<li><a href="/reseau/095004047/">SIEVA UDI</a> · 095004047 · note C · 11 communes</li>
+<li><a href="/reseau/095000178/">SYNDICAT BRAY ET LU VAL D'OISE</a> · 095000178 · note A · 2 communes</li>
+<li><a href="/reseau/095000224/">SYNDICAT D'ARRONVILLE-BERVILLE</a> · 095000224 · note C · 2 communes</li>
+<li><a href="/reseau/095000119/">SYNDICAT DE LA MONTCIENT (95)</a> · 095000119 · note A · 2 communes</li>
+<li><a href="/reseau/095000255/">SYNDICAT DE NORD-ECOUEN</a> · 095000255 · note A · 12 communes</li>
+<li><a href="/reseau/095000334/">SYNDICAT SOURCE ST ROMAIN</a> · 095000334 · note A · 8 communes</li>
+<li><a href="/reseau/095000369/">THEUVILLE</a> · 095000369 · sans note · 1 commune</li>
+<li><a href="/reseau/095000230/">THEUVILLE HAMEAU DE JAPPEVILLE</a> · 095000230 · note A · 1 commune</li>
+<li><a href="/reseau/095000459/">VALLANGOUJARD MENOUVILLE</a> · 095000459 · note B · 2 communes</li>
+<li><a href="/reseau/095000229/">VALLANGOUJARD-HAMEAU MEZIERES</a> · 095000229 · note A · 1 commune</li>
+<li><a href="/reseau/095000250/">VEMARS</a> · 095000250 · note A · 1 commune</li>
+<li><a href="/reseau/095000251/">VEMARS CHOISY AUX BOEUFS</a> · 095000251 · note A · 1 commune</li>
+<li><a href="/reseau/095000219/">VETHEUIL</a> · 095000219 · note A · 1 commune</li>
+<li><a href="/reseau/095000359/">VIENNE EN ARTHIES</a> · 095000359 · note C · 1 commune</li>
+<li><a href="/reseau/095000346/">VILLERS CHERENCE CHAUSSY</a> · 095000346 · note C · 3 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/95002/">Ableiges</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95008/">Aincourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95011/">Ambleville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95012/">Amenucourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95014/">Andilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95018/">Argenteuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95019/">Arnouville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95023/">Arronville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95024/">Arthies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95026/">Asnières-sur-Oise</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95028/">Attainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95039/">Auvers-sur-Oise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95040/">Avernes</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/95042/">Baillet-en-France</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95046/">Banthelu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95051/">Beauchamp</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95052/">Beaumont-sur-Oise</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95055/">Bellefontaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95056/">Belloy-en-France</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95058/">Bernes-sur-Oise</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95059/">Berville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95060/">Bessancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95061/">Béthemont-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95063/">Bezons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95074/">Boisemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95078/">Boissy-l'Aillerie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95088/">Bonneuil-en-France</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95091/">Bouffémont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95094/">Bouqueval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95101/">Bray-et-Lû</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95102/">Bréançon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95110/">Brignancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95116/">Bruyères-sur-Oise</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95119/">Buhy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95120/">Butry-sur-Oise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95127/">Cergy</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/95134/">Champagne-sur-Oise</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95141/">Charmont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95142/">Chars</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95144/">Châtenay-en-France</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95149/">Chaumontel</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95150/">Chaussy</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/95151/">Chauvry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95154/">Chennevières-lès-Louvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95157/">Chérence</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95166/">Cléry-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95169/">Commeny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95170/">Condécourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95176/">Cormeilles-en-Parisis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95177/">Cormeilles-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95181/">Courcelles-sur-Viosne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95183/">Courdimanche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95197/">Deuil-la-Barre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95199/">Domont</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95203/">Eaubonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95205/">Écouen</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/95210/">Enghien-les-Bains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95211/">Ennery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95212/">Épiais-lès-Louvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95213/">Épiais-Rhus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95214/">Épinay-Champlâtreux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95218/">Éragny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95219/">Ermont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95229/">Ézanville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95241/">Fontenay-en-Parisis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95250/">Fosses</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95252/">Franconville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95253/">Frémainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95254/">Frémécourt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95256/">Frépillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95258/">Frouville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95268/">Garges-lès-Gonesse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95270/">Genainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95271/">Génicourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95277/">Gonesse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95280/">Goussainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95282/">Gouzangrez</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/95287/">Grisy-les-Plâtres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95288/">Groslay</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95295/">Guiry-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95298/">Haravilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95301/">Haute-Isle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95304/">Hédouville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95306/">Herblay-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95308/">Hérouville-en-Vexin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95309/">Hodent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95316/">Jagny-sous-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95323/">Jouy-le-Moutier</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/95313/">L'Isle-Adam</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95139/">La Chapelle-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95257/">La Frette-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95523/">La Roche-Guyon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95328/">Labbeville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95331/">Lassy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95054/">Le Bellay-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95303/">Le Heaulme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95395/">Le Mesnil-Aubry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95483/">Le Perchay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95491/">Le Plessis-Bouchard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95492/">Le Plessis-Gassot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95493/">Le Plessis-Luzarches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95612/">Le Thillay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95341/">Livilliers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95348/">Longuesse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95351/">Louvres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95352/">Luzarches</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95353/">Maffliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95355/">Magny-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95365/">Mareil-en-France</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95369/">Margency</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95370/">Marines</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/95371/">Marly-la-Ville</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/95379/">Maudétour-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95387/">Menouville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95388/">Menucourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95392/">Mériel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95394/">Méry-sur-Oise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95409/">Moisselles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95422/">Montgeroult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95424/">Montigny-lès-Cormeilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95426/">Montlignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95427/">Montmagny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95428/">Montmorency</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95429/">Montreuil-sur-Epte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95430/">Montsoult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95436/">Mours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95438/">Moussy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95445/">Nerville-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95446/">Nesles-la-Vallée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95447/">Neuilly-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95450/">Neuville-sur-Oise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95452/">Nointel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95456/">Noisy-sur-Oise</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95459/">Nucourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95462/">Omerville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95476/">Osny</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95480/">Parmain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95487/">Persan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95488/">Pierrelaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95489/">Piscop</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95500/">Pontoise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95504/">Presles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95509/">Puiseux-en-France</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95510/">Puiseux-Pontoise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95527/">Roissy-en-France</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/95529/">Ronquerolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95535/">Sagy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95539/">Saint-Brice-sous-Forêt</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95541/">Saint-Clair-sur-Epte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95543/">Saint-Cyr-en-Arthies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95554/">Saint-Gervais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95555/">Saint-Gratien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95563/">Saint-Leu-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95566/">Saint-Martin-du-Tertre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95572/">Saint-Ouen-l'Aumône</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95574/">Saint-Prix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95580/">Saint-Witz</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95582/">Sannois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95584/">Santeuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95585/">Sarcelles</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95592/">Seraincourt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95594/">Seugy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95598/">Soisy-sous-Montmorency</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95604/">Survilliers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95607/">Taverny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95610/">Théméricourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95611/">Theuville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95625/">Us</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95627/">Vallangoujard</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/95628/">Valmondois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95633/">Vaudherland</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95637/">Vauréal</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/95641/">Vémars</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/95651/">Vétheuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95652/">Viarmes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95656/">Vienne-en-Arthies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95658/">Vigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95660/">Villaines-sous-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95675/">Villeron</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95676/">Villers-en-Arthies</a> · 1 réseau, noté C</li>
+<li><a href="/commune/95678/">Villiers-Adam</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95680/">Villiers-le-Bel</a> · 1 réseau, noté B</li>
+<li><a href="/commune/95682/">Villiers-le-Sec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/95690/">Wy-dit-Joli-Village</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Val-d’Oise · eau du robinet », https://meteodurobinet.fr/departement/95/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Haute-Corse (2B) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Haute-Corse · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Haute-Corse (2B) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/2B/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Haute-Corse · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Haute-Corse · eau du robinet","url":"https://meteodurobinet.fr/departement/2B/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Haute-Corse","item":"https://meteodurobinet.fr/departement/2B/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/2B/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Haute-Corse</h1>
+<p class="meta">Département 2B</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>240 sur 385 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 145 réseaux</li>
+<li>B qualité convenable* : 0 réseau</li>
+<li>C qualité insuffisante* : 70 réseaux</li>
+<li>D mauvaise qualité* : 170 réseaux</li>
+</ul>
+<p>Bactériologie 237 (170 D), métaux et minéraux 5.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>183 prélèvements</strong> évalués en septembre 2026 ; 1 663 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 127 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 79 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2026 en cours : vigilance 76 jours, alerte 109 jours, alerte renforcée 0 jour, crise 0 jour</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>1,65</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 72 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>180 services d’eau</strong> desservent au moins une commune du département ; 171 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 387 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/02B001390/">ACITAJA</a> · 02B001390 · note D · 1 commune</li>
+<li><a href="/reseau/02B001999/">ADAMO</a> · 02B001999 · note A · 1 commune</li>
+<li><a href="/reseau/02B004001/">AEROPORT CALVI</a> · 02B004001 · note A · 1 commune</li>
+<li><a href="/reseau/02B002002/">AEROPORT PORETTA</a> · 02B002002 · note A · 1 commune</li>
+<li><a href="/reseau/02B001145/">AIOLA</a> · 02B001145 · note D · 1 commune</li>
+<li><a href="/reseau/02B000021/">AITI</a> · 02B000021 · note D · 1 commune</li>
+<li><a href="/reseau/02B000004/">ALANDO</a> · 02B000004 · note D · 1 commune</li>
+<li><a href="/reseau/02B000095/">ALBERTACCE</a> · 02B000095 · note A · 1 commune</li>
+<li><a href="/reseau/02B000904/">ALERIA</a> · 02B000904 · note A · 4 communes</li>
+<li><a href="/reseau/02B001484/">ALGAJOLA</a> · 02B001484 · note D · 1 commune</li>
+<li><a href="/reseau/02B001980/">ALTANA-VANGONE</a> · 02B001980 · note D · 1 commune</li>
+<li><a href="/reseau/02B001246/">ALTIANI</a> · 02B001246 · note D · 1 commune</li>
+<li><a href="/reseau/02B000997/">ALZI</a> · 02B000997 · note A · 1 commune</li>
+<li><a href="/reseau/02B001805/">ALZI-MONTE D'OLMO-ÉGLISE</a> · 02B001805 · note C · 1 commune</li>
+<li><a href="/reseau/02B000944/">AMPRIANI</a> · 02B000944 · note D · 1 commune</li>
+<li><a href="/reseau/02B000869/">ANIA</a> · 02B000869 · note A · 1 commune</li>
+<li><a href="/reseau/02B000103/">ANTISANTI</a> · 02B000103 · note C · 1 commune</li>
+<li><a href="/reseau/02B001487/">AREGNO - SANTA REPARATA</a> · 02B001487 · note A · 2 communes</li>
+<li><a href="/reseau/02B000011/">ASCO</a> · 02B000011 · note A · 1 commune</li>
+<li><a href="/reseau/02B001602/">AVAPESSA UV</a> · 02B001602 · note A · 1 commune</li>
+<li><a href="/reseau/02B000447/">BAGNOLU</a> · 02B000447 · note D · 1 commune</li>
+<li><a href="/reseau/02B001137/">BARCHETTA</a> · 02B001137 · note A · 1 commune</li>
+<li><a href="/reseau/02B001074/">BARGHJANA MONTESTREMO</a> · 02B001074 · note D · 1 commune</li>
+<li><a href="/reseau/02B002032/">BASSADA</a> · 02B002032 · note A · 1 commune</li>
+<li><a href="/reseau/02B000530/">BASTIA</a> · 02B000530 · note A · 5 communes</li>
+<li><a href="/reseau/02B001539/">BELGODERE</a> · 02B001539 · note A · 1 commune</li>
+<li><a href="/reseau/02B000978/">BIGUGLIA VILLAGE</a> · 02B000978 · note A · 1 commune</li>
+<li><a href="/reseau/02B000148/">BISINCHI- ESPAGO</a> · 02B000148 · note D · 1 commune</li>
+<li><a href="/reseau/02B001905/">BISTUGLIO</a> · 02B001905 · note D · 1 commune</li>
+<li><a href="/reseau/02B001807/">BONIFACIO</a> · 02B001807 · note D · 1 commune</li>
+<li><a href="/reseau/02B002464/">BORD DE MER</a> · 02B002464 · note A · 1 commune</li>
+<li><a href="/reseau/02B002163/">BUSTANICO</a> · 02B002163 · note A · 1 commune</li>
+<li><a href="/reseau/02B002057/">BUZZOLO</a> · 02B002057 · note D · 1 commune</li>
+<li><a href="/reseau/02B001752/">CALACUCCIA</a> · 02B001752 · note C · 1 commune</li>
+<li><a href="/reseau/02B000096/">CALASIMA</a> · 02B000096 · note A · 1 commune</li>
+<li><a href="/reseau/02B002052/">CALDANE</a> · 02B002052 · note D · 1 commune</li>
+<li><a href="/reseau/02B001568/">CALENZANA-PLAINE DE CUCCU</a> · 02B001568 · note A · 1 commune</li>
+<li><a href="/reseau/02B004566/">CALLELA MAGNINCA</a> · 02B004566 · note A · 1 commune</li>
+<li><a href="/reseau/02B001458/">CALVI</a> · 02B001458 · note A · 1 commune</li>
+<li><a href="/reseau/02B001778/">CAMBIA</a> · 02B001778 · note D · 1 commune</li>
+<li><a href="/reseau/02B000752/">CAMPANA</a> · 02B000752 · note C · 1 commune</li>
+<li><a href="/reseau/02B001229/">CAMPI</a> · 02B001229 · note C · 1 commune</li>
+<li><a href="/reseau/02B001212/">CAMPIENDI-CORSU-PIANELLU</a> · 02B001212 · note D · 1 commune</li>
+<li><a href="/reseau/02B000796/">CAMPILE</a> · 02B000796 · note C · 1 commune</li>
+<li><a href="/reseau/02B002323/">CAMPING MUNICIPAL</a> · 02B002323 · note D · 1 commune</li>
+<li><a href="/reseau/02B001104/">CAMPO D'UNICO</a> · 02B001104 · note D · 1 commune</li>
+<li><a href="/reseau/02B001430/">CAMPO ROSSO</a> · 02B001430 · note C · 1 commune</li>
+<li><a href="/reseau/02B000800/">CANAJA</a> · 02B000800 · note D · 1 commune</li>
+<li><a href="/reseau/02B001666/">CANALE DI VERDE</a> · 02B001666 · note D · 1 commune</li>
+<li><a href="/reseau/02B002134/">CANAVAGGIA COSTA RODA</a> · 02B002134 · note D · 1 commune</li>
+<li><a href="/reseau/02B001898/">CANELLE-CAMERA-ORTINOLA</a> · 02B001898 · note D · 1 commune</li>
+<li><a href="/reseau/02B004049/">CANNICCIA</a> · 02B004049 · note C · 1 commune</li>
+<li><a href="/reseau/02B001806/">CARANZA</a> · 02B001806 · note D · 1 commune</li>
+<li><a href="/reseau/02B002159/">CARBONACCE-ORTALE-PIAZZE</a> · 02B002159 · note D · 1 commune</li>
+<li><a href="/reseau/02B000828/">CARBUNACCIA-ORNETO</a> · 02B000828 · note C · 1 commune</li>
+<li><a href="/reseau/02B000563/">CARCHETO-BRUSTICO</a> · 02B000563 · note A · 1 commune</li>
+<li><a href="/reseau/02B000849/">CARDO</a> · 02B000849 · note A · 1 commune</li>
+<li><a href="/reseau/02B000367/">CARPINETO</a> · 02B000367 · note D · 1 commune</li>
+<li><a href="/reseau/02B001705/">CARTICASI</a> · 02B001705 · note C · 1 commune</li>
+<li><a href="/reseau/02B000559/">CASABIANCA</a> · 02B000559 · note C · 1 commune</li>
+<li><a href="/reseau/02B000382/">CASALTA (UV)</a> · 02B000382 · note D · 1 commune</li>
+<li><a href="/reseau/02B002183/">CASAMACCIOLI</a> · 02B002183 · note D · 1 commune</li>
+<li><a href="/reseau/02B001028/">CASANOVA</a> · 02B001028 · note D · 1 commune</li>
+<li><a href="/reseau/02B001820/">CASANOVA-PENTA A U TRAVU</a> · 02B001820 · note D · 1 commune</li>
+<li><a href="/reseau/02B001426/">CASAPITI</a> · 02B001426 · note C · 1 commune</li>
+<li><a href="/reseau/02B001279/">CASEVECCHIE</a> · 02B001279 · note D · 1 commune</li>
+<li><a href="/reseau/02B001377/">CASEVECCHIE</a> · 02B001377 · note C · 1 commune</li>
+<li><a href="/reseau/02B001988/">CASONE-CIOTI</a> · 02B001988 · note D · 1 commune</li>
+<li><a href="/reseau/02B001125/">CASTELLARE DI CASINCA</a> · 02B001125 · note D · 1 commune</li>
+<li><a href="/reseau/02B001767/">CASTELLARE DI MERCURIO</a> · 02B001767 · note D · 1 commune</li>
+<li><a href="/reseau/02B002679/">CASTELLO-MAUSOLEO</a> · 02B002679 · note A · 1 commune</li>
+<li><a href="/reseau/02B002075/">CASTIFAO</a> · 02B002075 · note A · 1 commune</li>
+<li><a href="/reseau/02B001371/">CASTIGLIONE</a> · 02B001371 · note A · 1 commune</li>
+<li><a href="/reseau/02B000725/">CASTINETA</a> · 02B000725 · note D · 1 commune</li>
+<li><a href="/reseau/02B001787/">CASTIRLA</a> · 02B001787 · note A · 1 commune</li>
+<li><a href="/reseau/02B002129/">CASUCCIO-MARINE-RAFFALACCE(ETE)</a> · 02B002129 · note D · 1 commune</li>
+<li><a href="/reseau/02B001917/">CATARAGHIU-TEGHIE</a> · 02B001917 · note C · 1 commune</li>
+<li><a href="/reseau/02B000065/">CERVIONE</a> · 02B000065 · note D · 1 commune</li>
+<li><a href="/reseau/02B000834/">CHAMPLAN-CASETTE</a> · 02B000834 · note D · 1 commune</li>
+<li><a href="/reseau/02B001274/">CHIATRA PLAINE</a> · 02B001274 · note D · 1 commune</li>
+<li><a href="/reseau/02B001273/">CHIATRA VILLAGE</a> · 02B001273 · note D · 1 commune</li>
+<li><a href="/reseau/02B000428/">CHIESA-TORRA</a> · 02B000428 · note C · 1 commune</li>
+<li><a href="/reseau/02B000478/">CHIOSO-MOLINE-CROSCIANO</a> · 02B000478 · note D · 1 commune</li>
+<li><a href="/reseau/02B001305/">CHISA</a> · 02B001305 · note C · 1 commune</li>
+<li><a href="/reseau/02B000392/">CIGLIU-CHIGLIACCI ( UV )</a> · 02B000392 · note D · 1 commune</li>
+<li><a href="/reseau/02B002330/">CIMETIERE BIGUGLIA</a> · 02B002330 · note A · 1 commune</li>
+<li><a href="/reseau/02B000479/">CIPRONASCU-BUSSETO</a> · 02B000479 · note C · 1 commune</li>
+<li><a href="/reseau/02B003705/">COL</a> · 02B003705 · note D · 1 commune</li>
+<li><a href="/reseau/02B000429/">CONCHIGLIO-GIOTTANI</a> · 02B000429 · note A · 1 commune</li>
+<li><a href="/reseau/02B002160/">CORBARA DAVIA</a> · 02B002160 · note A · 1 commune</li>
+<li><a href="/reseau/02B001465/">CORBARA VILLAGE</a> · 02B001465 · note A · 1 commune</li>
+<li><a href="/reseau/02B000191/">CORSCIA</a> · 02B000191 · note D · 1 commune</li>
+<li><a href="/reseau/02B001779/">CORSOLI</a> · 02B001779 · note D · 1 commune</li>
+<li><a href="/reseau/02B000929/">CORTE</a> · 02B000929 · note A · 1 commune</li>
+<li><a href="/reseau/02B000411/">CORTINA</a> · 02B000411 · note C · 1 commune</li>
+<li><a href="/reseau/02B001561/">COSTA</a> · 02B001561 · note A · 1 commune</li>
+<li><a href="/reseau/02B000805/">COSTA-ANTIBIA-VERGAGLIESE</a> · 02B000805 · note D · 1 commune</li>
+<li><a href="/reseau/02B000391/">COTTONE UV</a> · 02B000391 · note C · 1 commune</li>
+<li><a href="/reseau/02B000494/">COZZI</a> · 02B000494 · note D · 1 commune</li>
+<li><a href="/reseau/02B001219/">CROCE</a> · 02B001219 · note C · 1 commune</li>
+<li><a href="/reseau/02B002179/">CROCICCHIA-MICORIA</a> · 02B002179 · note D · 1 commune</li>
+<li><a href="/reseau/02B001018/">DIRUDU</a> · 02B001018 · note C · 1 commune</li>
+<li><a href="/reseau/02B001158/">DIVINA</a> · 02B001158 · note A · 1 commune</li>
+<li><a href="/reseau/02B000999/">ERBAJOLO</a> · 02B000999 · note D · 1 commune</li>
+<li><a href="/reseau/02B000169/">ERBALUNGA - LAVASINA- CAP SAGRO</a> · 02B000169 · note A · 1 commune</li>
+<li><a href="/reseau/02B001302/">ERONE</a> · 02B001302 · note A · 1 commune</li>
+<li><a href="/reseau/02B001860/">ERSA</a> · 02B001860 · note A · 1 commune</li>
+<li><a href="/reseau/02B001736/">FARINOLE BAS</a> · 02B001736 · note D · 1 commune</li>
+<li><a href="/reseau/02B002191/">FARINOLE HAUT</a> · 02B002191 · note D · 1 commune</li>
+<li><a href="/reseau/02B001314/">FAVALELLO </a> · 02B001314 · note A · 1 commune</li>
+<li><a href="/reseau/02B001824/">FAVALELLO-CARREGGIA</a> · 02B001824 · note A · 1 commune</li>
+<li><a href="/reseau/02B000467/">FELCE  ( UV )</a> · 02B000467 · note D · 1 commune</li>
+<li><a href="/reseau/02B001609/">FELICETO</a> · 02B001609 · note A · 1 commune</li>
+<li><a href="/reseau/02B001315/">FEO-PINELLU  </a> · 02B001315 · note A · 1 commune</li>
+<li><a href="/reseau/02B001156/">FERLAGHIA-ERDO</a> · 02B001156 · note C · 1 commune</li>
+<li><a href="/reseau/02B002181/">FICAJA</a> · 02B002181 · note D · 1 commune</li>
+<li><a href="/reseau/02B001187/">FIENU -LICETTU-SORBO-CASTELLO</a> · 02B001187 · note D · 1 commune</li>
+<li><a href="/reseau/02B001157/">FILETTE</a> · 02B001157 · note A · 1 commune</li>
+<li><a href="/reseau/02B001335/">FIUMINALE (VINCINACCE)</a> · 02B001335 · note D · 1 commune</li>
+<li><a href="/reseau/02B002302/">FIUMINALE-PONTE ROSSO</a> · 02B002302 · note A · 1 commune</li>
+<li><a href="/reseau/02B001309/">FOCICCHIA</a> · 02B001309 · note D · 1 commune</li>
+<li><a href="/reseau/02B001049/">FOLELLI</a> · 02B001049 · note A · 4 communes</li>
+<li><a href="/reseau/02B000151/">FORNU</a> · 02B000151 · note D · 1 commune</li>
+<li><a href="/reseau/02B000203/">FRANCARDO-AITI</a> · 02B000203 · note C · 2 communes</li>
+<li><a href="/reseau/02B002028/">FRASSO</a> · 02B002028 · note A · 1 commune</li>
+<li><a href="/reseau/02B000984/">FURIANI VILLAGE</a> · 02B000984 · note A · 1 commune</li>
+<li><a href="/reseau/02B001075/">GALERIA</a> · 02B001075 · note D · 1 commune</li>
+<li><a href="/reseau/02B000866/">GAVIGNANO</a> · 02B000866 · note D · 1 commune</li>
+<li><a href="/reseau/02B000909/">GHISONACCIA</a> · 02B000909 · note A · 1 commune</li>
+<li><a href="/reseau/02B001354/">GHISONI-CAVU</a> · 02B001354 · note A · 1 commune</li>
+<li><a href="/reseau/02B000863/">GIOCATOJO</a> · 02B000863 · note D · 1 commune</li>
+<li><a href="/reseau/02B000748/">GIOVANACCE-MUCCHIETA</a> · 02B000748 · note D · 1 commune</li>
+<li><a href="/reseau/02B003379/">GITA</a> · 02B003379 · note A · 1 commune</li>
+<li><a href="/reseau/02B000947/">GIUNCAGGIO</a> · 02B000947 · note D · 1 commune</li>
+<li><a href="/reseau/02B001427/">GRATE</a> · 02B001427 · note C · 1 commune</li>
+<li><a href="/reseau/02B002177/">HAUT SAN MARTINO DI LOTA</a> · 02B002177 · note A · 1 commune</li>
+<li><a href="/reseau/02B000064/">HAUT VILLAGE</a> · 02B000064 · note C · 1 commune</li>
+<li><a href="/reseau/02B002331/">HAUTS DE BIGUGLIA</a> · 02B002331 · note A · 1 commune</li>
+<li><a href="/reseau/02B001473/">ILE ROUSSE BAS COTIER</a> · 02B001473 · note A · 4 communes</li>
+<li><a href="/reseau/02B002749/">INRA</a> · 02B002749 · note A · 1 commune</li>
+<li><a href="/reseau/02B000878/">ISOLACCIO</a> · 02B000878 · note D · 2 communes</li>
+<li><a href="/reseau/02B001387/">ISOLACCIO</a> · 02B001387 · note C · 1 commune</li>
+<li><a href="/reseau/02B001507/">LAMA</a> · 02B001507 · note A · 1 commune</li>
+<li><a href="/reseau/02B004431/">LANCONE</a> · 02B004431 · note A · 1 commune</li>
+<li><a href="/reseau/02B001318/">LANO</a> · 02B001318 · note D · 1 commune</li>
+<li><a href="/reseau/02B000413/">LAPEDINA</a> · 02B000413 · note C · 1 commune</li>
+<li><a href="/reseau/02B002194/">LAVATOGGIO</a> · 02B002194 · note A · 1 commune</li>
+<li><a href="/reseau/02B000793/">LENTO UV</a> · 02B000793 · note A · 1 commune</li>
+<li><a href="/reseau/02B000734/">LINGUIZETTA VILLAGE ET MONTE</a> · 02B000734 · note A · 1 commune</li>
+<li><a href="/reseau/02B000938/">LINGUIZZETTA</a> · 02B000938 · note A · 3 communes</li>
+<li><a href="/reseau/02B002182/">LORETO</a> · 02B002182 · note D · 1 commune</li>
+<li><a href="/reseau/02B001780/">LORIANI</a> · 02B001780 · note D · 1 commune</li>
+<li><a href="/reseau/02B001478/">LOZARI</a> · 02B001478 · note A · 3 communes</li>
+<li><a href="/reseau/02B001748/">LOZZI</a> · 02B001748 · note C · 1 commune</li>
+<li><a href="/reseau/02B000886/">LUGO DI NAZZA</a> · 02B000886 · note C · 1 commune</li>
+<li><a href="/reseau/02B001493/">LUMIO</a> · 02B001493 · note A · 1 commune</li>
+<li><a href="/reseau/02B001960/">MACINAGGIO</a> · 02B001960 · note C · 1 commune</li>
+<li><a href="/reseau/02B001296/">MARINCA- MARINE DE SCALA</a> · 02B001296 · note D · 1 commune</li>
+<li><a href="/reseau/02B001236/">MATRA</a> · 02B001236 · note D · 1 commune</li>
+<li><a href="/reseau/02B000038/">MAUSOLEO</a> · 02B000038 · note C · 1 commune</li>
+<li><a href="/reseau/02B000996/">MAZZOLA</a> · 02B000996 · note A · 1 commune</li>
+<li><a href="/reseau/02B001192/">MERCURI-SPERGANE-PIANA-ALZETU</a> · 02B001192 · note D · 1 commune</li>
+<li><a href="/reseau/02B002127/">METIMO-TAGLIATO-STAZ -COVILI-PERI</a> · 02B002127 · note D · 1 commune</li>
+<li><a href="/reseau/02B001880/">MILLELA</a> · 02B001880 · note D · 1 commune</li>
+<li><a href="/reseau/02B000430/">MINERVIO</a> · 02B000430 · note D · 1 commune</li>
+<li><a href="/reseau/02B001715/">MOITA</a> · 02B001715 · note D · 1 commune</li>
+<li><a href="/reseau/02B001640/">MOLTIFAO</a> · 02B001640 · note A · 1 commune</li>
+<li><a href="/reseau/02B000438/">MONACCIA D'OREZZA</a> · 02B000438 · note D · 1 commune</li>
+<li><a href="/reseau/02B001580/">MONCALE</a> · 02B001580 · note A · 1 commune</li>
+<li><a href="/reseau/02B000728/">MONTE (ABA)</a> · 02B000728 · sans note · 1 commune</li>
+<li><a href="/reseau/02B001155/">MONTE-CARONEO</a> · 02B001155 · note A · 1 commune</li>
+<li><a href="/reseau/02B001583/">MONTEGROSSO</a> · 02B001583 · note A · 1 commune</li>
+<li><a href="/reseau/02B001470/">MONTICELLO VILLAGE</a> · 02B001470 · note A · 1 commune</li>
+<li><a href="/reseau/02B001043/">MORIANI</a> · 02B001043 · note A · 3 communes</li>
+<li><a href="/reseau/02B001686/">MOROSAGLIA VILLAGE</a> · 02B001686 · note D · 1 commune</li>
+<li><a href="/reseau/02B002188/">MOUFLON</a> · 02B002188 · note A · 1 commune</li>
+<li><a href="/reseau/02B002176/">MOYEN SAN MARTINO DI LOTA</a> · 02B002176 · note A · 1 commune</li>
+<li><a href="/reseau/02B000481/">MUNACAJA-BARIJANI-POGGIO</a> · 02B000481 · note D · 1 commune</li>
+<li><a href="/reseau/02B001119/">MURACCIOLE</a> · 02B001119 · note C · 1 commune</li>
+<li><a href="/reseau/02B000109/">MURATO</a> · 02B000109 · note A · 1 commune</li>
+<li><a href="/reseau/02B001616/">MURO</a> · 02B001616 · note A · 1 commune</li>
+<li><a href="/reseau/02B002759/">MUSCATELLA</a> · 02B002759 · note A · 1 commune</li>
+<li><a href="/reseau/02B000749/">MUTE (ETE)</a> · 02B000749 · note D · 1 commune</li>
+<li><a href="/reseau/02B001821/">NEPITA</a> · 02B001821 · note D · 1 commune</li>
+<li><a href="/reseau/02B001535/">NESSA</a> · 02B001535 · note A · 1 commune</li>
+<li><a href="/reseau/02B000774/">NOCARIO-ERBAGGIO-ST MICHEL</a> · 02B000774 · note D · 1 commune</li>
+<li><a href="/reseau/02B002157/">NOCETA</a> · 02B002157 · note D · 1 commune</li>
+<li><a href="/reseau/02B000313/">NONZA UV</a> · 02B000313 · note D · 1 commune</li>
+<li><a href="/reseau/02B000493/">NOVALE</a> · 02B000493 · note D · 1 commune</li>
+<li><a href="/reseau/02B000460/">NOVE PIANE</a> · 02B000460 · note D · 1 commune</li>
+<li><a href="/reseau/02B001510/">NOVELLA</a> · 02B001510 · note A · 1 commune</li>
+<li><a href="/reseau/02B000192/">NUNZIATA-CUCCIA</a> · 02B000192 · note D · 1 commune</li>
+<li><a href="/reseau/02B001551/">OCCHIATANA</a> · 02B001551 · note C · 1 commune</li>
+<li><a href="/reseau/02B000699/">OGLIASTRO</a> · 02B000699 · note C · 1 commune</li>
+<li><a href="/reseau/02B000695/">OLCANI</a> · 02B000695 · note A · 1 commune</li>
+<li><a href="/reseau/02B001260/">OLETTA</a> · 02B001260 · note D · 1 commune</li>
+<li><a href="/reseau/02B001950/">OLIVO</a> · 02B001950 · note A · 1 commune</li>
+<li><a href="/reseau/02B000327/">OLMETA DI TUDA VILLAGE</a> · 02B000327 · note C · 1 commune</li>
+<li><a href="/reseau/02B000690/">OLMETA DU CAP</a> · 02B000690 · note D · 1 commune</li>
+<li><a href="/reseau/02B000043/">OLMI CAPELLA</a> · 02B000043 · note A · 1 commune</li>
+<li><a href="/reseau/02B001293/">OLMI-SOLARO-PINZUTTA-LONGA</a> · 02B001293 · note D · 1 commune</li>
+<li><a href="/reseau/02B002167/">OLMO</a> · 02B002167 · note A · 1 commune</li>
+<li><a href="/reseau/02B000202/">OMESSA-CAPORALINO</a> · 02B000202 · note A · 1 commune</li>
+<li><a href="/reseau/02B000186/">ORTALE UV</a> · 02B000186 · note D · 1 commune</li>
+<li><a href="/reseau/02B001214/">OSTERIA-VETRICCIONE</a> · 02B001214 · note D · 1 commune</li>
+<li><a href="/reseau/02B001542/">PALASCA VILLAGE</a> · 02B001542 · note D · 1 commune</li>
+<li><a href="/reseau/02B000942/">PANCHERACCIA VILLAGE</a> · 02B000942 · note D · 1 commune</li>
+<li><a href="/reseau/02B000448/">PANICALE</a> · 02B000448 · note A · 1 commune</li>
+<li><a href="/reseau/02B000487/">PARATA </a> · 02B000487 · note C · 1 commune</li>
+<li><a href="/reseau/02B000183/">PASTINA (ETE)</a> · 02B000183 · note A · 1 commune</li>
+<li><a href="/reseau/02B001094/">PASTORECCIA</a> · 02B001094 · note D · 1 commune</li>
+<li><a href="/reseau/02B001670/">PASTRUCCIALE</a> · 02B001670 · note D · 1 commune</li>
+<li><a href="/reseau/02B001929/">PASTURECCIA</a> · 02B001929 · note C · 1 commune</li>
+<li><a href="/reseau/02B001722/">PATRIMONIO</a> · 02B001722 · note A · 1 commune</li>
+<li><a href="/reseau/02B001526/">PEDANO</a> · 02B001526 · note A · 1 commune</li>
+<li><a href="/reseau/02B000319/">PENTA ACQUATELLA</a> · 02B000319 · note D · 1 commune</li>
+<li><a href="/reseau/02B001132/">PENTA DI CASINCA</a> · 02B001132 · note A · 1 commune</li>
+<li><a href="/reseau/02B000129/">PERELLI</a> · 02B000129 · note D · 1 commune</li>
+<li><a href="/reseau/02B001381/">PERO</a> · 02B001381 · note D · 1 commune</li>
+<li><a href="/reseau/02B002041/">PERTINACCE</a> · 02B002041 · note D · 1 commune</li>
+<li><a href="/reseau/02B001872/">PIANELLO</a> · 02B001872 · note A · 1 commune</li>
+<li><a href="/reseau/02B001869/">PIANO</a> · 02B001869 · note D · 1 commune</li>
+<li><a href="/reseau/02B001931/">PIANO-GIALGHE-GUSTALBIO-BARONCIASCHE</a> · 02B001931 · note C · 1 commune</li>
+<li><a href="/reseau/02B000716/">PIAZZA</a> · 02B000716 · note A · 1 commune</li>
+<li><a href="/reseau/02B001294/">PIAZZA-PIEVE-ABRO-CANELLE-VIGNALE</a> · 02B001294 · note D · 1 commune</li>
+<li><a href="/reseau/02B000371/">PIAZZALI</a> · 02B000371 · note D · 1 commune</li>
+<li><a href="/reseau/02B001761/">PIAZZE-PETRA-FORNOLI</a> · 02B001761 · note D · 1 commune</li>
+<li><a href="/reseau/02B000244/">PIAZZOLE</a> · 02B000244 · note D · 1 commune</li>
+<li><a href="/reseau/02B001103/">PIE D'OREZZA</a> · 02B001103 · note C · 1 commune</li>
+<li><a href="/reseau/02B001729/">PIEDICORTE DI GAGGIO</a> · 02B001729 · note A · 1 commune</li>
+<li><a href="/reseau/02B001095/">PIEDICROCE</a> · 02B001095 · note D · 1 commune</li>
+<li><a href="/reseau/02B001630/">PIEDIGRIGGIO</a> · 02B001630 · note A · 1 commune</li>
+<li><a href="/reseau/02B001865/">PIEDIPARTINO</a> · 02B001865 · note C · 1 commune</li>
+<li><a href="/reseau/02B002180/">PIEDIPETRO-TRAMICA-POGGIO</a> · 02B002180 · note D · 1 commune</li>
+<li><a href="/reseau/02B002700/">PIEDIQUERCI</a> · 02B002700 · note A · 1 commune</li>
+<li><a href="/reseau/02B001233/">PIETRA DI VERDE</a> · 02B001233 · note A · 1 commune</li>
+<li><a href="/reseau/02B000097/">PIETRA-ZITAMBOLI</a> · 02B000097 · note A · 1 commune</li>
+<li><a href="/reseau/02B001525/">PIETRALBA</a> · 02B001525 · note A · 1 commune</li>
+<li><a href="/reseau/02B000480/">PIETRAPIANA</a> · 02B000480 · note D · 1 commune</li>
+<li><a href="/reseau/02B000889/">PIETRAPOLA</a> · 02B000889 · note D · 1 commune</li>
+<li><a href="/reseau/02B000946/">PIETRASERENA</a> · 02B000946 · note D · 1 commune</li>
+<li><a href="/reseau/02B000376/">PIETRICAGGIO</a> · 02B000376 · note D · 1 commune</li>
+<li><a href="/reseau/02B000775/">PIETRICAGGIO BAS</a> · 02B000775 · note D · 1 commune</li>
+<li><a href="/reseau/02B000427/">PIETRICAGGIO DE BARRETTALI</a> · 02B000427 · note C · 1 commune</li>
+<li><a href="/reseau/02B000776/">PIETRICAGGIO HAUT</a> · 02B000776 · note A · 1 commune</li>
+<li><a href="/reseau/02B001162/">PIETROSO</a> · 02B001162 · note A · 1 commune</li>
+<li><a href="/reseau/02B000917/">PIETROSO MAISON PIERAGGI CHIOSO</a> · 02B000917 · note C · 2 communes</li>
+<li><a href="/reseau/02B002185/">PIEVE</a> · 02B002185 · note C · 1 commune</li>
+<li><a href="/reseau/02B001597/">PIGNA</a> · 02B001597 · note A · 1 commune</li>
+<li><a href="/reseau/02B001647/">PINO SOPRANO-LAVONESE-SERRA</a> · 02B001647 · note D · 1 commune</li>
+<li><a href="/reseau/02B000240/">PIOBETTA</a> · 02B000240 · note D · 1 commune</li>
+<li><a href="/reseau/02B000029/">PIOGGIOLA</a> · 02B000029 · note A · 1 commune</li>
+<li><a href="/reseau/02B004429/">PLAINE</a> · 02B004429 · note A · 1 commune</li>
+<li><a href="/reseau/02B002173/">PLAINE - LAGUNE</a> · 02B002173 · note A · 6 communes</li>
+<li><a href="/reseau/02B001017/">PLAINE + ROUTE NATIONALE</a> · 02B001017 · note C · 1 commune</li>
+<li><a href="/reseau/02B002301/">PLAINE DU MARSULINU</a> · 02B002301 · note A · 1 commune</li>
+<li><a href="/reseau/02B001261/">PLAINE-CVT-CROCE-CABANELLE</a> · 02B001261 · note C · 1 commune</li>
+<li><a href="/reseau/02B000410/">PLAINE-MARINE</a> · 02B000410 · note C · 1 commune</li>
+<li><a href="/reseau/02B000224/">PLAINE-PORTICCIOLO-MISINCU</a> · 02B000224 · sans note · 1 commune</li>
+<li><a href="/reseau/02B000760/">POGGIALE-LA PORTA</a> · 02B000760 · note D · 1 commune</li>
+<li><a href="/reseau/02B000233/">POGGIE-PALAZZE</a> · 02B000233 · note A · 1 commune</li>
+<li><a href="/reseau/02B001749/">POGGIO</a> · 02B001749 · note C · 1 commune</li>
+<li><a href="/reseau/02B002148/">POGGIO - PIANELLA</a> · 02B002148 · note C · 1 commune</li>
+<li><a href="/reseau/02B000305/">POGGIO D'OLETTA</a> · 02B000305 · note A · 1 commune</li>
+<li><a href="/reseau/02B001979/">POGGIO DI NAZZA</a> · 02B001979 · note D · 1 commune</li>
+<li><a href="/reseau/02B002189/">POGGIO DI VENACO</a> · 02B002189 · note A · 2 communes</li>
+<li><a href="/reseau/02B001819/">POGGIO HAUT ET BAS</a> · 02B001819 · note D · 1 commune</li>
+<li><a href="/reseau/02B000858/">POGGIO MARINACCIO</a> · 02B000858 · note D · 1 commune</li>
+<li><a href="/reseau/02B000715/">POGGIO-GORGACCIA</a> · 02B000715 · note A · 1 commune</li>
+<li><a href="/reseau/02B001188/">POGGIO-PIAZZA- CASTIGLIONE-CAMPU-TUFFO-</a> · 02B001188 · note D · 1 commune</li>
+<li><a href="/reseau/02B001932/">POGGIOLA</a> · 02B001932 · note A · 1 commune</li>
+<li><a href="/reseau/02B001374/">POLVEROSO</a> · 02B001374 · note C · 1 commune</li>
+<li><a href="/reseau/02B001685/">PONTE LECCIA</a> · 02B001685 · note D · 1 commune</li>
+<li><a href="/reseau/02B001933/">PONTE NUOVO - MAUSOLEO</a> · 02B001933 · note D · 1 commune</li>
+<li><a href="/reseau/02B001621/">POPOLASCA UV</a> · 02B001621 · note D · 1 commune</li>
+<li><a href="/reseau/02B000170/">PORETTO-POZZO-FRISCOLACCIO-CAPANA</a> · 02B000170 · note C · 1 commune</li>
+<li><a href="/reseau/02B000764/">PORRI</a> · 02B000764 · note A · 1 commune</li>
+<li><a href="/reseau/02B001899/">PORTO-FORCI</a> · 02B001899 · note C · 1 commune</li>
+<li><a href="/reseau/02B000152/">PRADALE</a> · 02B000152 · note D · 1 commune</li>
+<li><a href="/reseau/02B000510/">PRATO</a> · 02B000510 · note A · 1 commune</li>
+<li><a href="/reseau/02B002186/">PRATO MEZZO  </a> · 02B002186 · note A · 1 commune</li>
+<li><a href="/reseau/02B001885/">PRATO SOPRANO</a> · 02B001885 · note D · 1 commune</li>
+<li><a href="/reseau/02B000449/">PROGLIOLU</a> · 02B000449 · note A · 1 commune</li>
+<li><a href="/reseau/02B001400/">PRUNELLI DI CASACONI</a> · 02B001400 · note C · 1 commune</li>
+<li><a href="/reseau/02B000919/">PRUNELLI PLAINE</a> · 02B000919 · note C · 3 communes</li>
+<li><a href="/reseau/02B001760/">PRUNELLI-CAMARE-PIANELLI</a> · 02B001760 · note D · 1 commune</li>
+<li><a href="/reseau/02B000841/">PRUNO</a> · 02B000841 · note D · 1 commune</li>
+<li><a href="/reseau/02B000747/">PRUNO-PECORILE-STANTI-BARAGOGNA</a> · 02B000747 · note A · 1 commune</li>
+<li><a href="/reseau/02B000900/">PURRIZZONE</a> · 02B000900 · note C · 1 commune</li>
+<li><a href="/reseau/02B000509/">QUERCITELLO-STOPPIA NOVA</a> · 02B000509 · note D · 1 commune</li>
+<li><a href="/reseau/02B000250/">RAPAGGIO</a> · 02B000250 · note D · 1 commune</li>
+<li><a href="/reseau/02B000722/">RAPALE</a> · 02B000722 · note D · 1 commune</li>
+<li><a href="/reseau/02B001972/">REGINCA-FANO-CASTELLANO -RIBIOLA</a> · 02B001972 · note D · 1 commune</li>
+<li><a href="/reseau/02B001557/">REGINO</a> · 02B001557 · note A · 1 commune</li>
+<li><a href="/reseau/02B002154/">RENOSO - MEZZANA</a> · 02B002154 · note C · 1 commune</li>
+<li><a href="/reseau/02B003985/">RIVENTOSA</a> · 02B003985 · note A · 1 commune</li>
+<li><a href="/reseau/02B001687/">ROCCA SUPRANA</a> · 02B001687 · note D · 1 commune</li>
+<li><a href="/reseau/02B001688/">ROCCA SUTTANA</a> · 02B001688 · note D · 1 commune</li>
+<li><a href="/reseau/02B001322/">ROSPIGLIANI UV</a> · 02B001322 · note D · 1 commune</li>
+<li><a href="/reseau/02B002696/">RTE DE CHISA</a> · 02B002696 · note C · 1 commune</li>
+<li><a href="/reseau/02B001326/">RUSIO</a> · 02B001326 · note C · 1 commune</li>
+<li><a href="/reseau/02B002581/">RUTALI EST</a> · 02B002581 · note C · 1 commune</li>
+<li><a href="/reseau/02B002187/">RUTALI OUEST </a> · 02B002187 · note C · 1 commune</li>
+<li><a href="/reseau/02B000998/">SAINT ANDRE DE BOZZIO</a> · 02B000998 · note A · 1 commune</li>
+<li><a href="/reseau/02B002317/">SAINT ANDRE/ CASANILE</a> · 02B002317 · note D · 1 commune</li>
+<li><a href="/reseau/02B001710/">SAINT-FLORENT</a> · 02B001710 · note A · 1 commune</li>
+<li><a href="/reseau/02B000132/">SALICETO </a> · 02B000132 · note D · 1 commune</li>
+<li><a href="/reseau/02B001916/">SAMARCELLO-ROJA-FICAJOLA</a> · 02B001916 · note A · 1 commune</li>
+<li><a href="/reseau/02B000155/">SAMBUCCHU</a> · 02B000155 · note D · 1 commune</li>
+<li><a href="/reseau/02B001345/">SAMPOLO</a> · 02B001345 · note D · 1 commune</li>
+<li><a href="/reseau/02B001879/">SAN GAVINO</a> · 02B001879 · note D · 1 commune</li>
+<li><a href="/reseau/02B000703/">SAN GAVINO DI TENDA</a> · 02B000703 · note A · 1 commune</li>
+<li><a href="/reseau/02B002192/">SAN LORENZO</a> · 02B002192 · note D · 1 commune</li>
+<li><a href="/reseau/02B001019/">SAN NIOLO</a> · 02B001019 · note A · 1 commune</li>
+<li><a href="/reseau/02B001781/">SAN QUILICO</a> · 02B001781 · note D · 1 commune</li>
+<li><a href="/reseau/02B001603/">SANT ANTONINO</a> · 02B001603 · note A · 1 commune</li>
+<li><a href="/reseau/02B002169/">SANTA LUCIA DI MORIANI</a> · 02B002169 · note C · 1 commune</li>
+<li><a href="/reseau/02B000816/">SANTA MARIA DI LOTA</a> · 02B000816 · note A · 1 commune</li>
+<li><a href="/reseau/02B002178/">SANTA MARIA POGGIO</a> · 02B002178 · note A · 1 commune</li>
+<li><a href="/reseau/02B001662/">SANTA REPARATA DI MORIANI</a> · 02B001662 · note D · 1 commune</li>
+<li><a href="/reseau/02B001190/">SANTA SEVERA</a> · 02B001190 · note D · 1 commune</li>
+<li><a href="/reseau/02B001035/">SANTO PIETRO DI VENACO</a> · 02B001035 · note D · 1 commune</li>
+<li><a href="/reseau/02B001627/">SCATA UV</a> · 02B001627 · note A · 1 commune</li>
+<li><a href="/reseau/02B001412/">SCOLCA</a> · 02B001412 · note A · 1 commune</li>
+<li><a href="/reseau/02B000412/">SELMACCE-ORETA</a> · 02B000412 · note D · 1 commune</li>
+<li><a href="/reseau/02B001842/">SERMANO</a> · 02B001842 · note D · 1 commune</li>
+<li><a href="/reseau/02B000896/">SERRA DI FIUMORBO VILLAGE</a> · 02B000896 · note C · 1 commune</li>
+<li><a href="/reseau/02B001987/">SERRALE-SERRA-REGHJETU</a> · 02B001987 · note A · 1 commune</li>
+<li><a href="/reseau/02B000172/">SILGAGGIA</a> · 02B000172 · note D · 1 commune</li>
+<li><a href="/reseau/02B001368/">SILVARECCIO (UV)</a> · 02B001368 · note A · 1 commune</li>
+<li><a href="/reseau/02B001796/">SOLARO</a> · 02B001796 · note C · 1 commune</li>
+<li><a href="/reseau/02B004441/">SOLARO-PLAINE (SIVOM DU CAVO SOLENZARA)</a> · 02B004441 · note A · 1 commune</li>
+<li><a href="/reseau/02B001070/">SORBO OCAGNANO</a> · 02B001070 · note A · 1 commune</li>
+<li><a href="/reseau/02B000553/">SORIO UV</a> · 02B000553 · note D · 1 commune</li>
+<li><a href="/reseau/02B001848/">SOVERIA</a> · 02B001848 · note D · 1 commune</li>
+<li><a href="/reseau/02B002092/">SPARAGAGGIO</a> · 02B002092 · note C · 1 commune</li>
+<li><a href="/reseau/02B001556/">SPELONCATO</a> · 02B001556 · note A · 1 commune</li>
+<li><a href="/reseau/02B002322/">STADE DE NEIGE</a> · 02B002322 · note D · 1 commune</li>
+<li><a href="/reseau/02B000379/">STAZZONA</a> · 02B000379 · note D · 1 commune</li>
+<li><a href="/reseau/02B001334/">STE LUCIE-PIEDIVALLE-AGHIO</a> · 02B001334 · note D · 1 commune</li>
+<li><a href="/reseau/02B002190/">SUARE</a> · 02B002190 · note A · 1 commune</li>
+<li><a href="/reseau/02B002174/">SUERTA</a> · 02B002174 · note A · 1 commune</li>
+<li><a href="/reseau/02B001384/">TAGLIO</a> · 02B001384 · note A · 1 commune</li>
+<li><a href="/reseau/02B002166/">TALASANI VILLAGE</a> · 02B002166 · note D · 1 commune</li>
+<li><a href="/reseau/02B000925/">TALLONE PIANICCIA</a> · 02B000925 · note A · 1 commune</li>
+<li><a href="/reseau/02B002172/">TALLONE VILLAGE</a> · 02B002172 · note D · 1 commune</li>
+<li><a href="/reseau/02B000395/">TARRANO</a> · 02B000395 · note D · 1 commune</li>
+<li><a href="/reseau/02B001144/">TASSO</a> · 02B001144 · note D · 1 commune</li>
+<li><a href="/reseau/02B001213/">TEDOLA</a> · 02B001213 · note D · 1 commune</li>
+<li><a href="/reseau/02B001280/">TEPPE (UV)</a> · 02B001280 · note D · 1 commune</li>
+<li><a href="/reseau/02B001428/">TERLAJA</a> · 02B001428 · note D · 1 commune</li>
+<li><a href="/reseau/02B001581/">TERRAZONE</a> · 02B001581 · note A · 1 commune</li>
+<li><a href="/reseau/02B001830/">TOMINO VILLAGE</a> · 02B001830 · note A · 1 commune</li>
+<li><a href="/reseau/02B001810/">TOX</a> · 02B001810 · note D · 1 commune</li>
+<li><a href="/reseau/02B001904/">TRALONCA</a> · 02B001904 · note D · 1 commune</li>
+<li><a href="/reseau/02B001699/">TRAVO</a> · 02B001699 · note A · 1 commune</li>
+<li><a href="/reseau/02B001989/">TRIBBIOLU</a> · 02B001989 · note C · 1 commune</li>
+<li><a href="/reseau/02B002171/">URTACA</a> · 02B002171 · note A · 1 commune</li>
+<li><a href="/reseau/02B001429/">VALLE</a> · 02B001429 · note D · 1 commune</li>
+<li><a href="/reseau/02B000237/">VALLE D'ALESANI</a> · 02B000237 · note D · 1 commune</li>
+<li><a href="/reseau/02B001020/">VALLE DI CAMPOLORO</a> · 02B001020 · note D · 1 commune</li>
+<li><a href="/reseau/02B001170/">VALLECALLE</a> · 02B001170 · note A · 1 commune</li>
+<li><a href="/reseau/02B002168/">VALLICA</a> · 02B002168 · note A · 1 commune</li>
+<li><a href="/reseau/02B000831/">VELONE</a> · 02B000831 · note D · 1 commune</li>
+<li><a href="/reseau/02B001938/">VENACO</a> · 02B001938 · note D · 1 commune</li>
+<li><a href="/reseau/02B001698/">VENTISERI VILLAGE</a> · 02B001698 · note A · 1 commune</li>
+<li><a href="/reseau/02B001742/">VENZOLASCA VILLAGE</a> · 02B001742 · note D · 1 commune</li>
+<li><a href="/reseau/02B001909/">VERDESE</a> · 02B001909 · note C · 1 commune</li>
+<li><a href="/reseau/02B001061/">VESCOVATO</a> · 02B001061 · note C · 4 communes</li>
+<li><a href="/reseau/02B001408/">VESCOVATO VILLAGE (UV)</a> · 02B001408 · note A · 1 commune</li>
+<li><a href="/reseau/02B001211/">VEZZI</a> · 02B001211 · note D · 1 commune</li>
+<li><a href="/reseau/02B001431/">VIA NOVA</a> · 02B001431 · note C · 1 commune</li>
+<li><a href="/reseau/02B000150/">VIGNALE</a> · 02B000150 · note D · 1 commune</li>
+<li><a href="/reseau/02B001405/">VIGNALE 350</a> · 02B001405 · note A · 1 commune</li>
+<li><a href="/reseau/02B001945/">VIGNALE-CVT</a> · 02B001945 · note A · 1 commune</li>
+<li><a href="/reseau/02B001592/">VILLAGE + FANGO</a> · 02B001592 · note A · 1 commune</li>
+<li><a href="/reseau/02B000182/">VILLAGE ET MARINE</a> · 02B000182 · note C · 1 commune</li>
+<li><a href="/reseau/02B001546/">VILLE DI PARASO</a> · 02B001546 · note A · 1 commune</li>
+<li><a href="/reseau/02B002175/">VILLE DI PIETRABUGNO</a> · 02B002175 · note A · 1 commune</li>
+<li><a href="/reseau/02B001088/">VIVARIO</a> · 02B001088 · note C · 1 commune</li>
+<li><a href="/reseau/02B001089/">VIZZAVONA</a> · 02B001089 · note A · 1 commune</li>
+<li><a href="/reseau/02B001138/">VOLPAJOLA</a> · 02B001138 · note D · 1 commune</li>
+<li><a href="/reseau/02B000328/">VTF</a> · 02B000328 · note D · 1 commune</li>
+<li><a href="/reseau/02B001624/">ZALANA</a> · 02B001624 · note D · 1 commune</li>
+<li><a href="/reseau/02B001577/">ZILIA</a> · 02B001577 · note D · 1 commune</li>
+<li><a href="/reseau/02B000073/">ZONE DU STADE CERVIONE</a> · 02B000073 · note C · 1 commune</li>
+<li><a href="/reseau/02B000943/">ZUANI</a> · 02B000943 · note D · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/2B002/">Aghione</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B003/">Aiti</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B005/">Alando</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B007/">Albertacce</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/2B009/">Aléria</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B010/">Algajola</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B012/">Altiani</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B013/">Alzi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B015/">Ampriani</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B016/">Antisanti</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/2B020/">Aregno</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B023/">Asco</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/2B025/">Avapessa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B029/">Barbaggio</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B030/">Barrettali</a> · 4 réseaux : 1 noté D, 2 notés C, 1 noté A</li>
+<li><a href="/commune/2B033/">Bastia</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/2B034/">Belgodère</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B036/">Bigorno</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B037/">Biguglia</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/2B039/">Bisinchi</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/2B042/">Borgo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B043/">Brando</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/2B045/">Bustanico</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B046/">Cagnano</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B047/">Calacuccia</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B049/">Calenzana</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/2B050/">Calvi</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B051/">Cambia</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/2B052/">Campana</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B053/">Campi</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B054/">Campile</a> · 3 réseaux : 2 notés D, 1 noté C</li>
+<li><a href="/commune/2B055/">Campitello</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/2B057/">Canale-di-Verde</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/2B058/">Canari</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/2B059/">Canavaggia</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B063/">Carcheto-Brustico</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B067/">Carpineto</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B068/">Carticasi</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B069/">Casabianca</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B072/">Casalta</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B073/">Casamaccioli</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B074/">Casanova</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B075/">Casevecchie</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B077/">Castellare-di-Casinca</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B078/">Castellare-di-Mercurio</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B079/">Castello-di-Rostino</a> · 5 réseaux : 1 noté D, 2 notés C, 2 notés A</li>
+<li><a href="/commune/2B080/">Castifao</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B081/">Castiglione</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B082/">Castineta</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B083/">Castirla</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B084/">Cateri</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B086/">Centuri</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B087/">Cervione</a> · 6 réseaux : 1 noté D, 4 notés C, 1 noté A</li>
+<li><a href="/commune/2B088/">Chiatra</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B366/">Chisa</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B093/">Corbara</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/2B095/">Corscia</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B096/">Corte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B097/">Costa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B101/">Croce</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B102/">Crocicchia</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/2B105/">Erbajolo</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B106/">Érone</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B107/">Ersa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B109/">Farinole</a> · 3 réseaux : 2 notés D, 1 noté C</li>
+<li><a href="/commune/2B110/">Favalello</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B111/">Felce</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B112/">Feliceto</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B113/">Ficaja</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B116/">Focicchia</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B120/">Furiani</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B121/">Galéria</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B122/">Gavignano</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B123/">Ghisonaccia</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B124/">Ghisoni</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B125/">Giocatojo</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B126/">Giuncaggio</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B135/">Isolaccio-di-Fiumorbo</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/2B134/">L'Île-Rousse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B246/">La Porta</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B136/">Lama</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B137/">Lano</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B138/">Lavatoggio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B140/">Lento</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B143/">Linguizzetta</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B145/">Loreto-di-Casinca</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B147/">Lozzi</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/2B148/">Lucciana</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B149/">Lugo-di-Nazza</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B150/">Lumio</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B152/">Luri</a> · 5 réseaux : 4 notés D, 1 noté A</li>
+<li><a href="/commune/2B153/">Manso</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B155/">Matra</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B156/">Mausoléo</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B157/">Mazzola</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B159/">Meria</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/2B161/">Moïta</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B162/">Moltifao</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B164/">Monacia-d'Orezza</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B165/">Moncale</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B166/">Monte</a> · 5 réseaux : 1 noté C, 4 notés A</li>
+<li><a href="/commune/2B167/">Montegrosso</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B168/">Monticello</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B169/">Morosaglia</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/2B170/">Morsiglia</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/2B171/">Muracciole</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B172/">Murato</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B173/">Muro</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B175/">Nessa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B176/">Nocario</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/2B177/">Noceta</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B178/">Nonza</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B179/">Novale</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B180/">Novella</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B182/">Occhiatana</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B183/">Ogliastro</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B184/">Olcani</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B185/">Oletta</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B187/">Olmeta-di-Capocorso</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B188/">Olmeta-di-Tuda</a> · 5 réseaux : 2 notés D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/2B190/">Olmi-Cappella</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B192/">Olmo</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B193/">Omessa</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B194/">Ortale</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B195/">Ortiporio</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/2B199/">Palasca</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B201/">Pancheraccia</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B202/">Parata</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B205/">Patrimonio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B206/">Penta-Acquatella</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B207/">Penta-di-Casinca</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B208/">Perelli</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B210/">Pero-Casevecchie</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B213/">Pianello</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B214/">Piano</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B216/">Piazzali</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B217/">Piazzole</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B222/">Pie-d'Orezza</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B218/">Piedicorte-di-Gaggio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B219/">Piedicroce</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B220/">Piedigriggio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B221/">Piedipartino</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B225/">Pietra-di-Verde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B224/">Pietracorbara</a> · 4 réseaux : 1 noté D, 3 notés C</li>
+<li><a href="/commune/2B223/">Pietralba</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B226/">Pietraserena</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B227/">Pietricaggio</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B229/">Pietroso</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B230/">Piève</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B231/">Pigna</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B233/">Pino</a> · 3 réseaux : 3 notés D</li>
+<li><a href="/commune/2B234/">Piobetta</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B235/">Pioggiola</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B239/">Poggio-d'Oletta</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B236/">Poggio-di-Nazza</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B238/">Poggio-di-Venaco</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B241/">Poggio-Marinaccio</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B242/">Poggio-Mezzana</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/2B243/">Polveroso</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B244/">Popolasca</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B245/">Porri</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B248/">Prato-di-Giovellina</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B250/">Prunelli-di-Casacconi</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B251/">Prunelli-di-Fiumorbo</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B252/">Pruno</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B255/">Quercitello</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B256/">Rapaggio</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B257/">Rapale</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B260/">Riventosa</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B261/">Rogliano</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/2B263/">Rospigliani</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B264/">Rusio</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B265/">Rutali</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/2B298/">Saint-Florent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B267/">Saliceto</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B297/">San-Damiano</a> · 3 réseaux : 2 notés D, 1 noté C</li>
+<li><a href="/commune/2B299/">San-Gavino-d'Ampugnani</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/2B365/">San-Gavino-di-Fiumorbo</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B301/">San-Gavino-di-Tenda</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B302/">San-Giovanni-di-Moriani</a> · 3 réseaux : 1 noté D, 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B303/">San-Giuliano</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/2B304/">San-Lorenzo</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B305/">San-Martino-di-Lota</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/2B313/">San-Nicolao</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/2B292/">Sant'Andréa-di-Bozio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B293/">Sant'Andréa-di-Cotone</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B296/">Sant'Antonino</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B306/">Santa-Lucia-di-Mercurio</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B307/">Santa-Lucia-di-Moriani</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B309/">Santa-Maria-di-Lota</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B311/">Santa-Maria-Poggio</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B316/">Santa-Reparata-di-Balagna</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B317/">Santa-Reparata-di-Moriani</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B314/">Santo-Pietro-di-Tenda</a> · 4 réseaux : 4 notés D</li>
+<li><a href="/commune/2B315/">Santo-Pietro-di-Venaco</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B273/">Scata</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B274/">Scolca</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B275/">Sermano</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B277/">Serra-di-Fiumorbo</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/2B280/">Silvareccio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B281/">Sisco</a> · 4 réseaux : 3 notés D, 1 noté C</li>
+<li><a href="/commune/2B283/">Solaro</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B286/">Sorbo-Ocagnano</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B287/">Sorio</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B289/">Soveria</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B290/">Speloncato</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B291/">Stazzona</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B318/">Taglio-Isolaccio</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/2B319/">Talasani</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B320/">Tallone</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/2B321/">Tarrano</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B327/">Tomino</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B328/">Tox</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B329/">Tralonca</a> · 2 réseaux : 2 notés D</li>
+<li><a href="/commune/2B332/">Urtaca</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B334/">Valle-d'Alesani</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B338/">Valle-d'Orezza</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B335/">Valle-di-Campoloro</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B337/">Valle-di-Rostino</a> · 6 réseaux : 2 notés D, 4 notés C</li>
+<li><a href="/commune/2B333/">Vallecalle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B339/">Vallica</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B340/">Velone-Orneto</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B341/">Venaco</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B342/">Ventiseri</a> · 5 réseaux : 2 notés C, 3 notés A</li>
+<li><a href="/commune/2B343/">Venzolasca</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/2B344/">Verdèse</a> · 1 réseau, noté C</li>
+<li><a href="/commune/2B346/">Vescovato</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B347/">Vezzani</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/2B350/">Vignale</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B352/">Ville-di-Paraso</a> · 1 réseau, noté A</li>
+<li><a href="/commune/2B353/">Ville-di-Pietrabugno</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/2B354/">Vivario</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B355/">Volpajola</a> · 3 réseaux : 1 noté D, 1 noté C, 1 noté A</li>
+<li><a href="/commune/2B356/">Zalana</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B361/">Zilia</a> · 1 réseau, noté D</li>
+<li><a href="/commune/2B364/">Zuani</a> · 1 réseau, noté D</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Haute-Corse · eau du robinet », https://meteodurobinet.fr/departement/2B/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

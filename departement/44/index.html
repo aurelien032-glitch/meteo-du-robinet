@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Loire-Atlantique (44) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Loire-Atlantique · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Loire-Atlantique (44) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/44/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Loire-Atlantique · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loire-Atlantique · eau du robinet","url":"https://meteodurobinet.fr/departement/44/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Loire-Atlantique","item":"https://meteodurobinet.fr/departement/44/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/44/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Loire-Atlantique</h1>
+<p class="meta">Département 44</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>0 sur 44 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 43 réseaux</li>
+<li>B qualité convenable* : 1 réseau</li>
+<li>C qualité insuffisante* : 0 réseau</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>220 prélèvements</strong> évalués en septembre 2026 ; 2 009 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 41 jours, alerte renforcée 18 jours, crise 11 jours</li>
+<li>2025 : vigilance 0 jour, alerte 16 jours, alerte renforcée 8 jours, crise 119 jours</li>
+<li>2026 en cours : vigilance 16 jours, alerte 28 jours, alerte renforcée 7 jours, crise 149 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,44</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 13 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>14 services d’eau</strong> desservent au moins une commune du département ; 1 est en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 45 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/044000596/">ABA_BOUGUENAIS-D2A-AÉROPORT NTES ATLANTIQUE</a> · 044000596 · sans note · 1 commune</li>
+<li><a href="/reseau/044000141/">BOUSSAY (COMMUNE)</a> · 044000141 · note A · 1 commune</li>
+<li><a href="/reseau/044000142/">CLISSON_VIGNOBLE_GRANDLIEU</a> · 044000142 · note A · 15 communes</li>
+<li><a href="/reseau/044000129/">CROSSAC-MISSILLAC-STE REINE DE BRETAGNE</a> · 044000129 · note A · 3 communes</li>
+<li><a href="/reseau/044000126/">FAY DE BRETAGNE (COMMUNE)</a> · 044000126 · note A · 1 commune</li>
+<li><a href="/reseau/044003651/">LA CHAPELLE SUR ERDRE_SECTEUR NORD</a> · 044003651 · note A · 1 commune</li>
+<li><a href="/reseau/044000590/">LE CELLIER (COMMUNE)</a> · 044000590 · note A · 1 commune</li>
+<li><a href="/reseau/044000655/">LEGE (COMMUNE)</a> · 044000655 · note A · 1 commune</li>
+<li><a href="/reseau/044000150/">MAUVES-SUR-LOIRE (SECTEUR SUD)</a> · 044000150 · note A · 1 commune</li>
+<li><a href="/reseau/044000151/">NORT-SUR-ERDRE (COMMUNE)</a> · 044000151 · note A · 1 commune</li>
+<li><a href="/reseau/044004445/">NT METRO-VE-SECTEUR NORD OUEST</a> · 044004445 · note A · 3 communes</li>
+<li><a href="/reseau/044000130/">PONTCHATEAU (COMMUNE)</a> · 044000130 · note A · 1 commune</li>
+<li><a href="/reseau/044004442/">PRINQUIAU (COMMUNE)</a> · 044004442 · note A · 1 commune</li>
+<li><a href="/reseau/044000169/">SAINT-NAZAIRE AGGLO - LA CARENE</a> · 044000169 · note A · 10 communes</li>
+<li><a href="/reseau/044000159/">SECTEUR DE GRAND LIEU</a> · 044000159 · note A · 10 communes</li>
+<li><a href="/reseau/044000128/">SECTEUR EST-GUEMENE PENFAO</a> · 044000128 · note A · 6 communes</li>
+<li><a href="/reseau/044000148/">SECTEUR MACHECOUL-ST MÊME</a> · 044000148 · note A · 5 communes</li>
+<li><a href="/reseau/044000167/">SECTEUR NORD - CAP ATLANTIQUE</a> · 044000167 · note A · 7 communes</li>
+<li><a href="/reseau/044000116/">SECTEUR NORD VAL ST MARTIN</a> · 044000116 · note A · 4 communes</li>
+<li><a href="/reseau/044004436/">SECTEUR OUEST-GUEMENE PENFAO</a> · 044004436 · note A · 2 communes</li>
+<li><a href="/reseau/044000132/">SECTEUR ST GILDAS DES BOIS</a> · 044000132 · note A · 6 communes</li>
+<li><a href="/reseau/044000170/">SECTEUR SUD - CAP ATLANTIQUE</a> · 044000170 · note A · 5 communes</li>
+<li><a href="/reseau/044004437/">SECTEUR SUD - VAL SAINT MARTIN</a> · 044004437 · note A · 2 communes</li>
+<li><a href="/reseau/044000119/">SECTEUR-ANCENIS</a> · 044000119 · note A · 14 communes</li>
+<li><a href="/reseau/044000652/">SECTEUR-BLAIN</a> · 044000652 · note A · 5 communes</li>
+<li><a href="/reseau/044000111/">SECTEUR-BOUAYE.PELLERIN</a> · 044000111 · note A · 6 communes</li>
+<li><a href="/reseau/044000125/">SECTEUR-CAMPBON.QUILLY</a> · 044000125 · note A · 4 communes</li>
+<li><a href="/reseau/044000140/">SECTEUR-CHAUMES EN RETZ - VUE</a> · 044000140 · note A · 8 communes</li>
+<li><a href="/reseau/044000127/">SECTEUR-LA CHAPELLE LAUNAY-SAVENAY</a> · 044000127 · note A · 2 communes</li>
+<li><a href="/reseau/044000134/">SECTEUR-LE SILLON DE BRETAGNE</a> · 044000134 · note A · 8 communes</li>
+<li><a href="/reseau/044000147/">SECTEUR-LE VIGNOBLE</a> · 044000147 · note A · 11 communes</li>
+<li><a href="/reseau/044001879/">SECTEUR-MAUPAS</a> · 044001879 · note B · 4 communes</li>
+<li><a href="/reseau/044000138/">SECTEUR-NANTES</a> · 044000138 · note A · 9 communes</li>
+<li><a href="/reseau/044000155/">SECTEUR-NOZAY.JANS</a> · 044000155 · note A · 11 communes</li>
+<li><a href="/reseau/044000124/">SECTEUR-PAYS DE LA MEE-NORD</a> · 044000124 · note A · 12 communes</li>
+<li><a href="/reseau/044000163/">SECTEUR-PAYS DE LA MEE-SUD</a> · 044000163 · note A · 12 communes</li>
+<li><a href="/reseau/044000115/">SECTEUR-REZE</a> · 044000115 · note A · 5 communes</li>
+<li><a href="/reseau/044004640/">SECTEUR-SAINTE PAZANNE </a> · 044004640 · note A · 4 communes</li>
+<li><a href="/reseau/044003468/">SECTEUR-ST MARS DU DESERT</a> · 044003468 · note A · 5 communes</li>
+<li><a href="/reseau/044000113/">SECTEUR-ST PERE EN RETZ-FROSSAY</a> · 044000113 · note A · 5 communes</li>
+<li><a href="/reseau/044000161/">SECTEUR-ST SULPICE DES LANDES</a> · 044000161 · note A · 3 communes</li>
+<li><a href="/reseau/044000166/">SECTEUR-VERTOU BASSE GOULAINE</a> · 044000166 · note A · 2 communes</li>
+<li><a href="/reseau/044000703/">ST BREVIN (COMMUNE)</a> · 044000703 · note A · 1 commune</li>
+<li><a href="/reseau/044000654/">ST ETIENNE DE MER MORTE (COMMUNE)</a> · 044000654 · note A · 1 commune</li>
+<li><a href="/reseau/044000156/">SUCE-SUR-ERDRE (COMMUNE)</a> · 044000156 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/44001/">Abbaretz</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44002/">Aigrefeuille-sur-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44003/">Ancenis-Saint-Géréon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44006/">Assérac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44007/">Avessac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44009/">Basse-Goulaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44010/">Batz-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44013/">Besné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44015/">Blain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44018/">Bouaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44019/">Bouée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44020/">Bouguenais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44022/">Boussay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44023/">Bouvron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44024/">Brains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44025/">Campbon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44026/">Carquefou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44027/">Casson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44037/">Château-Thébaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44036/">Châteaubriant</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44005/">Chaumes-en-Retz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44038/">Chauvé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44039/">Cheix-en-Retz</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44043/">Clisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44044/">Conquereuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44156/">Corcoué-sur-Logne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44045/">Cordemais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44046/">Corsept</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44047/">Couëron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44048/">Couffé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44050/">Crossac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44051/">Derval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44029/">Divatte-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44052/">Donges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44053/">Drefféac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44054/">Erbray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44056/">Fay-de-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44057/">Fégréac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44058/">Fercé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44061/">Frossay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44223/">Geneston</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44063/">Gétigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44064/">Gorges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44065/">Grand-Auverné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44066/">Grandchamp-des-Fontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44067/">Guémené-Penfao</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44068/">Guenrouet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44069/">Guérande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44071/">Haute-Goulaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44072/">Herbignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44073/">Héric</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44074/">Indre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44075/">Issé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44076/">Jans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44077/">Joué-sur-Erdre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44078/">Juigné-des-Moutiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44055/">La Baule-Escoublac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44012/">La Bernerie-en-Retz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44016/">La Boissière-du-Doré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44030/">La Chapelle-des-Marais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44031/">La Chapelle-Glain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44032/">La Chapelle-Heulin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44033/">La Chapelle-Launay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44035/">La Chapelle-sur-Erdre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44221/">La Chevallerais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44041/">La Chevrolière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44224/">La Grigonnais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44070/">La Haie-Fouassière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44083/">La Limouzinière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44090/">La Marne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44095/">La Meilleraye-de-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44101/">La Montagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44126/">La Plaine-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44127/">La Planche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44140/">La Regrippière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44141/">La Remaudière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44222/">La Roche-Blanche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44211/">La Turballe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44080/">Lavau-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44014/">Le Bignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44028/">Le Cellier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44049/">Le Croisic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44062/">Le Gâvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44079/">Le Landreau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44084/">Le Loroux-Bottereau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44117/">Le Pallet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44120/">Le Pellerin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44124/">Le Pin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44135/">Le Pouliguen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44203/">Le Temple-de-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44081/">Legé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44106/">Les Moutiers-en-Retz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44198/">Les Sorinières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44205/">Les Touches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44082/">Ligné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44213/">Loireauxence</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44085/">Louisfert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44086/">Lusanger</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44087/">Machecoul-Saint-Même</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/44088/">Maisdon-sur-Sèvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44089/">Malville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44091/">Marsac-sur-Don</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44092/">Massérac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44094/">Mauves-sur-Loire</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44096/">Mésanger</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44097/">Mesquer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44098/">Missillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44099/">Moisdon-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44100/">Monnières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44102/">Montbert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44103/">Montoir-de-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44104/">Montrelais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44105/">Mouais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44107/">Mouzeil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44108/">Mouzillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44109/">Nantes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44110/">Nort-sur-Erdre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44111/">Notre-Dame-des-Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44112/">Noyal-sur-Brutz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44113/">Nozay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44114/">Orvault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44115/">Oudon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44116/">Paimbœuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44118/">Pannecé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44119/">Paulx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44121/">Petit-Auverné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44122/">Petit-Mars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44123/">Pierric</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44125/">Piriac-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44128/">Plessé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44130/">Pont-Saint-Martin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44129/">Pontchâteau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44131/">Pornic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44132/">Pornichet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44133/">Port-Saint-Père</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44134/">Pouillé-les-Côteaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44136/">Préfailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44137/">Prinquiau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44138/">Puceul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44139/">Quilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44142/">Remouillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44143/">Rezé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44144/">Riaillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44145/">Rouans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44146/">Rougé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44148/">Ruffigné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44149/">Saffré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44150/">Saint-Aignan-Grandlieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44151/">Saint-André-des-Eaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44153/">Saint-Aubin-des-Châteaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44154/">Saint-Brevin-les-Pins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44155/">Saint-Colomban</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44157/">Saint-Étienne-de-Mer-Morte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44158/">Saint-Étienne-de-Montluc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44159/">Saint-Fiacre-sur-Maine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44161/">Saint-Gildas-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44162/">Saint-Herblain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44164/">Saint-Hilaire-de-Chaléons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44165/">Saint-Hilaire-de-Clisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44166/">Saint-Jean-de-Boiseau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44168/">Saint-Joachim</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44169/">Saint-Julien-de-Concelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44170/">Saint-Julien-de-Vouvantes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44171/">Saint-Léger-les-Vignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44173/">Saint-Lumine-de-Clisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44174/">Saint-Lumine-de-Coutais</a> · 1 réseau, noté B</li>
+<li><a href="/commune/44175/">Saint-Lyphard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44176/">Saint-Malo-de-Guersac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44178/">Saint-Mars-de-Coutais</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/44179/">Saint-Mars-du-Désert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44182/">Saint-Michel-Chef-Chef</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44183/">Saint-Molf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44184/">Saint-Nazaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44185/">Saint-Nicolas-de-Redon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44187/">Saint-Père-en-Retz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44188/">Saint-Philbert-de-Grand-Lieu</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/44190/">Saint-Sébastien-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44192/">Saint-Viaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44193/">Saint-Vincent-des-Landes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44152/">Sainte-Anne-sur-Brivet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44172/">Sainte-Luce-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44186/">Sainte-Pazanne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44189/">Sainte-Reine-de-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44194/">Sautron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44195/">Savenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44196/">Sévérac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44197/">Sion-les-Mines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44199/">Soudan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44200/">Soulvache</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44201/">Sucé-sur-Erdre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44202/">Teillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44204/">Thouaré-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44206/">Touvois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44207/">Trans-sur-Erdre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44208/">Treffieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44209/">Treillières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44210/">Trignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44163/">Vair-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44212/">Vallet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44180/">Vallons-de-l'Erdre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/44214/">Vay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44215/">Vertou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44216/">Vieillevigne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44217/">Vigneux-de-Bretagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44021/">Villeneuve-en-Retz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44218/">Villepot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/44220/">Vue</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Loire-Atlantique · eau du robinet », https://meteodurobinet.fr/departement/44/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

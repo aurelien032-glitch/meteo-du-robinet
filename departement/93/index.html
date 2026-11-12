@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Seine-Saint-Denis (93) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Seine-Saint-Denis · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Seine-Saint-Denis (93) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/93/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Seine-Saint-Denis · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Seine-Saint-Denis · eau du robinet","url":"https://meteodurobinet.fr/departement/93/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Seine-Saint-Denis","item":"https://meteodurobinet.fr/departement/93/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/93/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Seine-Saint-Denis</h1>
+<p class="meta">Département 93</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>5 sur 18 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 11 réseaux</li>
+<li>B qualité convenable* : 2 réseaux</li>
+<li>C qualité insuffisante* : 5 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 3, autres limites de qualité 3.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>215 prélèvements</strong> évalués en septembre 2026 ; 1 913 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : année absente du jeu de données</li>
+<li>2026 en cours : année absente du jeu de données</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,21</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 4 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>5 services d’eau</strong> desservent au moins une commune du département ; 2 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 19 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/093004253/">EST ENSEMBLE CHOISY</a> · 093004253 · note C · 2 communes</li>
+<li><a href="/reseau/093004279/">EST ENSEMBLE EAU DE PARIS</a> · 093004279 · note A · 4 communes</li>
+<li><a href="/reseau/093004252/">EST ENSEMBLE NEUILLY</a> · 093004252 · note C · 9 communes</li>
+<li><a href="/reseau/093004254/">EST ENSEMBLE PANTIN FORAGES</a> · 093004254 · note A · 1 commune</li>
+<li><a href="/reseau/093000338/">UDI A.D.P. CITERNES</a> · 093000338 · note A · 1 commune</li>
+<li><a href="/reseau/093000094/">UDI A.D.P. ROISSY CDG</a> · 093000094 · note C · 1 commune</li>
+<li><a href="/reseau/093003855/">UDI ADP LE BOURGET</a> · 093003855 · note A · 1 commune</li>
+<li><a href="/reseau/093000099/">UDI AULNAY FORAGES</a> · 093000099 · note A · 1 commune</li>
+<li><a href="/reseau/093000063/">UDI BLANC-MESNIL CENTRE</a> · 093000063 · note A · 1 commune</li>
+<li><a href="/reseau/093000471/">UDI BLANC-MESNIL OUEST</a> · 093000471 · note A · 1 commune</li>
+<li><a href="/reseau/093000064/">UDI BLANC-MESNIL SUD</a> · 093000064 · note A · 1 commune</li>
+<li><a href="/reseau/093000074/">UDI F4 VILLEPINTE</a> · 093000074 · note A · 1 commune</li>
+<li><a href="/reseau/093000110/">UDI PANTIN FORAGES</a> · 093000110 · sans note · 1 commune</li>
+<li><a href="/reseau/093000070/">UDI REGIE ANNET</a> · 093000070 · note C · 1 commune</li>
+<li><a href="/reseau/093000069/">UDI REGIE VILLETTE</a> · 093000069 · note A · 1 commune</li>
+<li><a href="/reseau/093000581/">UDI SEDIF CHOISY</a> · 093000581 · note B · 2 communes</li>
+<li><a href="/reseau/093000113/">UDI SEDIF MERY</a> · 093000113 · note A · 2 communes</li>
+<li><a href="/reseau/093000089/">UDI SEDIF NEUILLY</a> · 093000089 · note B · 35 communes</li>
+<li><a href="/reseau/093000098/">UDI TREMBLAY / VILLEPINTE</a> · 093000098 · note C · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/93001/">Aubervilliers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93005/">Aulnay-sous-Bois</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/93006/">Bagnolet</a> · 4 réseaux : 2 notés C, 1 noté B, 1 noté A</li>
+<li><a href="/commune/93008/">Bobigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/93010/">Bondy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/93014/">Clichy-sous-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93015/">Coubron</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93029/">Drancy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93030/">Dugny</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93031/">Épinay-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/93032/">Gagny</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93033/">Gournay-sur-Marne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93039/">L'Île-Saint-Denis</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93027/">La Courneuve</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93007/">Le Blanc-Mesnil</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/93013/">Le Bourget</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/93061/">Le Pré-Saint-Gervais</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/93062/">Le Raincy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93045/">Les Lilas</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/93057/">Les Pavillons-sous-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93046/">Livry-Gargan</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93047/">Montfermeil</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93048/">Montreuil</a> · 4 réseaux : 2 notés C, 1 noté B, 1 noté A</li>
+<li><a href="/commune/93049/">Neuilly-Plaisance</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93050/">Neuilly-sur-Marne</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93051/">Noisy-le-Grand</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93053/">Noisy-le-Sec</a> · 1 réseau, noté C</li>
+<li><a href="/commune/93055/">Pantin</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/93059/">Pierrefitte-sur-Seine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93063/">Romainville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/93064/">Rosny-sous-Bois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93066/">Saint-Denis</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93070/">Saint-Ouen-sur-Seine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93071/">Sevran</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93072/">Stains</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93073/">Tremblay-en-France</a> · 5 réseaux : 3 notés C, 2 notés A</li>
+<li><a href="/commune/93074/">Vaujours</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93077/">Villemomble</a> · 1 réseau, noté B</li>
+<li><a href="/commune/93078/">Villepinte</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/93079/">Villetaneuse</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Seine-Saint-Denis · eau du robinet », https://meteodurobinet.fr/departement/93/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

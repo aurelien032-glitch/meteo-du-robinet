@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Morbihan (56) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Morbihan · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Morbihan (56) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/56/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Morbihan · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Morbihan · eau du robinet","url":"https://meteodurobinet.fr/departement/56/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Morbihan","item":"https://meteodurobinet.fr/departement/56/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/56/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Morbihan</h1>
+<p class="meta">Département 56</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>0 sur 124 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 121 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 0 réseau</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>170 prélèvements</strong> évalués en septembre 2026 ; 1 459 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : vigilance 0 jour, alerte 93 jours, alerte renforcée 10 jours, crise 29 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 12 jours, alerte renforcée 27 jours, crise 117 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,78</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 21 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>22 services d’eau</strong> desservent au moins une commune du département ; 7 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 128 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/056000432/">AUGAN</a> · 056000432 · note A · 1 commune</li>
+<li><a href="/reseau/056000336/">AURAY-QUIBERON</a> · 056000336 · note A · 17 communes</li>
+<li><a href="/reseau/056000185/">BASSE VALLEE DE L'OUST</a> · 056000185 · note A · 10 communes</li>
+<li><a href="/reseau/056000171/">BAUD</a> · 056000171 · note A · 4 communes</li>
+<li><a href="/reseau/056000902/">BEGANNE</a> · 056000902 · note A · 1 commune</li>
+<li><a href="/reseau/056004081/">BEGANNE PIQUAGE EPTB</a> · 056004081 · note A · 1 commune</li>
+<li><a href="/reseau/056001013/">BEIGNON-ST MALO BEIGNON-GUER NORD</a> · 056001013 · note A · 3 communes</li>
+<li><a href="/reseau/056000089/">BELLE-ILE</a> · 056000089 · note A · 4 communes</li>
+<li><a href="/reseau/056000345/">BERNE-PRIZIAC</a> · 056000345 · note A · 6 communes</li>
+<li><a href="/reseau/056000173/">BIEUZY MELRAND</a> · 056000173 · note A · 2 communes</li>
+<li><a href="/reseau/056000114/">BIGNAN-BULEON</a> · 056000114 · note A · 4 communes</li>
+<li><a href="/reseau/056000346/">BRANDERION</a> · 056000346 · note A · 1 commune</li>
+<li><a href="/reseau/056000519/">BRIGNAC</a> · 056000519 · note A · 1 commune</li>
+<li><a href="/reseau/056000348/">BUBRY</a> · 056000348 · note A · 1 commune</li>
+<li><a href="/reseau/056001144/">CAMORS</a> · 056001144 · note A · 1 commune</li>
+<li><a href="/reseau/056000067/">CARENTOIR</a> · 056000067 · note A · 1 commune</li>
+<li><a href="/reseau/056003690/">CAUDAN</a> · 056003690 · note A · 6 communes</li>
+<li><a href="/reseau/056000222/">COLPO</a> · 056000222 · note A · 1 commune</li>
+<li><a href="/reseau/056000486/">FEREL</a> · 056000486 · note A · 3 communes</li>
+<li><a href="/reseau/056004462/">GAVRES</a> · 056004462 · note A · 1 commune</li>
+<li><a href="/reseau/056004726/">GOURIN</a> · 056004726 · note A · 1 commune</li>
+<li><a href="/reseau/056000417/">GOURIN RURAL</a> · 056000417 · sans note · 1 commune</li>
+<li><a href="/reseau/056000408/">GOURIN VILLE</a> · 056000408 · sans note · 1 commune</li>
+<li><a href="/reseau/056000137/">GRANDCHAMP</a> · 056000137 · note A · 4 communes</li>
+<li><a href="/reseau/056000484/">GROIX</a> · 056000484 · note A · 1 commune</li>
+<li><a href="/reseau/056000443/">GUER</a> · 056000443 · note A · 1 commune</li>
+<li><a href="/reseau/056003685/">GUERN</a> · 056003685 · note A · 1 commune</li>
+<li><a href="/reseau/056000180/">GUISCRIFF</a> · 056000180 · note A · 1 commune</li>
+<li><a href="/reseau/056000338/">HOËDIC</a> · 056000338 · note A · 1 commune</li>
+<li><a href="/reseau/056000900/">HOPITAL DE VANNES</a> · 056000900 · note B · 1 commune</li>
+<li><a href="/reseau/056000337/">HOUAT</a> · 056000337 · note A · 1 commune</li>
+<li><a href="/reseau/056000349/">INGUINIEL</a> · 056000349 · note A · 1 commune</li>
+<li><a href="/reseau/056000307/">JOSSELIN</a> · 056000307 · note A · 6 communes</li>
+<li><a href="/reseau/056000339/">KERVIGNAC</a> · 056000339 · note A · 4 communes</li>
+<li><a href="/reseau/056000227/">LA CHAPELLE-NEUVE</a> · 056000227 · note A · 2 communes</li>
+<li><a href="/reseau/056000018/">LA GACILLY</a> · 056000018 · note A · 2 communes</li>
+<li><a href="/reseau/056000003/">LA ROCHE BERNARD</a> · 056000003 · note A · 4 communes</li>
+<li><a href="/reseau/056000097/">LA TRINITE PORHOET</a> · 056000097 · note A · 1 commune</li>
+<li><a href="/reseau/056000987/">LANDAUL</a> · 056000987 · note A · 1 commune</li>
+<li><a href="/reseau/056000986/">LANDEVANT</a> · 056000986 · note A · 1 commune</li>
+<li><a href="/reseau/056000358/">LANESTER</a> · 056000358 · note A · 2 communes</li>
+<li><a href="/reseau/056000294/">LANGONNET</a> · 056000294 · note A · 1 commune</li>
+<li><a href="/reseau/056000356/">LANGUIDIC</a> · 056000356 · note A · 1 commune</li>
+<li><a href="/reseau/056000903/">LANOUEE</a> · 056000903 · note A · 2 communes</li>
+<li><a href="/reseau/056000353/">LANVENEGEN</a> · 056000353 · note A · 1 commune</li>
+<li><a href="/reseau/056000532/">LARMOR PLAGE</a> · 056000532 · note A · 1 commune</li>
+<li><a href="/reseau/056004593/">LAUZACH</a> · 056004593 · note A · 1 commune</li>
+<li><a href="/reseau/056000343/">LE FAOUËT</a> · 056000343 · note A · 1 commune</li>
+<li><a href="/reseau/056000440/">LE ROC SAINT ANDRE</a> · 056000440 · note A · 1 commune</li>
+<li><a href="/reseau/056000209/">LE SAINT</a> · 056000209 · note A · 1 commune</li>
+<li><a href="/reseau/056000287/">LE SOURN</a> · 056000287 · note A · 1 commune</li>
+<li><a href="/reseau/056003391/">LES FORGES</a> · 056003391 · note A · 1 commune</li>
+<li><a href="/reseau/056004595/">LES FOUGERETS</a> · 056004595 · note A · 1 commune</li>
+<li><a href="/reseau/056000152/">LIZIEC-CONSEIL GÉNÉRAL</a> · 056000152 · note B · 1 commune</li>
+<li><a href="/reseau/056000194/">LIZIO-CRUGUEL</a> · 056000194 · note A · 2 communes</li>
+<li><a href="/reseau/056000226/">LOCMINE</a> · 056000226 · note A · 1 commune</li>
+<li><a href="/reseau/056000357/">LORIENT</a> · 056000357 · note A · 1 commune</li>
+<li><a href="/reseau/056004494/">MALANSAC-CADEN</a> · 056004494 · sans note · 2 communes</li>
+<li><a href="/reseau/056000906/">MALESTROIT</a> · 056000906 · note A · 1 commune</li>
+<li><a href="/reseau/056000272/">MALGUENAC</a> · 056000272 · note A · 1 commune</li>
+<li><a href="/reseau/056000515/">MAURON</a> · 056000515 · note A · 4 communes</li>
+<li><a href="/reseau/056000520/">MAURON SUD</a> · 056000520 · note A · 2 communes</li>
+<li><a href="/reseau/056000160/">MOLAC</a> · 056000160 · note A · 1 commune</li>
+<li><a href="/reseau/056000431/">MONTENEUF</a> · 056000431 · note A · 2 communes</li>
+<li><a href="/reseau/056000026/">MONTERBLANC</a> · 056000026 · note A · 1 commune</li>
+<li><a href="/reseau/056000426/">MONTERREIN</a> · 056000426 · note A · 1 commune</li>
+<li><a href="/reseau/056000633/">MONTERTELOT</a> · 056000633 · note A · 1 commune</li>
+<li><a href="/reseau/056000223/">MOREAC</a> · 056000223 · note A · 1 commune</li>
+<li><a href="/reseau/056000224/">MOUSTOIR AC</a> · 056000224 · note A · 1 commune</li>
+<li><a href="/reseau/056000122/">MOUSTOIR-REMUNGOL</a> · 056000122 · note A · 1 commune</li>
+<li><a href="/reseau/056000009/">MUZILLAC</a> · 056000009 · note A · 6 communes</li>
+<li><a href="/reseau/056000706/">NOYALO-LE HEZO-SAINT ARMEL</a> · 056000706 · note A · 3 communes</li>
+<li><a href="/reseau/056004493/">PLAUDREN</a> · 056004493 · note A · 1 commune</li>
+<li><a href="/reseau/056000139/">PLESCOP</a> · 056000139 · note A · 1 commune</li>
+<li><a href="/reseau/056003693/">PLEUGRIFFET</a> · 056003693 · note A · 1 commune</li>
+<li><a href="/reseau/056000708/">PLOEMEUR EST</a> · 056000708 · note A · 1 commune</li>
+<li><a href="/reseau/056000352/">PLOEMEUR VILLE</a> · 056000352 · note A · 1 commune</li>
+<li><a href="/reseau/056000104/">PLOERMEL</a> · 056000104 · note A · 10 communes</li>
+<li><a href="/reseau/056000350/">PLOUAY-LANVAUDAN</a> · 056000350 · note A · 2 communes</li>
+<li><a href="/reseau/056000340/">PLOUHINEC</a> · 056000340 · note A · 1 commune</li>
+<li><a href="/reseau/056000255/">PLOURAY</a> · 056000255 · note A · 2 communes</li>
+<li><a href="/reseau/056004519/">PLUHERLIN-SAINT GRAVE</a> · 056004519 · note A · 2 communes</li>
+<li><a href="/reseau/056000985/">PLUMERGAT</a> · 056000985 · note A · 1 commune</li>
+<li><a href="/reseau/056000347/">PLUVIGNER</a> · 056000347 · note A · 1 commune</li>
+<li><a href="/reseau/056000342/">PONT SCORFF</a> · 056000342 · note A · 6 communes</li>
+<li><a href="/reseau/056000282/">PONTIVY EST</a> · 056000282 · note A · 1 commune</li>
+<li><a href="/reseau/056000285/">PONTIVY OUEST</a> · 056000285 · note A · 1 commune</li>
+<li><a href="/reseau/056000286/">PONTIVY STIVAL</a> · 056000286 · note A · 1 commune</li>
+<li><a href="/reseau/056000283/">PONTIVY SUD</a> · 056000283 · note A · 1 commune</li>
+<li><a href="/reseau/056000269/">PONTIVY-COMMUNAUTE-NORD</a> · 056000269 · note A · 12 communes</li>
+<li><a href="/reseau/056001012/">PORCARO</a> · 056001012 · note A · 1 commune</li>
+<li><a href="/reseau/056000354/">PORT LOUIS</a> · 056000354 · note A · 1 commune</li>
+<li><a href="/reseau/056001015/">QUELNEUC-LA CHAPELLE GACELINE</a> · 056001015 · note A · 2 communes</li>
+<li><a href="/reseau/056000159/">QUESTEMBERT</a> · 056000159 · note A · 1 commune</li>
+<li><a href="/reseau/056000161/">QUESTEMBERT OUEST</a> · 056000161 · note A · 4 communes</li>
+<li><a href="/reseau/056000163/">QUESTEMBERT SUD</a> · 056000163 · note A · 6 communes</li>
+<li><a href="/reseau/056000202/">QUILY</a> · 056000202 · note A · 1 commune</li>
+<li><a href="/reseau/056000679/">QUISTINIC</a> · 056000679 · note A · 1 commune</li>
+<li><a href="/reseau/056003692/">RADENAC</a> · 056003692 · note A · 1 commune</li>
+<li><a href="/reseau/056000113/">REGUINY</a> · 056000113 · note A · 1 commune</li>
+<li><a href="/reseau/056000465/">RHUYS NORD</a> · 056000465 · note A · 4 communes</li>
+<li><a href="/reseau/056000466/">RHUYS SUD</a> · 056000466 · note A · 4 communes</li>
+<li><a href="/reseau/056001005/">RIEUX</a> · 056001005 · note A · 1 commune</li>
+<li><a href="/reseau/056004594/">ROCHEFORT-EN-TERRE DISTRIBUTION</a> · 056004594 · note A · 1 commune</li>
+<li><a href="/reseau/056000208/">ROHAN</a> · 056000208 · sans note · 4 communes</li>
+<li><a href="/reseau/056000355/">ROUDOUALLEC</a> · 056000355 · note A · 1 commune</li>
+<li><a href="/reseau/056000634/">SAINT ABRAHAM</a> · 056000634 · note A · 2 communes</li>
+<li><a href="/reseau/056000045/">SAINT AVE - MEUCON</a> · 056000045 · note A · 2 communes</li>
+<li><a href="/reseau/056000498/">SAINT GORGON</a> · 056000498 · note A · 1 commune</li>
+<li><a href="/reseau/056000635/">SAINT GUYOMARD</a> · 056000635 · note A · 1 commune</li>
+<li><a href="/reseau/056000496/">SAINT JACUT NORD</a> · 056000496 · note A · 4 communes</li>
+<li><a href="/reseau/056000499/">SAINT JACUT SUD</a> · 056000499 · note A · 2 communes</li>
+<li><a href="/reseau/056000025/">SAINT NOLFF</a> · 056000025 · note A · 1 commune</li>
+<li><a href="/reseau/056000550/">SAINT NOLFF-BELLEVUE</a> · 056000550 · note A · 1 commune</li>
+<li><a href="/reseau/056003691/">SAINT THURIAU</a> · 056003691 · note A · 1 commune</li>
+<li><a href="/reseau/056004531/">SCORFF AMONT</a> · 056004531 · note A · 6 communes</li>
+<li><a href="/reseau/056000036/">SENE</a> · 056000036 · note A · 1 commune</li>
+<li><a href="/reseau/056000203/">SERENT</a> · 056000203 · note A · 1 commune</li>
+<li><a href="/reseau/056000271/">SILFIAC</a> · 056000271 · note A · 3 communes</li>
+<li><a href="/reseau/056000053/">ST JEAN BREVELAY</a> · 056000053 · note A · 4 communes</li>
+<li><a href="/reseau/056000707/">SURZUR-LA TRINITE SURZUR</a> · 056000707 · note A · 2 communes</li>
+<li><a href="/reseau/056000705/">THEIX</a> · 056000705 · note A · 1 commune</li>
+<li><a href="/reseau/056001014/">TREAL-ST NICOLAS DU TERTRE</a> · 056001014 · note A · 3 communes</li>
+<li><a href="/reseau/056000310/">TREGANTEUR</a> · 056000310 · note A · 1 commune</li>
+<li><a href="/reseau/056000153/">VANNES CEINTURE</a> · 056000153 · note A · 1 commune</li>
+<li><a href="/reseau/056000154/">VANNES CENTRE - MENIMUR</a> · 056000154 · note B · 1 commune</li>
+<li><a href="/reseau/056000130/">VANNES OUEST</a> · 056000130 · note A · 8 communes</li>
+<li><a href="/reseau/056000704/">VANNES-LE PORT</a> · 056000704 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/56001/">Allaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56002/">Ambon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56003/">Arradon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56004/">Arzal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56005/">Arzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56006/">Augan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56007/">Auray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56008/">Baden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56009/">Bangor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56010/">Baud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56011/">Béganne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56012/">Beignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56013/">Belz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56014/">Berné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56015/">Berric</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56017/">Bignan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56018/">Billiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56019/">Billio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56020/">Bohal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56021/">Brandérion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56022/">Brandivy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56023/">Brech</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56024/">Bréhan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56025/">Brignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56026/">Bubry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56027/">Buléon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56028/">Caden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56029/">Calan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56030/">Camoël</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56031/">Camors</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56032/">Campénéac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56033/">Carentoir</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/56034/">Carnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56035/">Caro</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56036/">Caudan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56040/">Cléguer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56041/">Cléguérec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56042/">Colpo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56043/">Concoret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56044/">Cournon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56046/">Crach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56047/">Crédin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56051/">Cruguel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56052/">Damgan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56053/">Elven</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56054/">Erdeven</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56055/">Étel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56144/">Évellys</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56056/">Évriguet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56058/">Férel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56102/">Forges de Lanouée</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56062/">Gâvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56063/">Gestel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56065/">Gourhel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56066/">Gourin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56067/">Grand-Champ</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56069/">Groix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56070/">Guégon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56071/">Guéhenno</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56072/">Gueltas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56073/">Guémené-sur-Scorff</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56074/">Guénin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56075/">Guer</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56076/">Guern</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56078/">Guidel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56079/">Guillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56080/">Guilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56081/">Guiscriff</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56082/">Helléan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56083/">Hennebont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56085/">Hœdic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56087/">Île-aux-Moines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56088/">Île-d'Arz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56086/">Île-d'Houat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56089/">Inguiniel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56090/">Inzinzac-Lochrist</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56091/">Josselin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56092/">Kerfourn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56093/">Kergrist</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56264/">Kernascléden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56094/">Kervignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56039/">La Chapelle-Neuve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56050/">La Croix-Helléan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56061/">La Gacilly</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/56068/">La Grée-Saint-Laurent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56195/">La Roche-Bernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56257/">La Trinité-Porhoët</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56258/">La Trinité-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56259/">La Trinité-Surzur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56261/">La Vraie-Croix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56096/">Landaul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56097/">Landévant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56098/">Lanester</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56099/">Langoëlan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56100/">Langonnet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56101/">Languidic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56103/">Lantillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56104/">Lanvaudan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56105/">Lanvénégen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56106/">Larmor-Baden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56107/">Larmor-Plage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56108/">Larré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56109/">Lauzach</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56262/">Le Bono</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56045/">Le Cours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56048/">Le Croisty</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56057/">Le Faouët</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56077/">Le Guerno</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56084/">Le Hézo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56152/">Le Palais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56201/">Le Saint</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56246/">Le Sourn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56252/">Le Tour-du-Parc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56060/">Les Fougerêts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56110/">Lignol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56111/">Limerzel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56112/">Lizio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56113/">Locmalo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56114/">Locmaria</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56115/">Locmaria-Grand-Champ</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56116/">Locmariaquer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56117/">Locminé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56118/">Locmiquélic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56119/">Locoal-Mendon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56120/">Locqueltas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56121/">Lorient</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56122/">Loyat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56123/">Malansac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56124/">Malestroit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56125/">Malguénac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56126/">Marzan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56127/">Mauron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56128/">Melrand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56129/">Ménéac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56130/">Merlevenez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56131/">Meslan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56132/">Meucon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56133/">Missiriac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56134/">Mohon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56135/">Molac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56136/">Monteneuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56137/">Monterblanc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56139/">Montertelot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56140/">Moréac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56141/">Moustoir-Ac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56143/">Muzillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56145/">Néant-sur-Yvel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56146/">Neulliac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56147/">Nivillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56148/">Nostang</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56149/">Noyal-Muzillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56151/">Noyal-Pontivy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56153/">Péaule</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56154/">Peillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56155/">Pénestin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56156/">Persquen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56157/">Plaudren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56158/">Plescop</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56159/">Pleucadeuc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56160/">Pleugriffet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56161/">Ploemel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56162/">Ploemeur</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56163/">Ploërdut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56164/">Ploeren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56165/">Ploërmel</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56166/">Plouay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56167/">Plougoumelen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56168/">Plouharnel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56169/">Plouhinec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56170/">Plouray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56171/">Pluherlin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56172/">Plumelec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56173/">Pluméliau-Bieuzy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56174/">Plumelin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56175/">Plumergat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56176/">Pluneret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56177/">Pluvigner</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56179/">Pont-Scorff</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56178/">Pontivy</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/56180/">Porcaro</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56181/">Port-Louis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56182/">Priziac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56184/">Questembert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56185/">Quéven</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56186/">Quiberon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56188/">Quistinic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56189/">Radenac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56190/">Réguiny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56191/">Réminiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56193/">Riantec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56194/">Rieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56196/">Rochefort-en-Terre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56198/">Rohan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56199/">Roudouallec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56200/">Ruffiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56202/">Saint-Abraham</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56203/">Saint-Aignan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56204/">Saint-Allouestre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56205/">Saint-Armel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56206/">Saint-Avé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56207/">Saint-Barthélemy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56208/">Saint-Brieuc-de-Mauron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56210/">Saint-Caradec-Trégomel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56211/">Saint-Congard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56212/">Saint-Dolay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56213/">Saint-Gérand-Croixanvec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56214/">Saint-Gildas-de-Rhuys</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56215/">Saint-Gonnery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56216/">Saint-Gorgon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56218/">Saint-Gravé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56219/">Saint-Guyomard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56221/">Saint-Jacut-les-Pins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56222/">Saint-Jean-Brévelay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56223/">Saint-Jean-la-Poterie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56224/">Saint-Laurent-sur-Oust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56225/">Saint-Léry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56226/">Saint-Malo-de-Beignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56227/">Saint-Malo-des-Trois-Fontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56228/">Saint-Marcel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56229/">Saint-Martin-sur-Oust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56230/">Saint-Nicolas-du-Tertre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56231/">Saint-Nolff</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56232/">Saint-Perreux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56233/">Saint-Philibert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56234/">Saint-Pierre-Quiberon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56236/">Saint-Servant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56237/">Saint-Thuriau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56238/">Saint-Tugdual</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56239/">Saint-Vincent-sur-Oust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56263/">Sainte-Anne-d'Auray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56209/">Sainte-Brigitte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56220/">Sainte-Hélène</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56240/">Sarzeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56241/">Sauzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56242/">Séglien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56243/">Séné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56244/">Sérent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56245/">Silfiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56247/">Sulniac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56248/">Surzur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56249/">Taupont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56250/">Théhillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56251/">Theix-Noyalo</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/56253/">Tréal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56254/">Trédion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56255/">Treffléan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56256/">Tréhorenteuc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/56197/">Val d'Oust</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/56260/">Vannes</a> · 5 réseaux : 3 notés B, 2 notés A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Morbihan · eau du robinet », https://meteodurobinet.fr/departement/56/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

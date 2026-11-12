@@ -1,0 +1,1 @@
+import{gR as e}from"./index-Cxv4TnZB.js";const n=64,i=s=>Number(s)%n,t=s=>String(i(s)).padStart(2,"0"),a=s=>`sispea/collectivites/${t(s)}.json`,c=s=>`sispea/assainissement/services/${t(s)}.json`,r=s=>s.nom&&e(s.nom)!==s.nom?{...s,nom:e(s.nom)}:s,m=s=>s.eau.length+s.ac.length+s.anc.length,l=s=>s&&s.trim()?s.trim().toLowerCase():null;export{a,r as c,c as f,m as n,l as t};

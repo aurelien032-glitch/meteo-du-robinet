@@ -1,0 +1,50 @@
+# Météo du robinet : description détaillée
+
+## Identité et licence
+
+Météo du robinet (https://meteodurobinet.fr/) est une plateforme de datavisualisation de la qualité de l’eau du robinet en France, conçue et éditée par Aurélien Nogent (Hydroforge, https://hydroforge.fr/), consultant en eau potable. Elle réutilise des données publiques : le contrôle sanitaire des ARS et SISPEA. Les contenus propres du site sont publiés sous licence CC BY-NC 4.0 : réutilisation non commerciale, avec mention de la source (voir « Licence et citation »).
+
+## L’unité de mesure est le réseau
+
+Un réseau de distribution est l’unité de mesure ; il a un code (neuf caractères) et une note. Une commune est desservie par un ou plusieurs réseaux : elle n’a pas de note propre, ses réseaux sont comptés par note. Un département, un service d’eau et un maître d’ouvrage ne sont jamais notés ni classés ; aucun palmarès n’existe sur le site. Le site couvre environ 22 700 réseaux et ne publie aucune population desservie.
+
+## La note A à D en bref
+
+La note suit l’indicateur global de qualité des synthèses annuelles de l’ARS jointes à la facture d’eau ; elle est calculée par le site, la famille de paramètres la plus défavorable déterminant la note. A : conforme. B : dépassements cumulés sur 30 jours au plus. C : dépassements sur plus de 30 jours, ou eau déconseillée aux publics sensibles pour cette cause. D : restriction de consommation ou consigne. La bactériologie suit la grille de taux de conformité de l’ARS. Les paramètres liés aux canalisations (plomb, nickel, cuivre) et aux matériaux n’entrent pas dans la note : leur dépassement est publié au détail. Un dépassement de PFAS ne compte que s’il est observé au moins deux jours dans l’année. La synthèse annuelle de l’ARS fait foi.
+
+## L’année en cours est provisoire
+
+Les données courent de 2023 à l’année en cours. Les notes de l’année en cours sont provisoires : elles portent sur la période écoulée depuis le 1er janvier, jusqu’à la dernière publication mensuelle du ministère, dont la date figure sur chaque page. L’absence d’avis de l’ARS ne prouve pas l’absence de consigne : une délégation de l’ARS qui n’évoque jamais de consigne est dite « sans information ».
+
+## Schémas d’adresses
+
+- Commune : https://meteodurobinet.fr/commune/{code INSEE}/
+- Réseau : https://meteodurobinet.fr/reseau/{code du réseau}/ (paramètre `?annee=` pour une autre année)
+- Service d’eau : https://meteodurobinet.fr/service/{identifiant SISPEA}/
+- Maître d’ouvrage : https://meteodurobinet.fr/maitre-d-ouvrage/{département}-{libellé}/
+- Département : https://meteodurobinet.fr/departement/{numéro}/
+- France : https://meteodurobinet.fr/france/ ; méthode : https://meteodurobinet.fr/methode/#ancre ; plan du site : https://meteodurobinet.fr/sitemap.xml
+
+## Questions et pages
+
+- Qualité de l’eau d’une commune : la fiche de la commune (réseaux comptés par note, avis, prix, gestion).
+- Note, avis de l’ARS ou analyses d’un réseau, ou d’une facture d’eau : la fiche du réseau.
+- Prix, mode de gestion et indicateurs du service d’eau : la fiche du service.
+- Réseaux d’un gestionnaire, comptés par note : la page du maître d’ouvrage.
+- Répartition locale des notes : la fiche du département, qui n’est pas jugé.
+
+## Limites
+
+Les contours des réseaux, publiés par les ARS, ne sont pas cadastraux. Le prix de l’exercice N est celui du 1er janvier N+1. Une eau brute (nappe, rivière) n’est pas l’eau du robinet. Le site ne donne aucune réponse sanitaire et aucune recommandation : il rapporte les avis de l’ARS, datés et attribués. La mairie et l’ARS font foi pour toute consigne.
+
+## Licence et citation
+
+Licence CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.fr). La source se cite sous la forme suivante, avec le titre et l’adresse de la page utilisée :
+
+Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « titre de la page », adresse de la page.
+
+Forme complète des mentions légales : Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé. Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : https://hydroforge.fr/dataviz/.
+
+## Sources
+
+Contrôle sanitaire de l’eau distribuée (SISE-Eaux, ministère chargé de la Santé, via data.gouv.fr et Hub’Eau) ; SISPEA (Office français de la biodiversité) ; VigiEau (ministère de la Transition écologique) ; contours des réseaux (ARS, AtlaSanté) ; BNPE, ADES, Naïades et piézométrie (OFB, BRGM, agences de l’eau) ; Sandre ; OpenStreetMap via OpenFreeMap ; Base Adresse Nationale (IGN). Les données publiques gardent leur licence (Licence Ouverte d’Etalab) ; la liste détaillée figure sur https://meteodurobinet.fr/methode/#sources.

@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Haute-Garonne (31) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Haute-Garonne · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Haute-Garonne (31) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/31/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Haute-Garonne · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Haute-Garonne · eau du robinet","url":"https://meteodurobinet.fr/departement/31/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Haute-Garonne","item":"https://meteodurobinet.fr/departement/31/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/31/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Haute-Garonne</h1>
+<p class="meta">Département 31</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>12 sur 174 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 161 réseaux</li>
+<li>B qualité convenable* : 1 réseau</li>
+<li>C qualité insuffisante* : 6 réseaux</li>
+<li>D mauvaise qualité* : 6 réseaux</li>
+</ul>
+<p>Bactériologie 9 (5 D), pesticides 2.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>7 réseaux visés sur 174</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>235 prélèvements</strong> évalués en septembre 2026 ; 1 929 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 28 jours, alerte 0 jour, alerte renforcée 0 jour, crise 104 jours</li>
+<li>2025 : vigilance 0 jour, alerte 0 jour, alerte renforcée 14 jours, crise 135 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 0 jour, alerte renforcée 7 jours, crise 127 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,46</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 10 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>30 services d’eau</strong> desservent au moins une commune du département ; 22 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 189 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/031004173/"> MANCIOUX</a> · 031004173 · note A · 1 commune</li>
+<li><a href="/reseau/031000235/">ANTICHAN DE FRONTIGNES</a> · 031000235 · note A · 1 commune</li>
+<li><a href="/reseau/031000236/">ANTIGNAC</a> · 031000236 · note A · 1 commune</li>
+<li><a href="/reseau/031000147/">ARBAS BAS SALAT FOUGARON</a> · 031000147 · note A · 1 commune</li>
+<li><a href="/reseau/031000640/">ARBAS BAS SALAT HIS</a> · 031000640 · note A · 5 communes</li>
+<li><a href="/reseau/031000641/">ARBAS BAS SALAT POINTIS</a> · 031000641 · note A · 1 commune</li>
+<li><a href="/reseau/031000733/">ARBAS(COMMUNE)</a> · 031000733 · note A · 1 commune</li>
+<li><a href="/reseau/031000237/">ARGUT DESSOUS</a> · 031000237 · note C · 1 commune</li>
+<li><a href="/reseau/031000238/">ARLOS</a> · 031000238 · note A · 1 commune</li>
+<li><a href="/reseau/031000239/">ARTIGUE</a> · 031000239 · note A · 1 commune</li>
+<li><a href="/reseau/031000513/">ASPET BACCALA</a> · 031000513 · note A · 1 commune</li>
+<li><a href="/reseau/031004211/">ASPET MICAS BARRADAS GIRET BELLEVUE ESCATCH</a> · 031004211 · note A · 1 commune</li>
+<li><a href="/reseau/031000514/">ASPET RAOUX MANEYRE</a> · 031000514 · note A · 1 commune</li>
+<li><a href="/reseau/031000515/">ASPET TACHOIRE</a> · 031000515 · note A · 1 commune</li>
+<li><a href="/reseau/031000512/">ASPET VILLAGE</a> · 031000512 · note A · 1 commune</li>
+<li><a href="/reseau/031004104/">AUSSEING</a> · 031004104 · note A · 1 commune</li>
+<li><a href="/reseau/031000042/">AUTERIVE</a> · 031000042 · note A · 1 commune</li>
+<li><a href="/reseau/031000240/">BACHOS</a> · 031000240 · note A · 1 commune</li>
+<li><a href="/reseau/031000043/">BAGNERES DE LUCHON</a> · 031000043 · note A · 1 commune</li>
+<li><a href="/reseau/031000241/">BAREN</a> · 031000241 · note A · 1 commune</li>
+<li><a href="/reseau/031000736/">BAROUSSE MARTRES VILLAGE ST VI</a> · 031000736 · note A · 1 commune</li>
+<li><a href="/reseau/031000727/">BAROUSSE ORE</a> · 031000727 · note A · 1 commune</li>
+<li><a href="/reseau/031000110/">BAROUSSE ST NERE</a> · 031000110 · note C · 27 communes</li>
+<li><a href="/reseau/031000108/">BAROUSSE TROUBAT</a> · 031000108 · note A · 7 communes</li>
+<li><a href="/reseau/031000242/">BENQUE DESSOUS DESSUS</a> · 031000242 · note A · 1 commune</li>
+<li><a href="/reseau/031000243/">BEZINS GARRAUX GARRAUX</a> · 031000243 · note A · 1 commune</li>
+<li><a href="/reseau/031001671/">BEZINS GARRAUX HAMEAU BEZINS</a> · 031001671 · note A · 1 commune</li>
+<li><a href="/reseau/031000244/">BILLIERE</a> · 031000244 · note A · 1 commune</li>
+<li><a href="/reseau/031000272/">BINOS</a> · 031000272 · note A · 1 commune</li>
+<li><a href="/reseau/031000245/">BOURG D'OUEIL</a> · 031000245 · note A · 1 commune</li>
+<li><a href="/reseau/031001108/">BOUTX   CUBOUCH HAUT</a> · 031001108 · sans note · 1 commune</li>
+<li><a href="/reseau/031000522/">BOUTX  ARGUT DESSUS</a> · 031000522 · note A · 1 commune</li>
+<li><a href="/reseau/031004217/">BOUTX ARRIOUCH</a> · 031004217 · note D · 1 commune</li>
+<li><a href="/reseau/031000516/">BOUTX BOURG</a> · 031000516 · note A · 1 commune</li>
+<li><a href="/reseau/031000520/">BOUTX COULEDOUX COURET</a> · 031000520 · note A · 1 commune</li>
+<li><a href="/reseau/031004219/">BOUTX DUBRULLE CHAPELLE</a> · 031004219 · note A · 1 commune</li>
+<li><a href="/reseau/031004222/">BOUTX EYLOUGAS COUMANIE </a> · 031004222 · sans note · 1 commune</li>
+<li><a href="/reseau/031000517/">BOUTX GER DE BOUTX LESPONILLE</a> · 031000517 · note C · 1 commune</li>
+<li><a href="/reseau/031000519/">BOUTX MOURTIS CUBOUCH GRANGES</a> · 031000519 · note A · 1 commune</li>
+<li><a href="/reseau/031000521/">BOUTX PLAN DU REY COUEOU</a> · 031000521 · note A · 1 commune</li>
+<li><a href="/reseau/031000706/">BOUTX SOUEILHAN PORTILLON</a> · 031000706 · note A · 1 commune</li>
+<li><a href="/reseau/031000246/">BURGALAYS</a> · 031000246 · note A · 1 commune</li>
+<li><a href="/reseau/031004159/">CAMPING </a> · 031004159 · note A · 1 commune</li>
+<li><a href="/reseau/031000044/">CARBONNE</a> · 031000044 · note A · 1 commune</li>
+<li><a href="/reseau/031000523/">CASTILLON DE LARBOUST VILLAGE</a> · 031000523 · note A · 1 commune</li>
+<li><a href="/reseau/031000247/">CATHERVIELLE</a> · 031000247 · note A · 1 commune</li>
+<li><a href="/reseau/031000248/">CAUBOUS</a> · 031000248 · note C · 1 commune</li>
+<li><a href="/reseau/031000249/">CAZARILH LASPENES</a> · 031000249 · note D · 1 commune</li>
+<li><a href="/reseau/031000273/">CAZAUX LAYRISSE</a> · 031000273 · note A · 1 commune</li>
+<li><a href="/reseau/031000527/">CAZEAUX DE LARBOUST LYS</a> · 031000527 · note A · 2 communes</li>
+<li><a href="/reseau/031000526/">CAZEAUX DE LARBOUST VILLAGE</a> · 031000526 · note A · 1 commune</li>
+<li><a href="/reseau/031000111/">CAZERES COULADERE</a> · 031000111 · note A · 2 communes</li>
+<li><a href="/reseau/031000029/">CENTRE ET NORD</a> · 031000029 · note A · 8 communes</li>
+<li><a href="/reseau/031001381/">CHEIN DESSUS HAMEAU DE MALUC</a> · 031001381 · sans note · 1 commune</li>
+<li><a href="/reseau/031000528/">CHEIN DESSUS VILLAGE</a> · 031000528 · note A · 1 commune</li>
+<li><a href="/reseau/031000530/">CHEIN HOS LAMOURERE BATAILLE</a> · 031000530 · note A · 1 commune</li>
+<li><a href="/reseau/031000529/">CHEIN PEYREU BARAT RIBEREUILLE</a> · 031000529 · note A · 1 commune</li>
+<li><a href="/reseau/031000275/">CIER DE LUCHON</a> · 031000275 · note A · 1 commune</li>
+<li><a href="/reseau/031000276/">CIER DE RIVIERE</a> · 031000276 · note A · 1 commune</li>
+<li><a href="/reseau/031000731/">CIERP</a> · 031000731 · note A · 1 commune</li>
+<li><a href="/reseau/031001722/">CIERP  QUARTIER DE LA JARRIOU</a> · 031001722 · note A · 1 commune</li>
+<li><a href="/reseau/031001721/">CIERP WATERLOO</a> · 031001721 · sans note · 1 commune</li>
+<li><a href="/reseau/031000250/">CIRES</a> · 031000250 · note A · 1 commune</li>
+<li><a href="/reseau/031000101/">COTEAUX DU TOUCH FOUSSERET</a> · 031000101 · note A · 20 communes</li>
+<li><a href="/reseau/031000100/">COTEAUX DU TOUCH LHERM</a> · 031000100 · note A · 19 communes</li>
+<li><a href="/reseau/031000102/">COTEAUX DU TOUCH MELANGE</a> · 031000102 · note A · 12 communes</li>
+<li><a href="/reseau/031004043/">CTX DU TOUCH LHERM</a> · 031004043 · note A · 10 communes</li>
+<li><a href="/reseau/031004046/">CTX DU TOUCH LHERM FOUSSERET</a> · 031004046 · note A · 4 communes</li>
+<li><a href="/reseau/031000750/">ESCOULIS</a> · 031000750 · note A · 1 commune</li>
+<li><a href="/reseau/031000277/">ESTADENS</a> · 031000277 · note A · 1 commune</li>
+<li><a href="/reseau/031000251/">ESTENOS</a> · 031000251 · note A · 1 commune</li>
+<li><a href="/reseau/031000252/">FOS</a> · 031000252 · note A · 2 communes</li>
+<li><a href="/reseau/031000278/">FRANCAZAL</a> · 031000278 · note A · 1 commune</li>
+<li><a href="/reseau/031000253/">FRONTIGNAN COMMINGES</a> · 031000253 · note A · 1 commune</li>
+<li><a href="/reseau/031000046/">FRONTON</a> · 031000046 · note A · 1 commune</li>
+<li><a href="/reseau/031000254/">GARIN</a> · 031000254 · note A · 1 commune</li>
+<li><a href="/reseau/031000732/">GAUD</a> · 031000732 · note A · 1 commune</li>
+<li><a href="/reseau/031004106/">GAUD AMONT RESERVOIR</a> · 031004106 · sans note · 1 commune</li>
+<li><a href="/reseau/031001109/">GER DE BOUTX GRANGES ISOLEES</a> · 031001109 · sans note · 1 commune</li>
+<li><a href="/reseau/031000532/">GOUAUX DE LARBOUST</a> · 031000532 · note A · 1 commune</li>
+<li><a href="/reseau/031000533/">GOUAUX DE LARBOUST AGUDES</a> · 031000533 · note A · 1 commune</li>
+<li><a href="/reseau/031000255/">GOUAUX DE LUCHON</a> · 031000255 · note A · 1 commune</li>
+<li><a href="/reseau/031000228/">GRENADE</a> · 031000228 · note A · 1 commune</li>
+<li><a href="/reseau/031000256/">GURAN</a> · 031000256 · note A · 1 commune</li>
+<li><a href="/reseau/031000146/">HERRAN VILLAGE ET LABADERQUE</a> · 031000146 · note A · 1 commune</li>
+<li><a href="/reseau/031000114/">JOB  BRANCHE C10 </a> · 031000114 · note A · 5 communes</li>
+<li><a href="/reseau/031001785/">JOB BRANCHE C2</a> · 031001785 · note A · 4 communes</li>
+<li><a href="/reseau/031004025/">JOB BRANCHE C8</a> · 031004025 · note A · 1 commune</li>
+<li><a href="/reseau/031004028/">JOB BRANCHE C9</a> · 031004028 · note A · 6 communes</li>
+<li><a href="/reseau/031000257/">JURVIELLE</a> · 031000257 · note A · 1 commune</li>
+<li><a href="/reseau/031000258/">JUZET DE LUCHON</a> · 031000258 · note A · 1 commune</li>
+<li><a href="/reseau/031004326/">LA GOUADE BAS ET HAUT</a> · 031004326 · note A · 1 commune</li>
+<li><a href="/reseau/031003392/">LAC D'OO REFUGE</a> · 031003392 · note D · 1 commune</li>
+<li><a href="/reseau/031000112/">LAVELANET ST JULIEN</a> · 031000112 · note A · 2 communes</li>
+<li><a href="/reseau/031000259/">LEGE</a> · 031000259 · note A · 1 commune</li>
+<li><a href="/reseau/031000229/">LEGUEVIN PRODUCTION ST CAPRAIS</a> · 031000229 · note A · 1 commune</li>
+<li><a href="/reseau/031004314/">LEGUEVIN PRODUCTION TOURNEFEUILLE</a> · 031004314 · note A · 1 commune</li>
+<li><a href="/reseau/031000279/">LESTELLE DE ST MARTORY</a> · 031000279 · note A · 1 commune</li>
+<li><a href="/reseau/031000833/">LOURDE MONT DE GALIE</a> · 031000833 · note A · 3 communes</li>
+<li><a href="/reseau/031000113/">MALVEZIE GENOS</a> · 031000113 · note A · 2 communes</li>
+<li><a href="/reseau/031000280/">MANCIOUX</a> · 031000280 · sans note · 1 commune</li>
+<li><a href="/reseau/031000290/">MARQUEFAVE PLAINE</a> · 031000290 · note A · 1 commune</li>
+<li><a href="/reseau/031000293/">MAUZAC VILLAGE</a> · 031000293 · sans note · 1 commune</li>
+<li><a href="/reseau/031000261/">MAYREGNE</a> · 031000261 · note A · 1 commune</li>
+<li><a href="/reseau/031000048/">MAZERES DU SALAT</a> · 031000048 · note A · 1 commune</li>
+<li><a href="/reseau/031000145/">MELANGE LABADERQUE FOUGARON</a> · 031000145 · note A · 14 communes</li>
+<li><a href="/reseau/031000543/">MELLES LA GOUADE BAS MOUNT</a> · 031000543 · sans note · 1 commune</li>
+<li><a href="/reseau/031001104/">MELLES LA GOUADE HAUT BERNETCH</a> · 031001104 · sans note · 1 commune</li>
+<li><a href="/reseau/031000540/">MELLES LABACH</a> · 031000540 · note A · 1 commune</li>
+<li><a href="/reseau/031000539/">MELLES VILLAGE</a> · 031000539 · note A · 1 commune</li>
+<li><a href="/reseau/031000722/">MILHAS CAMPAS TUHAN SARADO</a> · 031000722 · note A · 1 commune</li>
+<li><a href="/reseau/031000724/">MILHAS LAOUECH</a> · 031000724 · note A · 1 commune</li>
+<li><a href="/reseau/031000725/">MILHAS LARTIGAU</a> · 031000725 · note A · 1 commune</li>
+<li><a href="/reseau/031000721/">MILHAS VILLAGE</a> · 031000721 · note A · 1 commune</li>
+<li><a href="/reseau/031000049/">MIRAMONT DE COMMINGES</a> · 031000049 · note A · 1 commune</li>
+<li><a href="/reseau/031000262/">MONCAUP</a> · 031000262 · note A · 1 commune</li>
+<li><a href="/reseau/031000096/">MONTAGNE NOIRE</a> · 031000096 · note A · 61 communes</li>
+<li><a href="/reseau/031000281/">MONTAUBAN DE LUCHON</a> · 031000281 · note A · 1 commune</li>
+<li><a href="/reseau/031000282/">MONTCLAR DE COMMINGES</a> · 031000282 · note A · 1 commune</li>
+<li><a href="/reseau/031000264/">MOUSTAJON</a> · 031000264 · note A · 1 commune</li>
+<li><a href="/reseau/031000045/">MURET</a> · 031000045 · note A · 1 commune</li>
+<li><a href="/reseau/031000051/">ONDES</a> · 031000051 · note A · 1 commune</li>
+<li><a href="/reseau/031000546/">OO GRANGES D'ASTAU</a> · 031000546 · sans note · 1 commune</li>
+<li><a href="/reseau/031000545/">OO VILLAGE</a> · 031000545 · note A · 1 commune</li>
+<li><a href="/reseau/031000729/">PALAMINY RAMPEAU</a> · 031000729 · note A · 2 communes</li>
+<li><a href="/reseau/031003029/">PALES ROUGE RAMONNET</a> · 031003029 · note A · 1 commune</li>
+<li><a href="/reseau/031000283/">PLAGNE</a> · 031000283 · note A · 1 commune</li>
+<li><a href="/reseau/031000136/">PLAINE ARIEGE GARONNE JORDANYS  PSSE</a> · 031000136 · sans note · 8 communes</li>
+<li><a href="/reseau/031000116/">PLAINE DE RIVIERE</a> · 031000116 · note A · 3 communes</li>
+<li><a href="/reseau/031000052/">POINTIS DE RIVIERE</a> · 031000052 · note A · 1 commune</li>
+<li><a href="/reseau/031000547/">PORTET D'ASPET VILLAGE</a> · 031000547 · note A · 1 commune</li>
+<li><a href="/reseau/031000265/">PORTET DE LUCHON</a> · 031000265 · note A · 1 commune</li>
+<li><a href="/reseau/031000266/">POUBEAU</a> · 031000266 · note A · 1 commune</li>
+<li><a href="/reseau/031000549/">RAZECUEILLE CAZARIL</a> · 031000549 · note B · 1 commune</li>
+<li><a href="/reseau/031000548/">RAZECUEILLE VILLAGE</a> · 031000548 · note D · 1 commune</li>
+<li><a href="/reseau/031000115/">REGION DE ST BEAT</a> · 031000115 · note A · 5 communes</li>
+<li><a href="/reseau/031004121/">RÉSEAU NORD ST MAMET </a> · 031004121 · sans note · 1 commune</li>
+<li><a href="/reseau/031004122/">RESEAU SUD ST MAMET</a> · 031004122 · sans note · 1 commune</li>
+<li><a href="/reseau/031000054/">ROQUEFORT SUR GARONNE</a> · 031000054 · note A · 1 commune</li>
+<li><a href="/reseau/031000284/">SACCOURVIELLE</a> · 031000284 · note A · 1 commune</li>
+<li><a href="/reseau/031003405/">SAGE EAUNES</a> · 031003405 · note A · 1 commune</li>
+<li><a href="/reseau/031004340/">SAGE LONGAGES</a> · 031004340 · note A · 1 commune</li>
+<li><a href="/reseau/031000050/">SAGE NOE</a> · 031000050 · note C · 2 communes</li>
+<li><a href="/reseau/031004177/">SAGE PINSAGUEL</a> · 031004177 · note A · 4 communes</li>
+<li><a href="/reseau/031000099/">SAGE ROQUES</a> · 031000099 · note A · 4 communes</li>
+<li><a href="/reseau/031004178/">SAGE SAUBENS</a> · 031004178 · note A · 6 communes</li>
+<li><a href="/reseau/031000553/">SAINT AVENTIN GOURON</a> · 031000553 · note A · 1 commune</li>
+<li><a href="/reseau/031000559/">SAINT AVENTIN SUPER BAGNERES</a> · 031000559 · note A · 1 commune</li>
+<li><a href="/reseau/031000552/">SAINT AVENTIN VILLAGE</a> · 031000552 · note A · 1 commune</li>
+<li><a href="/reseau/031000055/">SAINT MARTORY</a> · 031000055 · note A · 1 commune</li>
+<li><a href="/reseau/031000285/">SAINT MICHEL</a> · 031000285 · note A · 1 commune</li>
+<li><a href="/reseau/031000267/">SAINT PAUL D'OUEIL</a> · 031000267 · note A · 1 commune</li>
+<li><a href="/reseau/031000268/">SAINT PE D'ARDET</a> · 031000268 · note A · 1 commune</li>
+<li><a href="/reseau/031000286/">SALEICH</a> · 031000286 · note A · 1 commune</li>
+<li><a href="/reseau/031000057/">SALIES DU SALAT</a> · 031000057 · note A · 1 commune</li>
+<li><a href="/reseau/031000556/">SALLES VILLAGE</a> · 031000556 · note A · 1 commune</li>
+<li><a href="/reseau/031000287/">SAUVETERRE DE COMMINGES</a> · 031000287 · note A · 1 commune</li>
+<li><a href="/reseau/031000762/">SENGOUAGNET COUE DE CASSE</a> · 031000762 · note D · 1 commune</li>
+<li><a href="/reseau/031004031/">SENGOUAGNET LAUBAGUE</a> · 031004031 · note A · 1 commune</li>
+<li><a href="/reseau/031001959/">SICOVAL HERS ARIEGE</a> · 031001959 · note A · 2 communes</li>
+<li><a href="/reseau/031001956/">SICOVAL MONTAGNE NOIRE</a> · 031001956 · note A · 10 communes</li>
+<li><a href="/reseau/031001957/">SICOVAL PSSE</a> · 031001957 · note A · 26 communes</li>
+<li><a href="/reseau/031000091/">SIE GIROU HERS SAVE CADOURS</a> · 031000091 · note A · 40 communes</li>
+<li><a href="/reseau/031000107/">SIE VILLEMUR</a> · 031000107 · note A · 6 communes</li>
+<li><a href="/reseau/031000269/">SIGNAC</a> · 031000269 · note D · 1 commune</li>
+<li><a href="/reseau/031000144/">SMDEA CARBONNE</a> · 031000144 · note A · 13 communes</li>
+<li><a href="/reseau/031000141/">SMDEA CAZERES</a> · 031000141 · note A · 3 communes</li>
+<li><a href="/reseau/031000140/">SMDEA COUSERANS</a> · 031000140 · note A · 7 communes</li>
+<li><a href="/reseau/031000139/">SMDEA MAS D'AZIL</a> · 031000139 · note A · 12 communes</li>
+<li><a href="/reseau/031000143/">SMDEA RIEUX</a> · 031000143 · note A · 5 communes</li>
+<li><a href="/reseau/031000098/">SMEA OUEST TOULOUSAIN PROD TOURNEFEUILLE</a> · 031000098 · note A · 2 communes</li>
+<li><a href="/reseau/031000270/">SODE</a> · 031000270 · note A · 1 commune</li>
+<li><a href="/reseau/031000133/">SPEHA</a> · 031000133 · note A · 39 communes</li>
+<li><a href="/reseau/031000109/">ST NERE TROUBAT CLARAC VILLENEUVE</a> · 031000109 · note A · 61 communes</li>
+<li><a href="/reseau/031003691/">ST NERE TROUBAT VILLENEUVE PONLAT</a> · 031003691 · note A · 7 communes</li>
+<li><a href="/reseau/031003692/">ST NERE VILLENEUVE</a> · 031003692 · note A · 24 communes</li>
+<li><a href="/reseau/031000105/">TARN ET GIROU</a> · 031000105 · note A · 15 communes</li>
+<li><a href="/reseau/031001621/">TESTE ROUGE HENNE MORTE</a> · 031001621 · note A · 1 commune</li>
+<li><a href="/reseau/031002810/">TM PRODUCTION MONTAGNE NOIRE</a> · 031002810 · note A · 7 communes</li>
+<li><a href="/reseau/031003025/">TM PRODUCTION MTGNE NOIRE ET TOULOUSE</a> · 031003025 · note A · 1 commune</li>
+<li><a href="/reseau/031002807/">TM PRODUCTION ROQUES </a> · 031002807 · note A · 2 communes</li>
+<li><a href="/reseau/031003100/">TM PRODUCTION ST CAPRAIS</a> · 031003100 · note A · 5 communes</li>
+<li><a href="/reseau/031000006/">TM PRODUCTION TOULOUSE</a> · 031000006 · note A · 19 communes</li>
+<li><a href="/reseau/031002809/">TM PRODUCTION TOURNEFEUILLE</a> · 031002809 · note A · 5 communes</li>
+<li><a href="/reseau/031002808/">TOULOUSE MPOLE N.VEOLIA </a> · 031002808 · sans note · 12 communes</li>
+<li><a href="/reseau/031000271/">TREBONS DE LUCHON</a> · 031000271 · note C · 1 commune</li>
+<li><a href="/reseau/031003658/">VALCABRERE</a> · 031003658 · note A · 1 commune</li>
+<li><a href="/reseau/031003102/">VENERQUE</a> · 031003102 · note A · 1 commune</li>
+<li><a href="/reseau/031000060/">VILLAUDRIC</a> · 031000060 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/31001/">Agassac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31002/">Aignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31003/">Aigrefeuille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31005/">Alan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31006/">Albiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31007/">Ambax</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31008/">Anan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31009/">Antichan-de-Frontignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31010/">Antignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31011/">Arbas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31012/">Arbon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31013/">Ardiège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31014/">Arguenos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31015/">Argut-Dessous</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31017/">Arlos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31018/">Arnaud-Guilhem</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31019/">Artigue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31020/">Aspet</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/31021/">Aspret-Sarrat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31022/">Aucamville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31023/">Aulon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31024/">Auragne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31025/">Aureville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31026/">Auriac-sur-Vendinelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31027/">Auribail</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31028/">Aurignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31029/">Aurin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31030/">Ausseing</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31031/">Ausson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31032/">Aussonne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31033/">Auterive</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31034/">Auzas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31035/">Auzeville-Tolosane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31036/">Auzielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31037/">Avignonet-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31004/">Ayguesvives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31038/">Azas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31039/">Bachas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31040/">Bachos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31041/">Bagiry</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31042/">Bagnères-de-Luchon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31043/">Balesta</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31044/">Balma</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31045/">Barbazan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31046/">Baren</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31047/">Bax</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31048/">Baziège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31049/">Bazus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31050/">Beauchalot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31051/">Beaufort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31052/">Beaumont-sur-Lèze</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31053/">Beaupuy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31054/">Beauteville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31055/">Beauville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31056/">Beauzelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31057/">Belberaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31058/">Belbèze-de-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31059/">Belbèze-en-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31060/">Bélesta-en-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31061/">Bellegarde-Sainte-Marie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31062/">Bellesserre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31063/">Benque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31064/">Benque-Dessous-et-Dessus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31065/">Bérat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31066/">Bessières</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31067/">Bezins-Garraux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31068/">Billière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31590/">Binos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31069/">Blagnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31070/">Blajan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31071/">Bois-de-la-Pierre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31072/">Boissède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31073/">Bondigoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31074/">Bonrepos-Riquet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31075/">Bonrepos-sur-Aussonnelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31076/">Bordes-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31078/">Boudrac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31079/">Bouloc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31080/">Boulogne-sur-Gesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31081/">Bourg-d'Oueil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31082/">Bourg-Saint-Bernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31083/">Boussan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31084/">Boussens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31085/">Boutx</a> · 10 réseaux : 1 noté D, 1 noté C, 8 notés A</li>
+<li><a href="/commune/31086/">Bouzin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31087/">Bragayrac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31088/">Brax</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31089/">Bretx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31090/">Brignemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31091/">Bruguières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31092/">Burgalays</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31094/">Buzet-sur-Tarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31095/">Cabanac-Cazaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31096/">Cabanac-Séguenville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31098/">Cadours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31099/">Caignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31100/">Calmont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31101/">Cambernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31102/">Cambiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31103/">Canens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31104/">Capens</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31105/">Caragoudes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31106/">Caraman</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31107/">Carbonne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31108/">Cardeilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31109/">Cassagnabère-Tournas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31110/">Cassagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31111/">Castagnac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31112/">Castagnède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31113/">Castanet-Tolosan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31114/">Castelbiague</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31115/">Castelgaillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31116/">Castelginest</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31117/">Castelmaurou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31118/">Castelnau-d'Estrétefonds</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31119/">Castelnau-Picampeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31121/">Castéra-Vignoles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31122/">Casties-Labrande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31123/">Castillon-de-Larboust</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31124/">Castillon-de-Saint-Martory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31125/">Cathervielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31126/">Caubiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31127/">Caubous</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31128/">Caujac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31593/">Cazac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31130/">Cazaril-Tambourès</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31129/">Cazarilh-Laspènes</a> · 1 réseau, noté D</li>
+<li><a href="/commune/31131/">Cazaunous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31132/">Cazaux-Layrisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31133/">Cazeaux-de-Larboust</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31134/">Cazeneuve-Montaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31135/">Cazères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31136/">Cépet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31137/">Cessales</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31138/">Charlas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31139/">Chaum</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31140/">Chein-Dessus</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/31141/">Ciadoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31142/">Cier-de-Luchon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31143/">Cier-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31144/">Cierp-Gaud</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/31145/">Cintegabelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31146/">Cirès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31147/">Clarac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31148/">Clermont-le-Fort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31149/">Colomiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31150/">Cornebarrieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31151/">Corronsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31152/">Coueilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31153/">Couladère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31155/">Couret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31156/">Cox</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31157/">Cugnaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31158/">Cuguron</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31160/">Daux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31161/">Deyme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31162/">Donneville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31163/">Drémil-Lafage</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31164/">Drudas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31165/">Eaunes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31166/">Empeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31167/">Encausse-les-Thermes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31168/">Eoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31169/">Escalquens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31170/">Escanecrabe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31591/">Escoulis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31171/">Espanès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31172/">Esparron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31173/">Esperce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31174/">Estadens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31175/">Estancarbon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31176/">Esténos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31177/">Eup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31178/">Fabas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31180/">Falga</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31182/">Fenouillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31183/">Figarol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31184/">Flourens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31185/">Folcarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31186/">Fonbeauzard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31187/">Fonsorbes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31188/">Fontenilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31189/">Forgues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31190/">Fos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31191/">Fougaron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31192/">Fourquevaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31194/">Francarville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31195/">Francazal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31196/">Francon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31197/">Franquevielle</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31199/">Fronsac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31200/">Frontignan-de-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31201/">Frontignan-Savès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31202/">Fronton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31203/">Frouzins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31204/">Fustignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31205/">Gagnac-sur-Garonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31206/">Gaillac-Toulza</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31207/">Galié</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31208/">Ganties</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31209/">Garac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31210/">Gardouch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31211/">Gargas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31212/">Garidech</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31213/">Garin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31215/">Gauré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31216/">Gémil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31217/">Génos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31218/">Gensac-de-Boulogne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31219/">Gensac-sur-Garonne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31220/">Gibel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31221/">Gouaux-de-Larboust</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31222/">Gouaux-de-Luchon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31223/">Goudex</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31224/">Gourdan-Polignan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31225/">Goutevernisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31226/">Gouzens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31227/">Goyrans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31228/">Gragnague</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31229/">Gratens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31230/">Gratentour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31231/">Grazac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31232/">Grenade</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31233/">Grépiac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31235/">Guran</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31236/">Herran</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31237/">His</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31238/">Huos</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31240/">Issus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31241/">Izaut-de-l'Hôtel</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31242/">Jurvielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31243/">Juzes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31245/">Juzet-d'Izaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31244/">Juzet-de-Luchon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31239/">L'Isle-en-Dodon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31561/">L'Union</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31311/">La Magdelaine-sur-Tarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31527/">La Salvetat-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31526/">La Salvetat-Saint-Gilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31246/">Labarthe-Inard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31247/">Labarthe-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31248/">Labarthe-sur-Lèze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31249/">Labastide-Beauvoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31250/">Labastide-Clermont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31251/">Labastide-Paumès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31252/">Labastide-Saint-Sernin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31253/">Labastidette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31254/">Labège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31255/">Labroquère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31256/">Labruyère-Dorsa</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31258/">Lacaugne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31259/">Lacroix-Falgarde</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31260/">Laffite-Toupière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31261/">Lafitte-Vigordane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31262/">Lagarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31263/">Lagardelle-sur-Lèze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31264/">Lagrâce-Dieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31265/">Lagraulet-Saint-Nicolas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31266/">Lahage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31267/">Lahitère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31268/">Lalouret-Laffiteau</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31269/">Lamasquère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31270/">Landorthe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31271/">Lanta</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31272/">Lapeyrère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31273/">Lapeyrouse-Fossat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31274/">Larcan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31275/">Laréole</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31592/">Larra</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31276/">Larroque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31277/">Lasserre-Pradère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31278/">Latoue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31279/">Latour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31280/">Latrape</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31281/">Launac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31282/">Launaguet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31283/">Lautignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31284/">Lauzerville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31285/">Lavalette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31286/">Lavelanet-de-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31287/">Lavernose-Lacasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31288/">Layrac-sur-Tarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31077/">Le Born</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31093/">Le Burgaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31097/">Le Cabanial</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31120/">Le Castéra</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31159/">Le Cuing</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31179/">Le Faget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31181/">Le Fauga</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31193/">Le Fousseret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31198/">Le Fréchet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31234/">Le Grès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31419/">Le Pin-Murelet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31425/">Le Plan</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31289/">Lécussan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31290/">Lège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31291/">Léguevin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31556/">Les Tourreilles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31292/">Lescuns</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31293/">Lespinasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31294/">Lespiteau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31295/">Lespugue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31296/">Lestelle-de-Saint-Martory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31297/">Lévignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31299/">Lherm</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31300/">Lieoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31301/">Lilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31302/">Lodes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31303/">Longages</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31304/">Loubens-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31305/">Loudet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31306/">Lourde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31308/">Luscan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31309/">Lussan-Adeilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31310/">Lux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31312/">Mailholas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31313/">Malvezie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31314/">Mancioux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31315/">Mane</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31316/">Marignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31317/">Marignac-Lasclares</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31318/">Marignac-Laspeyres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31319/">Marliac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31320/">Marquefave</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31321/">Marsoulas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31322/">Martisserre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31323/">Martres-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31324/">Martres-Tolosane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31325/">Mascarville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31326/">Massabrac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31327/">Mauran</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31328/">Mauremont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31329/">Maurens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31330/">Mauressac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31331/">Maureville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31332/">Mauvaisin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31333/">Mauvezin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31334/">Mauzac</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/31335/">Mayrègne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31336/">Mazères-sur-Salat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31337/">Melles</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/31338/">Menville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31339/">Mérenvielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31340/">Mervilla</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31341/">Merville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31342/">Milhas</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/31343/">Mirambeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31344/">Miramont-de-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31345/">Miremont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31346/">Mirepoix-sur-Tarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31347/">Molas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31348/">Moncaup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31349/">Mondavezan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31350/">Mondilhan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31351/">Mondonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31352/">Mondouzil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31353/">Monès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31354/">Monestrol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31355/">Mons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31369/">Mont-de-Galié</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31356/">Montaigut-sur-Save</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31357/">Montastruc-de-Salies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31358/">Montastruc-la-Conseillère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31359/">Montastruc-Savès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31360/">Montauban-de-Luchon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31361/">Montaut</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31362/">Montberaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31363/">Montbernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31364/">Montberon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31365/">Montbrun-Bocage</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31366/">Montbrun-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31367/">Montclar-de-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31368/">Montclar-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31370/">Montégut-Bourjac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31371/">Montégut-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31372/">Montespan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31373/">Montesquieu-Guittaut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31374/">Montesquieu-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31375/">Montesquieu-Volvestre</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/31376/">Montgaillard-de-Salies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31377/">Montgaillard-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31378/">Montgaillard-sur-Save</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31379/">Montgazin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31380/">Montgeard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31381/">Montgiscard</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31382/">Montgras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31383/">Montjoire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31384/">Montlaur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31385/">Montmaurin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31386/">Montoulieu-Saint-Bernard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31387/">Montoussin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31388/">Montpitol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31389/">Montrabé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31390/">Montréjeau</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/31391/">Montsaunès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31392/">Mourvilles-Basses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31393/">Mourvilles-Hautes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31394/">Moustajon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31395/">Muret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31396/">Nailloux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31397/">Nénigan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31398/">Nizan-Gesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31399/">Noé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31400/">Nogaret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31401/">Noueilles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31402/">Odars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31403/">Ondes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31404/">Oô</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/31405/">Ore</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31406/">Palaminy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31407/">Paulhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31408/">Payssous</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31409/">Péchabou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31410/">Pechbonnieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31411/">Pechbusque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31412/">Péguilhan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31413/">Pelleport</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31414/">Peyrissas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31415/">Peyrouzet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31416/">Peyssies</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31417/">Pibrac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31418/">Pin-Balma</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31421/">Pins-Justaret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31420/">Pinsaguel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31422/">Plagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31423/">Plagnole</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31424/">Plaisance-du-Touch</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31426/">Pointis-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31427/">Pointis-Inard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31428/">Polastron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31429/">Pompertuzat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31430/">Ponlat-Taillebourg</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/31431/">Portet-d'Aspet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31432/">Portet-de-Luchon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31433/">Portet-sur-Garonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31434/">Poubeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31435/">Poucharramet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31436/">Pouy-de-Touges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31437/">Pouze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31439/">Préserville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31440/">Proupiary</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31441/">Prunet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31442/">Puydaniel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31443/">Puymaurin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31444/">Puysségur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31445/">Quint-Fonsegrives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31446/">Ramonville-Saint-Agne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31447/">Razecueillé</a> · 3 réseaux : 1 noté D, 1 noté B, 1 noté A</li>
+<li><a href="/commune/31448/">Rebigue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31449/">Régades</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31450/">Renneville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31451/">Revel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31452/">Rieucazé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31453/">Rieumajou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31454/">Rieumes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31455/">Rieux-Volvestre</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/31456/">Riolas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31457/">Roquefort-sur-Garonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31458/">Roques</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31459/">Roquesérière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31460/">Roquettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31461/">Rouède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31462/">Rouffiac-Tolosan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31463/">Roumens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31464/">Sabonnères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31465/">Saccourvielle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31466/">Saiguède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31467/">Saint-Alban</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31468/">Saint-André</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31469/">Saint-Araille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31470/">Saint-Aventin</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/31471/">Saint-Béat-Lez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31472/">Saint-Bertrand-de-Comminges</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31473/">Saint-Cézert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31474/">Saint-Christaud</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/31475/">Saint-Clar-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31476/">Saint-Élix-le-Château</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31477/">Saint-Élix-Séglan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31478/">Saint-Félix-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31479/">Saint-Ferréol-de-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31482/">Saint-Frajou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31483/">Saint-Gaudens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31484/">Saint-Geniès-Bellevue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31485/">Saint-Germier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31486/">Saint-Hilaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31487/">Saint-Ignan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31488/">Saint-Jean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31489/">Saint-Jean-Lherm</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31490/">Saint-Jory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31491/">Saint-Julia</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31492/">Saint-Julien-sur-Garonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31493/">Saint-Lary-Boujean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31494/">Saint-Laurent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31495/">Saint-Léon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31497/">Saint-Loup-Cammas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31498/">Saint-Loup-en-Comminges</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31499/">Saint-Lys</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31500/">Saint-Mamet</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/31501/">Saint-Marcel-Paulel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31502/">Saint-Marcet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31503/">Saint-Martory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31504/">Saint-Médard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31505/">Saint-Michel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31506/">Saint-Orens-de-Gameville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31508/">Saint-Paul-d'Oueil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31507/">Saint-Paul-sur-Save</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31509/">Saint-Pé-d'Ardet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31510/">Saint-Pé-Delbosc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31511/">Saint-Pierre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31512/">Saint-Pierre-de-Lages</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31513/">Saint-Plancard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31514/">Saint-Rome</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31515/">Saint-Rustice</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31516/">Saint-Sauveur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31517/">Saint-Sulpice-sur-Lèze</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31518/">Saint-Thomas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31519/">Saint-Vincent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31480/">Sainte-Foy-d'Aigrefeuille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31481/">Sainte-Foy-de-Peyrolières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31496/">Sainte-Livrade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31520/">Sajas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31521/">Saleich</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31522/">Salerm</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31523/">Salies-du-Salat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/31524/">Salles-et-Pratviel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31525/">Salles-sur-Garonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31528/">Saman</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31529/">Samouillan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31530/">Sana</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31531/">Sarrecave</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31532/">Sarremezan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31533/">Saubens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31534/">Saussens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31535/">Sauveterre-de-Comminges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31536/">Saux-et-Pomarède</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/31537/">Savarthès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31538/">Savères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31539/">Sédeilhac</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31540/">Ségreville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31541/">Seilh</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31542/">Seilhan</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/31543/">Sénarens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31544/">Sengouagnet</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/31545/">Sepx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31546/">Seyre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31547/">Seysses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31548/">Signac</a> · 1 réseau, noté D</li>
+<li><a href="/commune/31549/">Sode</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31550/">Soueich</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31551/">Tarabel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31552/">Terrebasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31553/">Thil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31554/">Touille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31555/">Toulouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31557/">Tournefeuille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31558/">Toutens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31559/">Trébons-de-Luchon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31560/">Trébons-sur-la-Grasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31562/">Urau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31563/">Vacquiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31564/">Valcabrère</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31565/">Valentine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31566/">Vallègue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31567/">Vallesvilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31568/">Varennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31569/">Vaudreuille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31570/">Vaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31571/">Vendine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31572/">Venerque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31573/">Verfeil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31574/">Vernet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31575/">Vieille-Toulouse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31576/">Vieillevigne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31577/">Vignaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31578/">Vigoulet-Auzil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31579/">Villariès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31580/">Villate</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31581/">Villaudric</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31582/">Villefranche-de-Lauragais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31583/">Villematier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31584/">Villemur-sur-Tarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31585/">Villeneuve-de-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31586/">Villeneuve-Lécussan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/31587/">Villeneuve-lès-Bouloc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31588/">Villeneuve-Tolosane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/31589/">Villenouvelle</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Haute-Garonne · eau du robinet », https://meteodurobinet.fr/departement/31/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+import{a as n,j as s,N as c}from"./index-Cxv4TnZB.js";function r(){const{pathname:a,search:t}=n(),e=/^\/(commune|reseau)\/([^/]+)\/(detail|analyses)\/?$/.exec(a);return s(c,{to:e?{pathname:`/${e[1]}/${e[2]}`,search:t,hash:`#${e[3]}`}:"/",replace:!0})}export{r as default};

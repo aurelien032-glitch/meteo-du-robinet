@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Essonne (91) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Essonne · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Essonne (91) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/91/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Essonne · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Essonne · eau du robinet","url":"https://meteodurobinet.fr/departement/91/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Essonne","item":"https://meteodurobinet.fr/departement/91/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/91/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Essonne</h1>
+<p class="meta">Département 91</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>6 sur 95 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 85 réseaux</li>
+<li>B qualité convenable* : 4 réseaux</li>
+<li>C qualité insuffisante* : 5 réseaux</li>
+<li>D mauvaise qualité* : 1 réseau</li>
+</ul>
+<p>Pesticides 4, bactériologie 1.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>10 réseaux visés sur 95</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>142 prélèvements</strong> évalués en septembre 2026 ; 1 522 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : vigilance 36 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2026 en cours : vigilance 16 jours, alerte 0 jour, alerte renforcée 66 jours, crise 40 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,07</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 25 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>37 services d’eau</strong> desservent au moins une commune du département ; 9 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 98 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/091000442/">ABAN DRAVEIL</a> · 091000442 · sans note · 1 commune</li>
+<li><a href="/reseau/091004209/">ABAN GPS TTP MORSANG</a> · 091004209 · sans note · 2 communes</li>
+<li><a href="/reseau/091000228/">ANGERVILLE</a> · 091000228 · note A · 1 commune</li>
+<li><a href="/reseau/091004306/">ATHIS-MONS</a> · 091004306 · note B · 1 commune</li>
+<li><a href="/reseau/091000160/">BLANDY BROUY</a> · 091000160 · note A · 2 communes</li>
+<li><a href="/reseau/091000162/">BOIGNEVILLE</a> · 091000162 · note C · 1 commune</li>
+<li><a href="/reseau/091000231/">BOISSY LE CUTTE</a> · 091000231 · note A · 1 commune</li>
+<li><a href="/reseau/091003883/">BOUSSY-SAINT-ANTOINE</a> · 091003883 · note A · 1 commune</li>
+<li><a href="/reseau/091003860/">BRIIS TTP GOMETZ</a> · 091003860 · note A · 1 commune</li>
+<li><a href="/reseau/091003877/">BRIIS-HAMEAUX COUDRAY ET LAUNAY</a> · 091003877 · note A · 1 commune</li>
+<li><a href="/reseau/091000687/">BUNO-MEZIERES/AEROCLUB</a> · 091000687 · note A · 1 commune</li>
+<li><a href="/reseau/091003869/">CAVYVS TTP BELLE ETOILE</a> · 091003869 · note A · 5 communes</li>
+<li><a href="/reseau/091003868/">CAVYVS VIGNEUX</a> · 091003868 · note A · 1 commune</li>
+<li><a href="/reseau/091000201/">CC2V MILLY BOURG ONCY</a> · 091000201 · note C · 2 communes</li>
+<li><a href="/reseau/091000197/">CC2V MILLY LES FERMES+ ZA CHENET</a> · 091000197 · note D · 1 commune</li>
+<li><a href="/reseau/091000210/">CC2V VALLEE DE L'ECOLE</a> · 091000210 · note A · 4 communes</li>
+<li><a href="/reseau/091000214/">CC2V VALLEE DE L'ECOLE VIDELLES</a> · 091000214 · note A · 1 commune</li>
+<li><a href="/reseau/091000238/">CCEJR SMTC</a> · 091000238 · note A · 4 communes</li>
+<li><a href="/reseau/091000326/">CCEJR VALLEE DE LA JUINE CLOSEAUX</a> · 091000326 · note A · 4 communes</li>
+<li><a href="/reseau/091004234/">CCEJR VALLEE DE LA JUINE PB</a> · 091004234 · note A · 2 communes</li>
+<li><a href="/reseau/091000685/">CERNY- HAMEAU DE BOINVEAU</a> · 091000685 · note A · 1 commune</li>
+<li><a href="/reseau/091000152/">CHALO SAINT HILAIRE</a> · 091000152 · note A · 2 communes</li>
+<li><a href="/reseau/091000043/">CHAMPMOTTEUX</a> · 091000043 · note A · 1 commune</li>
+<li><a href="/reseau/091000982/">CHATIGNONVILLE (SEASY)</a> · 091000982 · note A · 1 commune</li>
+<li><a href="/reseau/091004259/">COEUR D'ESSONNE BRUYERES LE CHATEL</a> · 091004259 · note A · 1 commune</li>
+<li><a href="/reseau/091004213/">COEUR D'ESSONNE HUREPOIX</a> · 091004213 · note A · 11 communes</li>
+<li><a href="/reseau/091003850/">COEUR D'ESSONNE RECLO STE GENEVIEVE</a> · 091003850 · note A · 2 communes</li>
+<li><a href="/reseau/091003845/">COEUR D'ESSONNE TTP MORSANG</a> · 091003845 · note A · 2 communes</li>
+<li><a href="/reseau/091003891/">COEUR D'ESSONNE TTP RECHLO SGDB VIRY</a> · 091003891 · note A · 2 communes</li>
+<li><a href="/reseau/091003844/">COEUR D'ESSONNE TTP VIRY</a> · 091003844 · note A · 3 communes</li>
+<li><a href="/reseau/091000342/">CORBEIL ESSONNES</a> · 091000342 · note A · 1 commune</li>
+<li><a href="/reseau/091000143/">CORBREUSE</a> · 091000143 · note A · 1 commune</li>
+<li><a href="/reseau/091000145/">DOMAINE DE L'EPINE ITTEVILLE</a> · 091000145 · note A · 1 commune</li>
+<li><a href="/reseau/091000366/">DOURDAN</a> · 091000366 · note C · 1 commune</li>
+<li><a href="/reseau/091000257/">ECHARCON TTP BOIS BLANC</a> · 091000257 · note A · 1 commune</li>
+<li><a href="/reseau/091003866/">EPINAY-QUINCY SOUS SENART</a> · 091003866 · note B · 2 communes</li>
+<li><a href="/reseau/091000320/">ESTOUCHES</a> · 091000320 · note A · 1 commune</li>
+<li><a href="/reseau/091000354/">ETAMPES</a> · 091000354 · note A · 1 commune</li>
+<li><a href="/reseau/091000521/">ETAMPES GUIGNONVILLE</a> · 091000521 · note A · 1 commune</li>
+<li><a href="/reseau/091000334/">ETRECHY</a> · 091000334 · note A · 1 commune</li>
+<li><a href="/reseau/091003861/">FORGES CHARDONNET MALASSIS TTP GOMETZ</a> · 091003861 · note A · 1 commune</li>
+<li><a href="/reseau/091003859/">GOMETZ LA VILLE TTP GOMETZ</a> · 091003859 · note A · 1 commune</li>
+<li><a href="/reseau/091000447/">GOMETZ LE CHATEL</a> · 091000447 · note A · 1 commune</li>
+<li><a href="/reseau/091000204/">GPS EVRY ET AUTRES</a> · 091000204 · note A · 8 communes</li>
+<li><a href="/reseau/091003894/">GPS SAINTRY TTP CANARDIERES</a> · 091003894 · note A · 5 communes</li>
+<li><a href="/reseau/091003852/">GRIGNY TTP VIRY</a> · 091003852 · note A · 1 commune</li>
+<li><a href="/reseau/091003862/">JANVRY TTP GOMETZ</a> · 091003862 · note A · 1 commune</li>
+<li><a href="/reseau/091003857/">LIMOURS TTP GOMETZ</a> · 091003857 · note A · 1 commune</li>
+<li><a href="/reseau/091000168/">MEREVILLE</a> · 091000168 · note A · 1 commune</li>
+<li><a href="/reseau/091004257/">MOIGNY SUR ECOLE (FERME DE LAUNAY)</a> · 091004257 · note A · 1 commune</li>
+<li><a href="/reseau/091000164/">MONNERVILLE</a> · 091000164 · note A · 1 commune</li>
+<li><a href="/reseau/091000192/">ORMOY LA RIVIERE</a> · 091000192 · note A · 1 commune</li>
+<li><a href="/reseau/091000456/">ORSAY CENTRE</a> · 091000456 · note A · 1 commune</li>
+<li><a href="/reseau/091003893/">PARIS SACLAY TTP SAULX</a> · 091003893 · note A · 6 communes</li>
+<li><a href="/reseau/091003863/">PECQUEUSE TTP MORSANG</a> · 091003863 · note A · 1 commune</li>
+<li><a href="/reseau/091000367/">PLATEAU DE BEAUCE NORD</a> · 091000367 · note A · 3 communes</li>
+<li><a href="/reseau/091000569/">PLATEAU DE BEAUCE SUD</a> · 091000569 · note A · 13 communes</li>
+<li><a href="/reseau/091003851/">PS RECHLO STE GENEVIEVE</a> · 091003851 · note A · 1 commune</li>
+<li><a href="/reseau/091003855/">PS SAVIGNY</a> · 091003855 · note A · 1 commune</li>
+<li><a href="/reseau/091003864/">PS TTP CHAMPLAN</a> · 091003864 · note A · 1 commune</li>
+<li><a href="/reseau/091003865/">PS TTP FAC VALLEE</a> · 091003865 · note A · 1 commune</li>
+<li><a href="/reseau/091004211/">PS TTP LINAS FAC VALLEE         </a> · 091004211 · note A · 1 commune</li>
+<li><a href="/reseau/091004212/">PS TTP LINAS SAULX</a> · 091004212 · note A · 2 communes</li>
+<li><a href="/reseau/091003892/">PS TTP MORSANG</a> · 091003892 · note A · 2 communes</li>
+<li><a href="/reseau/091003882/">PS TTP SAULX SAVIGNY</a> · 091003882 · note A · 6 communes</li>
+<li><a href="/reseau/091003846/">PS TTP VIRY</a> · 091003846 · note A · 1 commune</li>
+<li><a href="/reseau/091000301/">PUSSAY</a> · 091000301 · note A · 1 commune</li>
+<li><a href="/reseau/091000479/">RESIDENCE BRUYERES (VILLEBON)</a> · 091000479 · note A · 1 commune</li>
+<li><a href="/reseau/091003856/">RESO TTP SAVIGNY</a> · 091003856 · note A · 2 communes</li>
+<li><a href="/reseau/091004233/">RESO TTP VIRY</a> · 091004233 · note A · 1 commune</li>
+<li><a href="/reseau/091000276/">RICHARVILLE</a> · 091000276 · note A · 1 commune</li>
+<li><a href="/reseau/091000323/">SACLAS</a> · 091000323 · note A · 1 commune</li>
+<li><a href="/reseau/091004305/">SACLAY-VAUHALLAN</a> · 091004305 · note A · 2 communes</li>
+<li><a href="/reseau/091000306/">SAINT CHERON BOURG</a> · 091000306 · note A · 1 commune</li>
+<li><a href="/reseau/091000305/">SAINT CHERON HAUT (BAVILLE)</a> · 091000305 · note A · 1 commune</li>
+<li><a href="/reseau/091000560/">SEDIF NORD 91</a> · 091000560 · note B · 8 communes</li>
+<li><a href="/reseau/091000561/">SEDIF SUD 91 </a> · 091000561 · sans note · 2 communes</li>
+<li><a href="/reseau/091000412/">SEOE ANGERVILLIERS EST</a> · 091000412 · note A · 5 communes</li>
+<li><a href="/reseau/091000413/">SEOE ANGERVILLIERS OUEST</a> · 091000413 · note C · 5 communes</li>
+<li><a href="/reseau/091000824/">SEOE EAUX DE LAVENELLE</a> · 091000824 · note A · 3 communes</li>
+<li><a href="/reseau/091000361/">SEOE EAUX DU ROI </a> · 091000361 · note A · 2 communes</li>
+<li><a href="/reseau/091000280/">SI PLESSIS SAINT BENOIST</a> · 091000280 · note A · 5 communes</li>
+<li><a href="/reseau/091000251/">SIARCE BAULNE</a> · 091000251 · note A · 6 communes</li>
+<li><a href="/reseau/091000282/">SIARCE BOUTIGNY VAYRES</a> · 091000282 · note A · 2 communes</li>
+<li><a href="/reseau/091000218/">SIARCE CHAMPCUEIL</a> · 091000218 · note A · 7 communes</li>
+<li><a href="/reseau/091000262/">SIARCE GIRONVILLE</a> · 091000262 · note A · 3 communes</li>
+<li><a href="/reseau/091000392/">SIARCE HUREPOIX BALLANCOURT</a> · 091000392 · note A · 1 commune</li>
+<li><a href="/reseau/091000400/">SIARCE HUREPOIX BOIS BLANCS</a> · 091000400 · note A · 7 communes</li>
+<li><a href="/reseau/091000504/">SIARCE HUREPOIX JUINE</a> · 091000504 · note A · 2 communes</li>
+<li><a href="/reseau/091003842/">SIARCE MAISSE - COURDIMANCHE</a> · 091003842 · note A · 2 communes</li>
+<li><a href="/reseau/091004208/">SIARCE TTP MORSANG</a> · 091004208 · note A · 3 communes</li>
+<li><a href="/reseau/091003858/">SIERC TTP GOMETZ</a> · 091003858 · note A · 2 communes</li>
+<li><a href="/reseau/091000466/">ST JEAN DE BEAUREGARD TTP LINAS</a> · 091000466 · note A · 1 commune</li>
+<li><a href="/reseau/091000175/">VALLEES HTE JUINE EST</a> · 091000175 · note A · 1 commune</li>
+<li><a href="/reseau/091000172/">VALLEES HTE JUINE OUEST</a> · 091000172 · note C · 2 communes</li>
+<li><a href="/reseau/091003867/">VARENNES TTP TIGERY CHAMPI NORD</a> · 091003867 · note B · 1 commune</li>
+<li><a href="/reseau/091000294/">VILLECONIN</a> · 091000294 · note A · 1 commune</li>
+<li><a href="/reseau/091001290/">VIRY CHATILLON</a> · 091001290 · note A · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/91001/">Abbéville-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91016/">Angerville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91017/">Angervilliers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91021/">Arpajon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91022/">Arrancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91027/">Athis-Mons</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91035/">Authon-la-Plaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91037/">Auvernaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91038/">Auvers-Saint-Georges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91041/">Avrainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91044/">Ballainvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91045/">Ballancourt-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91047/">Baulne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91064/">Bièvres</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91067/">Blandy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91069/">Boigneville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91075/">Bois-Herpin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91079/">Boissy-la-Rivière</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91080/">Boissy-le-Cutté</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91081/">Boissy-le-Sec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91085/">Boissy-sous-Saint-Yon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91086/">Bondoufle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91093/">Boullay-les-Troux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91095/">Bouray-sur-Juine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91097/">Boussy-Saint-Antoine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91098/">Boutervilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91099/">Boutigny-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91100/">Bouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91103/">Brétigny-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91105/">Breuillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91106/">Breux-Jouy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91109/">Brières-les-Scellés</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91111/">Briis-sous-Forges</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91112/">Brouy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91114/">Brunoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91115/">Bruyères-le-Châtel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91121/">Buno-Bonnevaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91122/">Bures-sur-Yvette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91129/">Cerny</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91130/">Chalo-Saint-Mars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91131/">Chalou-Moulineux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91132/">Chamarande</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91135/">Champcueil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91136/">Champlan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91137/">Champmotteux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91145/">Chatignonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91148/">Chauffour-lès-Étréchy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91156/">Cheptainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91159/">Chevannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91161/">Chilly-Mazarin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91613/">Congerville-Thionville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91174/">Corbeil-Essonnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91175/">Corbreuse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91180/">Courances</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91184/">Courdimanche-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91186/">Courson-Monteloup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91191/">Crosne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91198/">D'Huison-Longueville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91195/">Dannemois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91200/">Dourdan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91201/">Draveil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91204/">Écharcon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91207/">Égly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91215/">Épinay-sous-Sénart</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91216/">Épinay-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91223/">Étampes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91225/">Étiolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91226/">Étréchy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91228/">Évry-Courcouronnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91235/">Fleury-Mérogis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91240/">Fontaine-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91244/">Fontenay-le-Vicomte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91243/">Fontenay-lès-Briis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91249/">Forges-les-Bains</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/91272/">Gif-sur-Yvette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91273/">Gironville-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91274/">Gometz-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91275/">Gometz-le-Châtel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91286/">Grigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91292/">Guibeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91293/">Guigneville-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91294/">Guillerval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91312/">Igny</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91315/">Itteville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91318/">Janville-sur-Juine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91319/">Janvry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91326/">Juvisy-sur-Orge</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91232/">La Ferté-Alais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91247/">La Forêt-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91248/">La Forêt-Sainte-Croix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91457/">La Norville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91665/">La Ville-du-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91330/">Lardy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91179/">Le Coudray-Montceaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91390/">Le Mérévillois</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91494/">Le Plessis-Pâté</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91630/">Le Val-Saint-Germain</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91284/">Les Granges-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91411/">Les Molières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91692/">Les Ulis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91332/">Leudeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91333/">Leuville-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91338/">Limours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91339/">Linas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91340/">Lisses</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91345/">Longjumeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91347/">Longpont-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91359/">Maisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91363/">Marcoussis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91374/">Marolles-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91376/">Marolles-en-Hurepoix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91377/">Massy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91378/">Mauchamps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91386/">Mennecy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91393/">Mérobert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91399/">Mespuits</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91405/">Milly-la-Forêt</a> · 2 réseaux : 1 noté D, 1 noté C</li>
+<li><a href="/commune/91408/">Moigny-sur-École</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91412/">Mondeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91414/">Monnerville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91421/">Montgeron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91425/">Montlhéry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91432/">Morangis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91433/">Morigny-Champigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91434/">Morsang-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91435/">Morsang-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91441/">Nainville-les-Roches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91458/">Nozay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91461/">Ollainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91463/">Oncy-sur-École</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91468/">Ormoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91469/">Ormoy-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91471/">Orsay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91473/">Orveau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91477/">Palaiseau</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/91479/">Paray-Vieille-Poste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91482/">Pecqueuse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91495/">Plessis-Saint-Benoist</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91507/">Prunay-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91508/">Puiselet-le-Marais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91511/">Pussay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91514/">Quincy-sous-Sénart</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91519/">Richarville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91521/">Ris-Orangis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91525/">Roinville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91526/">Roinvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91533/">Saclas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91534/">Saclay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91538/">Saint-Aubin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91540/">Saint-Chéron</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91544/">Saint-Cyr-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91546/">Saint-Cyr-sous-Dourdan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/91547/">Saint-Escobille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91552/">Saint-Germain-lès-Arpajon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91553/">Saint-Germain-lès-Corbeil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91556/">Saint-Hilaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91560/">Saint-Jean-de-Beauregard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91568/">Saint-Maurice-Montcouronne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91570/">Saint-Michel-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91573/">Saint-Pierre-du-Perray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91578/">Saint-Sulpice-de-Favières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91579/">Saint-Vrain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91581/">Saint-Yon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91549/">Sainte-Geneviève-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91577/">Saintry-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91587/">Saulx-les-Chartreux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91589/">Savigny-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91593/">Sermaise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91599/">Soisy-sur-École</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91600/">Soisy-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91602/">Souzy-la-Briche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91617/">Tigery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91619/">Torfou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91629/">Valpuiseaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91631/">Varennes-Jarcy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91634/">Vaugrigneuse</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/91635/">Vauhallan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91639/">Vayres-sur-Essonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91645/">Verrières-le-Buisson</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91648/">Vert-le-Grand</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91649/">Vert-le-Petit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91654/">Videlles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91657/">Vigneux-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91659/">Villabé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91661/">Villebon-sur-Yvette</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/91662/">Villeconin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91666/">Villejust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91667/">Villemoisson-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91671/">Villeneuve-sur-Auvers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91679/">Villiers-le-Bâcle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91685/">Villiers-sur-Orge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91687/">Viry-Châtillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/91689/">Wissous</a> · 1 réseau, noté B</li>
+<li><a href="/commune/91691/">Yerres</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Essonne · eau du robinet », https://meteodurobinet.fr/departement/91/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

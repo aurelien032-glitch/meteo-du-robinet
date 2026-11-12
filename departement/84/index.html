@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Vaucluse (84) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Vaucluse · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Vaucluse (84) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/84/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Vaucluse · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Vaucluse · eau du robinet","url":"https://meteodurobinet.fr/departement/84/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Vaucluse","item":"https://meteodurobinet.fr/departement/84/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/84/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Vaucluse</h1>
+<p class="meta">Département 84</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>3 sur 61 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 58 réseaux</li>
+<li>B qualité convenable* : 0 réseau</li>
+<li>C qualité insuffisante* : 1 réseau</li>
+<li>D mauvaise qualité* : 2 réseaux</li>
+</ul>
+<p>Les notes C et D tiennent à la bactériologie (3 réseaux, dont 2 notés D).</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>110 prélèvements</strong> évalués en septembre 2026 ; 767 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 8 jours, alerte 79 jours, alerte renforcée 15 jours, crise 0 jour</li>
+<li>2025 : vigilance 8 jours, alerte 61 jours, alerte renforcée 48 jours, crise 0 jour</li>
+<li>2026 en cours : vigilance 27 jours, alerte 5 jours, alerte renforcée 97 jours, crise 0 jour</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,20</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 15 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>23 services d’eau</strong> desservent au moins une commune du département ; 9 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 64 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/084000009/">ABA ADDUCTION COMMUNALE CADEROUSSE</a> · 084000009 · sans note · 1 commune</li>
+<li><a href="/reseau/084000187/">ABA ADDUCTION COMMUNALE MORIERES</a> · 084000187 · sans note · 1 commune</li>
+<li><a href="/reseau/084000006/">ADD ORANGE/CADEROUSSE</a> · 084000006 · note A · 2 communes</li>
+<li><a href="/reseau/084000048/">ADD. COM. BRANTES</a> · 084000048 · note A · 1 commune</li>
+<li><a href="/reseau/084000240/">ADD. COM. BRANTES HAMEAU LES BERNARD</a> · 084000240 · note A · 1 commune</li>
+<li><a href="/reseau/084000019/">ADD. COMM. DE JONQUERETTES</a> · 084000019 · note A · 1 commune</li>
+<li><a href="/reseau/084001951/">ADD. COMM. LOURMARIN-GRAVIERE</a> · 084001951 · note A · 1 commune</li>
+<li><a href="/reseau/084000372/">ADD.COM. CAROMB BAS SERVICE</a> · 084000372 · note A · 1 commune</li>
+<li><a href="/reseau/084000055/">ADD.COM. CAROMB HAUT SERVICE</a> · 084000055 · note A · 1 commune</li>
+<li><a href="/reseau/084000191/">ADD.COMM. LOURMARIN-ST ANDRE</a> · 084000191 · note A · 1 commune</li>
+<li><a href="/reseau/084000096/">ADD.SAINT MARTIN DE CASTILLON</a> · 084000096 · note A · 1 commune</li>
+<li><a href="/reseau/084002006/">ADDU COM. CASENEUVE- MERLE-NAISSES</a> · 084002006 · note A · 1 commune</li>
+<li><a href="/reseau/084000112/">ADDU. COM. CASENEUVE VILLAGE</a> · 084000112 · note A · 1 commune</li>
+<li><a href="/reseau/084000086/">ADDUC COMM D'AURIBEAU</a> · 084000086 · note A · 1 commune</li>
+<li><a href="/reseau/084000180/">ADDUC SYND VILLEDIEU</a> · 084000180 · note A · 2 communes</li>
+<li><a href="/reseau/084000250/">ADDUC. ECOLE DE LA BARTHELASSE</a> · 084000250 · note A · 1 commune</li>
+<li><a href="/reseau/084000242/">ADDUC. ECOLE DE MARTIGNAN</a> · 084000242 · note A · 1 commune</li>
+<li><a href="/reseau/084000207/">ADDUC. SAULT SAINT JEAN LES COURTOIS</a> · 084000207 · note A · 1 commune</li>
+<li><a href="/reseau/084000210/">ADDUC. SYND. BELEZY BEDOIN</a> · 084000210 · note A · 1 commune</li>
+<li><a href="/reseau/084000200/">ADDUC. SYND. CANTON DE SAULT</a> · 084000200 · note A · 4 communes</li>
+<li><a href="/reseau/084000076/">ADDUC.CHATEAUNEUF DE GADAGNE</a> · 084000076 · note A · 1 commune</li>
+<li><a href="/reseau/084000222/">ADDUC.SORGUES</a> · 084000222 · note A · 12 communes</li>
+<li><a href="/reseau/084000170/">ADDUC.SYN.PERNES LES FONTAINES</a> · 084000170 · note A · 1 commune</li>
+<li><a href="/reseau/084000052/">ADDUC.SYND .BEAUMONT  VENTOUX</a> · 084000052 · note A · 1 commune</li>
+<li><a href="/reseau/084000182/">ADDUCT.SYND.MIXTE VAISON</a> · 084000182 · note A · 7 communes</li>
+<li><a href="/reseau/084000024/">ADDUCTION  COMMUNALE  GRILLON</a> · 084000024 · note A · 1 commune</li>
+<li><a href="/reseau/084004715/">ADDUCTION BEDOIN</a> · 084004715 · note A · 3 communes</li>
+<li><a href="/reseau/084000091/">ADDUCTION COMMUNALE CASTELLET</a> · 084000091 · note D · 1 commune</li>
+<li><a href="/reseau/084000070/">ADDUCTION COMMUNALE D'APT</a> · 084000070 · note A · 1 commune</li>
+<li><a href="/reseau/084000081/">ADDUCTION COMMUNALE DE BUOUX</a> · 084000081 · note A · 1 commune</li>
+<li><a href="/reseau/084000088/">ADDUCTION COMMUNALE DE GIGNAC</a> · 084000088 · note A · 1 commune</li>
+<li><a href="/reseau/084000108/">ADDUCTION COMMUNALE DE RUSTREL</a> · 084000108 · note A · 1 commune</li>
+<li><a href="/reseau/084000105/">ADDUCTION COMMUNALE DE SAIGNON</a> · 084000105 · note A · 1 commune</li>
+<li><a href="/reseau/084000100/">ADDUCTION COMMUNALE DE VIENS</a> · 084000100 · note A · 1 commune</li>
+<li><a href="/reseau/084000065/">ADDUCTION COMMUNALE SARRIANS</a> · 084000065 · note A · 1 commune</li>
+<li><a href="/reseau/084000002/">ADDUCTION COMMUNALE SAVOILLANS</a> · 084000002 · note C · 1 commune</li>
+<li><a href="/reseau/084000192/">ADDUCTION COMMUNALE VAUGINES</a> · 084000192 · note A · 1 commune</li>
+<li><a href="/reseau/084000042/">ADDUCTION COURTHEZON</a> · 084000042 · note A · 1 commune</li>
+<li><a href="/reseau/084000079/">ADDUCTION FONTAINE DE VAUCLUSE</a> · 084000079 · sans note · 1 commune</li>
+<li><a href="/reseau/084000059/">ADDUCTION GIGONDAS</a> · 084000059 · note A · 1 commune</li>
+<li><a href="/reseau/084000034/">ADDUCTION HAMEAU DE VEAUX</a> · 084000034 · note A · 1 commune</li>
+<li><a href="/reseau/084000012/">ADDUCTION JONQUIERES</a> · 084000012 · note A · 1 commune</li>
+<li><a href="/reseau/084000114/">ADDUCTION LAGARDE D'APT</a> · 084000114 · note A · 1 commune</li>
+<li><a href="/reseau/084000031/">ADDUCTION MALAUCENE</a> · 084000031 · note A · 1 commune</li>
+<li><a href="/reseau/084000177/">ADDUCTION MAZAN</a> · 084000177 · note A · 6 communes</li>
+<li><a href="/reseau/084000039/">ADDUCTION MONT SEREIN</a> · 084000039 · note A · 1 commune</li>
+<li><a href="/reseau/084000015/">ADDUCTION SAINT LEGER DU VENTOUX</a> · 084000015 · note D · 1 commune</li>
+<li><a href="/reseau/084000083/">ADDUCTION SIVERGUES</a> · 084000083 · note A · 1 commune</li>
+<li><a href="/reseau/084000028/">ADDUCTION SYND SAINT CHRISTOL</a> · 084000028 · note A · 1 commune</li>
+<li><a href="/reseau/084000173/">ADDUCTION SYND. LES SABLONS</a> · 084000173 · note A · 7 communes</li>
+<li><a href="/reseau/084000184/">ADDUCTION SYND.CHEVAL BLANC</a> · 084000184 · note A · 21 communes</li>
+<li><a href="/reseau/084000185/">ADDUCTION SYND.MIXTE PERTUIS</a> · 084000185 · note A · 19 communes</li>
+<li><a href="/reseau/084000172/">ADDUCTION SYNDICALE AUBIGNAN</a> · 084000172 · note A · 2 communes</li>
+<li><a href="/reseau/084000178/">ADDUCTION SYNDICALE CAMARET</a> · 084000178 · note A · 3 communes</li>
+<li><a href="/reseau/084000183/">ADDUCTION SYNDICALE CAVAILLON</a> · 084000183 · note A · 7 communes</li>
+<li><a href="/reseau/084000179/">ADDUCTION SYNDICALE ENTRECHAUX</a> · 084000179 · note A · 4 communes</li>
+<li><a href="/reseau/084000169/">ADDUCTION SYNDICALE LAFARE</a> · 084000169 · note A · 1 commune</li>
+<li><a href="/reseau/084000176/">ADDUCTION SYNDICALE LE BARROUX</a> · 084000176 · note A · 3 communes</li>
+<li><a href="/reseau/084000174/">ADDUCTION SYNDICALE MERINDOL</a> · 084000174 · note A · 3 communes</li>
+<li><a href="/reseau/084000181/">ADDUCTION SYNDICALE MORNAS</a> · 084000181 · note A · 16 communes</li>
+<li><a href="/reseau/084000171/">ADDUCTION SYNDICALE VENASQUE</a> · 084000171 · note A · 1 commune</li>
+<li><a href="/reseau/084000047/">ADDUCTION SYNDICAT RIVAVI</a> · 084000047 · note A · 3 communes</li>
+<li><a href="/reseau/084001972/">RESEAU BARTHELASSE NORD</a> · 084001972 · note A · 1 commune</li>
+<li><a href="/reseau/084000232/">RESEAU GRAND AVIGNON</a> · 084000232 · note A · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/84001/">Althen-des-Paluds</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84002/">Ansouis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84003/">Apt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84004/">Aubignan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84005/">Aurel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84006/">Auribeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84007/">Avignon</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/84012/">Beaumes-de-Venise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84013/">Beaumettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84014/">Beaumont-de-Pertuis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84015/">Beaumont-du-Ventoux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84016/">Bédarrides</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84017/">Bédoin</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/84018/">Blauvac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84019/">Bollène</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84020/">Bonnieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84021/">Brantes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84022/">Buisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84023/">Buoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84024/">Cabrières-d'Aigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84025/">Cabrières-d'Avignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84026/">Cadenet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84027/">Caderousse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84028/">Cairanne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84029/">Camaret-sur-Aigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84030/">Caromb</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84031/">Carpentras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84032/">Caseneuve</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84033/">Castellet-en-Luberon</a> · 1 réseau, noté D</li>
+<li><a href="/commune/84034/">Caumont-sur-Durance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84035/">Cavaillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84036/">Châteauneuf-de-Gadagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84037/">Châteauneuf-du-Pape</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84038/">Cheval-Blanc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84039/">Courthézon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84040/">Crestet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84041/">Crillon-le-Brave</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84042/">Cucuron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84043/">Entraigues-sur-la-Sorgue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84044/">Entrechaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84045/">Faucon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84046/">Flassan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84139/">Fontaine-de-Vaucluse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84047/">Gargas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84048/">Gignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84049/">Gigondas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84050/">Gordes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84051/">Goult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84052/">Grambois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84053/">Grillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84055/">Jonquerettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84056/">Jonquières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84057/">Joucas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84054/">L'Isle-sur-la-Sorgue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84009/">La Bastide-des-Jourdans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84010/">La Bastidonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84084/">La Motte-d'Aigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84100/">La Roque-Alric</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84101/">La Roque-sur-Pernes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84133/">La Tour-d'Aigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84058/">Lacoste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84059/">Lafare</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84060/">Lagarde-d'Apt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84061/">Lagarde-Paréol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84062/">Lagnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84063/">Lamotte-du-Rhône</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84064/">Lapalud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84065/">Lauris</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84008/">Le Barroux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84011/">Le Beaucet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84092/">Le Pontet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84132/">Le Thor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84066/">Lioux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84067/">Loriol-du-Comtat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84068/">Lourmarin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84069/">Malaucène</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84070/">Malemort-du-Comtat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84071/">Maubec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84072/">Mazan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84073/">Ménerbes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84074/">Mérindol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84075/">Méthamis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84076/">Mirabeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84077/">Modène</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84078/">Mondragon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84079/">Monieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84080/">Monteux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84081/">Morières-lès-Avignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84082/">Mormoiron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84083/">Mornas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84085/">Murs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84086/">Oppède</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84087/">Orange</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84088/">Pernes-les-Fontaines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84089/">Pertuis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84090/">Peypin-d'Aigues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84091/">Piolenc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84093/">Puget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84094/">Puyméras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84095/">Puyvert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84096/">Rasteau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84097/">Richerenches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84098/">Roaix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84099/">Robion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84102/">Roussillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84103/">Rustrel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84104/">Sablet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84105/">Saignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84107/">Saint-Christol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84108/">Saint-Didier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84109/">Saint-Hippolyte-le-Graveyron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84110/">Saint-Léger-du-Ventoux</a> · 1 réseau, noté D</li>
+<li><a href="/commune/84111/">Saint-Marcellin-lès-Vaison</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84112/">Saint-Martin-de-Castillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84113/">Saint-Martin-de-la-Brasque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84114/">Saint-Pantaléon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84115/">Saint-Pierre-de-Vassols</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84116/">Saint-Romain-en-Viennois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84117/">Saint-Roman-de-Malegarde</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84118/">Saint-Saturnin-lès-Apt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84119/">Saint-Saturnin-lès-Avignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84120/">Saint-Trinit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84106/">Sainte-Cécile-les-Vignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84121/">Sannes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84122/">Sarrians</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84123/">Sault</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/84124/">Saumane-de-Vaucluse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84125/">Savoillan</a> · 1 réseau, noté C</li>
+<li><a href="/commune/84126/">Séguret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84127/">Sérignan-du-Comtat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84128/">Sivergues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84129/">Sorgues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84130/">Suzette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84131/">Taillades</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84134/">Travaillan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84135/">Uchaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84136/">Vacqueyras</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84137/">Vaison-la-Romaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84138/">Valréas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84140/">Vaugines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84141/">Vedène</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84142/">Velleron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84143/">Venasque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84144/">Viens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84145/">Villars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84146/">Villedieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84147/">Villelaure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84148/">Villes-sur-Auzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84149/">Violès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84150/">Visan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/84151/">Vitrolles-en-Lubéron</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Vaucluse · eau du robinet », https://meteodurobinet.fr/departement/84/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

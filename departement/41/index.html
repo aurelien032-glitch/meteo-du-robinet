@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Loir-et-Cher (41) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Loir-et-Cher · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Loir-et-Cher (41) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/41/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Loir-et-Cher · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loir-et-Cher · eau du robinet","url":"https://meteodurobinet.fr/departement/41/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Loir-et-Cher","item":"https://meteodurobinet.fr/departement/41/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/41/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Loir-et-Cher</h1>
+<p class="meta">Département 41</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>10 sur 147 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 136 réseaux</li>
+<li>B qualité convenable* : 1 réseau</li>
+<li>C qualité insuffisante* : 10 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 6, métaux et minéraux 2.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>2 réseaux visés sur 147</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>29 prélèvements</strong> évalués en septembre 2026 ; 1 125 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 47 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 55 jours, alerte 33 jours, alerte renforcée 7 jours, crise 15 jours</li>
+<li>2026 en cours : vigilance 9 jours, alerte 0 jour, alerte renforcée 9 jours, crise 127 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,54</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 66 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>106 services d’eau</strong> desservent au moins une commune du département ; 57 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 150 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/041000543/">AUTAINVILLE</a> · 041000543 · note A · 3 communes</li>
+<li><a href="/reseau/041000735/">AVARAY- LESTIOU-COURBOUZON-MER</a> · 041000735 · note A · 4 communes</li>
+<li><a href="/reseau/041000544/">AVERDON VILLERBON</a> · 041000544 · note C · 2 communes</li>
+<li><a href="/reseau/041000545/">BAILLOU</a> · 041000545 · note A · 1 commune</li>
+<li><a href="/reseau/041000475/">BAUZY</a> · 041000475 · note A · 1 commune</li>
+<li><a href="/reseau/041000546/">BLOIS</a> · 041000546 · note A · 2 communes</li>
+<li><a href="/reseau/041000547/">BOURSAY</a> · 041000547 · note A · 2 communes</li>
+<li><a href="/reseau/041000479/">BRACIEUX</a> · 041000479 · note A · 1 commune</li>
+<li><a href="/reseau/041000548/">CELLE</a> · 041000548 · note A · 2 communes</li>
+<li><a href="/reseau/041000480/">CELLETTES</a> · 041000480 · note A · 3 communes</li>
+<li><a href="/reseau/041000481/">CHAILLES</a> · 041000481 · note A · 3 communes</li>
+<li><a href="/reseau/041000682/">CHAMBORD</a> · 041000682 · note A · 1 commune</li>
+<li><a href="/reseau/041000549/">CHAMPIGNY EN BEAUCE</a> · 041000549 · note A · 1 commune</li>
+<li><a href="/reseau/041000482/">CHATILLON SUR CHER</a> · 041000482 · note A · 1 commune</li>
+<li><a href="/reseau/041000483/">CHAUMONT SUR LOIRE</a> · 041000483 · note C · 1 commune</li>
+<li><a href="/reseau/041000484/">CHAUMONT SUR THARONNE</a> · 041000484 · note A · 1 commune</li>
+<li><a href="/reseau/041000485/">CHEMERY</a> · 041000485 · note A · 2 communes</li>
+<li><a href="/reseau/041000486/">CHISSAY EN TOURAINE</a> · 041000486 · note A · 1 commune</li>
+<li><a href="/reseau/041000487/">CONTRES</a> · 041000487 · note C · 1 commune</li>
+<li><a href="/reseau/041000488/">COUR CHEVERNY</a> · 041000488 · note A · 2 communes</li>
+<li><a href="/reseau/041000489/">COURMEMIN</a> · 041000489 · note A · 2 communes</li>
+<li><a href="/reseau/041000554/">COUTURE SUR LOIR</a> · 041000554 · note A · 4 communes</li>
+<li><a href="/reseau/041000555/">CRUCHERAY</a> · 041000555 · note A · 3 communes</li>
+<li><a href="/reseau/041000556/">DANZE</a> · 041000556 · note A · 3 communes</li>
+<li><a href="/reseau/041000490/">DHUIZON</a> · 041000490 · note A · 1 commune</li>
+<li><a href="/reseau/041000557/">DROUE</a> · 041000557 · note A · 2 communes</li>
+<li><a href="/reseau/041000558/">EPUISAY</a> · 041000558 · note A · 1 commune</li>
+<li><a href="/reseau/041000725/">FONTAINE RAOUL</a> · 041000725 · sans note · 4 communes</li>
+<li><a href="/reseau/041000493/">FONTAINES EN SOLOGNE</a> · 041000493 · note A · 1 commune</li>
+<li><a href="/reseau/041000560/">FORTAN</a> · 041000560 · note A · 1 commune</li>
+<li><a href="/reseau/041000561/">FOSSE</a> · 041000561 · note A · 3 communes</li>
+<li><a href="/reseau/041000620/">FRESNES</a> · 041000620 · note C · 1 commune</li>
+<li><a href="/reseau/041000562/">FRETEVAL</a> · 041000562 · note A · 2 communes</li>
+<li><a href="/reseau/041000494/">GIEVRES</a> · 041000494 · note A · 1 commune</li>
+<li><a href="/reseau/041000495/">GY EN SOLOGNE</a> · 041000495 · note A · 2 communes</li>
+<li><a href="/reseau/041000565/">HERBAULT</a> · 041000565 · note A · 2 communes</li>
+<li><a href="/reseau/041000566/">JOSNES</a> · 041000566 · note A · 1 commune</li>
+<li><a href="/reseau/041000551/">LA CHAPELLE ST MARTIN</a> · 041000551 · note A · 4 communes</li>
+<li><a href="/reseau/041000552/">LA CHAPELLE VICOMTESSE</a> · 041000552 · note A · 1 commune</li>
+<li><a href="/reseau/041000553/">LA CHAUSSEE ST VICTOR</a> · 041000553 · note A · 1 commune</li>
+<li><a href="/reseau/041000491/">LA FERTE BEAUHARNAIS</a> · 041000491 · note A · 1 commune</li>
+<li><a href="/reseau/041000492/">LA FERTE ST CYR</a> · 041000492 · note A · 3 communes</li>
+<li><a href="/reseau/041000559/">LA FONTENELLE</a> · 041000559 · note A · 4 communes</li>
+<li><a href="/reseau/041000619/">LA MAROLLE EN SOLOGNE</a> · 041000619 · note A · 1 commune</li>
+<li><a href="/reseau/041000641/">LA VILLE AUX CLERCS</a> · 041000641 · note A · 2 communes</li>
+<li><a href="/reseau/041000609/">LAMOTTE BEUVRON LES MAHAUDIÈRES</a> · 041000609 · note A · 1 commune</li>
+<li><a href="/reseau/041000496/">LAMOTTE BEUVRON SANATORIUM</a> · 041000496 · note A · 1 commune</li>
+<li><a href="/reseau/041000567/">LANDES LE GAULOIS</a> · 041000567 · note A · 7 communes</li>
+<li><a href="/reseau/041000622/">LASSAY</a> · 041000622 · note A · 1 commune</li>
+<li><a href="/reseau/041000563/">LE GAULT DU PERCHE</a> · 041000563 · note A · 3 communes</li>
+<li><a href="/reseau/041000755/">LE GAULT EAU DE LA FONTENELLE</a> · 041000755 · sans note · 1 commune</li>
+<li><a href="/reseau/041000723/">LE PLESSIS L'ECHELLE</a> · 041000723 · note A · 2 communes</li>
+<li><a href="/reseau/041000564/">LES HAYES</a> · 041000564 · note A · 3 communes</li>
+<li><a href="/reseau/041000502/">LES MONTILS</a> · 041000502 · note A · 1 commune</li>
+<li><a href="/reseau/041000568/">LORGES</a> · 041000568 · note A · 2 communes</li>
+<li><a href="/reseau/041000569/">LUNAY</a> · 041000569 · note A · 2 communes</li>
+<li><a href="/reseau/041000570/">MARCHENOIR</a> · 041000570 · note A · 1 commune</li>
+<li><a href="/reseau/041000497/">MARCILLY EN GAULT</a> · 041000497 · note C · 1 commune</li>
+<li><a href="/reseau/041000720/">MENARS_COUR/LOIRE</a> · 041000720 · note B · 2 communes</li>
+<li><a href="/reseau/041000498/">MENNETOU SUR CHER</a> · 041000498 · note A · 2 communes</li>
+<li><a href="/reseau/041000499/">MEUSNES</a> · 041000499 · note A · 1 commune</li>
+<li><a href="/reseau/041000500/">MILLANCAY</a> · 041000500 · note A · 1 commune</li>
+<li><a href="/reseau/041000572/">MONDOUBLEAU</a> · 041000572 · note A · 2 communes</li>
+<li><a href="/reseau/041000503/">MONT-PRES-CHAMBORD</a> · 041000503 · note A · 1 commune</li>
+<li><a href="/reseau/041000501/">MONTHOU SUR BIEVRE</a> · 041000501 · note A · 3 communes</li>
+<li><a href="/reseau/041000535/">MONTHOU SUR CHER</a> · 041000535 · note A · 2 communes</li>
+<li><a href="/reseau/041000683/">MONTLIVAULT</a> · 041000683 · note A · 1 commune</li>
+<li><a href="/reseau/041000573/">MONTOIRE</a> · 041000573 · note A · 3 communes</li>
+<li><a href="/reseau/041000504/">MONTRICHARD BONNETERIE</a> · 041000504 · note A · 1 commune</li>
+<li><a href="/reseau/041000613/">MONTRICHARD VALLEE DE CHANVRE</a> · 041000613 · note A · 1 commune</li>
+<li><a href="/reseau/041000505/">MONTRIEUX EN SOLOGNE</a> · 041000505 · note A · 1 commune</li>
+<li><a href="/reseau/041000574/">MOREE</a> · 041000574 · note A · 2 communes</li>
+<li><a href="/reseau/041000506/">MUR DE SOLOGNE</a> · 041000506 · note C · 1 commune</li>
+<li><a href="/reseau/041000575/">NAVEIL</a> · 041000575 · note A · 4 communes</li>
+<li><a href="/reseau/041000507/">NEUNG SUR BEUVRON</a> · 041000507 · note A · 1 commune</li>
+<li><a href="/reseau/041000508/">NEUVY</a> · 041000508 · note A · 1 commune</li>
+<li><a href="/reseau/041000509/">NOUAN LE FUZELIER</a> · 041000509 · note A · 1 commune</li>
+<li><a href="/reseau/041000576/">ORCHAISE</a> · 041000576 · note A · 2 communes</li>
+<li><a href="/reseau/041000577/">OUCQUES</a> · 041000577 · note A · 7 communes</li>
+<li><a href="/reseau/041000578/">OUZOUER LE DOYEN</a> · 041000578 · note C · 4 communes</li>
+<li><a href="/reseau/041000579/">OUZOUER LE MARCHE</a> · 041000579 · note A · 1 commune</li>
+<li><a href="/reseau/041000580/">PEZOU</a> · 041000580 · note A · 5 communes</li>
+<li><a href="/reseau/041000510/">PIERREFITTE SUR SAULDRE</a> · 041000510 · note A · 1 commune</li>
+<li><a href="/reseau/041000511/">PONTLEVOY</a> · 041000511 · note A · 2 communes</li>
+<li><a href="/reseau/041000512/">POUILLE</a> · 041000512 · note A · 3 communes</li>
+<li><a href="/reseau/041000581/">PRENOUVELLON</a> · 041000581 · note A · 1 commune</li>
+<li><a href="/reseau/041000582/">PRUNAY CASSEREAU</a> · 041000582 · note A · 5 communes</li>
+<li><a href="/reseau/041000624/">PRUNIERS</a> · 041000624 · note A · 1 commune</li>
+<li><a href="/reseau/041000513/">RILLY SUR LOIRE</a> · 041000513 · note A · 1 commune</li>
+<li><a href="/reseau/041000514/">ROMORANTIN LANTHENAY</a> · 041000514 · note A · 1 commune</li>
+<li><a href="/reseau/041000583/">RUAN SUR EGVONNE</a> · 041000583 · note A · 1 commune</li>
+<li><a href="/reseau/041000522/">SALBRIS</a> · 041000522 · note A · 1 commune</li>
+<li><a href="/reseau/041000525/">SAMBIN</a> · 041000525 · note A · 2 communes</li>
+<li><a href="/reseau/041000594/">SARGE SUR BRAYE</a> · 041000594 · note A · 2 communes</li>
+<li><a href="/reseau/041000526/">SASSAY</a> · 041000526 · note A · 4 communes</li>
+<li><a href="/reseau/041000678/">SAVIGNY /B. RESEAU GRILLETIERE</a> · 041000678 · note A · 1 commune</li>
+<li><a href="/reseau/041000527/">SEIGY</a> · 041000527 · note A · 1 commune</li>
+<li><a href="/reseau/041000528/">SELLES ST DENIS</a> · 041000528 · note A · 2 communes</li>
+<li><a href="/reseau/041000529/">SELLES SUR CHER LA REMONTE</a> · 041000529 · note A · 1 commune</li>
+<li><a href="/reseau/041000632/">SELLES SUR CHER ST LAZARE</a> · 041000632 · note A · 1 commune</li>
+<li><a href="/reseau/041000596/">SELOMMES</a> · 041000596 · note A · 5 communes</li>
+<li><a href="/reseau/041000597/">SERIS</a> · 041000597 · note A · 1 commune</li>
+<li><a href="/reseau/041000530/">SOINGS EN SOLOGNE</a> · 041000530 · note C · 2 communes</li>
+<li><a href="/reseau/041000598/">SOUDAY</a> · 041000598 · note A · 1 commune</li>
+<li><a href="/reseau/041000531/">SOUESMES</a> · 041000531 · note A · 1 commune</li>
+<li><a href="/reseau/041000635/">SOUVIGNY</a> · 041000635 · note A · 2 communes</li>
+<li><a href="/reseau/041000584/">ST AGIL</a> · 041000584 · note A · 1 commune</li>
+<li><a href="/reseau/041000515/">ST AIGNAN -RESEAU LE PARC</a> · 041000515 · note A · 1 commune</li>
+<li><a href="/reseau/041000637/">ST AIGNAN RESEAU VAU DE CHAUME</a> · 041000637 · note A · 1 commune</li>
+<li><a href="/reseau/041000585/">ST AMAND LONGPRE</a> · 041000585 · note A · 2 communes</li>
+<li><a href="/reseau/041000691/">ST CLAUDE DE DIRAY</a> · 041000691 · note A · 2 communes</li>
+<li><a href="/reseau/041000714/">ST CYR DU GAULT_ST ETIENNE DES GUERETS</a> · 041000714 · note A · 2 communes</li>
+<li><a href="/reseau/041000587/">ST DENIS SUR LOIRE</a> · 041000587 · note C · 2 communes</li>
+<li><a href="/reseau/041000684/">ST DYE SUR LOIRE</a> · 041000684 · note A · 3 communes</li>
+<li><a href="/reseau/041000588/">ST FIRMIN DES PRES</a> · 041000588 · note A · 1 commune</li>
+<li><a href="/reseau/041000516/">ST GEORGES SUR CHER</a> · 041000516 · note A · 1 commune</li>
+<li><a href="/reseau/041000686/">ST GERVAIS LA FORET</a> · 041000686 · note A · 1 commune</li>
+<li><a href="/reseau/041000590/">ST GOURGON</a> · 041000590 · note A · 3 communes</li>
+<li><a href="/reseau/041000517/">ST JULIEN DE CHEDON</a> · 041000517 · note A · 2 communes</li>
+<li><a href="/reseau/041000518/">ST JULIEN SUR CHER</a> · 041000518 · note A · 4 communes</li>
+<li><a href="/reseau/041000689/">ST LAURENT NOUAN CLOS LIGNY</a> · 041000689 · note A · 1 commune</li>
+<li><a href="/reseau/041000688/">ST LAURENT NOUAN HAUT MIDI</a> · 041000688 · note A · 1 commune</li>
+<li><a href="/reseau/041000591/">ST LEONARD EN BEAUCE</a> · 041000591 · note A · 2 communes</li>
+<li><a href="/reseau/041000592/">ST MARC  DU COR</a> · 041000592 · note A · 7 communes</li>
+<li><a href="/reseau/041000747/">ST MARTIN DES BOIS</a> · 041000747 · note A · 1 commune</li>
+<li><a href="/reseau/041000593/">ST RIMAY-HOUSSAY</a> · 041000593 · note A · 6 communes</li>
+<li><a href="/reseau/041000669/">ST ROMAIN SUR CHER</a> · 041000669 · note A · 2 communes</li>
+<li><a href="/reseau/041000674/">ST VIATRE</a> · 041000674 · note A · 1 commune</li>
+<li><a href="/reseau/041000589/">STE GEMMES ABA</a> · 041000589 · sans note · 2 communes</li>
+<li><a href="/reseau/041000599/">SUEVRES</a> · 041000599 · note A · 1 commune</li>
+<li><a href="/reseau/041000600/">TALCY</a> · 041000600 · note A · 3 communes</li>
+<li><a href="/reseau/041000534/">THEILLAY</a> · 041000534 · note A · 2 communes</li>
+<li><a href="/reseau/041000601/">THORE LA ROCHETTE</a> · 041000601 · note A · 1 commune</li>
+<li><a href="/reseau/041000536/">TOUR EN SOLOGNE</a> · 041000536 · note A · 1 commune</li>
+<li><a href="/reseau/041000602/">TROO</a> · 041000602 · note A · 5 communes</li>
+<li><a href="/reseau/041000603/">VAL DE CISSE</a> · 041000603 · note A · 5 communes</li>
+<li><a href="/reseau/041000537/">VALLIERES LES GRANDES</a> · 041000537 · note A · 1 commune</li>
+<li><a href="/reseau/041000538/">VEILLEINS</a> · 041000538 · note A · 1 commune</li>
+<li><a href="/reseau/041000728/">VENDOME</a> · 041000728 · note A · 4 communes</li>
+<li><a href="/reseau/041000539/">VILLEFRANCHE SUR CHER</a> · 041000539 · note A · 2 communes</li>
+<li><a href="/reseau/041000627/">VILLEHERVIERS</a> · 041000627 · note A · 2 communes</li>
+<li><a href="/reseau/041000671/">VILLENTROIS</a> · 041000671 · note A · 2 communes</li>
+<li><a href="/reseau/041000540/">VILLENY</a> · 041000540 · note A · 1 commune</li>
+<li><a href="/reseau/041000643/">VILLERMAIN</a> · 041000643 · note A · 1 commune</li>
+<li><a href="/reseau/041000644/">VILLETRUN</a> · 041000644 · note A · 4 communes</li>
+<li><a href="/reseau/041000645/">VILLIERS SUR LOIR</a> · 041000645 · note A · 1 commune</li>
+<li><a href="/reseau/041004102/">VINEUIL</a> · 041004102 · note A · 1 commune</li>
+<li><a href="/reseau/041000692/">VINEUIL Z.I.</a> · 041000692 · note A · 1 commune</li>
+<li><a href="/reseau/041000541/">VOUZON</a> · 041000541 · note A · 1 commune</li>
+<li><a href="/reseau/041000542/">YVOY LE MARRON</a> · 041000542 · note C · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/41001/">Ambloy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41002/">Angé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41003/">Areines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41004/">Artins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41006/">Autainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41007/">Authon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41008/">Avaray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41009/">Averdon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41010/">Azé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41012/">Baillou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41013/">Bauzy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41173/">Beauce la Romaine</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/41014/">Beauchêne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41016/">Billy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41017/">Binas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41018/">Blois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41019/">Boisseau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41020/">Bonneveau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41022/">Bouffry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41024/">Boursay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41025/">Bracieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41026/">Brévainville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41027/">Briou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41028/">Busloup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41029/">Candé-sur-Beuvron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41030/">Cellé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41031/">Cellettes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41032/">Chailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41034/">Chambord</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41035/">Champigny-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41036/">Chaon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41042/">Châteauvieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41043/">Châtillon-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41044/">Châtres-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41045/">Chaumont-sur-Loire</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41046/">Chaumont-sur-Tharonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41048/">Chauvigny-du-Perche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41049/">Chémery</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41050/">Cheverny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41051/">Chissay-en-Touraine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41052/">Chitenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41053/">Choue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41054/">Choussy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41057/">Conan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41058/">Concriers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41060/">Cormenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41061/">Cormeray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41062/">Couddes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41248/">Couëtron-au-Perche</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/41063/">Couffy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41065/">Coulommiers-la-Tour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41067/">Cour-Cheverny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41069/">Cour-sur-Loire</a> · 1 réseau, noté B</li>
+<li><a href="/commune/41066/">Courbouzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41068/">Courmemin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41071/">Crouy-sur-Cosson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41072/">Crucheray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41073/">Danzé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41074/">Dhuizon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41075/">Droué</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41077/">Épiais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41078/">Épuisay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41080/">Faverolles-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41081/">Faye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41087/">Fontaine-les-Coteaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41088/">Fontaine-Raoul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41086/">Fontaines-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41090/">Fortan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41091/">Fossé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41093/">Françay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41094/">Fresnes</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41095/">Fréteval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41097/">Gièvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41098/">Gombergean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41099/">Gy-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41101/">Herbault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41102/">Houssay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41103/">Huisseau-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41104/">Huisseau-sur-Cosson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41105/">Josnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41037/">La Chapelle-Enchérie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41038/">La Chapelle-Montmartin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41039/">La Chapelle-Saint-Martin-en-Plaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41040/">La Chapelle-Vendômoise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41041/">La Chapelle-Vicomtesse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41047/">La Chaussée-Saint-Victor</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/41083/">La Ferté-Beauharnais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41084/">La Ferté-Imbault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41085/">La Ferté-Saint-Cyr</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41089/">La Fontenelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41121/">La Madeleine-Villefrouin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41127/">La Marolle-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41275/">La Ville-aux-Clercs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41106/">Lamotte-Beuvron</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41107/">Lancé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41108/">Lancôme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41109/">Landes-le-Gaulois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41110/">Langon-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41112/">Lassay-sur-Croisne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41113/">Lavardin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41059/">Le Controis-en-Sologne</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/41096/">Le Gault-du-Perche</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41177/">Le Plessis-Dorin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41178/">Le Plessis-l'Échelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41179/">Le Poislay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41254/">Le Temple</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41079/">Les Essarts</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41100/">Les Hayes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41147/">Les Montils</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41192/">Les Roches-l'Évêque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41114/">Lestiou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41115/">Lignières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41116/">Lisle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41118/">Loreux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41119/">Lorges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41120/">Lunay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41122/">Maray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41123/">Marchenoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41124/">Marcilly-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41125/">Marcilly-en-Gault</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41126/">Mareuil-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41128/">Marolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41129/">Maslives</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41130/">Maves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41131/">Mazangé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41132/">Méhers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41134/">Menars</a> · 1 réseau, noté B</li>
+<li><a href="/commune/41135/">Mennetou-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41136/">Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41137/">Mesland</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41138/">Meslay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41139/">Meusnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41140/">Millançay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41141/">Moisy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41143/">Mondoubleau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41150/">Mont-près-Chambord</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41144/">Monteaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41145/">Monthou-sur-Bièvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41146/">Monthou-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41148/">Montlivault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41149/">Montoire-sur-le-Loir</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41151/">Montrichard Val de Cher</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41152/">Montrieux-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41153/">Montrouveau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41154/">Morée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41155/">Muides-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41156/">Mulsans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41157/">Mur-de-Sologne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41158/">Naveil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41159/">Neung-sur-Beuvron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41160/">Neuvy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41161/">Nouan-le-Fuzelier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41163/">Nourray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41164/">Noyers-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41166/">Oisly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41168/">Orçay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41171/">Oucques La Nouvelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41172/">Ouzouer-le-Doyen</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41174/">Périgny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41175/">Pezou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41176/">Pierrefitte-sur-Sauldre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41180/">Pontlevoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41181/">Pouillé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41182/">Pray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41184/">Prunay-Cassereau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41185/">Pruniers-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41186/">Rahart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41187/">Renay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41188/">Rhodon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41189/">Rilly-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41190/">Rocé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41191/">Roches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41193/">Romilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41194/">Romorantin-Lanthenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41195/">Rougeou</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41196/">Ruan-sur-Egvonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41198/">Saint-Aignan</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41199/">Saint-Amand-Longpré</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41201/">Saint-Arnoult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41203/">Saint-Bohaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41204/">Saint-Claude-de-Diray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41205/">Saint-Cyr-du-Gault</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41206/">Saint-Denis-sur-Loire</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41207/">Saint-Dyé-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41208/">Saint-Étienne-des-Guérets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41209/">Saint-Firmin-des-Prés</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41211/">Saint-Georges-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41212/">Saint-Gervais-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41213/">Saint-Gourgon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41214/">Saint-Hilaire-la-Gravelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41215/">Saint-Jacques-des-Guérets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41216/">Saint-Jean-Froidmentel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41217/">Saint-Julien-de-Chédon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41218/">Saint-Julien-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41219/">Saint-Laurent-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41220/">Saint-Laurent-Nouan</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41221/">Saint-Léonard-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41222/">Saint-Loup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41223/">Saint-Lubin-en-Vergonnois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41224/">Saint-Marc-du-Cor</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41225/">Saint-Martin-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41226/">Saint-Ouen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41228/">Saint-Rimay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41229/">Saint-Romain-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41230/">Saint-Sulpice-de-Pommeray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41231/">Saint-Viâtre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41200/">Sainte-Anne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41232/">Salbris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41233/">Sambin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41234/">Santenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41235/">Sargé-sur-Braye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41236/">Sasnières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41237/">Sassay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41238/">Savigny-sur-Braye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41239/">Seigy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41241/">Selles-Saint-Denis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41242/">Selles-sur-Cher</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41243/">Selommes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41245/">Séris</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41246/">Seur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41247/">Soings-en-Sologne</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41249/">Souesmes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41250/">Sougé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41251/">Souvigny-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41252/">Suèvres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41253/">Talcy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41255/">Ternay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41256/">Theillay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41258/">Thésée</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41259/">Thoré-la-Rochette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41260/">Thoury</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41262/">Tour-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41261/">Tourailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41265/">Troo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41266/">Valaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41142/">Valencisse</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41070/">Vallée-de-Ronsard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41267/">Vallières-les-Grandes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41055/">Valloire-sur-Cisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41268/">Veilleins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41269/">Vendôme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41271/">Vernou-en-Sologne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41167/">Veuzain-sur-Loire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41273/">Vievy-le-Rayé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41274/">Villavard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41276/">Villebarou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41277/">Villebout</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41278/">Villechauve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41279/">Villedieu-le-Château</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41280/">Villefranche-sur-Cher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41281/">Villefrancœur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41282/">Villeherviers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41283/">Villemardy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41284/">Villeneuve-Frouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41285/">Villeny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41286/">Villeporcher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41287/">Villerable</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41288/">Villerbon</a> · 1 réseau, noté C</li>
+<li><a href="/commune/41289/">Villermain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41290/">Villeromain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41291/">Villetrun</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41292/">Villexanton</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41294/">Villiers-sur-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41293/">Villiersfaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41295/">Vineuil</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/41296/">Vouzon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/41297/">Yvoy-le-Marron</a> · 1 réseau, noté C</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Loir-et-Cher · eau du robinet », https://meteodurobinet.fr/departement/41/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

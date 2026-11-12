@@ -1,0 +1,5 @@
+# Contenus sous licence CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.fr) : réutilisation non commerciale, avec mention de la source.
+# La source se cite « Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux » avec le titre et le lien de la page. Détails : https://meteodurobinet.fr/llms.txt
+User-agent: *
+Allow: /
+Sitemap: https://meteodurobinet.fr/sitemap.xml

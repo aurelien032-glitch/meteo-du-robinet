@@ -1,0 +1,1 @@
+import{c as r,j as e}from"./index-Cxv4TnZB.js";import{V as t}from"./Voyant-COzE18Fl.js";function i({ton:a,children:s}){return r("span",{className:`tag tone-${a??"neutre"}`,children:[a&&e(t,{ton:a,taille:14}),s]})}export{i as T};

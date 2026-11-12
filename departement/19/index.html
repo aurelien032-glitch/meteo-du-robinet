@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Corrèze (19) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Corrèze · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Corrèze (19) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/19/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Corrèze · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Corrèze · eau du robinet","url":"https://meteodurobinet.fr/departement/19/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Corrèze","item":"https://meteodurobinet.fr/departement/19/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/19/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Corrèze</h1>
+<p class="meta">Département 19</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>30 sur 336 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 306 réseaux</li>
+<li>B qualité convenable* : 0 réseau</li>
+<li>C qualité insuffisante* : 11 réseaux</li>
+<li>D mauvaise qualité* : 19 réseaux</li>
+</ul>
+<p>Bactériologie 27 (19 D), pesticides 3.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>L’ARS ne précise pas ses avis</strong></p>
+<h3>Prélèvements</h3>
+<p><strong>192 prélèvements</strong> évalués en septembre 2026 ; 1 582 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 14 jours, alerte 21 jours, alerte renforcée 21 jours, crise 0 jour</li>
+<li>2025 : vigilance 0 jour, alerte 14 jours, alerte renforcée 69 jours, crise 36 jours</li>
+<li>2026 en cours : vigilance 9 jours, alerte 4 jours, alerte renforcée 6 jours, crise 121 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,38</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 42 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>91 services d’eau</strong> desservent au moins une commune du département ; 79 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 351 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/019000366/">AGUDOUR</a> · 019000366 · note A · 21 communes</li>
+<li><a href="/reseau/019002287/">AIGUEPANADES</a> · 019002287 · note A · 1 commune</li>
+<li><a href="/reseau/019004622/">AIX</a> · 019004622 · note A · 1 commune</li>
+<li><a href="/reseau/019001519/">ALLASSAC BOURG</a> · 019001519 · note C · 1 commune</li>
+<li><a href="/reseau/019000009/">ALLEYRAT</a> · 019000009 · note A · 1 commune</li>
+<li><a href="/reseau/019000044/">AMBRUGEAT BOURG</a> · 019000044 · note A · 1 commune</li>
+<li><a href="/reseau/019000269/">AMPINAT (UV)</a> · 019000269 · note A · 1 commune</li>
+<li><a href="/reseau/019000512/">AMPOUILLANGE</a> · 019000512 · note C · 1 commune</li>
+<li><a href="/reseau/019000052/">ANGLARD</a> · 019000052 · note A · 1 commune</li>
+<li><a href="/reseau/019001276/">ARGENTAT BOURG</a> · 019001276 · note A · 1 commune</li>
+<li><a href="/reseau/019000863/">ARS</a> · 019000863 · note A · 1 commune</li>
+<li><a href="/reseau/019000553/">ARTIGUES</a> · 019000553 · note A · 1 commune</li>
+<li><a href="/reseau/019000014/">AURIAC BOURG</a> · 019000014 · note A · 1 commune</li>
+<li><a href="/reseau/019001458/">AUVEZERE - BENAYES</a> · 019001458 · note A · 1 commune</li>
+<li><a href="/reseau/019001466/">AUVEZERE - RESEAU PRINCIPAL</a> · 019001466 · note A · 16 communes</li>
+<li><a href="/reseau/019001461/">AUVEZERE NORD EST</a> · 019001461 · note A · 5 communes</li>
+<li><a href="/reseau/019000917/">BARBAZANGES</a> · 019000917 · note A · 1 commune</li>
+<li><a href="/reseau/019000864/">BARSANGES</a> · 019000864 · note A · 1 commune</li>
+<li><a href="/reseau/019000321/">BEAUMONT ST SALVADOUR</a> · 019000321 · note A · 2 communes</li>
+<li><a href="/reseau/019000572/">BEAUNE</a> · 019000572 · note D · 1 commune</li>
+<li><a href="/reseau/019000020/">BEDAINE</a> · 019000020 · note A · 1 commune</li>
+<li><a href="/reseau/019000018/">BELLECHASSAGNE</a> · 019000018 · note A · 1 commune</li>
+<li><a href="/reseau/019000744/">BELLEGARDE</a> · 019000744 · note A · 1 commune</li>
+<li><a href="/reseau/019000823/">BESASSAS</a> · 019000823 · note A · 1 commune</li>
+<li><a href="/reseau/019000036/">BEYNAT</a> · 019000036 · note A · 1 commune</li>
+<li><a href="/reseau/019000081/">BEYNE</a> · 019000081 · note A · 1 commune</li>
+<li><a href="/reseau/019000038/">BEYNETTE</a> · 019000038 · note A · 1 commune</li>
+<li><a href="/reseau/019000458/">BEYSSAC</a> · 019000458 · note D · 1 commune</li>
+<li><a href="/reseau/019001378/">BLAGOUR</a> · 019001378 · note A · 13 communes</li>
+<li><a href="/reseau/019004621/">BONGUE MONTEIL</a> · 019004621 · note A · 8 communes</li>
+<li><a href="/reseau/019000066/">BONNEFOND BOURG</a> · 019000066 · note A · 1 commune</li>
+<li><a href="/reseau/019001451/">BORT LES ORGUES VILLE</a> · 019001451 · note A · 1 commune</li>
+<li><a href="/reseau/019003039/">BOUCHAUD</a> · 019003039 · note A · 1 commune</li>
+<li><a href="/reseau/019001696/">BOURG - LA CHASSAGNE</a> · 019001696 · note A · 1 commune</li>
+<li><a href="/reseau/019000236/">BOURG CANTINE ECOLE COMMUNALE</a> · 019000236 · note A · 1 commune</li>
+<li><a href="/reseau/019000032/">BOURG D'ALBUSSAC</a> · 019000032 · note A · 1 commune</li>
+<li><a href="/reseau/019001226/">BOURG DE DARNETS</a> · 019001226 · note A · 1 commune</li>
+<li><a href="/reseau/019000899/">BOURG MOUSTIER</a> · 019000899 · note A · 1 commune</li>
+<li><a href="/reseau/019001149/">BOURG PECHEMARUT</a> · 019001149 · note A · 1 commune</li>
+<li><a href="/reseau/019000005/">BOURG/LINATRE</a> · 019000005 · note A · 1 commune</li>
+<li><a href="/reseau/019001337/">BREUIL</a> · 019001337 · note A · 1 commune</li>
+<li><a href="/reseau/019001671/">BROUSSAS</a> · 019001671 · note A · 1 commune</li>
+<li><a href="/reseau/019000232/">BROUSSOULOUX</a> · 019000232 · note A · 1 commune</li>
+<li><a href="/reseau/019000201/">BUSSEJOUX</a> · 019000201 · note D · 1 commune</li>
+<li><a href="/reseau/019000370/">CAMPING LA PLAGE</a> · 019000370 · note A · 1 commune</li>
+<li><a href="/reseau/019000594/">CAMPS BOURG</a> · 019000594 · note D · 1 commune</li>
+<li><a href="/reseau/019000795/">CELLE</a> · 019000795 · note A · 1 commune</li>
+<li><a href="/reseau/019000094/">CEYRAT</a> · 019000094 · note A · 1 commune</li>
+<li><a href="/reseau/019000210/">CHABANNES</a> · 019000210 · note A · 1 commune</li>
+<li><a href="/reseau/019001669/">CHABENNES</a> · 019001669 · note A · 1 commune</li>
+<li><a href="/reseau/019000054/">CHADEBEC</a> · 019000054 · note A · 1 commune</li>
+<li><a href="/reseau/019000738/">CHAMBERET BOURG</a> · 019000738 · note A · 1 commune</li>
+<li><a href="/reseau/019000660/">CHAMBOULIVE BOURG</a> · 019000660 · note A · 2 communes</li>
+<li><a href="/reseau/019000835/">CHAMEYRAT POISSAC</a> · 019000835 · note A · 1 commune</li>
+<li><a href="/reseau/019003076/">CHAMP DE LA CROIX</a> · 019003076 · note A · 1 commune</li>
+<li><a href="/reseau/019001098/">CHAMPAGNAC LA PRUNE BOURG</a> · 019001098 · note A · 1 commune</li>
+<li><a href="/reseau/019001266/">CHANAC LES MINES BOURG</a> · 019001266 · note A · 1 commune</li>
+<li><a href="/reseau/019000022/">CHANTAREL</a> · 019000022 · note A · 1 commune</li>
+<li><a href="/reseau/019000697/">CHARLANNES</a> · 019000697 · note A · 1 commune</li>
+<li><a href="/reseau/019000916/">CHASTAGNOL</a> · 019000916 · note A · 1 commune</li>
+<li><a href="/reseau/019000581/">CHATEIX OU PALAIN OU MOEUF</a> · 019000581 · note A · 1 commune</li>
+<li><a href="/reseau/019000056/">CHATTEMISSIE</a> · 019000056 · note A · 1 commune</li>
+<li><a href="/reseau/019000537/">CHAUDEMAISON</a> · 019000537 · note A · 1 commune</li>
+<li><a href="/reseau/019000866/">CHAUMEIL</a> · 019000866 · note A · 1 commune</li>
+<li><a href="/reseau/019000914/">CHAUMEIL BOURG</a> · 019000914 · note A · 1 commune</li>
+<li><a href="/reseau/019000456/">CHAUZEIX</a> · 019000456 · note A · 1 commune</li>
+<li><a href="/reseau/019000588/">CHAVANAC BOURG</a> · 019000588 · note A · 1 commune</li>
+<li><a href="/reseau/019000290/">CHAVEROCHE BOURG</a> · 019000290 · note A · 1 commune</li>
+<li><a href="/reseau/019001188/">CHIMIAC</a> · 019001188 · note A · 1 commune</li>
+<li><a href="/reseau/019001686/">CLAIRAT</a> · 019001686 · note A · 1 commune</li>
+<li><a href="/reseau/019000797/">CLOUP, LE BOURG</a> · 019000797 · note A · 1 commune</li>
+<li><a href="/reseau/019000181/">COMBORN</a> · 019000181 · note A · 1 commune</li>
+<li><a href="/reseau/019001244/">COMBRESSOL BOURG</a> · 019001244 · note A · 1 commune</li>
+<li><a href="/reseau/019000487/">COMMAGNAC DE VIGEOIS</a> · 019000487 · note C · 1 commune</li>
+<li><a href="/reseau/019000524/">COMMERLY</a> · 019000524 · note A · 1 commune</li>
+<li><a href="/reseau/019001114/">CONDAT SUR GANAVEIX BOURG</a> · 019001114 · note A · 1 commune</li>
+<li><a href="/reseau/019001197/">CORREZE BOURG</a> · 019001197 · note A · 1 commune</li>
+<li><a href="/reseau/019000349/">COUDERT</a> · 019000349 · note A · 1 commune</li>
+<li><a href="/reseau/019000867/">COUDERT DE PEROLS S/VEZERE</a> · 019000867 · note A · 1 commune</li>
+<li><a href="/reseau/019000231/">COULOURNAT</a> · 019000231 · note D · 1 commune</li>
+<li><a href="/reseau/019002281/">COUNIL</a> · 019002281 · note A · 1 commune</li>
+<li><a href="/reseau/019003040/">COUSSIERE (NORD OUEST COMMUNE)</a> · 019003040 · note A · 1 commune</li>
+<li><a href="/reseau/019000732/">CUBLAC BOURG</a> · 019000732 · note A · 1 commune</li>
+<li><a href="/reseau/019000087/">DAVIGNAC BOURG</a> · 019000087 · note A · 1 commune</li>
+<li><a href="/reseau/019001757/">DAVIGNAC LESTAT</a> · 019001757 · note A · 1 commune</li>
+<li><a href="/reseau/019001530/">DONZENAC BOURG - LA ROCHETTE</a> · 019001530 · note A · 1 commune</li>
+<li><a href="/reseau/019001552/">DONZENAC LE THEIL</a> · 019001552 · note A · 1 commune</li>
+<li><a href="/reseau/019000821/">DROUILLAT</a> · 019000821 · note A · 1 commune</li>
+<li><a href="/reseau/019001365/">EAUX DE BORT RESEAU PRINCIPAL</a> · 019001365 · note A · 8 communes</li>
+<li><a href="/reseau/019001304/">EGLETONS BOURG</a> · 019001304 · note A · 1 commune</li>
+<li><a href="/reseau/019003930/">EN BETU</a> · 019003930 · note D · 1 commune</li>
+<li><a href="/reseau/019001063/">FAUGERAS</a> · 019001063 · note A · 1 commune</li>
+<li><a href="/reseau/019001250/">FEIX</a> · 019001250 · note A · 1 commune</li>
+<li><a href="/reseau/019001254/">FEYT</a> · 019001254 · note A · 1 commune</li>
+<li><a href="/reseau/019000514/">FRANCHESSE</a> · 019000514 · note D · 1 commune</li>
+<li><a href="/reseau/019002367/">FRESSINGES - LE PEUCH</a> · 019002367 · note A · 1 commune</li>
+<li><a href="/reseau/019000915/">FREYSSELINES</a> · 019000915 · note A · 1 commune</li>
+<li><a href="/reseau/019000280/">FREYTE</a> · 019000280 · note A · 1 commune</li>
+<li><a href="/reseau/019000202/">FROIDES MAISONS</a> · 019000202 · note A · 1 commune</li>
+<li><a href="/reseau/019000941/">GAUD ESTIVALE</a> · 019000941 · note A · 1 commune</li>
+<li><a href="/reseau/019000824/">GIAT</a> · 019000824 · note C · 1 commune</li>
+<li><a href="/reseau/019000096/">GOULLES BOURG</a> · 019000096 · note A · 1 commune</li>
+<li><a href="/reseau/019001137/">GOURDON BOURG</a> · 019001137 · note A · 1 commune</li>
+<li><a href="/reseau/019000699/">GRAFEUILLE</a> · 019000699 · note A · 1 commune</li>
+<li><a href="/reseau/019000098/">GRANDSAIGNE BOURG</a> · 019000098 · note A · 1 commune</li>
+<li><a href="/reseau/019000642/">GRIMAZANE</a> · 019000642 · note A · 1 commune</li>
+<li><a href="/reseau/019001867/">GUILLERIN DE SORNAC</a> · 019001867 · note A · 1 commune</li>
+<li><a href="/reseau/019000695/">HAUTEFAGE BOURG</a> · 019000695 · note A · 1 commune</li>
+<li><a href="/reseau/019001246/">L'HERM</a> · 019001246 · note A · 1 commune</li>
+<li><a href="/reseau/019000205/">LA BACHELLERIE</a> · 019000205 · note A · 1 commune</li>
+<li><a href="/reseau/019001667/">LA BERBEYROLE</a> · 019001667 · note A · 1 commune</li>
+<li><a href="/reseau/019001682/">LA BESSETTE</a> · 019001682 · note A · 1 commune</li>
+<li><a href="/reseau/019004695/">LA BITARELLE - LES ANGLES (UDI)</a> · 019004695 · note A · 2 communes</li>
+<li><a href="/reseau/019000885/">LA BRETTE-THEILLAC</a> · 019000885 · note A · 1 commune</li>
+<li><a href="/reseau/019000696/">LA BROQUERIE</a> · 019000696 · note A · 1 commune</li>
+<li><a href="/reseau/019001218/">LA BUSSIERE DE LESTARDS</a> · 019001218 · note A · 1 commune</li>
+<li><a href="/reseau/019000586/">LA CHAPELLE SPINASSE BOURG</a> · 019000586 · note A · 1 commune</li>
+<li><a href="/reseau/019000106/">LA CHAPELLE ST GERAUD BOURG</a> · 019000106 · note A · 1 commune</li>
+<li><a href="/reseau/019002377/">LA CHAPELOUNE (RIOU-BLANQUET)</a> · 019002377 · note A · 1 commune</li>
+<li><a href="/reseau/019001170/">LA COMBEBREUIL</a> · 019001170 · note A · 1 commune</li>
+<li><a href="/reseau/019000633/">LA CROIX DE BRUNAL</a> · 019000633 · note A · 1 commune</li>
+<li><a href="/reseau/019001655/">LA GANE</a> · 019001655 · note A · 1 commune</li>
+<li><a href="/reseau/019001638/">LA GANE - LE MORTIER</a> · 019001638 · note A · 1 commune</li>
+<li><a href="/reseau/019001641/">LA GANE - RESEAU PRINCIPAL</a> · 019001641 · note A · 5 communes</li>
+<li><a href="/reseau/019000520/">LA GOUTTE</a> · 019000520 · note A · 1 commune</li>
+<li><a href="/reseau/019000330/">LA GRAFFOUILLERE</a> · 019000330 · note A · 1 commune</li>
+<li><a href="/reseau/019003921/">LA GREZE</a> · 019003921 · note A · 37 communes</li>
+<li><a href="/reseau/019000837/">LA GUILLAUMIE</a> · 019000837 · note A · 1 commune</li>
+<li><a href="/reseau/019000248/">LA JASSE</a> · 019000248 · note A · 1 commune</li>
+<li><a href="/reseau/019003037/">LA NAUCHE</a> · 019003037 · note A · 1 commune</li>
+<li><a href="/reseau/019000058/">LA NOAILLE</a> · 019000058 · note A · 1 commune</li>
+<li><a href="/reseau/019000919/">LA VEDRENNE</a> · 019000919 · note C · 1 commune</li>
+<li><a href="/reseau/019001280/">LA VEDRENNE D'EGLETONS</a> · 019001280 · note A · 1 commune</li>
+<li><a href="/reseau/019000100/">LA VIALLE</a> · 019000100 · note D · 1 commune</li>
+<li><a href="/reseau/019000918/">LA VIALLE DE CHAUMEIL</a> · 019000918 · note A · 1 commune</li>
+<li><a href="/reseau/019001234/">LABITARELLE (UV)</a> · 019001234 · note A · 1 commune</li>
+<li><a href="/reseau/019001055/">LACELLE BOURG</a> · 019001055 · note A · 1 commune</li>
+<li><a href="/reseau/019001790/">LACELLE GOURSOLLES</a> · 019001790 · note A · 1 commune</li>
+<li><a href="/reseau/019000024/">LACHAUD</a> · 019000024 · note A · 1 commune</li>
+<li><a href="/reseau/019001057/">LAFAGE SUR SOMBRE BOURG</a> · 019001057 · note A · 1 commune</li>
+<li><a href="/reseau/019000462/">LAFARGE</a> · 019000462 · note A · 1 commune</li>
+<li><a href="/reseau/019000050/">LAFOND</a> · 019000050 · note A · 1 commune</li>
+<li><a href="/reseau/019001654/">LAFONT</a> · 019001654 · note A · 1 commune</li>
+<li><a href="/reseau/019001050/">LAGARDE ENVAL BOURG (UV)</a> · 019001050 · note A · 1 commune</li>
+<li><a href="/reseau/019001649/">LAGUENNE BOURG</a> · 019001649 · note A · 1 commune</li>
+<li><a href="/reseau/019000112/">LAMAZIERE BASSE BOURG</a> · 019000112 · note A · 1 commune</li>
+<li><a href="/reseau/019000139/">LAMONGERIE BOURG</a> · 019000139 · note A · 1 commune</li>
+<li><a href="/reseau/019000526/">LANOUR</a> · 019000526 · note A · 1 commune</li>
+<li><a href="/reseau/019001061/">LAPLEAU BOURG</a> · 019001061 · note D · 1 commune</li>
+<li><a href="/reseau/019000040/">LAUBARD</a> · 019000040 · note A · 1 commune</li>
+<li><a href="/reseau/019000957/">LAVAL - ROSIERS D'EGLETONS</a> · 019000957 · note A · 1 commune</li>
+<li><a href="/reseau/019000796/">LAVAUR</a> · 019000796 · note A · 1 commune</li>
+<li><a href="/reseau/019000410/">LAVIALLE</a> · 019000410 · note A · 1 commune</li>
+<li><a href="/reseau/019002309/">LE BOS</a> · 019002309 · note A · 1 commune</li>
+<li><a href="/reseau/019000798/">LE BREUIL</a> · 019000798 · note A · 1 commune</li>
+<li><a href="/reseau/019001767/">LE CHAZARET DE ST REMY</a> · 019001767 · note A · 1 commune</li>
+<li><a href="/reseau/019000799/">LE COLOMBY</a> · 019000799 · note A · 1 commune</li>
+<li><a href="/reseau/019000062/">LE FLORENTIN</a> · 019000062 · note A · 1 commune</li>
+<li><a href="/reseau/019000152/">LE JARDIN BOURG</a> · 019000152 · note A · 1 commune</li>
+<li><a href="/reseau/019001102/">LE LIAC</a> · 019001102 · note D · 1 commune</li>
+<li><a href="/reseau/019001082/">LE LONZAC BOURG</a> · 019001082 · note A · 1 commune</li>
+<li><a href="/reseau/019000166/">LE LUC</a> · 019000166 · note A · 1 commune</li>
+<li><a href="/reseau/019000460/">LE MAS</a> · 019000460 · note A · 1 commune</li>
+<li><a href="/reseau/019000920/">LE MAZEAU</a> · 019000920 · note A · 1 commune</li>
+<li><a href="/reseau/019000336/">LE MONS</a> · 019000336 · note A · 1 commune</li>
+<li><a href="/reseau/019000129/">LE MONTEIL</a> · 019000129 · note A · 1 commune</li>
+<li><a href="/reseau/019001439/">LE MOREL</a> · 019001439 · note A · 6 communes</li>
+<li><a href="/reseau/019000273/">LE NOUAL (LES CHAZEAUX) (UV)</a> · 019000273 · note A · 1 commune</li>
+<li><a href="/reseau/019001104/">LE PEUCH</a> · 019001104 · note A · 1 commune</li>
+<li><a href="/reseau/019000631/">LE PIC</a> · 019000631 · note A · 1 commune</li>
+<li><a href="/reseau/019000825/">LE RAT</a> · 019000825 · note A · 1 commune</li>
+<li><a href="/reseau/019000356/">LE RIEUX</a> · 019000356 · note C · 1 commune</li>
+<li><a href="/reseau/019004703/">LE TOURNEL</a> · 019004703 · note A · 1 commune</li>
+<li><a href="/reseau/019000162/">LE VAURET</a> · 019000162 · note A · 1 commune</li>
+<li><a href="/reseau/019000225/">LE VERT</a> · 019000225 · note D · 1 commune</li>
+<li><a href="/reseau/019000143/">LES BEGES</a> · 019000143 · note A · 1 commune</li>
+<li><a href="/reseau/019000083/">LES BORDES</a> · 019000083 · note A · 1 commune</li>
+<li><a href="/reseau/019001146/">LES BORDES DE CORNIL</a> · 019001146 · note A · 1 commune</li>
+<li><a href="/reseau/019000897/">LES FARGES</a> · 019000897 · note A · 1 commune</li>
+<li><a href="/reseau/019001123/">LES GOUTTES (UV)</a> · 019001123 · note A · 1 commune</li>
+<li><a href="/reseau/019000060/">LES PLATS</a> · 019000060 · note A · 1 commune</li>
+<li><a href="/reseau/019000522/">LES PRADALEIX</a> · 019000522 · note A · 1 commune</li>
+<li><a href="/reseau/019001548/">LES TROIS VILLAGES</a> · 019001548 · note A · 1 commune</li>
+<li><a href="/reseau/019001216/">LESTARDS BOURG</a> · 019001216 · note A · 1 commune</li>
+<li><a href="/reseau/019000801/">LESTRADE</a> · 019000801 · note A · 1 commune</li>
+<li><a href="/reseau/019000643/">LEYRICH</a> · 019000643 · note C · 1 commune</li>
+<li><a href="/reseau/019000312/">LISSAC</a> · 019000312 · note A · 1 commune</li>
+<li><a href="/reseau/019000644/">LONGEVAL</a> · 019000644 · note A · 1 commune</li>
+<li><a href="/reseau/019003924/">LONTRADE</a> · 019003924 · note A · 1 commune</li>
+<li><a href="/reseau/019000800/">MACHEVALIER</a> · 019000800 · note A · 1 commune</li>
+<li><a href="/reseau/019000029/">MADELBOS</a> · 019000029 · note A · 1 commune</li>
+<li><a href="/reseau/019001089/">MADRANGES BOURG</a> · 019001089 · note A · 1 commune</li>
+<li><a href="/reseau/019000226/">MAIRIE ECOLE</a> · 019000226 · note A · 1 commune</li>
+<li><a href="/reseau/019001647/">MAISON ROUGE</a> · 019001647 · note A · 1 commune</li>
+<li><a href="/reseau/019004589/">MALBUISSON CHASTRUSSE</a> · 019004589 · note A · 1 commune</li>
+<li><a href="/reseau/019000820/">MALSAGNE</a> · 019000820 · note A · 1 commune</li>
+<li><a href="/reseau/019001766/">MALSOUTE DE ST REMY</a> · 019001766 · note A · 1 commune</li>
+<li><a href="/reseau/019001183/">MARCILLAC LA CROISILLE - BOURG</a> · 019001183 · note A · 1 commune</li>
+<li><a href="/reseau/019000150/">MARCOUYEUX</a> · 019000150 · note C · 1 commune</li>
+<li><a href="/reseau/019001282/">MARZEIX</a> · 019001282 · note A · 1 commune</li>
+<li><a href="/reseau/019000580/">MAS LE POUGE - FONTGRANDE</a> · 019000580 · note A · 1 commune</li>
+<li><a href="/reseau/019001345/">MASSERET BOURG</a> · 019001345 · note A · 1 commune</li>
+<li><a href="/reseau/019002306/">MASSOUBROT</a> · 019002306 · note A · 1 commune</li>
+<li><a href="/reseau/019000046/">MATRILLAT</a> · 019000046 · note A · 1 commune</li>
+<li><a href="/reseau/019000981/">MAUMONT RESEAU PRINCIPAL NORD</a> · 019000981 · note A · 5 communes</li>
+<li><a href="/reseau/019000982/">MAUMONT RESEAU PRINCIPAL SUD</a> · 019000982 · note A · 3 communes</li>
+<li><a href="/reseau/019001096/">MAUSSAC BOURG</a> · 019001096 · note A · 1 commune</li>
+<li><a href="/reseau/019000745/">MAZALAIGUE</a> · 019000745 · note A · 1 commune</li>
+<li><a href="/reseau/019000194/">MAZALEYRAT</a> · 019000194 · note D · 1 commune</li>
+<li><a href="/reseau/019001333/">MEILHARDS BOURG</a> · 019001333 · note A · 1 commune</li>
+<li><a href="/reseau/019000156/">MERCOEUR BOURG</a> · 019000156 · note A · 1 commune</li>
+<li><a href="/reseau/019004412/">MERLINES EYGURANDE BOURG</a> · 019004412 · note A · 2 communes</li>
+<li><a href="/reseau/019000289/">MESTES BOURG</a> · 019000289 · note A · 1 commune</li>
+<li><a href="/reseau/019000802/">MEYMAC BOURG</a> · 019000802 · note A · 2 communes</li>
+<li><a href="/reseau/019000075/">MEYRIGNAC</a> · 019000075 · note A · 1 commune</li>
+<li><a href="/reseau/019001214/">MEYRIGNAC L'EGLISE BOURG</a> · 019001214 · note A · 1 commune</li>
+<li><a href="/reseau/019001258/">MIGINIAC</a> · 019001258 · note A · 1 commune</li>
+<li><a href="/reseau/019000174/">MILLEVACHES BOURG</a> · 019000174 · note A · 1 commune</li>
+<li><a href="/reseau/019000938/">MONCEAUX S/DORDOGNE BOURG</a> · 019000938 · note A · 1 commune</li>
+<li><a href="/reseau/019001350/">MONESTIER MERLINES BOURG</a> · 019001350 · note D · 1 commune</li>
+<li><a href="/reseau/019003067/">MONT AUDOUZE</a> · 019003067 · note A · 1 commune</li>
+<li><a href="/reseau/019000571/">MONT LA PINTE</a> · 019000571 · note A · 1 commune</li>
+<li><a href="/reseau/019000959/">MONTAIGNAC BOURG</a> · 019000959 · note A · 1 commune</li>
+<li><a href="/reseau/019000516/">MONTEIL</a> · 019000516 · note A · 1 commune</li>
+<li><a href="/reseau/019000939/">MOUSTOULAT</a> · 019000939 · note A · 1 commune</li>
+<li><a href="/reseau/019001135/">MURAT</a> · 019001135 · note A · 1 commune</li>
+<li><a href="/reseau/019003038/">MURATET - LE REPAIRE</a> · 019003038 · note A · 1 commune</li>
+<li><a href="/reseau/019000070/">NAUCODIE</a> · 019000070 · note A · 1 commune</li>
+<li><a href="/reseau/019001220/">NESPOUX DE LESTARDS</a> · 019001220 · note D · 1 commune</li>
+<li><a href="/reseau/019000827/">NEUVIALLE</a> · 019000827 · note A · 1 commune</li>
+<li><a href="/reseau/019000179/">ORGNAC SUR VEZERE BOURG</a> · 019000179 · note A · 1 commune</li>
+<li><a href="/reseau/019000531/">ORLIAC DE BAR BOURG</a> · 019000531 · note A · 1 commune</li>
+<li><a href="/reseau/019000868/">ORLUC</a> · 019000868 · note D · 1 commune</li>
+<li><a href="/reseau/019000875/">PALISSE BOURG</a> · 019000875 · note A · 1 commune</li>
+<li><a href="/reseau/019003892/">PARTIE SUD DE LA COMMUNE</a> · 019003892 · note A · 1 commune</li>
+<li><a href="/reseau/019000884/">PERET BEL AIR BOURG</a> · 019000884 · note A · 1 commune</li>
+<li><a href="/reseau/019001806/">PEROLS BAY</a> · 019001806 · note A · 1 commune</li>
+<li><a href="/reseau/019000865/">PEROLS SUR VEZERE BOURG</a> · 019000865 · note A · 1 commune</li>
+<li><a href="/reseau/019001003/">PERPEZAC LE NOIR</a> · 019001003 · note D · 6 communes</li>
+<li><a href="/reseau/019001633/">PIGEON BLANC</a> · 019001633 · note A · 2 communes</li>
+<li><a href="/reseau/019000215/">POMPIGNAC</a> · 019000215 · note A · 1 commune</li>
+<li><a href="/reseau/019001073/">POTEAU DU GAY ET BOURG</a> · 019001073 · note A · 1 commune</li>
+<li><a href="/reseau/019001139/">POUMEYROL UV</a> · 019001139 · note A · 1 commune</li>
+<li><a href="/reseau/019000190/">PRADINES BOURG</a> · 019000190 · note A · 1 commune</li>
+<li><a href="/reseau/019000898/">PRAILLOUX</a> · 019000898 · note A · 1 commune</li>
+<li><a href="/reseau/019000584/">PRAS BAS</a> · 019000584 · note A · 1 commune</li>
+<li><a href="/reseau/019001423/">PUY DU BASSIN - BASSIGNAC</a> · 019001423 · note A · 2 communes</li>
+<li><a href="/reseau/019001432/">PUY DU BASSIN - CHADIRAC</a> · 019001432 · note A · 2 communes</li>
+<li><a href="/reseau/019001436/">PUY DU BASSIN -RILHAC XAINTRIE</a> · 019001436 · note A · 1 commune</li>
+<li><a href="/reseau/019001426/">PUY DU BASSIN MOULIN DE LA VERGNE</a> · 019001426 · note A · 1 commune</li>
+<li><a href="/reseau/019001360/">PUY LA FORET RESEAU PRINCIPAL</a> · 019001360 · note A · 3 communes</li>
+<li><a href="/reseau/019000412/">PUY LA FORET TREIGNAC</a> · 019000412 · note A · 1 commune</li>
+<li><a href="/reseau/019000154/">PUYHABILIER</a> · 019000154 · note A · 1 commune</li>
+<li><a href="/reseau/019000102/">REIGNAC</a> · 019000102 · note D · 1 commune</li>
+<li><a href="/reseau/019001442/">RESEAU FORGES-ST CHAMANT</a> · 019001442 · note A · 2 communes</li>
+<li><a href="/reseau/019004415/">RESEAU PRINCIPAL</a> · 019004415 · note A · 13 communes</li>
+<li><a href="/reseau/019000137/">REYGADES BOURG</a> · 019000137 · note A · 1 commune</li>
+<li><a href="/reseau/019001477/">RIFFAUD - LIGINIAC</a> · 019001477 · note A · 1 commune</li>
+<li><a href="/reseau/019001497/">RIFFAUD - PUY CHAFFAUD</a> · 019001497 · note A · 1 commune</li>
+<li><a href="/reseau/019001488/">RIFFAUD - PUY LA POULE</a> · 019001488 · note A · 5 communes</li>
+<li><a href="/reseau/019001471/">RIFFAUD - RESEAU PRINCIPAL</a> · 019001471 · note A · 7 communes</li>
+<li><a href="/reseau/019000282/">RIGAUDIE</a> · 019000282 · note A · 1 commune</li>
+<li><a href="/reseau/019000160/">RIOUBAZET</a> · 019000160 · note A · 1 commune</li>
+<li><a href="/reseau/019000958/">ROSIERS D'EGLETONS BOURG</a> · 019000958 · note A · 1 commune</li>
+<li><a href="/reseau/019000079/">ROUFFIAT</a> · 019000079 · note A · 1 commune</li>
+<li><a href="/reseau/019001108/">ROUFFY</a> · 019001108 · note A · 1 commune</li>
+<li><a href="/reseau/019000227/">ROUZEYROL</a> · 019000227 · note C · 1 commune</li>
+<li><a href="/reseau/019002382/">SAIGNE GRANDE</a> · 019002382 · note A · 1 commune</li>
+<li><a href="/reseau/019001564/">SAILLANT VIEUX</a> · 019001564 · note C · 1 commune</li>
+<li><a href="/reseau/019000663/">SAINT FREJOUX BOURG</a> · 019000663 · note A · 1 commune</li>
+<li><a href="/reseau/019001630/">SAINT GERMAIN</a> · 019001630 · note A · 3 communes</li>
+<li><a href="/reseau/019000414/">SAINT HILAIRE TAURIEUX BOURG</a> · 019000414 · note A · 1 commune</li>
+<li><a href="/reseau/019000298/">SAINT MERD DE LAPLEAU BOURG</a> · 019000298 · note A · 1 commune</li>
+<li><a href="/reseau/019000447/">SAINT REMY BOURG</a> · 019000447 · note C · 1 commune</li>
+<li><a href="/reseau/019000246/">SAINT SETIERS BOURG</a> · 019000246 · note A · 1 commune</li>
+<li><a href="/reseau/019000615/">SAINT SOLVE BOURG</a> · 019000615 · note A · 1 commune</li>
+<li><a href="/reseau/019000281/">SAINT SULPICE LES BOIS BOURG</a> · 019000281 · note A · 1 commune</li>
+<li><a href="/reseau/019000220/">SAINT SYLVAIN BOURG</a> · 019000220 · note A · 1 commune</li>
+<li><a href="/reseau/019000991/">SAINTE FEREOLE BOURG</a> · 019000991 · note A · 1 commune</li>
+<li><a href="/reseau/019000270/">SAINTE FORTUNADE BOURG (UV)</a> · 019000270 · note A · 1 commune</li>
+<li><a href="/reseau/019004646/">SALON LA TOUR</a> · 019004646 · note A · 1 commune</li>
+<li><a href="/reseau/019000125/">SARRAN BOURG</a> · 019000125 · note A · 1 commune</li>
+<li><a href="/reseau/019001648/">SAUGE</a> · 019001648 · note A · 1 commune</li>
+<li><a href="/reseau/019000042/">SAUGERAS</a> · 019000042 · note A · 1 commune</li>
+<li><a href="/reseau/019001729/">SAULIERE DE PEROLS</a> · 019001729 · note A · 1 commune</li>
+<li><a href="/reseau/019000228/">SERMUS</a> · 019000228 · note A · 1 commune</li>
+<li><a href="/reseau/019000347/">SERVIERES LE CHATEAU BOURG</a> · 019000347 · note A · 1 commune</li>
+<li><a href="/reseau/019000557/">SEXCLES BOURG</a> · 019000557 · note A · 1 commune</li>
+<li><a href="/reseau/019000635/">SEYT</a> · 019000635 · note D · 1 commune</li>
+<li><a href="/reseau/019000357/">SIRIEIX</a> · 019000357 · note A · 1 commune</li>
+<li><a href="/reseau/019000568/">SORNAC BOURG (LAVIALLE)</a> · 019000568 · note A · 1 commune</li>
+<li><a href="/reseau/019003077/">SORNAC BOURG (MONTEIL)</a> · 019003077 · note A · 1 commune</li>
+<li><a href="/reseau/019000541/">SOUDEILLES BOURG</a> · 019000541 · note A · 1 commune</li>
+<li><a href="/reseau/019000634/">SOUMAILLE</a> · 019000634 · note A · 1 commune</li>
+<li><a href="/reseau/019000328/">SOURSAC BOURG</a> · 019000328 · note A · 1 commune</li>
+<li><a href="/reseau/019000341/">SPONTOUR</a> · 019000341 · note A · 1 commune</li>
+<li><a href="/reseau/019000707/">ST ANGEL BOURG</a> · 019000707 · note A · 1 commune</li>
+<li><a href="/reseau/019000472/">ST AUGUSTIN BOURG</a> · 019000472 · note A · 1 commune</li>
+<li><a href="/reseau/019000679/">ST BAZILE DE LA ROCHE BOURG</a> · 019000679 · note A · 1 commune</li>
+<li><a href="/reseau/019000672/">ST BONNET AVALOUZE BOURG (LA BORIE)</a> · 019000672 · note A · 1 commune</li>
+<li><a href="/reseau/019000477/">ST BONNET ELVERT BOURG</a> · 019000477 · note A · 1 commune</li>
+<li><a href="/reseau/019000415/">ST BONNET LES TOURS - BOURG</a> · 019000415 · note A · 1 commune</li>
+<li><a href="/reseau/019000186/">ST CIRGUES LA LOUTRE BOURG</a> · 019000186 · note A · 1 commune</li>
+<li><a href="/reseau/019000200/">ST ETIENNE AUX CLOS BOURG</a> · 019000200 · note A · 1 commune</li>
+<li><a href="/reseau/019000667/">ST EXUPERY LES ROCHES BOURG</a> · 019000667 · note A · 1 commune</li>
+<li><a href="/reseau/019000206/">ST GERMAIN LAVOLPS BOURG</a> · 019000206 · note A · 1 commune</li>
+<li><a href="/reseau/019000493/">ST HILAIRE</a> · 019000493 · note A · 1 commune</li>
+<li><a href="/reseau/019000209/">ST HILAIRE FOISSAC BOURG</a> · 019000209 · note A · 1 commune</li>
+<li><a href="/reseau/019000214/">ST JULIEN LE PELERIN BOURG</a> · 019000214 · note A · 1 commune</li>
+<li><a href="/reseau/019000641/">ST MARTIAL ENTRAYGUES BOURG</a> · 019000641 · note D · 1 commune</li>
+<li><a href="/reseau/019000311/">ST MERD LES OUSSINES BOURG</a> · 019000311 · note A · 1 commune</li>
+<li><a href="/reseau/019000451/">ST PARDOUX LE VIEUX BOURG</a> · 019000451 · note A · 1 commune</li>
+<li><a href="/reseau/019004648/">ST YBARD BOURG LA JUSTICE</a> · 019004648 · note A · 1 commune</li>
+<li><a href="/reseau/019004649/">ST YBARD BOURG PIERRE BRUNE</a> · 019004649 · note A · 1 commune</li>
+<li><a href="/reseau/019000507/">ST YRIEIX LE DEJALAT BOURG</a> · 019000507 · note A · 1 commune</li>
+<li><a href="/reseau/019000284/">TAFALECHAS</a> · 019000284 · note A · 1 commune</li>
+<li><a href="/reseau/019001668/">TARNAC BOURG</a> · 019001668 · note A · 1 commune</li>
+<li><a href="/reseau/019001670/">THEILLET</a> · 019001670 · note A · 1 commune</li>
+<li><a href="/reseau/019001684/">TOURONDEL - ST AUGUSTIN</a> · 019001684 · note A · 1 commune</li>
+<li><a href="/reseau/019000689/">TOY VIAM BOURG</a> · 019000689 · note A · 1 commune</li>
+<li><a href="/reseau/019003897/">TREIGNAC BOURG BAS SERVICE</a> · 019003897 · note A · 1 commune</li>
+<li><a href="/reseau/019000406/">TREIGNAC BOURG HAUT SERVICE</a> · 019000406 · note A · 1 commune</li>
+<li><a href="/reseau/019001174/">TREMOULET</a> · 019001174 · note A · 1 commune</li>
+<li><a href="/reseau/019000372/">USSANGE</a> · 019000372 · note A · 1 commune</li>
+<li><a href="/reseau/019000313/">USSEL VILLE</a> · 019000313 · note A · 1 commune</li>
+<li><a href="/reseau/019000288/">VALIERGUES BOURG</a> · 019000288 · note A · 1 commune</li>
+<li><a href="/reseau/019000869/">VARIERAS</a> · 019000869 · note A · 1 commune</li>
+<li><a href="/reseau/019000940/">VAURETTE</a> · 019000940 · note A · 1 commune</li>
+<li><a href="/reseau/019002355/">VEIX</a> · 019002355 · note A · 1 commune</li>
+<li><a href="/reseau/019000518/">VEYSSIERES</a> · 019000518 · note A · 1 commune</li>
+<li><a href="/reseau/019000921/">VIALANEIX</a> · 019000921 · note A · 1 commune</li>
+<li><a href="/reseau/019001678/">VIAM BOURG</a> · 019001678 · note A · 1 commune</li>
+<li><a href="/reseau/019000196/">VIETHEL</a> · 019000196 · note A · 1 commune</li>
+<li><a href="/reseau/019000483/">VIGEOIS BOURG (UV)</a> · 019000483 · note A · 1 commune</li>
+<li><a href="/reseau/019003875/">VILLAGE D'ORLIAC</a> · 019003875 · note A · 1 commune</li>
+<li><a href="/reseau/019000251/">VILLEMONTEIX</a> · 019000251 · note A · 1 commune</li>
+<li><a href="/reseau/019001207/">XXXBOUYSSE</a> · 019001207 · sans note · 1 commune</li>
+<li><a href="/reseau/019001252/">XXXCHAMPAGNAC LA NOAILLE BOURG</a> · 019001252 · sans note · 1 commune</li>
+<li><a href="/reseau/019000598/">XXXCONFOLENT PORT DIEU BOURG</a> · 019000598 · sans note · 1 commune</li>
+<li><a href="/reseau/019001367/">XXXEAUX DE BORT - TOUVES</a> · 019001367 · sans note · 1 commune</li>
+<li><a href="/reseau/019000271/">XXXINSTITUT MEDICO EDUCATIF</a> · 019000271 · sans note · 1 commune</li>
+<li><a href="/reseau/019001130/">XXXLA BITARELLE</a> · 019001130 · sans note · 1 commune</li>
+<li><a href="/reseau/019000854/">XXXLA MONTANE - RESEAU PRINCIPAL</a> · 019000854 · sans note · 6 communes</li>
+<li><a href="/reseau/019000853/">XXXLE MONTEIL DE VITRAC S/MONTANE</a> · 019000853 · sans note · 1 commune</li>
+<li><a href="/reseau/019001131/">XXXLES ANGLES BOURG</a> · 019001131 · sans note · 1 commune</li>
+<li><a href="/reseau/019000272/">XXXLES BUSSIERES</a> · 019000272 · sans note · 1 commune</li>
+<li><a href="/reseau/019000549/">XXXSAINT GEORGES</a> · 019000549 · sans note · 1 commune</li>
+<li><a href="/reseau/019000545/">XXXSALON LA TOUR BOURG</a> · 019000545 · sans note · 1 commune</li>
+<li><a href="/reseau/019000308/">XXXST YBARD BOURG</a> · 019000308 · sans note · 5 communes</li>
+<li><a href="/reseau/019001260/">XXXVIALATTE</a> · 019001260 · sans note · 1 commune</li>
+<li><a href="/reseau/019000851/">XXXVITRAC SUR MONTANE BOURG</a> · 019000851 · sans note · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/19001/">Affieux</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19002/">Aix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19003/">Albignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19004/">Albussac</a> · 7 réseaux : 7 notés A</li>
+<li><a href="/commune/19005/">Allassac</a> · 4 réseaux : 2 notés C, 2 notés A</li>
+<li><a href="/commune/19006/">Alleyrat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19007/">Altillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19008/">Ambrugeat</a> · 8 réseaux : 8 notés A</li>
+<li><a href="/commune/19010/">Argentat-sur-Dordogne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19011/">Arnac-Pompadour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19012/">Astaillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19013/">Aubazines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19014/">Auriac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19015/">Ayen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19016/">Bar</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19017/">Bassignac-le-Bas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19018/">Bassignac-le-Haut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19019/">Beaulieu-sur-Dordogne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19020/">Beaumont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19021/">Bellechassagne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19022/">Benayes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19023/">Beynat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19024/">Beyssac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19025/">Beyssenac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19026/">Bilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19027/">Bonnefond</a> · 8 réseaux : 8 notés A</li>
+<li><a href="/commune/19028/">Bort-les-Orgues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19029/">Branceilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19030/">Brignac-la-Plaine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19031/">Brive-la-Gaillarde</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19033/">Bugeat</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/19034/">Camps-Saint-Mathurin-Léobazel</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19035/">Chabrignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19036/">Chamberet</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19037/">Chamboulive</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19038/">Chameyrat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19039/">Champagnac-la-Noaille</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19040/">Champagnac-la-Prune</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/19041/">Chanac-les-Mines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19042/">Chanteix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19046/">Chapelle-Spinasse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19047/">Chartrier-Ferrière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19049/">Chasteaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19050/">Chauffour-sur-Vell</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19051/">Chaumeil</a> · 8 réseaux : 1 noté C, 7 notés A</li>
+<li><a href="/commune/19052/">Chavanac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19053/">Chaveroche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19054/">Chenailler-Mascheix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19055/">Chirac-Bellevue</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19056/">Clergoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19057/">Collonges-la-Rouge</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19058/">Combressol</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19059/">Concèze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19060/">Condat-sur-Ganaveix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19167/">Confolent-Port-Dieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19061/">Cornil</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/19062/">Corrèze</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19063/">Cosnac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19064/">Couffy-sur-Sarsonne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19065/">Courteix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19066/">Cublac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19067/">Curemonte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19068/">Dampniat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19069/">Darazac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19070/">Darnets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19071/">Davignac</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/19072/">Donzenac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19073/">Égletons</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19075/">Espagnac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19076/">Espartignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19077/">Estivals</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19078/">Estivaux</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19079/">Eyburie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19080/">Eygurande</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19081/">Eyrein</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19082/">Favars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19083/">Feyt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19084/">Forgès</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19085/">Gimel-les-Cascades</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19086/">Goulles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19087/">Gourdon-Murat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19088/">Grandsaigne</a> · 3 réseaux : 2 notés D, 1 noté A</li>
+<li><a href="/commune/19089/">Gros-Chastang</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19090/">Gumond</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19091/">Hautefage</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/19093/">Jugeals-Nazareth</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19094/">Juillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19074/">L'Église-aux-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19043/">La Chapelle-aux-Brocs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19044/">La Chapelle-aux-Saints</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19045/">La Chapelle-Saint-Géraud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19174/">La Roche-Canillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19095/">Lacelle</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19096/">Ladignac-sur-Rondelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19097/">Lafage-sur-Sombre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19098/">Lagarde-Marc-la-Tour</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19099/">Lagleygeolle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19100/">Lagraulière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19101/">Laguenne-sur-Avalouze</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19102/">Lamazière-Basse</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19103/">Lamazière-Haute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19104/">Lamongerie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19105/">Lanteuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19106/">Lapleau</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/19107/">Larche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19108/">Laroche-près-Feyt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19109/">Lascaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19110/">Latronche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19111/">Laval-sur-Luzège</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19048/">Le Chastang</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19118/">Le Lonzac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19163/">Le Pescher</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19009/">Les Angles-sur-Corrèze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19248/">Les Trois-Saints</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19112/">Lestards</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/19113/">Liginiac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19114/">Lignareix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19115/">Ligneyrac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19116/">Liourdres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19117/">Lissac-sur-Couze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19119/">Lostanges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19120/">Louignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19121/">Lubersac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19122/">Madranges</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19123/">Malemort</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19124/">Mansac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19125/">Marcillac-la-Croisille</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/19126/">Marcillac-la-Croze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19128/">Margerides</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19129/">Masseret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19130/">Maussac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19131/">Meilhards</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19132/">Ménoire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19133/">Mercœur</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19134/">Merlines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19135/">Mestes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19136/">Meymac</a> · 9 réseaux : 9 notés A</li>
+<li><a href="/commune/19137/">Meyrignac-l'Église</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19138/">Meyssac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19139/">Millevaches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19140/">Monceaux-sur-Dordogne</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19141/">Monestier-Merlines</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19142/">Monestier-Port-Dieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19143/">Montaignac-sur-Doustre</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/19144/">Montgibaud</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19145/">Moustier-Ventadour</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19146/">Naves</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19147/">Nespouls</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19148/">Neuvic</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19149/">Neuville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19150/">Noailhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19151/">Noailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19153/">Objat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19154/">Orgnac-sur-Vézère</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19155/">Orliac-de-Bar</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19156/">Palazinges</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19157/">Palisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19158/">Pandrignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19159/">Péret-Bel-Air</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19160/">Pérols-sur-Vézère</a> · 9 réseaux : 1 noté D, 8 notés A</li>
+<li><a href="/commune/19161/">Perpezac-le-Blanc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19162/">Perpezac-le-Noir</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19164/">Peyrelevade</a> · 7 réseaux : 1 noté C, 6 notés A</li>
+<li><a href="/commune/19165/">Peyrissac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19166/">Pierrefitte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19168/">Pradines</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/19169/">Puy-d'Arnac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19170/">Queyssac-les-Vignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19171/">Reygade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19172/">Rilhac-Treignac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19173/">Rilhac-Xaintrie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19175/">Roche-le-Peyroux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19176/">Rosiers-d'Égletons</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19177/">Rosiers-de-Juillac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19178/">Sadroc</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19179/">Saillac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19180/">Saint-Angel</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/19181/">Saint-Augustin</a> · 6 réseaux : 1 noté D, 5 notés A</li>
+<li><a href="/commune/19182/">Saint-Aulaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19184/">Saint-Bazile-de-Meyssac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19186/">Saint-Bonnet-Elvert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19188/">Saint-Bonnet-l'Enfantier</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19187/">Saint-Bonnet-la-Rivière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19189/">Saint-Bonnet-les-Tours-de-Merle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19190/">Saint-Bonnet-près-Bort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19191/">Saint-Cernin-de-Larche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19192/">Saint-Chamant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19193/">Saint-Cirgues-la-Loutre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19194/">Saint-Clément</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19195/">Saint-Cyprien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19196/">Saint-Cyr-la-Roche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19198/">Saint-Éloy-les-Tuileries</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19199/">Saint-Étienne-aux-Clos</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/19200/">Saint-Étienne-la-Geneste</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19201/">Saint-Exupéry-les-Roches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19204/">Saint-Fréjoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19205/">Saint-Geniez-ô-Merle</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/19206/">Saint-Germain-Lavolps</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19207/">Saint-Germain-les-Vergnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19208/">Saint-Hilaire-Foissac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19209/">Saint-Hilaire-les-Courbes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19210/">Saint-Hilaire-Luc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19211/">Saint-Hilaire-Peyroux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19212/">Saint-Hilaire-Taurieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19213/">Saint-Jal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19214/">Saint-Julien-aux-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19215/">Saint-Julien-le-Pèlerin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19216/">Saint-Julien-le-Vendômois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19217/">Saint-Julien-Maumont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19220/">Saint-Martial-de-Gimel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19221/">Saint-Martial-Entraygues</a> · 4 réseaux : 1 noté D, 1 noté C, 2 notés A</li>
+<li><a href="/commune/19222/">Saint-Martin-la-Méanne</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/19223/">Saint-Martin-Sepert</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/19225/">Saint-Merd-de-Lapleau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19226/">Saint-Merd-les-Oussines</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19227/">Saint-Mexant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19228/">Saint-Pantaléon-de-Lapleau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19229/">Saint-Pantaléon-de-Larche</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19230/">Saint-Pardoux-Corbier</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/19234/">Saint-Pardoux-l'Ortigier</a> · 1 réseau, noté D</li>
+<li><a href="/commune/19231/">Saint-Pardoux-la-Croisille</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19232/">Saint-Pardoux-le-Neuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19233/">Saint-Pardoux-le-Vieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19235/">Saint-Paul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19236/">Saint-Priest-de-Gimel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19237/">Saint-Privat</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19238/">Saint-Rémy</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/19239/">Saint-Robert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19240/">Saint-Salvadour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19241/">Saint-Setiers</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/19242/">Saint-Solve</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19243/">Saint-Sornin-Lavolps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19244/">Saint-Sulpice-les-Bois</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19245/">Saint-Sylvain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19246/">Saint-Viance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19247/">Saint-Victour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19249/">Saint-Yrieix-le-Déjalat</a> · 9 réseaux : 1 noté D, 1 noté C, 7 notés A</li>
+<li><a href="/commune/19202/">Sainte-Féréole</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19203/">Sainte-Fortunade</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19219/">Sainte-Marie-Lapanouze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19250/">Salon-la-Tour</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19251/">Sarran</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19252/">Sarroux - Saint Julien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19253/">Segonzac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19254/">Ségur-le-Château</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19255/">Seilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19256/">Sérandon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19257/">Sérilhac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19258/">Servières-le-Château</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/19259/">Sexcles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19260/">Sioniac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19261/">Sornac</a> · 9 réseaux : 1 noté D, 8 notés A</li>
+<li><a href="/commune/19262/">Soudaine-Lavinadière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19263/">Soudeilles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/19264/">Soursac</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19265/">Tarnac</a> · 7 réseaux : 7 notés A</li>
+<li><a href="/commune/19266/">Thalamy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19268/">Toy-Viam</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19269/">Treignac</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/19270/">Troche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19271/">Tudeils</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19272/">Tulle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19273/">Turenne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19274/">Ussac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19275/">Ussel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19276/">Uzerche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19277/">Valiergues</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19278/">Varetz</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19279/">Vars-sur-Roseix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19280/">Végennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19281/">Veix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19283/">Veyrières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19284/">Viam</a> · 2 réseaux : 1 noté D, 1 noté A</li>
+<li><a href="/commune/19285/">Vigeois</a> · 5 réseaux : 1 noté D, 1 noté C, 3 notés A</li>
+<li><a href="/commune/19286/">Vignols</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19287/">Vitrac-sur-Montane</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19288/">Voutezac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/19289/">Yssandon</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Corrèze · eau du robinet », https://meteodurobinet.fr/departement/19/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

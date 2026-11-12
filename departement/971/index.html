@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Guadeloupe (971) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Guadeloupe · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Guadeloupe (971) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/971/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Guadeloupe · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Guadeloupe · eau du robinet","url":"https://meteodurobinet.fr/departement/971/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Guadeloupe","item":"https://meteodurobinet.fr/departement/971/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/971/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Guadeloupe</h1>
+<p class="meta">Département 971</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>11 sur 61 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 39 réseaux</li>
+<li>B qualité convenable* : 11 réseaux</li>
+<li>C qualité insuffisante* : 6 réseaux</li>
+<li>D mauvaise qualité* : 5 réseaux</li>
+</ul>
+<p>Autres limites de qualité 9 (5 D), bactériologie 1.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>19 réseaux visés sur 61</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>106 prélèvements</strong> évalués en septembre 2026 ; 1 231 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 0 jour, alerte renforcée 0 jour, crise 179 jours</li>
+<li>2025 : année absente du jeu de données</li>
+<li>2026 en cours : vigilance 0 jour, alerte 157 jours, alerte renforcée 0 jour, crise 0 jour</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,79</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 1 service a déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>5 services d’eau</strong> desservent au moins une commune du département ; 1 est en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 72 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/971003605/">(ABA) BAIE-MAHAULT MOUSTIQUE</a> · 971003605 · sans note · 2 communes</li>
+<li><a href="/reseau/971000134/">(ABA) BAILLIF</a> · 971000134 · sans note · 1 commune</li>
+<li><a href="/reseau/971000049/">(ABA) DESHAIES-DESBONNES</a> · 971000049 · sans note · 1 commune</li>
+<li><a href="/reseau/971001132/">(ABA) PETIT CANAL DEVARIEUX</a> · 971001132 · sans note · 1 commune</li>
+<li><a href="/reseau/971000128/">(ABA) POINTE NOIRE LES APOTRES</a> · 971000128 · note A · 1 commune</li>
+<li><a href="/reseau/971000039/">ABYMES BOURG </a> · 971000039 · note A · 1 commune</li>
+<li><a href="/reseau/971001134/">ABYMES CARAQUE</a> · 971001134 · sans note · 1 commune</li>
+<li><a href="/reseau/971000055/">ANSE-BERTRAND PORT LOUIS</a> · 971000055 · note A · 3 communes</li>
+<li><a href="/reseau/971003978/">BAILLIF MONVAL</a> · 971003978 · note A · 1 commune</li>
+<li><a href="/reseau/971003977/">BAILLIF SAINT LOUIS</a> · 971003977 · note B · 1 commune</li>
+<li><a href="/reseau/971000139/">BASSE TERRE-SAINT CLAUDE</a> · 971000139 · note A · 2 communes</li>
+<li><a href="/reseau/971000132/">BASSE-TERRE BEAUVALLON</a> · 971000132 · note B · 1 commune</li>
+<li><a href="/reseau/971000102/">BOSREDON- MORNE A L'EAU</a> · 971000102 · note A · 1 commune</li>
+<li><a href="/reseau/971000100/">BOUILLANTE</a> · 971000100 · note A · 1 commune</li>
+<li><a href="/reseau/971000142/">CAPESTERRE DE MG-BOURG</a> · 971000142 · note A · 2 communes</li>
+<li><a href="/reseau/971000140/">CAPESTERRE ROUTHIERS</a> · 971000140 · sans note · 1 commune</li>
+<li><a href="/reseau/971000023/">CAPESTERRE SECTION BEL AIR</a> · 971000023 · note A · 1 commune</li>
+<li><a href="/reseau/971000018/">CAPESTERRE-BELLE-EAU</a> · 971000018 · note A · 4 communes</li>
+<li><a href="/reseau/971003923/">CHAZEAU MORNE A L EAU</a> · 971003923 · note A · 1 commune</li>
+<li><a href="/reseau/971000048/">DESHAIES</a> · 971000048 · note B · 1 commune</li>
+<li><a href="/reseau/971000027/">GOSIER</a> · 971000027 · sans note · 1 commune</li>
+<li><a href="/reseau/971000060/">GOURBEYRE BELLE TERRE</a> · 971000060 · note B · 1 commune</li>
+<li><a href="/reseau/971003983/">GOURBEYRE BELLE TERRE PALMISTE</a> · 971003983 · note D · 1 commune</li>
+<li><a href="/reseau/971000084/">GOURBEYRE-PALMISTE</a> · 971000084 · note D · 1 commune</li>
+<li><a href="/reseau/971000021/">GOYAVE</a> · 971000021 · sans note · 1 commune</li>
+<li><a href="/reseau/971001129/">GRAND FOND MOULE</a> · 971001129 · note A · 1 commune</li>
+<li><a href="/reseau/971000141/">GRAND-BOURG</a> · 971000141 · note B · 1 commune</li>
+<li><a href="/reseau/971000047/">LAMENTIN</a> · 971000047 · note B · 1 commune</li>
+<li><a href="/reseau/971000111/">LASSERRE MORNE A L'EAU</a> · 971000111 · note A · 2 communes</li>
+<li><a href="/reseau/971001130/">LE MOULE DESVARIEUX</a> · 971001130 · note D · 1 commune</li>
+<li><a href="/reseau/971000155/">LE-MOULE</a> · 971000155 · note D · 1 commune</li>
+<li><a href="/reseau/971000154/">LE-MOULE SAINTE-MARGUERITE</a> · 971000154 · note D · 2 communes</li>
+<li><a href="/reseau/971000143/">MARIE-GALANTE NORD-EST</a> · 971000143 · note A · 2 communes</li>
+<li><a href="/reseau/971000089/">MORNE A L'EAU BOURG</a> · 971000089 · note A · 1 commune</li>
+<li><a href="/reseau/971000020/">MOUSTIQUE (PETIT-BOURG ET BAIE MAHAULT)</a> · 971000020 · note C · 2 communes</li>
+<li><a href="/reseau/971003600/">PELLETAN</a> · 971003600 · note A · 1 commune</li>
+<li><a href="/reseau/971001139/">PERRIN-GOLCONDE</a> · 971001139 · sans note · 1 commune</li>
+<li><a href="/reseau/971000086/">PETIT-CANAL</a> · 971000086 · note A · 1 commune</li>
+<li><a href="/reseau/971000077/">PETIT-CANAL LES MANGLES</a> · 971000077 · note A · 1 commune</li>
+<li><a href="/reseau/971000043/">POINTE-A-PITRE/MORNE MIQUEL</a> · 971000043 · note A · 2 communes</li>
+<li><a href="/reseau/971003921/">POINTE-NOIRE BEAUSOLEIL</a> · 971003921 · note C · 1 commune</li>
+<li><a href="/reseau/971000117/">POINTE-NOIRE MAHAULT</a> · 971000117 · note A · 1 commune</li>
+<li><a href="/reseau/971000125/">POINTE-NOIRE-LES PLAINES-LES APOTRES</a> · 971000125 · note A · 1 commune</li>
+<li><a href="/reseau/971000072/">PORT BLANC</a> · 971000072 · note A · 1 commune</li>
+<li><a href="/reseau/971000071/">PORT-LOUIS</a> · 971000071 · sans note · 1 commune</li>
+<li><a href="/reseau/971000114/">RICHEVAL MORNE A L'EAU</a> · 971000114 · note A · 1 commune</li>
+<li><a href="/reseau/971000159/">SAINT-BARTHELEMY</a> · 971000159 · note C · 1 commune</li>
+<li><a href="/reseau/971000144/">SAINT-LOUIS</a> · 971000144 · note A · 1 commune</li>
+<li><a href="/reseau/971000160/">SAINT-MARTIN</a> · 971000160 · note C · 1 commune</li>
+<li><a href="/reseau/971000030/">SAINTE ANNE DESHAUTEURS</a> · 971000030 · note A · 4 communes</li>
+<li><a href="/reseau/971000345/">SAINTE ROSE LEOTARD</a> · 971000345 · sans note · 1 commune</li>
+<li><a href="/reseau/971000066/">SAINTE-ROSE CACAO</a> · 971000066 · note A · 1 commune</li>
+<li><a href="/reseau/971000052/">SAINTE-ROSE MASSY</a> · 971000052 · note A · 1 commune</li>
+<li><a href="/reseau/971000096/">SAINTE-ROSE SOFAIA</a> · 971000096 · note B · 1 commune</li>
+<li><a href="/reseau/971000090/">SAINTE-ROSE SOLITUDE</a> · 971000090 · note C · 1 commune</li>
+<li><a href="/reseau/971000136/">ST-CLAUDE MATOUBA</a> · 971000136 · note A · 1 commune</li>
+<li><a href="/reseau/971000118/">ST-CLAUDE PAPAYE</a> · 971000118 · note B · 1 commune</li>
+<li><a href="/reseau/971000151/">TROIS RIVIERES (GOMMIER)</a> · 971000151 · note A · 1 commune</li>
+<li><a href="/reseau/971000183/">TROIS-RIVIERES L'ERMITAGE</a> · 971000183 · note A · 1 commune</li>
+<li><a href="/reseau/971000016/">TROIS-RIVIERES LA PLAINE</a> · 971000016 · note A · 1 commune</li>
+<li><a href="/reseau/971000153/">TROIS-RIVIERES TETE CANAL</a> · 971000153 · note A · 1 commune</li>
+<li><a href="/reseau/971004004/">UDI BALISIER</a> · 971004004 · note A · 1 commune</li>
+<li><a href="/reseau/971003988/">UDI BUDAN (MELANGE MOUSTIQUE VERNOU)</a> · 971003988 · note C · 1 commune</li>
+<li><a href="/reseau/971003946/">UDI CAMPECHE MASSIOUX</a> · 971003946 · note A · 1 commune</li>
+<li><a href="/reseau/971003976/">UDI CELCOURT</a> · 971003976 · note A · 1 commune</li>
+<li><a href="/reseau/971003982/">UDI FEEDER</a> · 971003982 · note A · 5 communes</li>
+<li><a href="/reseau/971003984/">UDI PETIT PEROU </a> · 971003984 · note A · 1 commune</li>
+<li><a href="/reseau/971004002/">UDI RABI</a> · 971004002 · note A · 1 commune</li>
+<li><a href="/reseau/971000015/">VERNOU (BAIE MAHAULT ET PETIT BOURG)</a> · 971000015 · note B · 3 communes</li>
+<li><a href="/reseau/971000135/">VIEUX FORT</a> · 971000135 · note A · 2 communes</li>
+<li><a href="/reseau/971000095/">VIEUX-HABITANTS BEAUGENDRE</a> · 971000095 · note B · 1 commune</li>
+<li><a href="/reseau/971000092/">VIEUX-HABITANTS VANNIBEL</a> · 971000092 · note B · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/97102/">Anse-Bertrand</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/97103/">Baie-Mahault</a> · 3 réseaux : 2 notés C, 1 noté B</li>
+<li><a href="/commune/97104/">Baillif</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/97105/">Basse-Terre</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/97106/">Bouillante</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97107/">Capesterre-Belle-Eau</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/97108/">Capesterre-de-Marie-Galante</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/97111/">Deshaies</a> · 1 réseau, noté B</li>
+<li><a href="/commune/97109/">Gourbeyre</a> · 3 réseaux : 2 notés D, 1 noté B</li>
+<li><a href="/commune/97114/">Goyave</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97112/">Grand-Bourg</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/97110/">La Désirade</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97115/">Lamentin</a> · 1 réseau, noté B</li>
+<li><a href="/commune/97113/">Le Gosier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/97117/">Le Moule</a> · 6 réseaux : 3 notés D, 3 notés A</li>
+<li><a href="/commune/97101/">Les Abymes</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/97116/">Morne-à-l'Eau</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/97118/">Petit-Bourg</a> · 2 réseaux : 1 noté C, 1 noté B</li>
+<li><a href="/commune/97119/">Petit-Canal</a> · 4 réseaux : 1 noté D, 3 notés A</li>
+<li><a href="/commune/97120/">Pointe-à-Pitre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/97121/">Pointe-Noire</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/97122/">Port-Louis</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/97701/">Saint-Barthélemy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/97124/">Saint-Claude</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/97125/">Saint-François</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/97126/">Saint-Louis</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/97801/">Saint-Martin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/97128/">Sainte-Anne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97129/">Sainte-Rose</a> · 4 réseaux : 1 noté C, 1 noté B, 2 notés A</li>
+<li><a href="/commune/97130/">Terre-de-Bas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97131/">Terre-de-Haut</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97132/">Trois-Rivières</a> · 6 réseaux : 6 notés A</li>
+<li><a href="/commune/97133/">Vieux-Fort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/97134/">Vieux-Habitants</a> · 2 réseaux : 2 notés B</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Guadeloupe · eau du robinet », https://meteodurobinet.fr/departement/971/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

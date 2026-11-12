@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Eure-et-Loir (28) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Eure-et-Loir · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Eure-et-Loir (28) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/28/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Eure-et-Loir · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Eure-et-Loir · eau du robinet","url":"https://meteodurobinet.fr/departement/28/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Eure-et-Loir","item":"https://meteodurobinet.fr/departement/28/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/28/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Eure-et-Loir</h1>
+<p class="meta">Département 28</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>49 sur 224 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 170 réseaux</li>
+<li>B qualité convenable* : 5 réseaux</li>
+<li>C qualité insuffisante* : 44 réseaux</li>
+<li>D mauvaise qualité* : 5 réseaux</li>
+</ul>
+<p>Pesticides 36, nitrates 16.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>46 réseaux visés sur 224</strong></p>
+<p>depuis le 1er janvier 2026, hors avis locaux.</p>
+<h3>Prélèvements</h3>
+<p><strong>99 prélèvements</strong> évalués en septembre 2026 ; 1 468 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 0 jour, alerte 0 jour, alerte renforcée 29 jours, crise 22 jours</li>
+<li>2025 : vigilance 0 jour, alerte 64 jours, alerte renforcée 42 jours, crise 15 jours</li>
+<li>2026 en cours : vigilance 0 jour, alerte 12 jours, alerte renforcée 74 jours, crise 69 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,84</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 72 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>99 services d’eau</strong> desservent au moins une commune du département ; 69 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 292 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/028001082/"> CERNAY</a> · 028001082 · sans note · 1 commune</li>
+<li><a href="/reseau/028000786/">ABA - CIVRY</a> · 028000786 · sans note · 1 commune</li>
+<li><a href="/reseau/028001078/">ABA BOUGLAINVAL</a> · 028001078 · sans note · 1 commune</li>
+<li><a href="/reseau/028001375/">ABA CHARTAINVILLIERS</a> · 028001375 · sans note · 1 commune</li>
+<li><a href="/reseau/028001295/">ABA LES VILLAGES VOVEENS MONTAINVILLE</a> · 028001295 · sans note · 1 commune</li>
+<li><a href="/reseau/028001367/">ABA LES VILLAGES VOVEENS ROUVRAY ST FLORENTI</a> · 028001367 · sans note · 1 commune</li>
+<li><a href="/reseau/028001407/">ABA LES VILLAGES VOVEENS VILLENEUVE ST NICOL</a> · 028001407 · sans note · 1 commune</li>
+<li><a href="/reseau/028000863/">ABA LUTZ EN DUNOIS</a> · 028000863 · sans note · 1 commune</li>
+<li><a href="/reseau/028000962/">ABA THIVILLE</a> · 028000962 · sans note · 1 commune</li>
+<li><a href="/reseau/028000556/">ALLUYES</a> · 028000556 · sans note · 1 commune</li>
+<li><a href="/reseau/028001015/">ARDELU</a> · 028001015 · note A · 1 commune</li>
+<li><a href="/reseau/028000566/">ARROU BARBOTIERE</a> · 028000566 · note C · 1 commune</li>
+<li><a href="/reseau/028000569/">ARROU LA TAILLE</a> · 028000569 · note A · 1 commune</li>
+<li><a href="/reseau/028000568/">ARROU RIFAUDIERE</a> · 028000568 · note A · 1 commune</li>
+<li><a href="/reseau/028001017/">AUNAY SOUS AUNEAU</a> · 028001017 · note A · 1 commune</li>
+<li><a href="/reseau/028001379/">AUNEAU-BLEURY-ST SYMPHORIEN-ST SYMPHORIE</a> · 028001379 · note A · 1 commune</li>
+<li><a href="/reseau/028001019/">AUNEAU-BLEURY-ST-SYMPHORIEN - AUNEAU</a> · 028001019 · note A · 1 commune</li>
+<li><a href="/reseau/028000572/">AUTHON DU PERCHE</a> · 028000572 · note A · 1 commune</li>
+<li><a href="/reseau/028000947/">AUTHON DU PERCHE-SOIZE</a> · 028000947 · note A · 1 commune</li>
+<li><a href="/reseau/028000575/">BAIGNEAUX</a> · 028000575 · note A · 1 commune</li>
+<li><a href="/reseau/028001416/">BAILLEAU ARMENON. HARLEVILLE</a> · 028001416 · note A · 1 commune</li>
+<li><a href="/reseau/028001495/">BAILLEAU ARMENONV.-AERODROME</a> · 028001495 · note A · 1 commune</li>
+<li><a href="/reseau/028001062/">BAILLEAU SOUS GALLARDON</a> · 028001062 · note A · 1 commune</li>
+<li><a href="/reseau/028000703/">BAILLEAU-FRESNAY-BRICONVILLE</a> · 028000703 · note C · 3 communes</li>
+<li><a href="/reseau/028000576/">BARJOUVILLE-MORANCEZ</a> · 028000576 · note C · 2 communes</li>
+<li><a href="/reseau/028001065/">BARMAINVILLE</a> · 028001065 · sans note · 1 commune</li>
+<li><a href="/reseau/028001067/">BAUDREVILLE</a> · 028001067 · note A · 1 commune</li>
+<li><a href="/reseau/028000583/">BAZOCHES EN DUNOIS</a> · 028000583 · note A · 1 commune</li>
+<li><a href="/reseau/028000585/">BAZOCHES LES HAUTES</a> · 028000585 · note A · 1 commune</li>
+<li><a href="/reseau/028001069/">BEAUVILLIERS</a> · 028001069 · note A · 1 commune</li>
+<li><a href="/reseau/028000742/">BERCHERES-CORANCEZ</a> · 028000742 · note B · 2 communes</li>
+<li><a href="/reseau/028001071/">BEVILLE LE COMTE</a> · 028001071 · note A · 1 commune</li>
+<li><a href="/reseau/028001682/">BILLANCELLES</a> · 028001682 · sans note · 1 commune</li>
+<li><a href="/reseau/028001167/">BILLANCELLES-GUIMONVILLIERS</a> · 028001167 · sans note · 1 commune</li>
+<li><a href="/reseau/028001073/">BLANDAINVILLE</a> · 028001073 · sans note · 1 commune</li>
+<li><a href="/reseau/028001128/">BLEURY-GALLARDON MONTLOUET</a> · 028001128 · note A · 2 communes</li>
+<li><a href="/reseau/028001075/">BOISVILLE LA SAINT PERE</a> · 028001075 · note A · 1 commune</li>
+<li><a href="/reseau/028001076/">BONCE</a> · 028001076 · note C · 1 commune</li>
+<li><a href="/reseau/028000755/">BOUVILLE BOIS DE FEUGERES</a> · 028000755 · sans note · 1 commune</li>
+<li><a href="/reseau/028000753/">BOUVILLE BOURG</a> · 028000753 · sans note · 1 commune</li>
+<li><a href="/reseau/028000757/">BROU-DANGEAU-BULLOU-YEVRES-MEZIERES</a> · 028000757 · note A · 3 communes</li>
+<li><a href="/reseau/028000735/">BU</a> · 028000735 · note A · 1 commune</li>
+<li><a href="/reseau/028000699/">CAD - ARDELLES</a> · 028000699 · note A · 1 commune</li>
+<li><a href="/reseau/028001031/">CAD - CRECY COUVE</a> · 028001031 · sans note · 1 commune</li>
+<li><a href="/reseau/028001039/">CAD - DAMPIERRE SUR AVRE</a> · 028001039 · note A · 1 commune</li>
+<li><a href="/reseau/028001454/">CAD - DREUX GRANGES</a> · 028001454 · note A · 1 commune</li>
+<li><a href="/reseau/028001168/">CAD - FAVIERES</a> · 028001168 · note A · 1 commune</li>
+<li><a href="/reseau/028001054/">CAD - FONTAINE LES RIBOUTS</a> · 028001054 · note C · 1 commune</li>
+<li><a href="/reseau/028001144/">CAD - GARANCIERES EN DROUAIS</a> · 028001144 · sans note · 1 commune</li>
+<li><a href="/reseau/028001146/">CAD - GARNAY</a> · 028001146 · sans note · 1 commune</li>
+<li><a href="/reseau/028000715/">CAD - LE BOULLAY LES DEUX EGLISES</a> · 028000715 · sans note · 1 commune</li>
+<li><a href="/reseau/028000717/">CAD - LE BOULLAY THIERRY</a> · 028000717 · sans note · 1 commune</li>
+<li><a href="/reseau/028001338/">CAD - LURAY</a> · 028001338 · sans note · 1 commune</li>
+<li><a href="/reseau/028001173/">CAD - MAILLEBOIS</a> · 028001173 · note C · 1 commune</li>
+<li><a href="/reseau/028001176/">CAD - MAILLEBOIS CHENNEVIERES</a> · 028001176 · note C · 1 commune</li>
+<li><a href="/reseau/028001178/">CAD - MARVILLE MOUTIERS BRULE</a> · 028001178 · sans note · 1 commune</li>
+<li><a href="/reseau/028001200/">CAD - ORMOY</a> · 028001200 · sans note · 1 commune</li>
+<li><a href="/reseau/028001208/">CAD - PUISEUX</a> · 028001208 · sans note · 1 commune</li>
+<li><a href="/reseau/028001033/">CAD - SAULNIERES</a> · 028001033 · sans note · 1 commune</li>
+<li><a href="/reseau/028001216/">CAD - ST ANGE ET TORCAY</a> · 028001216 · note C · 1 commune</li>
+<li><a href="/reseau/028001056/">CAD - ST JEAN DE REBERVILLIERS</a> · 028001056 · sans note · 1 commune</li>
+<li><a href="/reseau/028001172/">CAD - ST MAIXME HAUTERIVE</a> · 028001172 · sans note · 1 commune</li>
+<li><a href="/reseau/028001278/">CAD - ST REMY SUR AVRE</a> · 028001278 · note A · 1 commune</li>
+<li><a href="/reseau/028001440/">CAD - ST SAUVEUR MARVILLE</a> · 028001440 · sans note · 1 commune</li>
+<li><a href="/reseau/028001219/">CAD - STE GEMME MORONVAL</a> · 028001219 · sans note · 1 commune</li>
+<li><a href="/reseau/028001292/">CAD - THIMERT GATELLES</a> · 028001292 · sans note · 1 commune</li>
+<li><a href="/reseau/028001331/">CAD - TREON</a> · 028001331 · sans note · 1 commune</li>
+<li><a href="/reseau/028001334/">CAD - VERNOUILLET</a> · 028001334 · sans note · 1 commune</li>
+<li><a href="/reseau/028000701/">CAD- AUNAY SOUS CRECY</a> · 028000701 · sans note · 1 commune</li>
+<li><a href="/reseau/028000738/">CHALLET</a> · 028000738 · note C · 1 commune</li>
+<li><a href="/reseau/028000768/">CHAMPROND EN GATINE</a> · 028000768 · note A · 1 commune</li>
+<li><a href="/reseau/028000771/">CHAMPROND EN PERCHET FLAUDIERE</a> · 028000771 · note A · 1 commune</li>
+<li><a href="/reseau/028001084/">CHAMPSERU</a> · 028001084 · note A · 1 commune</li>
+<li><a href="/reseau/028000772/">CHAPELLE GUILLAUME</a> · 028000772 · note A · 1 commune</li>
+<li><a href="/reseau/028000774/">CHAPELLE ROYALE</a> · 028000774 · note A · 1 commune</li>
+<li><a href="/reseau/028001087/">CHARONVILLE</a> · 028001087 · sans note · 1 commune</li>
+<li><a href="/reseau/028001088/">CHARTRES S1</a> · 028001088 · note A · 7 communes</li>
+<li><a href="/reseau/028000778/">CHASSANT</a> · 028000778 · note A · 1 commune</li>
+<li><a href="/reseau/028000780/">CHATEAUDUN</a> · 028000780 · note C · 1 commune</li>
+<li><a href="/reseau/028001099/">CHATENAY</a> · 028001099 · note A · 1 commune</li>
+<li><a href="/reseau/028000784/">CHATILLON EN DUNOIS</a> · 028000784 · note A · 1 commune</li>
+<li><a href="/reseau/028000785/">CHATILLON EN DUNOIS GIVAIS</a> · 028000785 · note A · 1 commune</li>
+<li><a href="/reseau/028001449/">CHERVILLE</a> · 028001449 · note A · 1 commune</li>
+<li><a href="/reseau/028001029/">CLEVILLIERS</a> · 028001029 · note B · 1 commune</li>
+<li><a href="/reseau/028000933/">CLOYES-LES-3-RIVIERES- MONTIGNY-ST/HI</a> · 028000933 · note A · 1 commune</li>
+<li><a href="/reseau/028000823/">CLOYES-LES-3-RIVIERES-FERTE-CHARRAY-MEE-AUTHEUIL</a> · 028000823 · note A · 1 commune</li>
+<li><a href="/reseau/028000570/">CLOYES-LES-TROIS-RIVIERES-AUTHEUIL</a> · 028000570 · sans note · 1 commune</li>
+<li><a href="/reseau/028000788/">CLOYES-LES-TROIS-RIVIERES-CLOYES S/LOIR</a> · 028000788 · note B · 1 commune</li>
+<li><a href="/reseau/028001432/">COLTAINVILLE-GASVILLE</a> · 028001432 · note C · 2 communes</li>
+<li><a href="/reseau/028000792/">COMBRES</a> · 028000792 · note D · 1 commune</li>
+<li><a href="/reseau/028000795/">CONIE MOLITARD</a> · 028000795 · note C · 1 commune</li>
+<li><a href="/reseau/028000797/">CORMAINVILLE</a> · 028000797 · note A · 1 commune</li>
+<li><a href="/reseau/028000800/">COUDRECEAU</a> · 028000800 · note C · 1 commune</li>
+<li><a href="/reseau/028000801/">COURBEHAYE</a> · 028000801 · note A · 1 commune</li>
+<li><a href="/reseau/028001026/">COURVILLE SUR EURE</a> · 028001026 · note A · 1 commune</li>
+<li><a href="/reseau/028000806/">DAMBRON</a> · 028000806 · note A · 1 commune</li>
+<li><a href="/reseau/028000808/">DAMMARIE</a> · 028000808 · note C · 1 commune</li>
+<li><a href="/reseau/028000817/">DANGEAU PIMPRENEAU-MONTHARVILLE</a> · 028000817 · note C · 2 communes</li>
+<li><a href="/reseau/028000816/">DANGEAU SONVILLE-DANGEAU</a> · 028000816 · note C · 1 commune</li>
+<li><a href="/reseau/028001045/">DANGERS-MITTAINVIL-VERIGNY</a> · 028001045 · note C · 2 communes</li>
+<li><a href="/reseau/028001103/">DENONVILLE</a> · 028001103 · note C · 1 commune</li>
+<li><a href="/reseau/028000818/">DONNEMAIN-MOLEANS</a> · 028000818 · note C · 3 communes</li>
+<li><a href="/reseau/028001106/">DROUE-EPERNON ZI</a> · 028001106 · note A · 2 communes</li>
+<li><a href="/reseau/028001344/">EAUX DE RUFFIN</a> · 028001344 · note A · 20 communes</li>
+<li><a href="/reseau/028001105/">ECROSNES</a> · 028001105 · note A · 1 commune</li>
+<li><a href="/reseau/028001405/">EOLE EN BEAUCE-VILLEAU</a> · 028001405 · sans note · 1 commune</li>
+<li><a href="/reseau/028001118/">EOLE-EN-BEAUCE</a> · 028001118 · note A · 1 commune</li>
+<li><a href="/reseau/028001060/">EOLE-EN-BEAUCE - BAIGNOLET</a> · 028001060 · sans note · 1 commune</li>
+<li><a href="/reseau/028001138/">EOLE-EN-BEAUCE - GERMIGNONVILLE</a> · 028001138 · sans note · 1 commune</li>
+<li><a href="/reseau/028001399/">EOLE-EN-BEAUCE - VIABON</a> · 028001399 · sans note · 1 commune</li>
+<li><a href="/reseau/028001109/">EPERNON-HANCHES</a> · 028001109 · note A · 2 communes</li>
+<li><a href="/reseau/028001111/">ERMENONVILLE LA GRANDE</a> · 028001111 · note C · 1 commune</li>
+<li><a href="/reseau/028001115/">ERMENONVILLE-EPEAUTROLLES</a> · 028001115 · sans note · 2 communes</li>
+<li><a href="/reseau/028000826/">FONTAINE SIMON</a> · 028000826 · note A · 1 commune</li>
+<li><a href="/reseau/028000830/">FONTENAY SUR CONIE</a> · 028000830 · note A · 1 commune</li>
+<li><a href="/reseau/028001124/">FRESNAY L'EVEQUE</a> · 028001124 · note A · 1 commune</li>
+<li><a href="/reseau/028000837/">FRIAIZE</a> · 028000837 · sans note · 1 commune</li>
+<li><a href="/reseau/028001059/">FRUNCE</a> · 028001059 · sans note · 1 commune</li>
+<li><a href="/reseau/028001126/">GALLARDON-BOURG</a> · 028001126 · note A · 1 commune</li>
+<li><a href="/reseau/028001130/">GARANCIERES EN BEAUCE</a> · 028001130 · note A · 1 commune</li>
+<li><a href="/reseau/028001131/">GAS</a> · 028001131 · note A · 1 commune</li>
+<li><a href="/reseau/028001136/">GELLAINVILLE</a> · 028001136 · note B · 1 commune</li>
+<li><a href="/reseau/028004051/">GOHORY</a> · 028004051 · note A · 1 commune</li>
+<li><a href="/reseau/028001140/">GOMMERVILLE-ORLU</a> · 028001140 · note A · 1 commune</li>
+<li><a href="/reseau/028001224/">GOUILLONS</a> · 028001224 · note C · 1 commune</li>
+<li><a href="/reseau/028001228/">GUILLEVILLE</a> · 028001228 · note A · 1 commune</li>
+<li><a href="/reseau/028000841/">GUILLONVILLE</a> · 028000841 · note A · 1 commune</li>
+<li><a href="/reseau/028000843/">HAPPONVILLIERS</a> · 028000843 · note A · 1 commune</li>
+<li><a href="/reseau/028003894/">HOUX</a> · 028003894 · note A · 1 commune</li>
+<li><a href="/reseau/028001235/">INTREVILLE</a> · 028001235 · note A · 1 commune</li>
+<li><a href="/reseau/028001357/">JANVILLE-EN-BEAUCE</a> · 028001357 · note A · 1 commune</li>
+<li><a href="/reseau/028001236/">JOUY</a> · 028001236 · note A · 1 commune</li>
+<li><a href="/reseau/028000578/">LA BAZOCHE GOUET</a> · 028000578 · note A · 1 commune</li>
+<li><a href="/reseau/028001080/">LA BOURDINIERE SAINT LOUP</a> · 028001080 · note C · 1 commune</li>
+<li><a href="/reseau/028001086/">LA CHAPELLE D'AUNAINVILLE</a> · 028001086 · note A · 1 commune</li>
+<li><a href="/reseau/028000805/">LA CROIX DU PERCHE</a> · 028000805 · note C · 1 commune</li>
+<li><a href="/reseau/028001266/">LA FERTE VIDAME - REVEILLON</a> · 028001266 · note A · 1 commune</li>
+<li><a href="/reseau/028000856/">LA LOUPE</a> · 028000856 · note A · 1 commune</li>
+<li><a href="/reseau/028001160/">LAMBLORE- MORVILLIERS</a> · 028001160 · note A · 2 communes</li>
+<li><a href="/reseau/028001162/">LANDELLES</a> · 028001162 · sans note · 1 commune</li>
+<li><a href="/reseau/028001049/">LE FAVRIL</a> · 028001049 · note A · 1 commune</li>
+<li><a href="/reseau/028000838/">LE GAULT ST DENIS PLANCHEVILLE</a> · 028000838 · sans note · 1 commune</li>
+<li><a href="/reseau/028000839/">LE GAULT ST DENIS VARENNE</a> · 028000839 · note C · 1 commune</li>
+<li><a href="/reseau/028001226/">LE GUE DE LONGROI-LEVAINVILLE</a> · 028001226 · note A · 2 communes</li>
+<li><a href="/reseau/028000955/">LE THIEULIN- FRIAIZE</a> · 028000955 · note A · 2 communes</li>
+<li><a href="/reseau/028001097/">LES CHATELLIERS NOTRE DAME</a> · 028001097 · note A · 1 commune</li>
+<li><a href="/reseau/028000798/">LES CORVEES LES YYS</a> · 028000798 · note A · 1 commune</li>
+<li><a href="/reseau/028000821/">LES ETILLEUX</a> · 028000821 · note C · 1 commune</li>
+<li><a href="/reseau/028001412/">LES VILLAGES VOVEENS</a> · 028001412 · note A · 1 commune</li>
+<li><a href="/reseau/028001238/">LETHUIN</a> · 028001238 · sans note · 1 commune</li>
+<li><a href="/reseau/028001470/">LEVES B2</a> · 028001470 · note B · 6 communes</li>
+<li><a href="/reseau/028001240/">LEVESVILLE LA CHENARD</a> · 028001240 · note A · 1 commune</li>
+<li><a href="/reseau/028000848/">LOGRON BOURG</a> · 028000848 · note A · 1 commune</li>
+<li><a href="/reseau/028000850/">LOGRON LES BRIERES</a> · 028000850 · note A · 1 commune</li>
+<li><a href="/reseau/028000852/">LOIGNY LA BATAILLE</a> · 028000852 · note C · 1 commune</li>
+<li><a href="/reseau/028000854/">LOIGNY LA BATAILLE NONNEVILLE</a> · 028000854 · note A · 1 commune</li>
+<li><a href="/reseau/028001242/">LOUVILLE LA CHENARD</a> · 028001242 · note A · 1 commune</li>
+<li><a href="/reseau/028000861/">LUMEAU</a> · 028000861 · note A · 1 commune</li>
+<li><a href="/reseau/028001244/">LUPLANTE</a> · 028001244 · sans note · 1 commune</li>
+<li><a href="/reseau/028001248/">MAGNY</a> · 028001248 · sans note · 1 commune</li>
+<li><a href="/reseau/028001249/">MAINTENON</a> · 028001249 · note A · 1 commune</li>
+<li><a href="/reseau/028000865/">MANOU</a> · 028000865 · note A · 1 commune</li>
+<li><a href="/reseau/028000867/">MARBOUE</a> · 028000867 · note A · 1 commune</li>
+<li><a href="/reseau/028001254/">MARCHEVILLE</a> · 028001254 · sans note · 1 commune</li>
+<li><a href="/reseau/028000869/">MARGON</a> · 028000869 · note A · 1 commune</li>
+<li><a href="/reseau/028000872/">MARGON OZEE</a> · 028000872 · note A · 1 commune</li>
+<li><a href="/reseau/028000873/">MAROLLES LES BUIS</a> · 028000873 · note C · 1 commune</li>
+<li><a href="/reseau/028000876/">MEAUCE</a> · 028000876 · note A · 1 commune</li>
+<li><a href="/reseau/028001257/">MEROUVILLE</a> · 028001257 · note A · 1 commune</li>
+<li><a href="/reseau/028000878/">MESLAY LE VIDAME</a> · 028000878 · note C · 1 commune</li>
+<li><a href="/reseau/028001182/">MEZIERES EN DROUAIS</a> · 028001182 · note A · 1 commune</li>
+<li><a href="/reseau/028000881/">MIGNIERES</a> · 028000881 · note C · 1 commune</li>
+<li><a href="/reseau/028001263/">MONDONVILLE ST JEAN</a> · 028001263 · sans note · 1 commune</li>
+<li><a href="/reseau/028000883/">MONTBOISSIER</a> · 028000883 · sans note · 1 commune</li>
+<li><a href="/reseau/028000884/">MONTHARVILLE</a> · 028000884 · sans note · 1 commune</li>
+<li><a href="/reseau/028000885/">MONTIGNY LE CHARTIF</a> · 028000885 · note A · 1 commune</li>
+<li><a href="/reseau/028001297/">MORAINVILLE</a> · 028001297 · sans note · 1 commune</li>
+<li><a href="/reseau/028000889/">MORIERS</a> · 028000889 · sans note · 1 commune</li>
+<li><a href="/reseau/028001161/">MORVILLIERS</a> · 028001161 · sans note · 1 commune</li>
+<li><a href="/reseau/028001298/">MOUTIERS</a> · 028001298 · note A · 1 commune</li>
+<li><a href="/reseau/028001365/">NEUVILLE SAINT DENIS- ROUVRAY ST DENIS</a> · 028001365 · note A · 1 commune</li>
+<li><a href="/reseau/028001300/">NEUVILLE ST DENIS- NEUVY EN BEAUCE- BARMAINVILLE</a> · 028001300 · note A · 2 communes</li>
+<li><a href="/reseau/028001302/">NOGENT LE PHAYE</a> · 028001302 · note A · 1 commune</li>
+<li><a href="/reseau/028000893/">NOGENT LE ROTROU</a> · 028000893 · note A · 3 communes</li>
+<li><a href="/reseau/028000900/">NONVILLIERS GRANDHOUX</a> · 028000900 · note A · 1 commune</li>
+<li><a href="/reseau/028000904/">NOTTONVILLE</a> · 028000904 · note A · 1 commune</li>
+<li><a href="/reseau/028001308/">OINVILLE SOUS AUNEAU</a> · 028001308 · note A · 1 commune</li>
+<li><a href="/reseau/028001306/">OINVILLE ST LIPHARD</a> · 028001306 · note A · 1 commune</li>
+<li><a href="/reseau/028000906/">ORGERES EN BEAUCE</a> · 028000906 · note A · 1 commune</li>
+<li><a href="/reseau/028001201/">ORROUER</a> · 028001201 · sans note · 1 commune</li>
+<li><a href="/reseau/028001314/">OUARVILLE</a> · 028001314 · note A · 1 commune</li>
+<li><a href="/reseau/028001318/">OYSONVILLE</a> · 028001318 · note A · 1 commune</li>
+<li><a href="/reseau/028000908/">OZOIR LE BREUIL</a> · 028000908 · sans note · 1 commune</li>
+<li><a href="/reseau/028000910/">PERONVILLE</a> · 028000910 · note A · 1 commune</li>
+<li><a href="/reseau/028001320/">PIERRES</a> · 028001320 · note A · 1 commune</li>
+<li><a href="/reseau/028001323/">POINVILLE</a> · 028001323 · note A · 1 commune</li>
+<li><a href="/reseau/028001438/">POLE TERRITORIAL ECLUZELLES-CHARPONT</a> · 028001438 · sans note · 2 communes</li>
+<li><a href="/reseau/028000727/">POLE TERRITORIAL NLR-COULOMBS-VIL</a> · 028000727 · sans note · 2 communes</li>
+<li><a href="/reseau/028001196/">POLE TERRITORIAL NOGENT LE ROI</a> · 028001196 · sans note · 4 communes</li>
+<li><a href="/reseau/028000723/">POLE TERRITORIAL SENANTES</a> · 028000723 · sans note · 7 communes</li>
+<li><a href="/reseau/028001206/">PONTGOUIN</a> · 028001206 · note C · 1 commune</li>
+<li><a href="/reseau/028000912/">POUPRY</a> · 028000912 · note A · 1 commune</li>
+<li><a href="/reseau/028001324/">PRASVILLE</a> · 028001324 · note A · 1 commune</li>
+<li><a href="/reseau/028001361/">RECLAINVILLE</a> · 028001361 · note A · 1 commune</li>
+<li><a href="/reseau/028001363/">ROINVILLE</a> · 028001363 · note D · 1 commune</li>
+<li><a href="/reseau/028001214/">RUEIL LA GADELIERE-BEAUCHE</a> · 028001214 · note A · 2 communes</li>
+<li><a href="/reseau/028000926/">SAINT DENIS LANNERAY-CHAPELLE DU NOYER- DOUY</a> · 028000926 · note A · 3 communes</li>
+<li><a href="/reseau/028000834/">SAINTIGNY - FRETIGNY</a> · 028000834 · note A · 1 commune</li>
+<li><a href="/reseau/028000922/">SAINTIGNY - ST DENIS D'AUTHOU</a> · 028000922 · note D · 1 commune</li>
+<li><a href="/reseau/028000836/">SAINTIGNY-FRETIGNY LE TARTRE</a> · 028000836 · note A · 1 commune</li>
+<li><a href="/reseau/028001380/">SAINVILLE</a> · 028001380 · note A · 1 commune</li>
+<li><a href="/reseau/028001382/">SANDARVILLE</a> · 028001382 · note C · 1 commune</li>
+<li><a href="/reseau/028001385/">SANTILLY</a> · 028001385 · note A · 1 commune</li>
+<li><a href="/reseau/028000945/">SAUMERAY</a> · 028000945 · note C · 1 commune</li>
+<li><a href="/reseau/028000691/">SECTEUR ABONDANT</a> · 028000691 · note A · 8 communes</li>
+<li><a href="/reseau/028000696/">SECTEUR ANET</a> · 028000696 · note A · 2 communes</li>
+<li><a href="/reseau/028001063/">SECTEUR BAILLEAU-LE-PIN</a> · 028001063 · note A · 8 communes</li>
+<li><a href="/reseau/028000707/">SECTEUR BERCHERES ST GERMAIN</a> · 028000707 · note A · 3 communes</li>
+<li><a href="/reseau/028000749/">SECTEUR BONNEVAL</a> · 028000749 · note A · 16 communes</li>
+<li><a href="/reseau/028000709/">SECTEUR BREZOLLES</a> · 028000709 · note C · 5 communes</li>
+<li><a href="/reseau/028001008/">SECTEUR CHATEAUNEUF</a> · 028001008 · note A · 6 communes</li>
+<li><a href="/reseau/028001027/">SECTEUR CHUISNES</a> · 028001027 · note A · 6 communes</li>
+<li><a href="/reseau/028001043/">SECTEUR DIGNY</a> · 028001043 · note A · 1 commune</li>
+<li><a href="/reseau/028001541/">SECTEUR DREUX CENTRE</a> · 028001541 · note A · 12 communes</li>
+<li><a href="/reseau/028001267/">SECTEUR FONTENAY SUR EURE</a> · 028001267 · note C · 10 communes</li>
+<li><a href="/reseau/028001120/">SECTEUR FRANCOURVILLE-VOISE</a> · 028001120 · note A · 5 communes</li>
+<li><a href="/reseau/028001122/">SECTEUR FRESNAY LE COMTE</a> · 028001122 · note C · 2 communes</li>
+<li><a href="/reseau/028001233/">SECTEUR ILLIERS</a> · 028001233 · note A · 6 communes</li>
+<li><a href="/reseau/028001686/">SECTEUR LANDELLES</a> · 028001686 · note A · 5 communes</li>
+<li><a href="/reseau/028001252/">SECTEUR MAISONS</a> · 028001252 · note A · 4 communes</li>
+<li><a href="/reseau/028001189/">SECTEUR MONTIGNY-FESSANVILLIERS</a> · 028001189 · note A · 3 communes</li>
+<li><a href="/reseau/028001326/">SECTEUR PRUNAY LE GILLON</a> · 028001326 · note A · 3 communes</li>
+<li><a href="/reseau/028001283/">SECTEUR SOREL MOUSSEL</a> · 028001283 · note A · 3 communes</li>
+<li><a href="/reseau/028001270/">SECTEUR ST LUBIN DES JONCHERETS</a> · 028001270 · note A · 5 communes</li>
+<li><a href="/reseau/028001288/">SERAZEREUX- ORMOY</a> · 028001288 · note C · 2 communes</li>
+<li><a href="/reseau/028001209/">SIDEP DU VAL ST CYR-RESSUINTES</a> · 028001209 · note A · 11 communes</li>
+<li><a href="/reseau/028001433/">SIDEP DU VAL ST CYR-SENONCHES</a> · 028001433 · note A · 5 communes</li>
+<li><a href="/reseau/028000747/">SIE DE BETHONVILLIERS</a> · 028000747 · note A · 3 communes</li>
+<li><a href="/reseau/028001590/">SIE DE BOUTIGNY</a> · 028001590 · note A · 2 communes</li>
+<li><a href="/reseau/028000776/">SIE DE CHARBONNIERES</a> · 028000776 · note A · 2 communes</li>
+<li><a href="/reseau/028000832/">SIE DE FRAZE-MOTTEREAU</a> · 028000832 · note A · 2 communes</li>
+<li><a href="/reseau/028001149/">SIE DE GILLES-BONCOURT</a> · 028001149 · note A · 3 communes</li>
+<li><a href="/reseau/028001153/">SIE DE GILLES-GILLES</a> · 028001153 · note A · 6 communes</li>
+<li><a href="/reseau/028001571/">SIE DE GILLES-LA CHAUSSEE</a> · 028001571 · note A · 1 commune</li>
+<li><a href="/reseau/028001274/">SIE DE LA VAUCOULEURS</a> · 028001274 · note A · 3 communes</li>
+<li><a href="/reseau/028000859/">SIE DE LUIGNY-MIERMAIGNE</a> · 028000859 · note A · 2 communes</li>
+<li><a href="/reseau/028000887/">SIE DE MONTLANDON-MONTIREAU</a> · 028000887 · note A · 2 communes</li>
+<li><a href="/reseau/028000560/">SIEV BERTHE-4 VENTS- BEAUMONT</a> · 028000560 · note C · 6 communes</li>
+<li><a href="/reseau/028000739/">SIVOM DE BELHOMERT-ST MAURICE</a> · 028000739 · note A · 2 communes</li>
+<li><a href="/reseau/028000949/">SOUANCE AU PERCHE</a> · 028000949 · note D · 1 commune</li>
+<li><a href="/reseau/028001387/">SOULAIRES</a> · 028001387 · note C · 1 commune</li>
+<li><a href="/reseau/028001389/">SOURS-HOUVILLE LA BRANCHE</a> · 028001389 · note A · 2 communes</li>
+<li><a href="/reseau/028001685/">ST ARNOULT DES BOIS</a> · 028001685 · sans note · 1 commune</li>
+<li><a href="/reseau/028000918/">ST BOMER</a> · 028000918 · note A · 1 commune</li>
+<li><a href="/reseau/028000920/">ST CHRISTOPHE</a> · 028000920 · note A · 1 commune</li>
+<li><a href="/reseau/028000924/">ST DENIS DES PUITS</a> · 028000924 · note D · 1 commune</li>
+<li><a href="/reseau/028000929/">ST ELIPH</a> · 028000929 · note A · 1 commune</li>
+<li><a href="/reseau/028000932/">ST ELIPH FROID VENT</a> · 028000932 · note A · 1 commune</li>
+<li><a href="/reseau/028001222/">ST GEORGES SUR EURE</a> · 028001222 · note C · 1 commune</li>
+<li><a href="/reseau/028001268/">ST GERMAIN LE GAILLARD</a> · 028001268 · sans note · 1 commune</li>
+<li><a href="/reseau/028000937/">ST JEAN PIERRE FIXTE</a> · 028000937 · note A · 1 commune</li>
+<li><a href="/reseau/028001369/">ST LEGER DES AUBEES</a> · 028001369 · note C · 1 commune</li>
+<li><a href="/reseau/028003878/">ST LUBIN  DES JONCHERETS CAVES-LEU</a> · 028003878 · note A · 1 commune</li>
+<li><a href="/reseau/028001276/">ST LUPERCE</a> · 028001276 · sans note · 1 commune</li>
+<li><a href="/reseau/028001371/">ST PIAT MEVOISINS</a> · 028001371 · note A · 2 communes</li>
+<li><a href="/reseau/028000940/">ST VICTOR DE BUTHON</a> · 028000940 · note A · 1 commune</li>
+<li><a href="/reseau/028000810/">SYNDICAT MIXTE DE L 'OZANNE</a> · 028000810 · note A · 3 communes</li>
+<li><a href="/reseau/028000953/">TERMINIERS</a> · 028000953 · note C · 1 commune</li>
+<li><a href="/reseau/028001393/">THEUVILLE NICORBIN-PEZY</a> · 028001393 · note A · 1 commune</li>
+<li><a href="/reseau/028000959/">THIRON GARDAIS</a> · 028000959 · note C · 1 commune</li>
+<li><a href="/reseau/028000961/">THIVARS</a> · 028000961 · sans note · 1 commune</li>
+<li><a href="/reseau/028004007/">THIVILLE-LUTZ (VILLEMAURY)- JALLANS</a> · 028004007 · note A · 3 communes</li>
+<li><a href="/reseau/028000963/">TILLAY LE PENEUX</a> · 028000963 · note A · 1 commune</li>
+<li><a href="/reseau/028001359/">TOURY</a> · 028001359 · note A · 1 commune</li>
+<li><a href="/reseau/028001395/">TRANCRAINVILLE</a> · 028001395 · note A · 1 commune</li>
+<li><a href="/reseau/028001329/">TREMBLAY LES VILLAGES - PUISEUX</a> · 028001329 · note C · 2 communes</li>
+<li><a href="/reseau/028000745/">VALD'YERRE (BOISGASSON-COURTALAIN-LANGEY-ST PELLERIN)</a> · 028000745 · note A · 1 commune</li>
+<li><a href="/reseau/028000966/">VARIZE</a> · 028000966 · note A · 1 commune</li>
+<li><a href="/reseau/028000968/">VAUPILLON</a> · 028000968 · note A · 1 commune</li>
+<li><a href="/reseau/028000969/">VER LES CHARTRES</a> · 028000969 · note C · 1 commune</li>
+<li><a href="/reseau/028001343/">VERT EN DROUAIS-BOISSY-ALLAINV-LOUVILLIE</a> · 028001343 · note A · 4 communes</li>
+<li><a href="/reseau/028001401/">VIERVILLE</a> · 028001401 · note A · 1 commune</li>
+<li><a href="/reseau/028000970/">VILLAMPUY-OZOIR-SAINT CLOUD-CIVRY</a> · 028000970 · note A · 2 communes</li>
+<li><a href="/reseau/028001403/">VILLARS</a> · 028001403 · note A · 1 commune</li>
+<li><a href="/reseau/028000972/">VILLEBON</a> · 028000972 · sans note · 1 commune</li>
+<li><a href="/reseau/028001352/">VILLIERS LE MORHIER-ST MARTIN NIGELLES</a> · 028001352 · note A · 2 communes</li>
+<li><a href="/reseau/028000977/">VITRAY EN BEAUCE</a> · 028000977 · sans note · 1 commune</li>
+<li><a href="/reseau/028001414/">YERMENONVILLE GAS BAILLEAU</a> · 028001414 · note A · 3 communes</li>
+<li><a href="/reseau/028000981/">YEVRES MIGAUDIN</a> · 028000981 · note A · 2 communes</li>
+<li><a href="/reseau/028001418/">YMERAY</a> · 028001418 · note A · 1 commune</li>
+<li><a href="/reseau/028001419/">YMONVILLE</a> · 028001419 · note A · 1 commune</li>
+<li><a href="/reseau/028001421/">YMONVILLE MEROUVILLIERS</a> · 028001421 · sans note · 1 commune</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/28001/">Abondant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28003/">Allainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28004/">Allonnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28005/">Alluyes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28006/">Amilly</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28007/">Anet</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28236/">Arcisses</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/28008/">Ardelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28009/">Ardelu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28010/">Argenvilliers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28013/">Aunay-sous-Auneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28014/">Aunay-sous-Crécy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28015/">Auneau-Bleury-Saint-Symphorien</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/28018/">Authon-du-Perche</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28019/">Baigneaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28023/">Bailleau-Armenonville</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/28022/">Bailleau-l'Évêque</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28021/">Bailleau-le-Pin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28024/">Barjouville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28025/">Barmainville</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/28026/">Baudreville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28028/">Bazoches-en-Dunois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28029/">Bazoches-les-Hautes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28030/">Beauche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28031/">Beaumont-les-Autels</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/28032/">Beauvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28033/">Belhomert-Guéhouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28035/">Berchères-les-Pierres</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28034/">Berchères-Saint-Germain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28036/">Berchères-sur-Vesgre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28037/">Bérou-la-Mulotière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28038/">Béthonvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28039/">Béville-le-Comte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28040/">Billancelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28041/">Blandainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28045/">Boissy-en-Drouais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28046/">Boissy-lès-Perche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28047/">Boisville-la-Saint-Père</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28049/">Boncé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28050/">Boncourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28051/">Bonneval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28052/">Bouglainval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28056/">Boutigny-Prouais</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28057/">Bouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28058/">Bréchamps</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28059/">Brezolles</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28060/">Briconville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28061/">Brou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28062/">Broué</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28064/">Bû</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28065/">Bullainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28067/">Cernay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28068/">Challet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28070/">Champhol</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28071/">Champrond-en-Gâtine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28072/">Champrond-en-Perchet</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/28073/">Champseru</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28078/">Chapelle-Guillaume</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28079/">Chapelle-Royale</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28080/">Charbonnières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28081/">Charonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28082/">Charpont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28084/">Chartainvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28085/">Chartres</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/28086/">Chassant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28087/">Châtaincourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28088/">Châteaudun</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28089/">Châteauneuf-en-Thymerais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28092/">Châtenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28094/">Chaudon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28095/">Chauffours</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28098/">Cherisy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28099/">Chuisnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28100/">Cintray</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28102/">Clévilliers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28103/">Cloyes-les-Trois-Rivières</a> · 4 réseaux : 1 noté B, 3 notés A</li>
+<li><a href="/commune/28104/">Coltainville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28105/">Combres</a> · 1 réseau, noté D</li>
+<li><a href="/commune/28106/">Conie-Molitard</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28107/">Corancez</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28108/">Cormainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28111/">Coudray-au-Perche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28113/">Coulombs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28114/">Courbehaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28116/">Courville-sur-Eure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28117/">Crécy-Couvé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28118/">Croisilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28120/">Crucey-Villages</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28121/">Dambron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28122/">Dammarie</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28123/">Dampierre-sous-Brou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28124/">Dampierre-sur-Avre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28126/">Dancy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28127/">Dangeau</a> · 3 réseaux : 2 notés C, 1 noté A</li>
+<li><a href="/commune/28128/">Dangers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28129/">Denonville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28130/">Digny</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28132/">Donnemain-Saint-Mamès</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28134/">Dreux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28135/">Droue-sur-Drouette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28136/">Écluzelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28137/">Écrosnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28406/">Éole-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28139/">Épeautrolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28140/">Épernon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28141/">Ermenonville-la-Grande</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28142/">Ermenonville-la-Petite</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28143/">Escorpain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28146/">Faverolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28147/">Favières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28151/">Fessanvilliers-Mattanvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28153/">Flacey</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28154/">Fontaine-la-Guyon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28155/">Fontaine-les-Ribouts</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28156/">Fontaine-Simon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28157/">Fontenay-sur-Conie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28158/">Fontenay-sur-Eure</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28160/">Francourville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28161/">Frazé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28164/">Fresnay-l'Évêque</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28162/">Fresnay-le-Comte</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28163/">Fresnay-le-Gilmert</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28166/">Friaize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28167/">Fruncé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28168/">Gallardon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28169/">Garancières-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28170/">Garancières-en-Drouais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28171/">Garnay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28172/">Gas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28173/">Gasville-Oisème</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28177/">Gellainville</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/28178/">Germainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28180/">Gilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28182/">Gohory</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28183/">Gommerville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28184/">Gouillons</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28185/">Goussainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28187/">Guainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28189/">Guilleville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28190/">Guillonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28191/">Hanches</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28192/">Happonvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28193/">Havelu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28194/">Houville-la-Branche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28195/">Houx</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28196/">Illiers-Combray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28197/">Intréville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28198/">Jallans</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28199/">Janville-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28200/">Jaudrais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28201/">Jouy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28027/">La Bazoche-Gouet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28048/">La Bourdinière-Saint-Loup</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/28074/">La Chapelle-d'Aunainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28075/">La Chapelle-du-Noyer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28076/">La Chapelle-Forainvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28077/">La Chapelle-Fortin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28096/">La Chaussée-d'Ivry</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28119/">La Croix-du-Perche</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28149/">La Ferté-Vidame</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28159/">La Framboisière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28175/">La Gaudaine</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28214/">La Loupe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28231/">La Mancelière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28310/">La Puisaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28368/">La Saucelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28202/">Lamblore</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28203/">Landelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28206/">Laons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28053/">Le Boullay-les-Deux-Églises</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28054/">Le Boullay-Mivoye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28055/">Le Boullay-Thierry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28110/">Le Coudray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28148/">Le Favril</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28176/">Le Gault-Saint-Denis</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/28188/">Le Gué-de-Longroi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28247/">Le Mesnil-Simon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28248/">Le Mesnil-Thomas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28385/">Le Thieulin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28016/">Les Autels-Villevillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28090/">Les Châtelets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28091/">Les Châtelliers-Notre-Dame</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28109/">Les Corvées-les-Yys</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28144/">Les Étilleux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28299/">Les Pinthières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28314/">Les Ressuintes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28422/">Les Villages Vovéens</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28207/">Léthuin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28208/">Levainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28209/">Lèves</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28210/">Levesville-la-Chenard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28211/">Logron</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28212/">Loigny-la-Bataille</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/28213/">Lormaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28215/">Louville-la-Chenard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28216/">Louvilliers-en-Drouais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28217/">Louvilliers-lès-Perche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28218/">Lucé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28219/">Luigny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28220/">Luisant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28221/">Lumeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28222/">Luplanté</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28223/">Luray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28225/">Magny</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28226/">Maillebois</a> · 2 réseaux : 2 notés C</li>
+<li><a href="/commune/28227/">Maintenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28229/">Mainvilliers</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/28230/">Maisons</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28232/">Manou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28233/">Marboué</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28234/">Marchéville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28235/">Marchezais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28237/">Marolles-les-Buis</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28239/">Marville-Moutiers-Brûlé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28240/">Meaucé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28242/">Méréglise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28243/">Mérouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28245/">Meslay-le-Grenet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28246/">Meslay-le-Vidame</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28249/">Mévoisins</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28251/">Mézières-en-Drouais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28252/">Miermaigne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28253/">Mignières</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28254/">Mittainvilliers-Vérigny</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28255/">Moinville-la-Jeulin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28256/">Moléans</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28257/">Mondonville-Saint-Jean</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28259/">Montboissier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28260/">Montharville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28261/">Montigny-le-Chartif</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28263/">Montigny-sur-Avre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28264/">Montireau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28265/">Montlandon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28267/">Montreuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28268/">Morainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28269/">Morancez</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/28270/">Moriers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28271/">Morvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28272/">Mottereau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28273/">Moulhard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28274/">Moutiers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28275/">Néron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28319/">Neuville Saint Denis</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28276/">Neuvy-en-Beauce</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/28277/">Neuvy-en-Dunois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28278/">Nogent-le-Phaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28279/">Nogent-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28280/">Nogent-le-Rotrou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28281/">Nogent-sur-Eure</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28282/">Nonvilliers-Grandhoux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28283/">Nottonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28284/">Oinville-Saint-Liphard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28285/">Oinville-sous-Auneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28286/">Ollé</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28287/">Orgères-en-Beauce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28289/">Ormoy</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28290/">Orrouer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28291/">Ouarville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28292/">Ouerre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28293/">Oulins</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28294/">Oysonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28296/">Péronville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28298/">Pierres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28300/">Poinville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28301/">Poisvilliers</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28302/">Pontgouin</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28303/">Poupry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28304/">Prasville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28305/">Pré-Saint-Évroult</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28306/">Pré-Saint-Martin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28308/">Prudemanche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28309/">Prunay-le-Gillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28312/">Puiseux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28313/">Réclainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28315/">Revercourt</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28316/">Rohaire</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28317/">Roinville</a> · 1 réseau, noté D</li>
+<li><a href="/commune/28321/">Rouvres</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28322/">Rueil-la-Gadelière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28323/">Saint-Ange-et-Torçay</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28324/">Saint-Arnoult-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28325/">Saint-Aubin-des-Bois</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28326/">Saint-Avit-les-Guespières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28327/">Saint-Bomer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28329/">Saint-Christophe</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28333/">Saint-Denis-des-Puits</a> · 1 réseau, noté D</li>
+<li><a href="/commune/28334/">Saint-Denis-Lanneray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28335/">Saint-Éliph</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28336/">Saint-Éman</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28337/">Saint-Georges-sur-Eure</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28339/">Saint-Germain-le-Gaillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28341/">Saint-Jean-de-Rebervilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28342/">Saint-Jean-Pierre-Fixte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28343/">Saint-Laurent-la-Gâtine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28344/">Saint-Léger-des-Aubées</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28346/">Saint-Lubin-de-Cravant</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28347/">Saint-Lubin-de-la-Haye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28348/">Saint-Lubin-des-Joncherets</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28349/">Saint-Lucien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28350/">Saint-Luperce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28351/">Saint-Maixme-Hauterive</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28352/">Saint-Martin-de-Nigelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28353/">Saint-Maur-sur-le-Loir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28354/">Saint-Maurice-Saint-Germain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28355/">Saint-Ouen-Marchefroy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28357/">Saint-Piat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28358/">Saint-Prest</a> · 1 réseau, noté B</li>
+<li><a href="/commune/28359/">Saint-Rémy-sur-Avre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28360/">Saint-Sauveur-Marville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28362/">Saint-Victor-de-Buthon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28332/">Sainte-Gemme-Moronval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28331/">Saintigny</a> · 3 réseaux : 1 noté D, 2 notés A</li>
+<li><a href="/commune/28363/">Sainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28364/">Sancheville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28365/">Sandarville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28366/">Santeuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28367/">Santilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28369/">Saulnières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28370/">Saumeray</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28371/">Saussay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28372/">Senantes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28373/">Senonches</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28374/">Serazereux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28375/">Serville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28377/">Sorel-Moussel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28378/">Souancé-au-Perche</a> · 1 réseau, noté D</li>
+<li><a href="/commune/28379/">Soulaires</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28380/">Sours</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28382/">Terminiers</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28383/">Theuville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28386/">Thimert-Gâtelles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28387/">Thiron-Gardais</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28388/">Thivars</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28389/">Thiville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28390/">Tillay-le-Péneux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28391/">Toury</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28392/">Trancrainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28393/">Tremblay-les-Villages</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28394/">Tréon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28395/">Trizay-Coutretot-Saint-Serge</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28396/">Trizay-lès-Bonneval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28397/">Umpeau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28398/">Unverre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28012/">Vald'Yerre</a> · 6 réseaux : 1 noté C, 5 notés A</li>
+<li><a href="/commune/28400/">Varize</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28401/">Vaupillon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28403/">Ver-lès-Chartres</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28404/">Vernouillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28405/">Vert-en-Drouais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28407/">Vichères</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28408/">Vierville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28409/">Vieuvicq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28410/">Villampuy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28411/">Villars</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28414/">Villebon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28330/">Villemaury</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28415/">Villemeux-sur-Eure</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28417/">Villiers-le-Morhier</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28418/">Villiers-Saint-Orien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28419/">Vitray-en-Beauce</a> · 1 réseau, noté C</li>
+<li><a href="/commune/28421/">Voise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28423/">Yermenonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28424/">Yèvres</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/28425/">Ymeray</a> · 1 réseau, noté A</li>
+<li><a href="/commune/28426/">Ymonville</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Eure-et-Loir · eau du robinet », https://meteodurobinet.fr/departement/28/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

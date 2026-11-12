@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Côtes-d'Armor (22) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Côtes-d'Armor · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Côtes-d'Armor (22) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/22/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Côtes-d'Armor · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Côtes-d’Armor · eau du robinet","url":"https://meteodurobinet.fr/departement/22/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Côtes-d’Armor","item":"https://meteodurobinet.fr/departement/22/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/22/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Côtes-d’Armor</h1>
+<p class="meta">Département 22</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>5 sur 257 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 238 réseaux</li>
+<li>B qualité convenable* : 14 réseaux</li>
+<li>C qualité insuffisante* : 5 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 3, bactériologie 1.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>Aucun réseau visé</strong></p>
+<p>depuis le 1er janvier 2026.</p>
+<h3>Prélèvements</h3>
+<p><strong>292 prélèvements</strong> évalués en septembre 2026 ; 2 182 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : année absente du jeu de données</li>
+<li>2025 : vigilance 60 jours, alerte 23 jours, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2026 en cours : vigilance 13 jours, alerte 2 jours, alerte renforcée 31 jours, crise 96 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>3,23</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 54 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>56 services d’eau</strong> desservent au moins une commune du département ; 19 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 258 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/022000216/">(ABA) ZONE SURPRESSEE LA VILLE HELIO</a> · 022000216 · sans note · 1 commune</li>
+<li><a href="/reseau/022000976/">ALLINEUC PAR KERNO</a> · 022000976 · note A · 1 commune</li>
+<li><a href="/reseau/022000977/">ALLINEUC ZONE SUD</a> · 022000977 · note C · 1 commune</li>
+<li><a href="/reseau/022000603/">BELLE ISLE EN TERRE</a> · 022000603 · note A · 1 commune</li>
+<li><a href="/reseau/022000709/">BINIC - ETABLES</a> · 022000709 · note A · 1 commune</li>
+<li><a href="/reseau/022000707/">BINIC: LE PORT</a> · 022000707 · note A · 1 commune</li>
+<li><a href="/reseau/022000797/">BREHAND /RESERVOIR V.ES.RENAUL</a> · 022000797 · note A · 1 commune</li>
+<li><a href="/reseau/022000143/">BRINGOLO-LANRODEC-ST JEAN KER.</a> · 022000143 · note A · 3 communes</li>
+<li><a href="/reseau/022000923/">BROONS</a> · 022000923 · note A · 1 commune</li>
+<li><a href="/reseau/022001656/">BROONS (ANCIENNEMENT PAR LESLIANT)</a> · 022001656 · note A · 1 commune</li>
+<li><a href="/reseau/022000898/">CALLAC PAR CAPTAGE +KERNE UHEL</a> · 022000898 · note A · 1 commune</li>
+<li><a href="/reseau/022000293/">CAULNES - ST JOUAN DE L'ISLE</a> · 022000293 · note A · 2 communes</li>
+<li><a href="/reseau/022001020/">CAUREL</a> · 022001020 · note A · 1 commune</li>
+<li><a href="/reseau/022000009/">CHATELAUDREN</a> · 022000009 · note A · 2 communes</li>
+<li><a href="/reseau/022001251/">COLLINEE PAR BEL AIR</a> · 022001251 · note A · 1 commune</li>
+<li><a href="/reseau/022000789/">COLLINEE PAR CAPTAGES + SMAP</a> · 022000789 · note A · 1 commune</li>
+<li><a href="/reseau/022000716/">COM COM DE BOURBRIAC PAR K.UHEL</a> · 022000716 · note A · 7 communes</li>
+<li><a href="/reseau/022000413/">COMMUNAUTE DE COM. PAIMPOL-GOELO</a> · 022000413 · note A · 9 communes</li>
+<li><a href="/reseau/022000673/">CORLAY  PAR KERNE UHEL</a> · 022000673 · note A · 1 commune</li>
+<li><a href="/reseau/022000675/">CORLAY PAR CAPTAGE OU K.UHEL</a> · 022000675 · note A · 1 commune</li>
+<li><a href="/reseau/022000286/">CORSEUL</a> · 022000286 · note A · 1 commune</li>
+<li><a href="/reseau/022000495/">DISTRICT URBAIN DE DINAN</a> · 022000495 · note A · 6 communes</li>
+<li><a href="/reseau/022000465/">EREAC PAR PLUMAUGAT</a> · 022000465 · note A · 1 commune</li>
+<li><a href="/reseau/022000463/">EREAC PAR RESERVOIR</a> · 022000463 · note A · 1 commune</li>
+<li><a href="/reseau/022000390/">ERQUY (ZONE SUD) PAR PLENEUF</a> · 022000390 · note C · 1 commune</li>
+<li><a href="/reseau/022000383/">ERQUY RESEAU BAS (BOURG-PORT)</a> · 022000383 · note A · 1 commune</li>
+<li><a href="/reseau/022000386/">ERQUY RESEAU HAUT</a> · 022000386 · note A · 1 commune</li>
+<li><a href="/reseau/022000699/">EX. SIVOM DE LA BAIE PAR MONTORIN</a> · 022000699 · note A · 2 communes</li>
+<li><a href="/reseau/022000500/">EX. SIVOM DU GUINEFORT</a> · 022000500 · note A · 6 communes</li>
+<li><a href="/reseau/022001253/">GAUSSON (RESEAU PUBLIC)</a> · 022001253 · note A · 1 commune</li>
+<li><a href="/reseau/022000377/">GOMENE ET LAURENAN SUD</a> · 022000377 · note B · 2 communes</li>
+<li><a href="/reseau/022000545/">GOUAREC</a> · 022000545 · note A · 1 commune</li>
+<li><a href="/reseau/022000350/">GRACE UZEL</a> · 022000350 · note A · 1 commune</li>
+<li><a href="/reseau/022000301/">GUENROC</a> · 022000301 · note A · 1 commune</li>
+<li><a href="/reseau/022000185/">GUINGAMP-GRACES-PLOUISY</a> · 022000185 · note A · 3 communes</li>
+<li><a href="/reseau/022000298/">GUITTE - CHAPELLE BLANCHE</a> · 022000298 · note A · 2 communes</li>
+<li><a href="/reseau/022001614/">HARMOYE PAR LANDE A. OU SDC GOUËT</a> · 022001614 · note A · 1 commune</li>
+<li><a href="/reseau/022000361/">HENANBIHEN PAR ARGUENON BAS SERVICE</a> · 022000361 · note A · 3 communes</li>
+<li><a href="/reseau/022000853/">HENON PAR EX. SDC DU MENE</a> · 022000853 · note A · 1 commune</li>
+<li><a href="/reseau/022000852/">HENON PAR RESERVOIR DE BEL AIR</a> · 022000852 · note A · 1 commune</li>
+<li><a href="/reseau/022000698/">HILLION - GARE D'YFFINIAC</a> · 022000698 · note A · 2 communes</li>
+<li><a href="/reseau/022004122/">ILE DE BREHAT</a> · 022004122 · note A · 1 commune</li>
+<li><a href="/reseau/022000655/">KERGRIST MOELOU PAR CREACH MOE LOU</a> · 022000655 · note A · 1 commune</li>
+<li><a href="/reseau/022000665/">KERGRIST MOELOU ZONE SUD</a> · 022000665 · note A · 2 communes</li>
+<li><a href="/reseau/022000237/">KREIS TREGUER (CAOUENNEC)</a> · 022000237 · note A · 1 commune</li>
+<li><a href="/reseau/022000236/">KREIS TREGUER / CREACH QUINIOU</a> · 022000236 · note A · 2 communes</li>
+<li><a href="/reseau/022000234/">KREIS TREGUER PAR L'HOPITAL</a> · 022000234 · note A · 5 communes</li>
+<li><a href="/reseau/022000986/">L'HERMITAGE LORGE PAR FOYOULE</a> · 022000986 · note A · 1 commune</li>
+<li><a href="/reseau/022000987/">L'HERMITAGE LORGE PAR KERNO</a> · 022000987 · note A · 1 commune</li>
+<li><a href="/reseau/022000125/">LA BOUILLIE</a> · 022000125 · note A · 1 commune</li>
+<li><a href="/reseau/022000594/">LA MALHOURE-PENGUILY-ST GLEN</a> · 022000594 · note A · 3 communes</li>
+<li><a href="/reseau/022000458/">LA MEAUGON</a> · 022000458 · note A · 1 commune</li>
+<li><a href="/reseau/022000812/">LA MOTTE PAR CAPTAGE (+PLOUG.)</a> · 022000812 · note A · 1 commune</li>
+<li><a href="/reseau/022003505/">LAMBALLE COM PAR SMAP BAS SERVICE</a> · 022003505 · note A · 2 communes</li>
+<li><a href="/reseau/022000798/">LAMBALLE COM. /STATION PERCHAIS</a> · 022000798 · note A · 3 communes</li>
+<li><a href="/reseau/022000593/">LAMBALLE COM. PAR SMAP MOY SERVICE</a> · 022000593 · note A · 7 communes</li>
+<li><a href="/reseau/022000596/">LAMBALLE ZONE INDUSTRIELLE OUEST</a> · 022000596 · note A · 1 commune</li>
+<li><a href="/reseau/022004228/">LANDEBIA PAR SAINT-DENOUAL</a> · 022004228 · note A · 1 commune</li>
+<li><a href="/reseau/022000540/">LANGAST</a> · 022000540 · note A · 1 commune</li>
+<li><a href="/reseau/022000842/">LANISCAT SUD</a> · 022000842 · note A · 1 commune</li>
+<li><a href="/reseau/022000845/">LANISCAT-ST IGEAUX-ST TREPHINE</a> · 022000845 · note A · 3 communes</li>
+<li><a href="/reseau/022000060/">LANNION PAR LEGUER</a> · 022000060 · note A · 1 commune</li>
+<li><a href="/reseau/022000056/">LANNION PAR MELANGE</a> · 022000056 · note A · 1 commune</li>
+<li><a href="/reseau/022000055/">LANNION PAR MIN RAN</a> · 022000055 · note A · 1 commune</li>
+<li><a href="/reseau/022000466/">LANRELAS PAR PLUMAUGAT</a> · 022000466 · note A · 1 commune</li>
+<li><a href="/reseau/022000375/">LAURENAN BOURG ET OUEST</a> · 022000375 · note A · 1 commune</li>
+<li><a href="/reseau/022000378/">LAURENAN EST</a> · 022000378 · note A · 1 commune</li>
+<li><a href="/reseau/022000878/">LE GOURAY PAR BEL AIR</a> · 022000878 · note A · 1 commune</li>
+<li><a href="/reseau/022000879/">LE GOURAY PAR CAPTAGE</a> · 022000879 · note A · 1 commune</li>
+<li><a href="/reseau/022000672/">LE HAUT CORLAY PAR CANIHUEL</a> · 022000672 · note A · 1 commune</li>
+<li><a href="/reseau/022000669/">LE HAUT CORLAY PAR CAPTAGES</a> · 022000669 · note A · 1 commune</li>
+<li><a href="/reseau/022000493/">LE HAUT QUEVERT (PAR BOIS RIOU)</a> · 022000493 · note A · 1 commune</li>
+<li><a href="/reseau/022000745/">LE LEGUE</a> · 022000745 · note A · 1 commune</li>
+<li><a href="/reseau/022000177/">LE VIEUX BOURG</a> · 022000177 · note A · 1 commune</li>
+<li><a href="/reseau/022000608/">LOGUIVY PLOUGRAS PAR CAPTAGE</a> · 022000608 · note A · 1 commune</li>
+<li><a href="/reseau/022000104/">LOSCOUET SUR MEU</a> · 022000104 · note A · 1 commune</li>
+<li><a href="/reseau/022000248/">LOUARGAT PAR CAPTAGES</a> · 022000248 · note A · 1 commune</li>
+<li><a href="/reseau/022000252/">LOUARGAT ZONE NORD</a> · 022000252 · note A · 1 commune</li>
+<li><a href="/reseau/022000250/">LOUARGAT ZONE SUD</a> · 022000250 · note A · 1 commune</li>
+<li><a href="/reseau/022000122/">LTM PENTHIEVRE PAR MOY. SERVICE</a> · 022000122 · note A · 3 communes</li>
+<li><a href="/reseau/022000592/">MAROUE-MESLIN-LANDEHEN-LAMBA.O</a> · 022000592 · note A · 2 communes</li>
+<li><a href="/reseau/022000291/">MATIGNON (+ ST POTAN NORD)</a> · 022000291 · note A · 2 communes</li>
+<li><a href="/reseau/022000837/">MELLIONNEC PAR CAPTAGE ET KU</a> · 022000837 · note A · 1 commune</li>
+<li><a href="/reseau/022000884/">MONCONTOUR BAS (PAR RESERVOIR)</a> · 022000884 · note A · 1 commune</li>
+<li><a href="/reseau/022000885/">MONCONTOUR HAUT (PAR PLEMY)</a> · 022000885 · note A · 1 commune</li>
+<li><a href="/reseau/022000814/">MOTTE TREVE PAR CAPT (+SDC LIE</a> · 022000814 · note A · 2 communes</li>
+<li><a href="/reseau/022000911/">MUR DE BRETAGNE PAR BOTMINY</a> · 022000911 · note B · 1 commune</li>
+<li><a href="/reseau/022001000/">MUR DE BRETAGNE PAR KERNE UHEL</a> · 022001000 · note A · 1 commune</li>
+<li><a href="/reseau/022000912/">MUR DE BRETAGNE PAR STATIONS</a> · 022000912 · note B · 1 commune</li>
+<li><a href="/reseau/022000595/">NOYAL OUEST - LAMBALLE SUD</a> · 022000595 · note A · 2 communes</li>
+<li><a href="/reseau/022001606/">PABU (PAR RES. DU COZEN)</a> · 022001606 · note A · 1 commune</li>
+<li><a href="/reseau/022004132/">PAR CARESTIEMBLE</a> · 022004132 · note A · 2 communes</li>
+<li><a href="/reseau/022000994/">PAR CARNIVET (+OU-APPORT SMAP)</a> · 022000994 · note A · 1 commune</li>
+<li><a href="/reseau/022000851/">PAR MELANGE CAPTAGES + BEL AIR</a> · 022000851 · note A · 1 commune</li>
+<li><a href="/reseau/022000871/">PAR REFOULEMENT STATION BELOUZ</a> · 022000871 · note A · 1 commune</li>
+<li><a href="/reseau/022000219/">PAR RESERVOIR CHAMP MANOEUVRE</a> · 022000219 · note A · 2 communes</li>
+<li><a href="/reseau/022000746/">PAR RESERVOIR DU SEPULCRE</a> · 022000746 · note A · 2 communes</li>
+<li><a href="/reseau/022000573/">PAR RESERVOIR ENTERRE DE LA JUSTICE</a> · 022000573 · note B · 12 communes</li>
+<li><a href="/reseau/022000571/">PAR RESERVOIR SURELEVE LA JUSTICE</a> · 022000571 · note B · 5 communes</li>
+<li><a href="/reseau/022000995/">PAR SURPRESSION VILLE BRIEND</a> · 022000995 · note A · 1 commune</li>
+<li><a href="/reseau/022000201/">PAR SYNDICAT AVAUGOUR</a> · 022000201 · note A · 2 communes</li>
+<li><a href="/reseau/022000157/">PAR VIRNIC (+ INTERCONNEXION)</a> · 022000157 · note A · 12 communes</li>
+<li><a href="/reseau/022000650/">PAULE PAR SAINT SYMPHORIEN + KERNE UHEL</a> · 022000650 · note A · 1 commune</li>
+<li><a href="/reseau/022000578/">PEDERNEC PAR TREGLAMUS</a> · 022000578 · note A · 1 commune</li>
+<li><a href="/reseau/022000841/">PERRET</a> · 022000841 · note A · 1 commune</li>
+<li><a href="/reseau/022000764/">PERROS GUIREC TREGASTEL</a> · 022000764 · note B · 2 communes</li>
+<li><a href="/reseau/022000120/">PLAINTEL</a> · 022000120 · note A · 1 commune</li>
+<li><a href="/reseau/022000280/">PLANCOET PAR SMAP</a> · 022000280 · note A · 1 commune</li>
+<li><a href="/reseau/022000282/">PLANCOET PAR SMAP (EX. FREMUR)</a> · 022000282 · note A · 1 commune</li>
+<li><a href="/reseau/022000872/">PLEDELIAC</a> · 022000872 · note A · 1 commune</li>
+<li><a href="/reseau/022000696/">PLEDRAN-TREGUEUX O.-YFFINIAC O</a> · 022000696 · note A · 3 communes</li>
+<li><a href="/reseau/022000914/">PLELO</a> · 022000914 · note A · 1 commune</li>
+<li><a href="/reseau/022000917/">PLELO PAR LANTIC</a> · 022000917 · note C · 1 commune</li>
+<li><a href="/reseau/022000893/">PLEMY PAR RESERVOIR CLOS SUZAIN</a> · 022000893 · note A · 1 commune</li>
+<li><a href="/reseau/022000892/">PLEMY PAR RESERVOIR DE BEL AIR</a> · 022000892 · note A · 1 commune</li>
+<li><a href="/reseau/022000891/">PLEMY PAR RESERVOIR DU BREUIL</a> · 022000891 · note A · 1 commune</li>
+<li><a href="/reseau/022000890/">PLEMY PAR STATION GUE BEUROUX</a> · 022000890 · note A · 1 commune</li>
+<li><a href="/reseau/022000317/">PLENEE JUG. PAR RESEAU ST GLEN</a> · 022000317 · note A · 1 commune</li>
+<li><a href="/reseau/022000318/">PLENEE JUGON PAR TRAMAIN</a> · 022000318 · note A · 1 commune</li>
+<li><a href="/reseau/022000321/">PLENEE JUGON VIA LE GOURAY</a> · 022000321 · note A · 1 commune</li>
+<li><a href="/reseau/022000331/">PLENEUF VAL ANDRE</a> · 022000331 · note B · 1 commune</li>
+<li><a href="/reseau/022000747/">PLERIN CENTRE ET NORD</a> · 022000747 · note A · 1 commune</li>
+<li><a href="/reseau/022000459/">PLERNEUF</a> · 022000459 · note A · 3 communes</li>
+<li><a href="/reseau/022000370/">PLESSALA - NORD DU BOURG</a> · 022000370 · note A · 1 commune</li>
+<li><a href="/reseau/022000372/">PLESSALA - SUD OUEST ET BOURG</a> · 022000372 · note A · 1 commune</li>
+<li><a href="/reseau/022000371/">PLESSALA NORD</a> · 022000371 · note A · 1 commune</li>
+<li><a href="/reseau/022001039/">PLESSALA SUD SUD-EST</a> · 022001039 · note C · 1 commune</li>
+<li><a href="/reseau/022000314/">PLESTAN PAR RESEAU DE ST GLEN</a> · 022000314 · note A · 1 commune</li>
+<li><a href="/reseau/022000315/">PLESTAN PAR RESERVOIR TRAMAIN</a> · 022000315 · note A · 1 commune</li>
+<li><a href="/reseau/022000404/">PLESTIN PAR RES. TOUL YEN</a> · 022000404 · note A · 1 commune</li>
+<li><a href="/reseau/022000547/">PLEUDIHEN - LA VICOMTE / RANCE</a> · 022000547 · note A · 3 communes</li>
+<li><a href="/reseau/022000105/">PLEUMEUR BODOU</a> · 022000105 · note A · 1 commune</li>
+<li><a href="/reseau/022000284/">PLEVEN</a> · 022000284 · note A · 2 communes</li>
+<li><a href="/reseau/022000648/">PLEVIN</a> · 022000648 · note A · 1 commune</li>
+<li><a href="/reseau/022000860/">PLOEUC PAR RESERVOIR BOURG</a> · 022000860 · note B · 3 communes</li>
+<li><a href="/reseau/022000859/">PLOEUC PAR RESERVOIR PLESSIS</a> · 022000859 · note A · 3 communes</li>
+<li><a href="/reseau/022000858/">PLOEUC PAR STATION CARIBET</a> · 022000858 · note A · 1 commune</li>
+<li><a href="/reseau/022000930/">PLOUAGAT</a> · 022000930 · note A · 1 commune</li>
+<li><a href="/reseau/022000932/">PLOUAGAT PAR SDC D'AVAUGOUR</a> · 022000932 · note A · 1 commune</li>
+<li><a href="/reseau/022000394/">PLOUASNE</a> · 022000394 · note A · 1 commune</li>
+<li><a href="/reseau/022000095/">PLOUBEZRE PAR MELANGE</a> · 022000095 · note A · 1 commune</li>
+<li><a href="/reseau/022000094/">PLOUBEZRE PAR TRAOU LONG</a> · 022000094 · note A · 1 commune</li>
+<li><a href="/reseau/022000274/">PLOUER PAR LE RESERVOIR</a> · 022000274 · note A · 1 commune</li>
+<li><a href="/reseau/022000276/">PLOUER PAR PLESLIN</a> · 022000276 · note A · 1 commune</li>
+<li><a href="/reseau/022000277/">PLOUER PAR SAINT SAMSON</a> · 022000277 · note A · 1 commune</li>
+<li><a href="/reseau/022000963/">PLOUGUENAST PAR RES DE GATINEE</a> · 022000963 · note A · 1 commune</li>
+<li><a href="/reseau/022001023/">PLOUGUENAST SUD</a> · 022001023 · note A · 1 commune</li>
+<li><a href="/reseau/022000964/">PLOUGUENAST SUD-EST</a> · 022000964 · note A · 1 commune</li>
+<li><a href="/reseau/022000618/">PLOUGUERNEVEL PAR CAPTAGE+KU</a> · 022000618 · note A · 1 commune</li>
+<li><a href="/reseau/022000617/">PLOUGUERNEVEL PAR ROSTRENEN</a> · 022000617 · note A · 1 commune</li>
+<li><a href="/reseau/022000427/">PLOUHA</a> · 022000427 · note A · 1 commune</li>
+<li><a href="/reseau/022000430/">PLOUHA PAR SDC DU GOELO</a> · 022000430 · note A · 1 commune</li>
+<li><a href="/reseau/022000523/">PLOULEC'H</a> · 022000523 · note A · 1 commune</li>
+<li><a href="/reseau/022001610/">PLOUMAGOAR - ST AGATHON</a> · 022001610 · note A · 2 communes</li>
+<li><a href="/reseau/022001611/">PLOUMAGOAR PAR RUMORVEZEN</a> · 022001611 · note A · 1 commune</li>
+<li><a href="/reseau/022000519/">PLOUMILLIAU PAR SDC DE LA BAIE</a> · 022000519 · note A · 1 commune</li>
+<li><a href="/reseau/022000517/">PLOUMILLIAU PAR STATION + IMPORTS</a> · 022000517 · note A · 1 commune</li>
+<li><a href="/reseau/022000457/">PLOUVARA</a> · 022000457 · note A · 1 commune</li>
+<li><a href="/reseau/022000329/">PLUMAUGAT</a> · 022000329 · note A · 1 commune</li>
+<li><a href="/reseau/022000843/">PLUSSULIEN-ST GELVEN NORD</a> · 022000843 · note A · 2 communes</li>
+<li><a href="/reseau/022000111/">PONTRIEUX COMMUNAUTE</a> · 022000111 · note C · 4 communes</li>
+<li><a href="/reseau/022000741/">PORDIC (HORS ZONE SUD)</a> · 022000741 · note B · 1 commune</li>
+<li><a href="/reseau/022000198/">QUINTIN ET COMMUNES DU N/OUEST</a> · 022000198 · note A · 4 communes</li>
+<li><a href="/reseau/022000724/">REGION DE ST NICOLAS DU PELEM</a> · 022000724 · note A · 7 communes</li>
+<li><a href="/reseau/022000622/">ROSTRENEN PAR CAPTAGE+KU</a> · 022000622 · note A · 1 commune</li>
+<li><a href="/reseau/022000624/">ROSTRENEN PAR KERNE UHEL</a> · 022000624 · note A · 1 commune</li>
+<li><a href="/reseau/022000289/">RUCA - SAINT POTAN</a> · 022000289 · note A · 2 communes</li>
+<li><a href="/reseau/022001069/">SAINT CAST LE GUILDO</a> · 022001069 · note A · 1 commune</li>
+<li><a href="/reseau/022000455/">SAINT DONAN</a> · 022000455 · note A · 2 communes</li>
+<li><a href="/reseau/022000148/">SAINT FIACRE</a> · 022000148 · note A · 1 commune</li>
+<li><a href="/reseau/022000844/">SAINT GELVEN PAR NIVERVIAN</a> · 022000844 · note A · 1 commune</li>
+<li><a href="/reseau/022001006/">SAINT GILLES DU MENE PAR SDC VIEILLE LANDE</a> · 022001006 · note A · 1 commune</li>
+<li><a href="/reseau/022000047/">SAINT GOUENO</a> · 022000047 · note A · 1 commune</li>
+<li><a href="/reseau/022000549/">SAINT HELEN</a> · 022000549 · note A · 1 commune</li>
+<li><a href="/reseau/022004226/">SAINT HERVE PAR REFOULEMENT BERLOUZE +/- INTERCO</a> · 022004226 · note A · 1 commune</li>
+<li><a href="/reseau/022000084/">SAINT HERVE PAR RESERVOIR DU MARAIS</a> · 022000084 · note A · 1 commune</li>
+<li><a href="/reseau/022000881/">SAINT JULIEN</a> · 022000881 · note B · 1 commune</li>
+<li><a href="/reseau/022000307/">SAINT MADEN PAR PLUMAUDAN</a> · 022000307 · note A · 1 commune</li>
+<li><a href="/reseau/022000633/">SAINT MAYEUX PAR MELANGE</a> · 022000633 · note A · 1 commune</li>
+<li><a href="/reseau/022000632/">SAINT MAYEUX PAR STATION</a> · 022000632 · note A · 1 commune</li>
+<li><a href="/reseau/022000710/">SAINT QUAY PORTRIEUX</a> · 022000710 · note A · 1 commune</li>
+<li><a href="/reseau/022000265/">SAINT SAMSON SUR RANCE (PAR DINAN +/- SMAP)</a> · 022000265 · note A · 1 commune</li>
+<li><a href="/reseau/022000682/">SAINT VRAN PAR VILLE BUREL</a> · 022000682 · note A · 1 commune</li>
+<li><a href="/reseau/022004262/">SAINT- ADRIEN</a> · 022004262 · note A · 1 commune</li>
+<li><a href="/reseau/022000777/">SDC /RES. SURRELEVE LOUDEAC</a> · 022000777 · note A · 1 commune</li>
+<li><a href="/reseau/022000899/">SDC ARGOAT PAR KERNE UHEL</a> · 022000899 · note B · 13 communes</li>
+<li><a href="/reseau/022000403/">SDC BAIE PAR RES. BELLE ROCHE</a> · 022000403 · note A · 3 communes</li>
+<li><a href="/reseau/022000661/">SDC CENTRE BRETAGNE (NORD)</a> · 022000661 · note A · 2 communes</li>
+<li><a href="/reseau/022000652/">SDC CENTRE BRETAGNE (SUD)</a> · 022000652 · note A · 4 communes</li>
+<li><a href="/reseau/022000657/">SDC CENTRE BRETAGNE PAR K.UHEL</a> · 022000657 · note A · 2 communes</li>
+<li><a href="/reseau/022000472/">SDC DE LA HUTTE PAR COLLINEE</a> · 022000472 · note A · 1 commune</li>
+<li><a href="/reseau/022000473/">SDC DE LA HUTTE PAR ST JOSEPH</a> · 022000473 · note B · 3 communes</li>
+<li><a href="/reseau/022000838/">SDC DE ST MAUDEZ PAR K. UHEL</a> · 022000838 · note A · 3 communes</li>
+<li><a href="/reseau/022000308/">SDC DES EAUX REGION D'EVRAN</a> · 022000308 · note A · 5 communes</li>
+<li><a href="/reseau/022000195/">SDC DU GOUET: LANFAINS</a> · 022000195 · note A · 1 commune</li>
+<li><a href="/reseau/022000178/">SDC DU GUERCY SAUF VIEUX BOURG</a> · 022000178 · note A · 3 communes</li>
+<li><a href="/reseau/022000069/">SDC DU LIE PAR PONT QUERRA</a> · 022000069 · note A · 10 communes</li>
+<li><a href="/reseau/022001585/">SDC EVRAN - ANTENNE ST JUVAT</a> · 022001585 · note A · 3 communes</li>
+<li><a href="/reseau/022000510/">SDC GOAS KOLL (STATION PANTOU)</a> · 022000510 · note A · 4 communes</li>
+<li><a href="/reseau/022000511/">SDC GOAS KOLL PAR KERNE UHEL</a> · 022000511 · note B · 1 commune</li>
+<li><a href="/reseau/022000086/">SDC HILVERN PAR KERNE UHEL</a> · 022000086 · note A · 5 communes</li>
+<li><a href="/reseau/022000087/">SDC HILVERN PAR SDC LIE-FOURC.</a> · 022000087 · note A · 1 commune</li>
+<li><a href="/reseau/022000689/">SDC HYVET PAR ARGUENON</a> · 022000689 · note A · 3 communes</li>
+<li><a href="/reseau/022000686/">SDC HYVET PAR BEL AIR</a> · 022000686 · note A · 2 communes</li>
+<li><a href="/reseau/022000683/">SDC HYVET PAR CAPTAGES+BEL AIR</a> · 022000683 · note A · 3 communes</li>
+<li><a href="/reseau/022000238/">SDC KREIS TREGUER PAR KERLEO</a> · 022000238 · note A · 1 commune</li>
+<li><a href="/reseau/022000407/">SDC LA BAIE PAR RADENNNEC</a> · 022000407 · note A · 4 communes</li>
+<li><a href="/reseau/022000475/">SDC LA HUTTE PAR CAPT+ BEL AIR</a> · 022000475 · note A · 4 communes</li>
+<li><a href="/reseau/022000554/">SDC PRESQU'ILE DE LEZARDRIEUX</a> · 022000554 · note A · 8 communes</li>
+<li><a href="/reseau/022000846/">SDC ST MAUDEZ - PLOUNEVEZ QUINTIN</a> · 022000846 · note A · 1 commune</li>
+<li><a href="/reseau/022000839/">SDC ST MAUDEZ PAR LE VOVAL</a> · 022000839 · note A · 2 communes</li>
+<li><a href="/reseau/022000078/">SDC/RES. ENTERRE LA FOURCHETTE</a> · 022000078 · note A · 2 communes</li>
+<li><a href="/reseau/022000323/">SEVIGNAC</a> · 022000323 · note A · 1 commune</li>
+<li><a href="/reseau/022000326/">SEVIGNAC SUD PAR PLUMAUGAT</a> · 022000326 · note A · 1 commune</li>
+<li><a href="/reseau/022000365/">SIAEP HENANBIHEN-ARGUENON MOY SERV.</a> · 022000365 · note A · 3 communes</li>
+<li><a href="/reseau/022000197/">ST BRANDAN - PLAINE HAUTE</a> · 022000197 · note A · 2 communes</li>
+<li><a href="/reseau/022000217/">ST BRIEUC PAR RESERVOIR BERRIEN</a> · 022000217 · note A · 1 commune</li>
+<li><a href="/reseau/022000785/">ST CARREUC (CAPTAGE +SDAEP/SMTM)</a> · 022000785 · note A · 1 commune</li>
+<li><a href="/reseau/022000784/">ST CARREUC OUEST (PAR CAPTAGE)</a> · 022000784 · note A · 1 commune</li>
+<li><a href="/reseau/022001008/">ST GILLES DU MENE PAR BEL AIR</a> · 022001008 · note A · 1 commune</li>
+<li><a href="/reseau/022000585/">ST GLEN PAR EAU DU BREHA</a> · 022000585 · note A · 2 communes</li>
+<li><a href="/reseau/022000471/">ST JACUT DU MENE PAR BEL AIR</a> · 022000471 · note A · 1 commune</li>
+<li><a href="/reseau/022000142/">ST PEVER</a> · 022000142 · note A · 2 communes</li>
+<li><a href="/reseau/022000352/">SYNDICAT DE KERGOFF</a> · 022000352 · note A · 3 communes</li>
+<li><a href="/reseau/022000443/">SYNDICAT DE KERLOAZEC</a> · 022000443 · note A · 5 communes</li>
+<li><a href="/reseau/022000561/">SYNDICAT DE KERNEVEC</a> · 022000561 · note A · 2 communes</li>
+<li><a href="/reseau/022000169/">SYNDICAT DE PLOURHAN-LANTIC</a> · 022000169 · note A · 2 communes</li>
+<li><a href="/reseau/022000228/">SYNDICAT DES EAUX DU QUELARON</a> · 022000228 · note A · 15 communes</li>
+<li><a href="/reseau/022000338/">SYNDICAT DU CAP FREHEL</a> · 022000338 · note A · 3 communes</li>
+<li><a href="/reseau/022000013/">SYNDICAT DU TREGOR</a> · 022000013 · note A · 8 communes</li>
+<li><a href="/reseau/022000739/">SYNDICAT PAR CASTEL PIC</a> · 022000739 · note A · 2 communes</li>
+<li><a href="/reseau/022000609/">SYNDICAT PAR KERNE UHEL</a> · 022000609 · note B · 2 communes</li>
+<li><a href="/reseau/022000734/">SYNDICAT PAR LE LEGUER</a> · 022000734 · note A · 6 communes</li>
+<li><a href="/reseau/022000232/">TRAMAIN</a> · 022000232 · note A · 1 commune</li>
+<li><a href="/reseau/022000098/">TREBEURDEN</a> · 022000098 · note A · 1 commune</li>
+<li><a href="/reseau/022000659/">TREBRIVAN</a> · 022000659 · note A · 1 commune</li>
+<li><a href="/reseau/022000796/">TREBRY SUD /RESERVOIR BEL AIR</a> · 022000796 · note A · 1 commune</li>
+<li><a href="/reseau/022000806/">TREDANIEL / EX. SDC DU MENE</a> · 022000806 · note A · 1 commune</li>
+<li><a href="/reseau/022000805/">TREDANIEL / RESERVOIR BEL AIR</a> · 022000805 · note A · 1 commune</li>
+<li><a href="/reseau/022000804/">TREDANIEL /STATION GUE CHAUSSE</a> · 022000804 · note A · 1 commune</li>
+<li><a href="/reseau/022000526/">TREDREZ (LOCQUEMEAU)</a> · 022000526 · note A · 1 commune</li>
+<li><a href="/reseau/022000531/">TREDREZ SUD</a> · 022000531 · note A · 1 commune</li>
+<li><a href="/reseau/022000138/">TREGLAMUS PAR CAPTAGE + KU</a> · 022000138 · note A · 1 commune</li>
+<li><a href="/reseau/022000758/">TREGOMEUR</a> · 022000758 · note A · 1 commune</li>
+<li><a href="/reseau/022000580/">TREGONNEAU</a> · 022000580 · note A · 1 commune</li>
+<li><a href="/reseau/022000697/">TREGUEUX-LANGUEUX-YFFINIAC</a> · 022000697 · note A · 4 communes</li>
+<li><a href="/reseau/022000732/">TREMEL - PLUFUR</a> · 022000732 · note A · 2 communes</li>
+<li><a href="/reseau/022003096/">TREMELOIR</a> · 022003096 · note A · 1 commune</li>
+<li><a href="/reseau/022003808/">TREMUSON</a> · 022003808 · note A · 1 commune</li>
+<li><a href="/reseau/022000485/">TRESSIGNAUX TREGUIDEL PLEGUIEN</a> · 022000485 · note A · 3 communes</li>
+<li><a href="/reseau/022000817/">TREVE PAR RESERVO.BUTTE BOISEE</a> · 022000817 · note A · 1 commune</li>
+<li><a href="/reseau/022000815/">TREVE PAR RESERVOIR BOIS UZEL</a> · 022000815 · note A · 1 commune</li>
+<li><a href="/reseau/022000779/">TREVENEUC</a> · 022000779 · note A · 1 commune</li>
+<li><a href="/reseau/022000969/">UZEL</a> · 022000969 · note A · 1 commune</li>
+<li><a href="/reseau/022000258/">VIA LE RESERVOIR DE PLOUBALAY</a> · 022000258 · note A · 4 communes</li>
+<li><a href="/reseau/022000254/">VIA LE RESERVOIR DE PLUDUNO</a> · 022000254 · note A · 3 communes</li>
+<li><a href="/reseau/022000262/">VIA RES. PLESLIN ET LANGROLAY</a> · 022000262 · note A · 3 communes</li>
+<li><a href="/reseau/022000260/">VIA RESERVOIR DE LANGUENAN</a> · 022000260 · note A · 3 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/22001/">Allineuc</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/22002/">Andel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22003/">Aucaleuc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22209/">Beaussais-sur-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22004/">Bégard</a> · 2 réseaux : 2 notés B</li>
+<li><a href="/commune/22005/">Belle-Isle-en-Terre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22006/">Berhet</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22055/">Binic-Étables-sur-Mer</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22008/">Bobital</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22107/">Bon Repos sur Blavet</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/22011/">Boqueho</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22013/">Bourbriac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22014/">Bourseul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22015/">Bréhand</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22018/">Brélidy</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22019/">Bringolo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22020/">Broons</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22021/">Brusvily</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22023/">Bulat-Pestivien</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22024/">Calanhel</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22025/">Callac</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/22026/">Calorguen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22028/">Camlez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22029/">Canihuel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22030/">Caouënnec-Lanvézéac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22031/">Carnoët</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22032/">Caulnes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22033/">Caurel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22034/">Cavan</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22206/">Châtelaudren-Plouagat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22040/">Coadout</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22041/">Coatascorn</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22042/">Coatréven</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22043/">Coëtlogon</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/22044/">Coëtmieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22045/">Cohiniac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22047/">Corlay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22048/">Corseul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22049/">Créhen</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22050/">Dinan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22052/">Duault</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22053/">Éréac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22054/">Erquy</a> · 3 réseaux : 1 noté C, 2 notés A</li>
+<li><a href="/commune/22056/">Évran</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22179/">Fréhel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22060/">Gausson</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22061/">Glomel</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22062/">Gomené</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22063/">Gommenec'h</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22064/">Gouarec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22065/">Goudelin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22068/">Grâce-Uzel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22067/">Grâces</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22069/">Guenroc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22158/">Guerlédan</a> · 4 réseaux : 2 notés B, 2 notés A</li>
+<li><a href="/commune/22070/">Guingamp</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22071/">Guitté</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22072/">Gurunhuel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22075/">Hémonstoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22076/">Hénanbihen</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22077/">Hénansal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22079/">Hénon</a> · 4 réseaux : 1 noté B, 3 notés A</li>
+<li><a href="/commune/22081/">Hillion</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22016/">Île-de-Bréhat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22083/">Illifaut</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22084/">Jugon-les-Lacs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22085/">Kerbors</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22086/">Kerfot</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22087/">Kergrist-Moëlou</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22088/">Kerien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22090/">Kermaria-Sulard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22091/">Kermoroc'h</a> · 2 réseaux : 2 notés B</li>
+<li><a href="/commune/22092/">Kerpert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22012/">La Bouillie</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22036/">La Chapelle-Blanche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22037/">La Chapelle-Neuve</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/22039/">La Chèze</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22073/">La Harmoye</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22097/">La Landec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22140/">La Malhoure</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22144/">La Méaugon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22155/">La Motte</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22255/">La Prénessaye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22264/">La Roche-Jaudy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22385/">La Vicomté-sur-Rance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22093/">Lamballe-Armor</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/22094/">Lancieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22095/">Landebaëron</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22096/">Landébia</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22098/">Landéhen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22099/">Lanfains</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22101/">Langoat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22103/">Langrolay-sur-Rance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22104/">Languédias</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22105/">Languenan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22106/">Langueux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22108/">Lanleff</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22109/">Lanloup</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22110/">Lanmérin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22111/">Lanmodez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22112/">Lannebert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22113/">Lannion</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22114/">Lanrelas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22115/">Lanrivain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22116/">Lanrodec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22117/">Lantic</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22118/">Lanvallay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22119/">Lanvellec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22121/">Lanvollon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22122/">Laurenan</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/22009/">Le Bodéo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22027/">Le Cambout</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/22057/">Le Faouët</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22059/">Le Fœil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22074/">Le Haut-Corlay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22082/">Le Hinglé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22126/">Le Leslay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22046/">Le Mené</a> · 16 réseaux : 1 noté C, 1 noté B, 14 notés A</li>
+<li><a href="/commune/22150/">Le Merzer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22157/">Le Moustoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22260/">Le Quillio</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22263/">Le Quiou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22386/">Le Vieux-Bourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22387/">Le Vieux-Marché</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22035/">Les Champs-Géraux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22124/">Lescouët-Gouarec</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22127/">Lézardrieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22129/">Loc-Envel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22128/">Locarn</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22131/">Loguivy-Plougras</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/22132/">Lohuec</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22133/">Loscouët-sur-Meu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22134/">Louannec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22135/">Louargat</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22136/">Loudéac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22137/">Maël-Carhaix</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22138/">Maël-Pestivien</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22139/">Magoar</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22141/">Mantallot</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22143/">Matignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22145/">Mégrit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22146/">Mellionnec</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22147/">Merdrignac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22148/">Mérillac</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/22149/">Merléac</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22152/">Minihy-Tréguier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22153/">Moncontour</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22156/">Moustéru</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22160/">Noyal</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22161/">Pabu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22162/">Paimpol</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22163/">Paule</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22164/">Pédernec</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/22165/">Penguily</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22166/">Penvénan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22168/">Perros-Guirec</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22169/">Peumerit-Quintin</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22170/">Plaine-Haute</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22171/">Plaintel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22172/">Plancoët</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22174/">Pléboulle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22175/">Plédéliac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22176/">Plédran</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22177/">Pléguien</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22178/">Pléhédel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22180/">Plélan-le-Petit</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22181/">Plélauff</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22182/">Plélo</a> · 4 réseaux : 1 noté C, 3 notés A</li>
+<li><a href="/commune/22183/">Plémet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22184/">Plémy</a> · 5 réseaux : 1 noté B, 4 notés A</li>
+<li><a href="/commune/22185/">Plénée-Jugon</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22186/">Pléneuf-Val-André</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22187/">Plérin</a> · 4 réseaux : 4 notés A</li>
+<li><a href="/commune/22188/">Plerneuf</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22189/">Plésidy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22190/">Pleslin-Trigavou</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22193/">Plestan</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22194/">Plestin-les-Grèves</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22195/">Pleubian</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22196/">Pleudaniel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22197/">Pleudihen-sur-Rance</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22198/">Pleumeur-Bodou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22199/">Pleumeur-Gautier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22200/">Pléven</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/22201/">Plévenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22202/">Plévin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22203/">Plœuc-L'Hermitage</a> · 5 réseaux : 1 noté B, 4 notés A</li>
+<li><a href="/commune/22204/">Ploëzal</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22205/">Plorec-sur-Arguenon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22207/">Plouaret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22208/">Plouasne</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22210/">Ploubazlanec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22211/">Ploubezre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22212/">Plouëc-du-Trieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/22213/">Plouër-sur-Rance</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22214/">Plouézec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22215/">Ploufragan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22216/">Plougonver</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22217/">Plougras</a> · 2 réseaux : 1 noté B, 1 noté A</li>
+<li><a href="/commune/22218/">Plougrescant</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22219/">Plouguenast-Langast</a> · 5 réseaux : 5 notés A</li>
+<li><a href="/commune/22220/">Plouguernével</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22221/">Plouguiel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22222/">Plouha</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22223/">Plouisy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22224/">Ploulec'h</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22225/">Ploumagoar</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22226/">Ploumilliau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22227/">Plounérin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22228/">Plounévez-Moëdec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22229/">Plounévez-Quintin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22231/">Plourac'h</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22232/">Plourhan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22233/">Plourivo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22234/">Plouvara</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22235/">Plouzélambre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22236/">Pludual</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22238/">Plufur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22239/">Plumaudan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22240/">Plumaugat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22241/">Plumieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22242/">Plurien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22243/">Plusquellec</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22244/">Plussulien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22245/">Pluzunet</a> · 2 réseaux : 2 notés B</li>
+<li><a href="/commune/22246/">Pommeret</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22248/">Pommerit-le-Vicomte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22249/">Pont-Melvez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22250/">Pontrieux</a> · 1 réseau, noté C</li>
+<li><a href="/commune/22251/">Pordic</a> · 3 réseaux : 1 noté B, 2 notés A</li>
+<li><a href="/commune/22254/">Prat</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22256/">Quemper-Guézennec</a> · 1 réseau, noté C</li>
+<li><a href="/commune/22257/">Quemperven</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22258/">Quessoy</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22259/">Quévert</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22261/">Quintenic</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22262/">Quintin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22265/">Rospez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22266/">Rostrenen</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22267/">Rouillac</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22268/">Ruca</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22269/">Runan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22271/">Saint-Adrien</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22272/">Saint-Agathon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22273/">Saint-Alban</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22274/">Saint-André-des-Eaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22275/">Saint-Barnabé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22276/">Saint-Bihy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22277/">Saint-Brandan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22278/">Saint-Brieuc</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22279/">Saint-Caradec</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22280/">Saint-Carné</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22281/">Saint-Carreuc</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22282/">Saint-Cast-le-Guildo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22283/">Saint-Clet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/22284/">Saint-Connan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22285/">Saint-Connec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22286/">Saint-Denoual</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22287/">Saint-Donan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22288/">Saint-Étienne-du-Gué-de-l'Isle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22289/">Saint-Fiacre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22291/">Saint-Gildas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22293/">Saint-Gilles-les-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22294/">Saint-Gilles-Pligeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22295/">Saint-Gilles-Vieux-Marché</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22296/">Saint-Glen</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22299/">Saint-Hélen</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22300/">Saint-Hervé</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22334/">Saint-Igeaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22302/">Saint-Jacut-de-la-Mer</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22304/">Saint-Jean-Kerdaniel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22305/">Saint-Jouan-de-l'Isle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22306/">Saint-Judoce</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22307/">Saint-Julien</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22308/">Saint-Juvat</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22309/">Saint-Launeuc</a> · aucun réseau rattaché depuis le 1er janvier 2026</li>
+<li><a href="/commune/22310/">Saint-Laurent</a> · 2 réseaux : 2 notés B</li>
+<li><a href="/commune/22311/">Saint-Lormel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22312/">Saint-Maden</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22313/">Saint-Martin-des-Prés</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22314/">Saint-Maudan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22315/">Saint-Maudez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22316/">Saint-Mayeux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22317/">Saint-Méloir-des-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22318/">Saint-Michel-de-Plélan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22319/">Saint-Michel-en-Grève</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22320/">Saint-Nicodème</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22321/">Saint-Nicolas-du-Pélem</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22322/">Saint-Péver</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22323/">Saint-Pôtan</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22324/">Saint-Quay-Perros</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22325/">Saint-Quay-Portrieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22326/">Saint-Rieul</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22327/">Saint-Samson-sur-Rance</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22328/">Saint-Servais</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22330/">Saint-Thélo</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22332/">Saint-Trimoël</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22333/">Saint-Vran</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22331/">Sainte-Tréphine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22335/">Senven-Léhart</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22337/">Sévignac</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22338/">Squiffiec</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22339/">Taden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22340/">Tonquédec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22341/">Tramain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22342/">Trébédan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22343/">Trébeurden</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22344/">Trébrivan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22345/">Trébry</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22346/">Trédaniel</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22347/">Trédarzec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22348/">Trédias</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22349/">Trédrez-Locquémeau</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22350/">Tréduder</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22351/">Treffrin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22352/">Tréfumel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22353/">Trégastel</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22354/">Tréglamus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22356/">Trégomeur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22358/">Trégonneau</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22359/">Trégrom</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22360/">Trégueux</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22361/">Tréguidel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22362/">Tréguier</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22363/">Trélévern</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22364/">Trélivan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22365/">Trémargat</a> · 1 réseau, noté B</li>
+<li><a href="/commune/22366/">Trémel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22368/">Tréméreuc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22369/">Trémeur</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22370/">Tréméven</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22371/">Trémorel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22372/">Trémuson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22373/">Tréogan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22375/">Tressignaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22376/">Trévé</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22377/">Tréveneuc</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22378/">Trévérec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22379/">Trévou-Tréguignec</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22380/">Trévron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22381/">Trézény</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22383/">Troguéry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22384/">Uzel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22237/">Val-d'Arguenon</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/22388/">Vildé-Guingalan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22389/">Yffiniac</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/22390/">Yvias</a> · 1 réseau, noté A</li>
+<li><a href="/commune/22391/">Yvignac-la-Tour</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Côtes-d’Armor · eau du robinet », https://meteodurobinet.fr/departement/22/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+import{m as t,d_ as s,r as o}from"./index-Cxv4TnZB.js";const a=new RegExp("(\\p{L})'(\\p{L})","gu");function p(e){return e.replace(a,"$1’$2")}function u(){const e=t(s.nomsDepartements);return!e.data&&!e.error}function c(){const e=t(s.nomsDepartements).data;return o.useMemo(()=>new Map(Object.entries(e??{}).map(([r,n])=>[r,p(n)])),[e])}export{u as a,c as u};

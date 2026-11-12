@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f5fae'/%3E%3Cpath d='M12 5.2s4.6 5 4.6 8.4a4.6 4.6 0 0 1-9.2 0c0-3.4 4.6-8.4 4.6-8.4z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Yvelines (78) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <!-- Aperçu des liens partagés (Open Graph) : titre, description et adresse sont réécrits pour chaque page
+         principale au build (scripts/pages-statiques.mjs). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Météo du robinet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Yvelines · eau du robinet · Météo du robinet" />
+    <meta property="og:description" content="Yvelines (78) : fiche du département : réseaux d’eau potable comptés par note A à D, familles en cause et communes suivies, sans note ni classement du département." />
+    <meta property="og:url" content="https://meteodurobinet.fr/departement/78/" />
+    <meta property="og:image" content="https://meteodurobinet.fr/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Carte de France colorée par la note A à D de l'eau du robinet, et titre : Météo du robinet, l'eau potable en France, de la ressource au robinet." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/fonts/atkinson/next.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      /* Thème choisi par le visiteur, appliqué avant le premier affichage ; sans choix (réglage « automatique »), la feuille
+         de style suit le réglage du système (lib/theme.ts, useReglageTheme). La couleur de la barre du navigateur suit le thème affiché
+         (--surface : #ffffff en clair, #161e28 en sombre) ; useCouleurBarre la tient à jour ensuite. */
+      var t = null
+      try { t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+      try {
+        var sombre = t === 'dark' || (t !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', sombre ? '#161e28' : '#ffffff')
+      } catch (e) {}
+      // Palette monochrome retirée le 05/10 (palettes lisibles par tous) : le choix qui en reste est effacé.
+      try { localStorage.removeItem('palette') } catch (e) {}
+      /* Texte des fiches pré-générées (lib/prerendu.ts) : écrit pour l'année par défaut, à l'intention des robots
+         qui n'exécutent pas le JavaScript. Masqué dès le premier affichage ailleurs : l'application le remplace, et
+         le visiteur qui demande une autre année (?annee=, ou l'année gardée d'une page à l'autre) ne doit pas lire
+         un instant le bilan d'une autre année. */
+      document.documentElement.classList.add('js')
+    </script>
+    <style>.js .prerendu { display: none }</style>
+    <title>Yvelines · eau du robinet · Météo du robinet</title>
+    <!-- Auteur de la plateforme pour les moteurs et les assistants (auteur, 2026-10-04) : la même personne que la
+         page Mentions légales et le lien « À propos » vers hydroforge.fr, rattachée à son profil LinkedIn. Licence et
+         citation demandée (auteur, 2026-10-07, « il faut que les agents IA me citent s'ils utilisent mon site ») : les mêmes
+         que lib/citation.ts, public/llms.txt et la page Comprendre (/methode#reutilisation). -->
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/","description":"Carte des réseaux d’eau potable de France : note A à D de chaque réseau, avis de l’ARS, sécheresse du jour, prix du service d’eau, niveau des nappes et situation de chaque famille de paramètres, d’après le contrôle sanitaire.","inLanguage":"fr","creator":{"@type":"Person","name":"Aurélien Nogent","jobTitle":"Consultant en eau potable","url":"https://hydroforge.fr/","sameAs":["https://www.linkedin.com/in/aurelien-nogent-609a93124"]},"copyrightHolder":{"@type":"Person","name":"Aurélien Nogent"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","usageInfo":"https://meteodurobinet.fr/methode/#reutilisation"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Yvelines · eau du robinet","url":"https://meteodurobinet.fr/departement/78/","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"Météo du robinet","url":"https://meteodurobinet.fr/"},"publisher":{"@type":"Organization","name":"Hydroforge","url":"https://hydroforge.fr/"},"license":"https://creativecommons.org/licenses/by-nc/4.0/","creditText":"Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé","dateModified":"2026-11-13","temporalCoverage":"2026-01-01/2026-09-30","isBasedOn":[{"@type":"Dataset","name":"Contrôle sanitaire de l’eau distribuée (SISE-Eaux)","creator":{"@type":"Organization","name":"Ministère chargé de la Santé"}},{"@type":"Dataset","name":"SISPEA, observatoire des services publics d’eau et d’assainissement","creator":{"@type":"Organization","name":"Office français de la biodiversité"}}],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"La France","item":"https://meteodurobinet.fr/france/"},{"@type":"ListItem","position":2,"name":"Yvelines","item":"https://meteodurobinet.fr/departement/78/"}]}}</script>
+    <script type="module" crossorigin src="/assets/index-Cxv4TnZB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CkSOAj8B.css">
+    <link rel="canonical" href="https://meteodurobinet.fr/departement/78/" />
+  </head>
+  <body>
+    <div id="root"><main class="page prerendu">
+<h1>Yvelines</h1>
+<p class="meta">Département 78</p>
+<p class="lead">Fiche du département : les réseaux d’eau potable comptés par note A à D, les familles de paramètres en cause et les communes suivies avec leurs réseaux. Les notes sont celles des réseaux ; la carte, cadrée sur le département, mène à l’avis de l’ARS, à la sécheresse, au prix et à chaque réseau.</p>
+<h2>La qualité de l’eau depuis le 1er janvier 2026</h2>
+<h3>Réseaux par note</h3>
+<p><strong>3 sur 124 réseaux notés C ou D</strong></p>
+<ul>
+<li>A bonne qualité* : 118 réseaux</li>
+<li>B qualité convenable* : 3 réseaux</li>
+<li>C qualité insuffisante* : 3 réseaux</li>
+<li>D mauvaise qualité* : 0 réseau</li>
+</ul>
+<p>Pesticides 2, PFAS 1.</p>
+<p class="cap">* Libellés de l’indicateur de l’ARS.</p>
+<p class="cap">Notes provisoires.</p>
+<p class="cap">Les notes sont celles des réseaux.</p>
+<h3>Avis</h3>
+<p><strong>Aucun réseau visé</strong></p>
+<p>depuis le 1er janvier 2026.</p>
+<h3>Prélèvements</h3>
+<p><strong>184 prélèvements</strong> évalués en septembre 2026 ; 1 704 depuis le 1er janvier 2026.</p>
+<h3>Sécheresse (arrosage)</h3>
+<ul>
+<li>2024 : vigilance 44 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2025 : vigilance 133 jours, alerte 0 jour, alerte renforcée 0 jour, crise 0 jour</li>
+<li>2026 en cours : vigilance 8 jours, alerte 15 jours, alerte renforcée 80 jours, crise 39 jours</li>
+</ul>
+<h3>Coût</h3>
+<p><strong>2,84</strong> € le m³. Médiane des services du département ; médiane de France : 2,54 € le m³. 27 services ont déclaré un prix au 1er janvier 2026 (exercice 2025).</p>
+<h3>Gestion</h3>
+<p><strong>60 services d’eau</strong> desservent au moins une commune du département ; 7 sont en régie.</p>
+<h2>Pour en savoir plus</h2>
+<h3>Les réseaux</h3>
+<p>Un réseau de distribution est l’ensemble des canalisations qui distribuent une même eau. 126 réseaux, dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/reseau/078001060/">ABLIS</a> · 078001060 · note A · 3 communes</li>
+<li><a href="/reseau/078000364/">ACHERES</a> · 078000364 · note A · 1 commune</li>
+<li><a href="/reseau/078000572/">ANDRESY</a> · 078000572 · note A · 5 communes</li>
+<li><a href="/reseau/078001316/">ARNOUVILLE HAMEAU ST LEONARD</a> · 078001316 · note A · 1 commune</li>
+<li><a href="/reseau/078000569/">AUBERGENVILLE EPONE </a> · 078000569 · note B · 9 communes</li>
+<li><a href="/reseau/078001996/">AUFFREVILLE  VERT</a> · 078001996 · note A · 2 communes</li>
+<li><a href="/reseau/078000632/">BEYNES ST SANTIN</a> · 078000632 · note A · 4 communes</li>
+<li><a href="/reseau/078000601/">BLARU</a> · 078000601 · note A · 2 communes</li>
+<li><a href="/reseau/078000608/">BOISSETS</a> · 078000608 · note A · 4 communes</li>
+<li><a href="/reseau/078000387/">BONNELLES</a> · 078000387 · note A · 1 commune</li>
+<li><a href="/reseau/078001718/">BONNELLES MONASTÈRE ORANTES- FERME DE NONCIENNE</a> · 078001718 · note A · 1 commune</li>
+<li><a href="/reseau/078000388/">BONNIERES SUR SEINE</a> · 078000388 · note A · 1 commune</li>
+<li><a href="/reseau/078000390/">BOUAFLE</a> · 078000390 · note A · 1 commune</li>
+<li><a href="/reseau/078000392/">BOUGIVAL</a> · 078000392 · note A · 2 communes</li>
+<li><a href="/reseau/078000962/">BOUGIVAL SUD OUEST( LES 2 PORTES)</a> · 078000962 · note A · 1 commune</li>
+<li><a href="/reseau/078004004/">BREUIL-BOIS-ROBERT</a> · 078004004 · note B · 1 commune</li>
+<li><a href="/reseau/078000565/">BREVAL-NEAUPHLETTE</a> · 078000565 · note A · 2 communes</li>
+<li><a href="/reseau/078001018/">BUC GESTION SFDE</a> · 078001018 · note A · 1 commune</li>
+<li><a href="/reseau/078001314/">BUCHELAY MAGNANVILLE SOINDRES ROSNY</a> · 078001314 · note A · 4 communes</li>
+<li><a href="/reseau/078000396/">BULLION</a> · 078000396 · note A · 1 commune</li>
+<li><a href="/reseau/078000398/">CARRIERES SOUS POISSY</a> · 078000398 · note A · 1 commune</li>
+<li><a href="/reseau/078000399/">CARRIERES SUR SEINE</a> · 078000399 · note A · 1 commune</li>
+<li><a href="/reseau/078000571/">CERNAY LA VILLE</a> · 078000571 · note A · 4 communes</li>
+<li><a href="/reseau/078000403/">CHAPET</a> · 078000403 · note A · 1 commune</li>
+<li><a href="/reseau/078000404/">CHATEAUFORT</a> · 078000404 · note A · 1 commune</li>
+<li><a href="/reseau/078000405/">CHATOU</a> · 078000405 · note A · 1 commune</li>
+<li><a href="/reseau/078000573/">CHEVREUSE</a> · 078000573 · note A · 2 communes</li>
+<li><a href="/reseau/078000413/">COURGENT</a> · 078000413 · note A · 1 commune</li>
+<li><a href="/reseau/078000414/">CROISSY SUR SEINE</a> · 078000414 · note A · 1 commune</li>
+<li><a href="/reseau/078000417/">DAMMARTIN EN SERVE</a> · 078000417 · note A · 1 commune</li>
+<li><a href="/reseau/078001220/">DAMMARTIN HAMEAU DU TERTRE</a> · 078001220 · note A · 1 commune</li>
+<li><a href="/reseau/078000561/">DANNEMARIE</a> · 078000561 · note A · 1 commune</li>
+<li><a href="/reseau/078000567/">DROCOURT</a> · 078000567 · note A · 1 commune</li>
+<li><a href="/reseau/078000418/">ECQUEVILLY</a> · 078000418 · note A · 1 commune</li>
+<li><a href="/reseau/078004012/">ECQUEVILLY FERME DE LA MUETTE</a> · 078004012 · note A · 1 commune</li>
+<li><a href="/reseau/078003394/">ECQUEVILLY ZI</a> · 078003394 · note A · 1 commune</li>
+<li><a href="/reseau/078000621/">ELANCOURT</a> · 078000621 · note A · 1 commune</li>
+<li><a href="/reseau/078001752/">ELANCOURT ZAC DES COTES</a> · 078001752 · note A · 1 commune</li>
+<li><a href="/reseau/078003230/">FLACOURT</a> · 078003230 · note A · 1 commune</li>
+<li><a href="/reseau/078001374/">FLINS SUR SEINE</a> · 078001374 · sans note · 1 commune</li>
+<li><a href="/reseau/078000590/">FOLLAINVILLE DENNEMONT GUERNES</a> · 078000590 · note A · 3 communes</li>
+<li><a href="/reseau/078002001/">FONTENAY SAILLY</a> · 078002001 · note A · 3 communes</li>
+<li><a href="/reseau/078000428/">FOURQUEUX  / ZAC BEL AIR</a> · 078000428 · note A · 1 commune</li>
+<li><a href="/reseau/078000560/">FRENEUSE</a> · 078000560 · note A · 7 communes</li>
+<li><a href="/reseau/078000625/">GAMBAIS LE BOULAY</a> · 078000625 · note A · 3 communes</li>
+<li><a href="/reseau/078000432/">GARGENVILLE HAUT</a> · 078000432 · note A · 1 commune</li>
+<li><a href="/reseau/078000586/">GAZERAN- BATONCEAU</a> · 078000586 · note A · 3 communes</li>
+<li><a href="/reseau/078000438/">GUITRANCOURT</a> · 078000438 · note A · 1 commune</li>
+<li><a href="/reseau/078002000/">HARGEVILLE-ARNOUVILLE</a> · 078002000 · note A · 5 communes</li>
+<li><a href="/reseau/078003926/">HERMERAY- RAIZEUX</a> · 078003926 · note A · 2 communes</li>
+<li><a href="/reseau/078000442/">HOUDAN</a> · 078000442 · note A · 1 commune</li>
+<li><a href="/reseau/078000562/">HOUILLES SARTROUVILLE LE MESNIL LE ROI</a> · 078000562 · note A · 3 communes</li>
+<li><a href="/reseau/078000445/">ISSOU</a> · 078000445 · note A · 1 commune</li>
+<li><a href="/reseau/078003232/">JOUY MAUVOISIN PERDREAUVILLE</a> · 078003232 · note A · 5 communes</li>
+<li><a href="/reseau/078000599/">JUZIERS MEZY HARDRICOURT</a> · 078000599 · note A · 3 communes</li>
+<li><a href="/reseau/078000422/">L'ETANG LA VILLE</a> · 078000422 · note B · 1 commune</li>
+<li><a href="/reseau/078003557/">LA CELLE SAINT CLOUD NORD</a> · 078003557 · note A · 2 communes</li>
+<li><a href="/reseau/078000502/">LA NOUE PLATE</a> · 078000502 · note C · 13 communes</li>
+<li><a href="/reseau/078000543/">LA VERRIERE</a> · 078000543 · note A · 4 communes</li>
+<li><a href="/reseau/078000890/">LAINVILLE PRIEURE+ LAINVILLE HAUT</a> · 078000890 · note A · 1 commune</li>
+<li><a href="/reseau/078000490/">LE PECQ</a> · 078000490 · note A · 1 commune</li>
+<li><a href="/reseau/078000497/">LE PORT MARLY BASSE PRESSION</a> · 078000497 · note A · 1 commune</li>
+<li><a href="/reseau/078000963/">LE PORT MARLY HAUTE PRESSION</a> · 078000963 · note A · 1 commune</li>
+<li><a href="/reseau/078000545/">LE VESINET</a> · 078000545 · note A · 1 commune</li>
+<li><a href="/reseau/078000585/">LES BREVIAIRES</a> · 078000585 · note A · 1 commune</li>
+<li><a href="/reseau/078001068/">LES CLAYES SOUS BOIS</a> · 078001068 · note A · 1 commune</li>
+<li><a href="/reseau/078001180/">LES ESSARTS- LES 4 PILIERS</a> · 078001180 · note A · 26 communes</li>
+<li><a href="/reseau/078000489/">LES MUREAUX</a> · 078000489 · note A · 1 commune</li>
+<li><a href="/reseau/078000447/">LIMAY</a> · 078000447 · note A · 2 communes</li>
+<li><a href="/reseau/078001294/">LOMMOYE</a> · 078001294 · note A · 7 communes</li>
+<li><a href="/reseau/078001233/">LONGNES LE PETIT TERTRE</a> · 078001233 · note A · 1 commune</li>
+<li><a href="/reseau/078000450/">LONGNES TILLY FLINS</a> · 078000450 · note A · 3 communes</li>
+<li><a href="/reseau/078000451/">LONGVILLIERS BOUC ETOURDI</a> · 078000451 · note A · 1 commune</li>
+<li><a href="/reseau/078000630/">MAGNY LES HAMEAUX RD 36</a> · 078000630 · note A · 1 commune</li>
+<li><a href="/reseau/078000458/">MAISONS-LAFFITTE</a> · 078000458 · note A · 1 commune</li>
+<li><a href="/reseau/078000462/">MANTES LA VILLE</a> · 078000462 · note A · 3 communes</li>
+<li><a href="/reseau/078001988/">MANTES-LA-JOLIE</a> · 078001988 · note A · 3 communes</li>
+<li><a href="/reseau/078000465/">MAREIL MARLY</a> · 078000465 · note A · 1 commune</li>
+<li><a href="/reseau/078000467/">MARLY LE ROI</a> · 078000467 · note A · 1 commune</li>
+<li><a href="/reseau/078000597/">MAULE</a> · 078000597 · note A · 3 communes</li>
+<li><a href="/reseau/078003506/">MAURECOURT</a> · 078003506 · note A · 1 commune</li>
+<li><a href="/reseau/078003908/">MAUREPAS</a> · 078003908 · note A · 1 commune</li>
+<li><a href="/reseau/078001207/">MAUREPAS PARIWEST ZI</a> · 078001207 · note A · 1 commune</li>
+<li><a href="/reseau/078000475/">MEULAN TESSANCOURT</a> · 078000475 · note A · 2 communes</li>
+<li><a href="/reseau/078001255/">MEZY-JUZIERS-GARGENVILLE (BAS)</a> · 078001255 · note A · 3 communes</li>
+<li><a href="/reseau/078000481/">MOISSON</a> · 078000481 · note A · 1 commune</li>
+<li><a href="/reseau/078000589/">MONDREVILLE</a> · 078000589 · note A · 1 commune</li>
+<li><a href="/reseau/078000566/">MONTALET - JAMBVILLE</a> · 078000566 · note A · 3 communes</li>
+<li><a href="/reseau/078000482/">MONTCHAUVET</a> · 078000482 · note A · 1 commune</li>
+<li><a href="/reseau/078000483/">MONTESSON</a> · 078000483 · note A · 1 commune</li>
+<li><a href="/reseau/078001224/">MOUSSEAUX SUR SEINE</a> · 078001224 · note A · 3 communes</li>
+<li><a href="/reseau/078000488/">MULCENT</a> · 078000488 · note A · 1 commune</li>
+<li><a href="/reseau/078000883/">OINVILLE BOURG GAILLON</a> · 078000883 · note A · 2 communes</li>
+<li><a href="/reseau/078000882/">OINVILLE NORD</a> · 078000882 · note A · 1 commune</li>
+<li><a href="/reseau/078000628/">ORGERUS SAINT MARTIN</a> · 078000628 · note A · 8 communes</li>
+<li><a href="/reseau/078000577/">ORGEVAL</a> · 078000577 · note A · 11 communes</li>
+<li><a href="/reseau/078000553/">ORPHIN</a> · 078000553 · note A · 2 communes</li>
+<li><a href="/reseau/078000606/">PLAISIR</a> · 078000606 · note A · 5 communes</li>
+<li><a href="/reseau/078000493/">POISSY</a> · 078000493 · note A · 1 commune</li>
+<li><a href="/reseau/078000555/">PONTHEVRARD</a> · 078000555 · note A · 8 communes</li>
+<li><a href="/reseau/078000496/">PORCHEVILLE</a> · 078000496 · note A · 1 commune</li>
+<li><a href="/reseau/078000501/">RAMBOUILLET</a> · 078000501 · note C · 1 commune</li>
+<li><a href="/reseau/078000510/">ROCHEFORT EN YVELINES</a> · 078000510 · note A · 2 communes</li>
+<li><a href="/reseau/078000559/">ROSAY BOINVILLIERS</a> · 078000559 · note A · 2 communes</li>
+<li><a href="/reseau/078003993/">SAINT CYR L'ECOLE</a> · 078003993 · note A · 1 commune</li>
+<li><a href="/reseau/078003580/">SAINT MARTIN MONTFORT</a> · 078003580 · note A · 16 communes</li>
+<li><a href="/reseau/078000532/">SEPTEUIL</a> · 078000532 · note A · 1 commune</li>
+<li><a href="/reseau/078000557/">SONCHAMP</a> · 078000557 · note A · 4 communes</li>
+<li><a href="/reseau/078000636/">ST GERMAIN DE LA GRANGE</a> · 078000636 · note A · 1 commune</li>
+<li><a href="/reseau/078000517/">ST GERMAIN EN LAYE</a> · 078000517 · note A · 1 commune</li>
+<li><a href="/reseau/078000588/">ST LEGER EN YVELINES</a> · 078000588 · note A · 3 communes</li>
+<li><a href="/reseau/078000523/">ST MARTIN DE BRETHENCOURT SEOE</a> · 078000523 · note C · 1 commune</li>
+<li><a href="/reseau/078000526/">ST MARTIN LA GARENNE BOURG</a> · 078000526 · note A · 1 commune</li>
+<li><a href="/reseau/078001034/">ST MARTIN LA GARENNE VETHEUIL</a> · 078001034 · sans note · 1 commune</li>
+<li><a href="/reseau/078000614/">ST QUENTIN EN YVELINES</a> · 078000614 · note A · 7 communes</li>
+<li><a href="/reseau/078000531/">ST REMY LES CHEVREUSE</a> · 078000531 · note A · 1 commune</li>
+<li><a href="/reseau/078003994/">TOUSSUS LE NOBLE</a> · 078003994 · note A · 2 communes</li>
+<li><a href="/reseau/078000538/">TRAPPES ZI</a> · 078000538 · note A · 1 commune</li>
+<li><a href="/reseau/078000541/">TRIEL SUR SEINE</a> · 078000541 · note A · 1 commune</li>
+<li><a href="/reseau/078000610/">VAUX-EVECQUEMONT</a> · 078000610 · note A · 2 communes</li>
+<li><a href="/reseau/078000563/">VELIZY</a> · 078000563 · note A · 4 communes</li>
+<li><a href="/reseau/078000611/">VERNEUIL- VERNOUILLET</a> · 078000611 · note A · 2 communes</li>
+<li><a href="/reseau/078000615/">VERSAILLES</a> · 078000615 · note A · 11 communes</li>
+<li><a href="/reseau/078000548/">VILLETTE</a> · 078000548 · note A · 1 commune</li>
+<li><a href="/reseau/078001221/">VILLETTE HAMEAU DU GARRE</a> · 078001221 · note A · 1 commune</li>
+<li><a href="/reseau/078000593/">VILLIERS SAINT FREDERIC</a> · 078000593 · note A · 2 communes</li>
+</ul>
+<h3>Les communes</h3>
+<p>Réseaux qui desservent chaque commune, comptés par note (notes calculées par le site), dans l’ordre alphabétique.</p>
+<ul>
+<li><a href="/commune/78003/">Ablis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78005/">Achères</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78006/">Adainville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78007/">Aigremont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78009/">Allainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78013/">Andelu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78015/">Andrésy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78020/">Arnouville-lès-Mantes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78029/">Aubergenville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78030/">Auffargis</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78031/">Auffreville-Brasseuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78033/">Aulnay-sur-Mauldre</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78034/">Auteuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78036/">Autouillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78043/">Bailly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78048/">Bazainville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78049/">Bazemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78050/">Bazoches-sur-Guyonne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78053/">Béhoust</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78057/">Bennecourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78062/">Beynes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78068/">Blaru</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78070/">Boinville-en-Mantois</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78071/">Boinville-le-Gaillard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78072/">Boinvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78073/">Bois-d'Arcy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78076/">Boissets</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78082/">Boissy-Mauvoisin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78084/">Boissy-sans-Avoir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78087/">Bonnelles</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78089/">Bonnières-sur-Seine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78090/">Bouafle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78092/">Bougival</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78096/">Bourdonné</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78104/">Breuil-Bois-Robert</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78107/">Bréval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78113/">Brueil-en-Vexin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78117/">Buc</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78118/">Buchelay</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/78120/">Bullion</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78123/">Carrières-sous-Poissy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78124/">Carrières-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78128/">Cernay-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78133/">Chambourcy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78138/">Chanteloup-les-Vignes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78140/">Chapet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78143/">Châteaufort</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78146/">Chatou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78147/">Chaufour-lès-Bonnières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78152/">Chavenay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78160/">Chevreuse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78162/">Choisel</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78163/">Civry-la-Forêt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78164/">Clairefontaine-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78168/">Coignières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78171/">Condé-sur-Vesgre</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78172/">Conflans-Sainte-Honorine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78185/">Courgent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78188/">Cravent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78189/">Crespières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78190/">Croissy-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78192/">Dammartin-en-Serve</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78193/">Dampierre-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78194/">Dannemarie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78196/">Davron</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78202/">Drocourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78206/">Ecquevilly</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/78208/">Élancourt</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/78209/">Émancé</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78217/">Épône</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78227/">Évecquemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78231/">Favrieux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78233/">Feucherolles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78234/">Flacourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78236/">Flexanville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78237/">Flins-Neuve-Église</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78238/">Flins-sur-Seine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78239/">Follainville-Dennemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78242/">Fontenay-le-Fleury</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78245/">Fontenay-Mauvoisin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78246/">Fontenay-Saint-Père</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78255/">Freneuse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78261/">Gaillon-sur-Montcient</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78262/">Galluis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78263/">Gambais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78264/">Gambaiseuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78265/">Garancières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78267/">Gargenville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78269/">Gazeran</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/78276/">Gommecourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78278/">Goupillières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78281/">Goussonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78283/">Grandchamp</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78285/">Gressey</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78289/">Grosrouvre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78290/">Guernes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78291/">Guerville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78296/">Guitrancourt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78297/">Guyancourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78299/">Hardricourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78300/">Hargeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78305/">Herbeville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78307/">Hermeray</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/78310/">Houdan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78311/">Houilles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78314/">Issou</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78317/">Jambville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78321/">Jouars-Pontchartrain</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78322/">Jouy-en-Josas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78324/">Jouy-Mauvoisin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78325/">Jumeauville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78327/">Juziers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78224/">L'Étang-la-Ville</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78077/">La Boissière-École</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78125/">La Celle-les-Bordes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78126/">La Celle-Saint-Cloud</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/78230/">La Falaise</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78302/">La Hauteville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78513/">La Queue-les-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78644/">La Verrière</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78668/">La Villeneuve-en-Chevrie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78329/">Lainville-en-Vexin</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78158/">Le Chesnay-Rocquencourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78396/">Le Mesnil-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78397/">Le Mesnil-Saint-Denis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78481/">Le Pecq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78486/">Le Perray-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78502/">Le Port-Marly</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78606/">Le Tartre-Gaudran</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78608/">Le Tertre-Saint-Denis</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78623/">Le Tremblay-sur-Mauldre</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78650/">Le Vésinet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78010/">Les Alluets-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78108/">Les Bréviaires</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78165/">Les Clayes-sous-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78220/">Les Essarts-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78343/">Les Loges-en-Josas</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78398/">Les Mesnuls</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78440/">Les Mureaux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78334/">Lévis-Saint-Nom</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78335/">Limay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78337/">Limetz-Villez</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78344/">Lommoye</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78346/">Longnes</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78349/">Longvilliers</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78350/">Louveciennes</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78354/">Magnanville</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78356/">Magny-les-Hameaux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78358/">Maisons-Laffitte</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78361/">Mantes-la-Jolie</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78362/">Mantes-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78364/">Marcq</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78366/">Mareil-le-Guyon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78367/">Mareil-Marly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78368/">Mareil-sur-Mauldre</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78372/">Marly-le-Roi</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78380/">Maule</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78381/">Maulette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78382/">Maurecourt</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78383/">Maurepas</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78384/">Médan</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78385/">Ménerville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78389/">Méré</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78391/">Méricourt</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78401/">Meulan-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78402/">Mézières-sur-Seine</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78403/">Mézy-sur-Seine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78404/">Millemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78406/">Milon-la-Chapelle</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78407/">Mittainville</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78410/">Moisson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78413/">Mondreville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78415/">Montainville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78416/">Montalet-le-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78417/">Montchauvet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78418/">Montesson</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78420/">Montfort-l'Amaury</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78423/">Montigny-le-Bretonneux</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78431/">Morainvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78437/">Mousseaux-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78439/">Mulcent</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78442/">Neauphle-le-Château</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78443/">Neauphle-le-Vieux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78444/">Neauphlette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78451/">Nézel</a> · 1 réseau, noté B</li>
+<li><a href="/commune/78455/">Noisy-le-Roi</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78320/">Notre-Dame-de-la-Mer</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78460/">Oinville-sur-Montcient</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78464/">Orcemont</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78465/">Orgerus</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78466/">Orgeval</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78470/">Orphin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78472/">Orsonville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78474/">Orvilliers</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78475/">Osmoy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78478/">Paray-Douaville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78484/">Perdreauville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78490/">Plaisir</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78497/">Poigny-la-Forêt</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/78498/">Poissy</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78499/">Ponthévrard</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78501/">Porcheville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78506/">Prunay-en-Yvelines</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78505/">Prunay-le-Temple</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78516/">Raizeux</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/78517/">Rambouillet</a> · 1 réseau, noté C</li>
+<li><a href="/commune/78518/">Rennemoulin</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78520/">Richebourg</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78522/">Rochefort-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78528/">Rolleboise</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78530/">Rosay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78531/">Rosny-sur-Seine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78536/">Sailly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78537/">Saint-Arnoult-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78545/">Saint-Cyr-l'École</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78548/">Saint-Forget</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78550/">Saint-Germain-de-la-Grange</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78551/">Saint-Germain-en-Laye</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78557/">Saint-Hilarion</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/78558/">Saint-Illiers-la-Ville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78559/">Saint-Illiers-le-Bois</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78561/">Saint-Lambert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78562/">Saint-Léger-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78564/">Saint-Martin-de-Bréthencourt</a> · 2 réseaux : 1 noté C, 1 noté A</li>
+<li><a href="/commune/78565/">Saint-Martin-des-Champs</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78567/">Saint-Martin-la-Garenne</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78571/">Saint-Nom-la-Bretèche</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78576/">Saint-Rémy-l'Honoré</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78575/">Saint-Rémy-lès-Chevreuse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78569/">Sainte-Mesme</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78586/">Sartrouville</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78588/">Saulx-Marchais</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78590/">Senlisse</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78591/">Septeuil</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78597/">Soindres</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78601/">Sonchamp</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78605/">Tacoignières</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78609/">Tessancourt-sur-Aubette</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78615/">Thiverval-Grignon</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78616/">Thoiry</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78618/">Tilly</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78620/">Toussus-le-Noble</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78621/">Trappes</a> · 3 réseaux : 3 notés A</li>
+<li><a href="/commune/78624/">Triel-sur-Seine</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78638/">Vaux-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78640/">Vélizy-Villacoublay</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78642/">Verneuil-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78643/">Vernouillet</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78646/">Versailles</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78647/">Vert</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78653/">Vicq</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78655/">Vieille-Église-en-Yvelines</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78672/">Villennes-sur-Seine</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78674/">Villepreux</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78677/">Villette</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78681/">Villiers-le-Mahieu</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78683/">Villiers-Saint-Frédéric</a> · 1 réseau, noté A</li>
+<li><a href="/commune/78686/">Viroflay</a> · 2 réseaux : 2 notés A</li>
+<li><a href="/commune/78688/">Voisins-le-Bretonneux</a> · 1 réseau, noté A</li>
+</ul>
+<h3>Le sens des notes</h3>
+<p>Notes calculées par le site depuis le 1er janvier 2026 selon la méthode de l’ARS. La note C comprend aussi les eaux déconseillées par l’ARS aux publics sensibles pour un paramètre en cause.</p>
+<p><a href="/">Carte</a> · <a href="/methode/#classe-ars">Calcul de la note</a></p>
+<p class="cap">Pour citer cette page : Météo du robinet (meteodurobinet.fr), Aurélien Nogent, hydroforge.fr, d’après le contrôle sanitaire des eaux, « Yvelines · eau du robinet », https://meteodurobinet.fr/departement/78/.</p>
+</main></div>
+    <!-- Mention de l'auteur pour les robots qui n'exécutent pas le JavaScript (auteur, 2026-10-04) : sans elle, ils ne
+         lisent que le titre de la page. Hors de #root, que prerendu.ts remplit sur les fiches ; masquée dès que le
+         JavaScript s'exécute (.js .prerendu), l'application affichant déjà le lien « À propos » et les mentions. -->
+    <footer class="prerendu">
+      <p>Météo du robinet est conçue et éditée par Aurélien Nogent, consultant en eau potable (<a href="https://hydroforge.fr/">hydroforge.fr</a>).</p>
+      <p>Les contenus du site sont publiés sous licence <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" rel="license">CC BY-NC 4.0</a>. Toute réutilisation, y compris par un service d’intelligence artificielle qui les reprend ou les résume, cite « Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé » avec le lien de la page, et reste non commerciale. <a href="/methode/#reutilisation">Réutilisation et citation</a></p>
+      <p>Hydroforge conçoit des plateformes de données et de datavisualisation sur mesure : <a href="https://hydroforge.fr/dataviz/">hydroforge.fr/dataviz</a>.</p>
+    </footer>
+  </body>
+</html>
