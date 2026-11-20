@@ -1,0 +1,1 @@
+import{a as o,j as r,N as s}from"./index-B4bNETfU.js";import{a as i}from"./fiches-Jp2lSyqJ.js";import"./avis-DpEppL7p.js";import"./monEau-u3BP-Nij.js";import"./reseau-D3ppxIf4.js";import"./sujetsFrance-rgVpSwws.js";import"./ancienneFrance-DwZ_pPys.js";function d(){const{pathname:a,search:t,hash:e}=o();return r(s,{to:i(a,t,e)??"/",replace:!0})}export{d as default};
