@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fichiers de données · Météo du robinet</title>
+<meta name="description" content="Fichiers de données de Météo du robinet : un fichier par réseau et par commune, avec la note déjà calculée, la licence CC BY-NC 4.0 et la date des données." />
+<link rel="canonical" href="https://meteodurobinet.fr/api/" />
+<link rel="stylesheet" crossorigin href="/assets/index-CbcmYL3K.css">
+<style>
+body { margin: 0; background: var(--surface-2); color: var(--text); font-family: var(--font); line-height: 1.5; }
+main { max-width: 46rem; margin: 0 auto; padding: var(--s4); }
+h1, h2, h3 { color: var(--text-fort); }
+h2 { margin-top: var(--s6); border-bottom: 2px solid var(--text-fort); padding-bottom: var(--s1); }
+code { font-size: 0.9em; overflow-wrap: anywhere; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; vertical-align: top; padding: var(--s2); border-bottom: 1px solid var(--border); }
+a { color: var(--accent); overflow-wrap: anywhere; }
+nav a { display: inline-flex; align-items: center; min-height: 44px; }
+</style>
+</head>
+<body>
+<main id="contenu">
+<nav aria-label="Retour"><a href="https://meteodurobinet.fr/">Météo du robinet</a></nav>
+<h1>Fichiers de données</h1>
+<p>Météo du robinet publie, pour chaque réseau de distribution et chaque commune, un fichier de données lisible par une machine, avec la note déjà calculée. Il n’y a ni clé ni inscription : les fichiers sont servis tels quels, et aucune limite de requêtes n’est annoncée. Données au 2026-11-26, année affichée 2026.</p>
+<h2>Licence et citation</h2>
+<p>Licence CC BY-NC 4.0 (<a href="https://creativecommons.org/licenses/by-nc/4.0/">https://creativecommons.org/licenses/by-nc/4.0/</a>). Toute réutilisation cite : Météo du robinet (meteodurobinet.fr), conçue par Hydroforge (hydroforge.fr), d’après le contrôle sanitaire des eaux du ministère chargé de la Santé.</p>
+<p>Note calculée à partir des analyses du contrôle sanitaire, selon la méthode de l’ARS ; la mairie et l’ARS font foi.</p>
+<h2>Les fichiers</h2>
+<section><h3>reseau</h3><p><code>https://meteodurobinet.fr/api/v1/reseau/{code}.json</code></p><p>un réseau de distribution, sa note calculée et ses familles, ses notes des autres années, ses prélèvements (23 860 fichiers).</p><p>Exemple : <a href="https://meteodurobinet.fr/api/v1/reseau/021000078.json">https://meteodurobinet.fr/api/v1/reseau/021000078.json</a></p></section>
+<section><h3>commune</h3><p><code>https://meteodurobinet.fr/api/v1/commune/{insee}.json</code></p><p>les réseaux d’une commune, chacun avec sa note ; une commune n’a pas de note (34 906 fichiers).</p><p>Exemple : <a href="https://meteodurobinet.fr/api/v1/commune/21231.json">https://meteodurobinet.fr/api/v1/commune/21231.json</a></p></section>
+<section><h3>lieux</h3><p><code>https://meteodurobinet.fr/api/v1/lieux.json</code></p><p>les noms et codes des réseaux et des communes, pour retrouver un lieu, sans note.</p></section>
+<p>La description complète, lisible par une machine : <a href="https://meteodurobinet.fr/api/v1/schema.json">https://meteodurobinet.fr/api/v1/schema.json</a>. Version du schéma : 1.</p>
+<h2>Les champs</h2>
+<table>
+<caption>Champs des fichiers d’un réseau et d’une commune</caption>
+<thead><tr><th scope="col">Champ</th><th scope="col">Signification</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>note.lettre</code></th><td>A, B, C ou D : la plus défavorable des lettres de familles, calculée selon la méthode de l’ARS ; jamais recalculée ici. `calculee` vaut toujours true.</td></tr>
+<tr><th scope="row"><code>note.familles</code></th><td>lettre de chaque famille analysée : pesticides (Pesticides), azote (Nitrates et nitrites), pfas (PFAS), microbio (Bactériologie), metaux_mineraux (Métaux et minéraux), autres (Autres paramètres)</td></tr>
+<tr><th scope="row"><code>note.familles_reportees</code></th><td>familles dont la lettre vient d’une année antérieure (non analysées dans l’année)</td></tr>
+<tr><th scope="row"><code>notes_par_annee</code></th><td>la note de chaque année publiée ; null quand le réseau n’a pas de famille analysée cette année-là</td></tr>
+<tr><th scope="row"><code>provisoire</code></th><td>true quand l’année est en cours : le bilan est dit « Notes provisoires »</td></tr>
+<tr><th scope="row"><code>prelevements.limites</code></th><td>prélèvements évalués et non conformes aux limites de qualité, en bactériologie et en physico-chimie</td></tr>
+<tr><th scope="row"><code>prelevements.references</code></th><td>prélèvements dont la référence de qualité est évaluée et ceux au-dessus de la référence ; une référence est un indicateur, jamais « conforme » ni « non conforme »</td></tr>
+<tr><th scope="row"><code>null</code></th><td>une valeur absente est null, jamais 0</td></tr>
+</tbody>
+</table>
+<h2>Ce qui n’est pas fourni</h2>
+<ul>
+<li>aucune note ni classement pour une commune, un département ou la France</li>
+<li>aucune liste de réseaux notés ni tri</li>
+<li>aucune adresse postale ni position</li>
+<li>aucune vente de pesticides</li>
+</ul>
+<h2>Fraîcheur</h2>
+<p>Les fichiers sont réécrits à chaque publication du site ; `donnees_au` dit la date de la dernière construction des données. Aucune limite de requêtes n’est annoncée : les fichiers sont servis tels quels par l’hébergeur.</p>
+</main>
+</body>
+</html>
